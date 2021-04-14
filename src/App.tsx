@@ -1,0 +1,163 @@
+import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  Route,
+  Switch,
+  useHistory
+} from 'react-router-dom';
+import {
+  initCheck,
+  isInitCheckedSelector,
+  isVisitedSelector
+} from './state/modules/user';
+import { setIsDoorShow, requestCategoryTree, requestSnsList } from './state/modules/app';
+
+// pages
+import MemberRoute from 'pages/MemberRoute';
+import GuestRoute from 'pages/GuestRoute';
+import Home from 'pages/Posts';
+import Users from 'pages/Users';
+import User from 'pages/Users/_id';
+import UserEdit from 'pages/Users/Edit';
+import About from 'pages/About';
+import Intro from 'pages/Intro';
+import SignInOrUp from 'pages/SignInOrUp';
+import SignupComplete from 'pages/SignupComplete';
+import EmailVerify from 'pages/EmailVerify';
+import ForgetPass from 'pages/ForgetPass';
+import ResetPass from 'pages/ResetPass';
+import NotFound from 'pages/NotFound';
+
+import Post from 'pages/Posts/_id';
+import PostEdit from 'pages/Posts/_id/Edit';
+import Test from 'pages/Test';
+
+// components
+import Header from './components/modules/Header';
+import Menu from './components/modules/Menu';
+import SearchPanel from './components/modules/SearchPanel';
+import FixWindow from './components/modules/FixWindow';
+import Message from './components/modules/Message';
+import Door from './components/modules/Door';
+import Loading from './components/modules/Loading';
+
+function App() {
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const isInitChecked = useSelector(isInitCheckedSelector);
+  const isVisited = useSelector(isVisitedSelector);
+  const isInitRender = useRef<boolean>(false);
+  const isInitCounted = useRef<boolean>(false);
+    
+  useEffect(() => {
+    if(isInitRender.current) {
+      const timer = setInterval(() => {
+        if(isInitCounted.current) {
+          clearInterval(timer);
+          dispatch(setIsDoorShow(false));
+        } 
+      }, 500);
+    }
+  }, [isInitChecked]);
+
+  useEffect(() => {
+    if(isInitRender.current) {
+      if(!isVisited) {
+        history.push('/intro');
+      }
+    }
+  }, [isVisited]);
+
+  useEffect(() => {    
+    setTimeout(() => {
+      isInitCounted.current = true;
+    }, 0);
+    dispatch(initCheck());
+
+    dispatch(requestCategoryTree());
+    dispatch(requestSnsList());
+
+    isInitRender.current = true;
+  }, []);
+
+    return <>
+      <Door />
+      <Loading />
+        <FixWindow>
+          <Message />
+          <Menu />
+          <SearchPanel />
+          <Header />
+          <Switch>
+
+            <Route path="/" exact>
+              <Home />
+            </Route>
+
+            <MemberRoute path="/roadmaps/:id/edit" to="/">
+              <PostEdit />
+            </MemberRoute>
+
+            <MemberRoute path="/roadmaps/create" to="/">
+              <PostEdit />
+            </MemberRoute>
+
+            <Route path="/roadmaps/:id">
+              <Post />
+            </Route>
+
+            <MemberRoute path="/users/:id/edit" to="/">
+              <UserEdit />
+            </MemberRoute>
+
+            <Route path="/users/:id">
+              <User />
+            </Route>
+
+            <Route path="/users">
+              <Users />
+            </Route>
+
+            <GuestRoute path="/intro" to="/">
+              <Intro />
+            </GuestRoute>
+
+            <GuestRoute path="/signInOrUp" to="/">
+              <SignInOrUp />
+            </GuestRoute>
+
+            <MemberRoute path="/signupComplete" to="/signInOrUp">
+              <SignupComplete />
+            </MemberRoute>
+
+            <GuestRoute path="/forgetPass" to="/">
+              <ForgetPass />
+            </GuestRoute>
+
+            <Route path="/emailVerify">
+              <EmailVerify />
+            </Route>
+            
+            <GuestRoute path="/resetPass" to='/'>
+              <ResetPass />
+            </GuestRoute>
+            
+            <Route path="/about">
+              <About />
+            </Route>
+
+            <Route path="/notFound">
+              <NotFound />
+            </Route>
+
+            <Route>
+              <NotFound />
+            </Route>
+
+          </Switch>
+        </FixWindow>
+    </>;
+}
+
+export default App;
