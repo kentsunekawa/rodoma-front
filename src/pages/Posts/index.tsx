@@ -34,35 +34,33 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <PageBase>
       <ListHeader
-        title='ロードマップ'
+        title="ロードマップ"
         sortKeys={[
           {
             value: 'likes_count',
-            label: 'Like'
+            label: 'Like',
           },
           {
             value: 'marks_count',
-            label: 'Mark'
+            label: 'Mark',
           },
           {
             value: '',
-            label: 'New'
+            label: 'New',
           },
         ]}
-        className='postsListHeader'
+        className="postsListHeader"
       />
       <InfinityScroll
         resetTriggerKeys={[props.searchQuery]}
         list={props.posts}
         getDataFunc={props.getPosts}
       >
-        <PostBoxList
-          posts={props.posts}
-        />
+        <PostBoxList posts={props.posts} />
       </InfinityScroll>
     </PageBase>
   </div>
@@ -74,40 +72,38 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
   const searchQuery = useSelector(searchQuerySelector);
   const [posts, setPosts] = useState<PostData_overview[]>([]);
-  const isMouted = useRef<Boolean>(false);
+  const isMouted = useRef<boolean>(false);
 
   const getPosts = async (
     currentPosts: PostData_overview[] = [],
-    currentOffset: number = 0,
+    currentOffset = 0,
     cb: (count: number) => void
   ) => {
-    try{
+    try {
       const result = await Post.getPosts(searchQuery, currentOffset, 20);
-      if(result.status === 'success_get_posts' && result.data) {
-        if(isMouted.current) {
-          cb(result.data.query.all!);
-          setPosts([
-            ...currentPosts,
-            ...result.data.posts,
-          ]);
+      if (result.status === 'success_get_posts' && result.data) {
+        if (isMouted.current && result.data.query.all) {
+          cb(result.data.query.all);
+          setPosts([...currentPosts, ...result.data.posts]);
         }
       }
-    } catch(error) {
-      dispatch(setMessage({
-        isShow: true,
-        type: 'error',
-        message: RESPONSE_MESSAGES.error,
-      }));
+    } catch (error) {
+      dispatch(
+        setMessage({
+          isShow: true,
+          type: 'error',
+          message: RESPONSE_MESSAGES.error,
+        })
+      );
     }
-  }
+  };
 
   useEffect(() => {
-    if(isMouted.current) {
+    if (isMouted.current) {
       setPosts([]);
     }
   }, [searchQuery]);
@@ -116,11 +112,11 @@ const Container: React.FC<ComponentProps> = componentProps => {
     isMouted.current = true;
     return () => {
       isMouted.current = false;
-    }
-  }, [])
+    };
+  }, []);
 
   const props = { posts, searchQuery, getPosts };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

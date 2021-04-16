@@ -1,14 +1,12 @@
 import { css } from 'styled-components';
 
-import {
-  Gradient,
-} from 'components/style/Mixins';
+import { Gradient } from 'components/style/Mixins';
 
 export const base = css`
   position: relative;
   z-index: 10;
   width: 100%;
-  & > .text{
+  & > .text {
     position: absolute;
     top: 0;
     right: 0;
@@ -17,11 +15,11 @@ export const base = css`
     align-items: center;
     align-content: center;
     width: 100%;
-    color: ${({theme}) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary};
     font-size: 1.2rem;
     line-height: 1em;
-    padding: .5em .5em 0 .5em;
-    & > button{
+    padding: 0.5em 0.5em 0 0.5em;
+    & > button {
       display: flex;
       align-items: center;
       align-content: center;
@@ -30,14 +28,14 @@ export const base = css`
       color: #fff;
       margin-left: 5px;
       font-size: 1.2rem;
-      padding: .2em .6em .1em;
+      padding: 0.2em 0.6em 0.1em;
       border-radius: 10px;
       ${Gradient};
     }
   }
-  & > .box{
+  & > .box {
     position: absolute;
-    top: .5em;
+    top: 0.5em;
     right: 0;
     display: flex;
     flex-wrap: wrap;
@@ -46,22 +44,22 @@ export const base = css`
     border-radius: 8px;
     color: #fff;
     ${Gradient}
-    & > .close{
+    & > .close {
       position: absolute;
       top: 0;
       right: 0;
       transform: translate(50%, -50%);
     }
-    & > .message{
+    & > .message {
       display: block;
       width: 100%;
-      color: ${({theme}) => theme.colors.primary};
+      color: ${({ theme }) => theme.colors.primary};
       font-size: 1.2rem;
       line-height: 1em;
       margin-bottom: 8px;
       color: #fff;
-      &:last-of-type{
-        margin-bottom:0;
+      &:last-of-type {
+        margin-bottom: 0;
       }
     }
   }
@@ -74,5 +72,3 @@ export const nega = css`
 export const bottom = css`
   top: -100%;
 `;
-
-

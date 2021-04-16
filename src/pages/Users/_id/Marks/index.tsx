@@ -44,30 +44,24 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <Modal modalName={props.modalName}>
-      <Paragraph>
-        マークを外しますがよろしいですか？
-      </Paragraph>
+      <Paragraph>マークを外しますがよろしいですか？</Paragraph>
       <RoundButton onClick={props.removeMark} types={['gradient', 'l']}>
         OK
       </RoundButton>
     </Modal>
-    <div className='userMain'>
-      <div className='userHeader'>
+    <div className="userMain">
+      <div className="userHeader">
         <UserBlock
           icon_url={props.user?.icon_url}
           userName={props.user?.name}
           types={['m', 'iconLeft']}
         />
       </div>
-      <div className='relationListArea'>
-        <Paragraph
-          types={['subTitle']}
-        >
-          マークしたロードマップ
-        </Paragraph>
+      <div className="relationListArea">
+        <Paragraph types={['subTitle']}>マークしたロードマップ</Paragraph>
         <InfinityScroll
           resetTriggerKeys={[props.searchQuery, props.listResetCount]}
           list={props.posts}
@@ -90,86 +84,90 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const modalName = 'removeMark';
-  
-  const {state, contextDispatch} = useContext(UserContext);
+
+  const { state } = useContext(UserContext);
   const dispatch = useDispatch();
   const searchQuery = useSelector(searchQuerySelector);
   const [posts, setPosts] = useState<PostData_overview[]>([]);
   const [willRemoveId, setWillRemoveId] = useState<null | number>(null);
   const [listResetCount, setListResetCount] = useState<number>(0);
-  const isMouted = useRef<Boolean>(false);
+  const isMouted = useRef<boolean>(false);
 
   const getPosts = async (
     currentPosts: PostData_overview[] = [],
-    currentOffset: number = 0,
+    currentOffset = 0,
     cb: (count: number) => void
   ) => {
-    try{
-      if(state.id) {
-        const result = await User.getPostsMarkedBySpecificUser(state.id, currentOffset, 20);        
-        if(result.status === 'success_get_posts' && result.data) {
-          if(isMouted.current) {
-            cb(result.data.query.all!);
-            setPosts([
-              ...currentPosts,
-              ...result.data.posts,
-            ]);
-          } 
-        }     
+    try {
+      if (state.id) {
+        const result = await User.getPostsMarkedBySpecificUser(state.id, currentOffset, 20);
+        if (result.status === 'success_get_posts' && result.data) {
+          if (isMouted.current && result.data.query.all) {
+            cb(result.data.query.all);
+            setPosts([...currentPosts, ...result.data.posts]);
+          }
+        }
       }
-    } catch(error) {
-      dispatch(setMessage({
-        isShow: true,
-        type: 'error',
-        message: RESPONSE_MESSAGES.error,
-      }));
+    } catch (error) {
+      dispatch(
+        setMessage({
+          isShow: true,
+          type: 'error',
+          message: RESPONSE_MESSAGES.error,
+        })
+      );
     }
-  }
+  };
 
-  const removeMarkConfirm = (id: number) => {    
+  const removeMarkConfirm = (id: number) => {
     setWillRemoveId(id);
     dispatch(setModal(modalName));
-  }
+  };
 
   const removeMark = async () => {
     dispatch(setModal(''));
     dispatch(setIsLoading(true));
-    if(state.id && willRemoveId) { 
-      try{
+    if (state.id && willRemoveId) {
+      try {
         const result = await Post.putMark(willRemoveId, state.id);
-        if(result.status === 'success_unmark'){
+        if (result.status === 'success_unmark') {
           setListResetCount(listResetCount + 1);
           dispatch(setIsLoading(false));
-          dispatch(setMessage({
-            isShow: true,
-            type: 'success',
-            message: RESPONSE_MESSAGES.success_unmark,
-          }));
+          dispatch(
+            setMessage({
+              isShow: true,
+              type: 'success',
+              message: RESPONSE_MESSAGES.success_unmark,
+            })
+          );
         }
-      } catch(error) {
+      } catch (error) {
         dispatch(setIsLoading(false));
-        if(error.response.data.status === 'fail_unmark') {
-          dispatch(setMessage({
-            isShow: true,
-            type: 'error',
-            message: RESPONSE_MESSAGES.fail_unmark,
-          }));
+        if (error.response.data.status === 'fail_unmark') {
+          dispatch(
+            setMessage({
+              isShow: true,
+              type: 'error',
+              message: RESPONSE_MESSAGES.fail_unmark,
+            })
+          );
         } else {
-          dispatch(setMessage({
-            isShow: true,
-            type: 'error',
-            message: RESPONSE_MESSAGES.error,
-          }));
+          dispatch(
+            setMessage({
+              isShow: true,
+              type: 'error',
+              message: RESPONSE_MESSAGES.error,
+            })
+          );
         }
       }
     }
-  }
+  };
 
   useEffect(() => {
-    if(isMouted.current) {
+    if (isMouted.current) {
       setPosts([]);
     }
   }, [searchQuery]);
@@ -178,8 +176,8 @@ const Container: React.FC<ComponentProps> = componentProps => {
     isMouted.current = true;
     return () => {
       isMouted.current = false;
-    }
-  }, [])
+    };
+  }, []);
 
   const props = {
     modalName,
@@ -190,9 +188,9 @@ const Container: React.FC<ComponentProps> = componentProps => {
     listResetCount,
     getPosts,
     removeMarkConfirm,
-    removeMark
+    removeMark,
   };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

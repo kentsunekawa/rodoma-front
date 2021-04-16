@@ -7,8 +7,8 @@ import * as styles from './styles';
 const CLASSNAME = 'CircleButton';
 
 // declare types
-type StyleType = 
-  'xxs'
+type StyleType =
+  | 'xxs'
   | 'xs'
   | 's'
   | 'm'
@@ -29,42 +29,41 @@ interface ComponentProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-interface Props extends ComponentProps {}
+interface Props extends ComponentProps {
+  children: React.ReactNode;
+}
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <>
-    {
-      props.onClick && <button className={`${CLASSNAME} ${props.className}`} onClick={props.onClick}>
-        <div className='inner'>{props.children}</div>
+    {props.onClick && (
+      <button className={`${CLASSNAME} ${props.className}`} onClick={props.onClick}>
+        <div className="inner">{props.children}</div>
       </button>
-    }
-    {
-      props.link && (
-        <Link className={`${CLASSNAME} ${props.className}`} to={props.link}>
-          <div className='inner'>{props.children}</div>
-        </Link>
-      )
-    }
-    {
-      (!props.onClick && !props.link) && <div className={`${CLASSNAME} ${props.className}`}>
-        <div className='inner'>{props.children}</div>
+    )}
+    {props.link && (
+      <Link className={`${CLASSNAME} ${props.className}`} to={props.link}>
+        <div className="inner">{props.children}</div>
+      </Link>
+    )}
+    {!props.onClick && !props.link && (
+      <div className={`${CLASSNAME} ${props.className}`}>
+        <div className="inner">{props.children}</div>
       </div>
-    }
+    )}
   </>
-  
 );
 
 // styled component
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-  return <StyeldComponent { ...componentProps }></StyeldComponent>;
-}
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  return <StyeldComponent {...componentProps}>{componentProps.children}</StyeldComponent>;
+};
 
 export default Container;

@@ -18,7 +18,6 @@ import Paragraph from 'components/elements/Paragraph';
 import CircleButton from 'components/elements/buttons/CircleButton';
 import { IconEdit } from 'components/elements/icons';
 
-
 import { UserContext } from '../';
 import * as styles from './styles';
 
@@ -41,57 +40,46 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    {
-      props.user
-      ? (
-        <div className='userMain'>
-          {
-            props.user.profile.catch_copy && <div className='catchCopy'>
-              <Paragraph types={['subTitle', 'center']}>{props.user.profile.catch_copy}</Paragraph>
-            </div>
-          }
-          {
-            props.isLogin && <CircleButton
-              link={`/users/${props.user.id}/edit`}
-              types={['xs', 'gray_dark']}
-              className='editButton'
-            >
-              <IconEdit />
-            </CircleButton>
-          }
-          <div className='icon'>
-            <UserBlock
-              userName={props.user.name}
-              icon_url={props.user.icon_url}
-              types={['l', 'alignCenter']}
-            />
+    {props.user ? (
+      <div className="userMain">
+        {props.user.profile.catch_copy && (
+          <div className="catchCopy">
+            <Paragraph types={['subTitle', 'center']}>{props.user.profile.catch_copy}</Paragraph>
           </div>
-          <div className='category'>
-            <TagList
-              values={props.categoryList}
-              tagTypes={['gradient']}
-            />
-          </div>
-          {
-            props.snsListData && (
-              <div className='snsList'>
-                <SnsLinkList
-                  snsList={props.snsListData}
-                />
-              </div>
-            )
-          }
-          <div className='description'>
-            <MarkdownToHtml>
-              {props.user.profile.description}
-            </MarkdownToHtml>
-          </div>
+        )}
+        {props.isLogin && (
+          <CircleButton
+            link={`/users/${props.user.id}/edit`}
+            types={['xs', 'gray_dark']}
+            className="editButton"
+          >
+            <IconEdit />
+          </CircleButton>
+        )}
+        <div className="icon">
+          <UserBlock
+            userName={props.user.name}
+            icon_url={props.user.icon_url}
+            types={['l', 'alignCenter']}
+          />
         </div>
-      )
-      : <LoadingBlock />
-    }
+        <div className="category">
+          <TagList values={props.categoryList} tagTypes={['gradient']} />
+        </div>
+        {props.snsListData && (
+          <div className="snsList">
+            <SnsLinkList snsList={props.snsListData} />
+          </div>
+        )}
+        <div className="description">
+          <MarkdownToHtml>{props.user.profile.description}</MarkdownToHtml>
+        </div>
+      </div>
+    ) : (
+      <LoadingBlock />
+    )}
   </div>
 );
 
@@ -101,74 +89,77 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const categoryTree = useSelector(categoryTreeSelector);
-  const {state, contextDispatch} = useContext(UserContext);
+  const { state, contextDispatch } = useContext(UserContext);
 
   const getData = async (id: number) => {
     try {
-      const result = await User.getUser(id); 
-      if(result.status === 'success_get_user' && result.data) {
+      const result = await User.getUser(id);
+      if (result.status === 'success_get_user' && result.data) {
         contextDispatch({
           type: 'SET_USER',
           payload: {
             ...result.data.user,
             profile: {
               ...result.data.user.profile,
-              sns: result.data.user.profile.sns.map(sns => ({
+              sns: result.data.user.profile.sns.map((sns) => ({
                 profile_id: sns.profile_id,
                 sns_id: sns.sns_id,
                 url: sns.url,
               })),
-            }
+            },
           },
         });
       }
-    } catch(error) {
-      switch(error.response.data.status) {
+    } catch (error) {
+      switch (error.response.data.status) {
         case 'error_no_user_exists':
           history.push('/notFound');
-          dispatch(setMessage({
-            isShow: true,
-            type: 'error',
-            message: RESPONSE_MESSAGES.error_no_user_exists,
-          }));
+          dispatch(
+            setMessage({
+              isShow: true,
+              type: 'error',
+              message: RESPONSE_MESSAGES.error_no_user_exists,
+            })
+          );
           break;
         default:
-          dispatch(setMessage({
-            isShow: true,
-            type: 'error',
-            message: RESPONSE_MESSAGES.error,
-          }));
+          dispatch(
+            setMessage({
+              isShow: true,
+              type: 'error',
+              message: RESPONSE_MESSAGES.error,
+            })
+          );
       }
     }
-  }
+  };
 
   useEffect(() => {
-    if(state.id) {
+    if (state.id) {
       getData(state.id);
     }
   }, [state.id]);
 
   const snsListData = state.user
-  ? state.user.profile.sns.map(sns => {
-    return {
-      id: sns.sns_id,
-      url: sns.url,
-    }
-  })
-  : [];
+    ? state.user.profile.sns.map((sns) => {
+        return {
+          id: sns.sns_id,
+          url: sns.url,
+        };
+      })
+    : [];
 
   const categoryList = state.user
-  ? createCategoryTagList(
-    state.user?.profile.category_id,
-    state.user?.profile.specialty_id,
-    categoryTree
-  )
-  : [];
+    ? createCategoryTagList(
+        state.user?.profile.category_id,
+        state.user?.profile.specialty_id,
+        categoryTree
+      )
+    : [];
 
   const props = {
     isLogin: state.isLogin,
@@ -177,6 +168,6 @@ const Container: React.FC<ComponentProps> = componentProps => {
     categoryList,
   };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

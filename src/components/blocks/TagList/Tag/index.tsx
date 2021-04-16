@@ -12,24 +12,22 @@ interface ComponentProps {
   className?: string;
   types?: StyleType[];
   value: string;
-  icon?: React.ReactNode,
+  icon?: React.ReactNode;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    {
-      props.icon
-      ? <div className="inner -withIcon">
-          <span className='icon'>{props.icon}</span>
-          <span className='text'>{props.value}</span>
+    {props.icon ? (
+      <div className="inner -withIcon">
+        <span className="icon">{props.icon}</span>
+        <span className="text">{props.value}</span>
       </div>
-      : <div className="inner">
-        <span className='text'>{props.value}</span>
+    ) : (
+      <div className="inner">
+        <span className="text">{props.value}</span>
       </div>
-    }
+    )}
   </div>
 );
 
@@ -37,11 +35,11 @@ const Component: React.FC<Props> = props => (
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-  return <StyeldComponent { ...componentProps }></StyeldComponent>;
-}
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  return <StyeldComponent {...componentProps}></StyeldComponent>;
+};
 export default Container;

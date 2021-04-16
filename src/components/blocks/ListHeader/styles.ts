@@ -2,25 +2,25 @@ import { css } from 'styled-components';
 
 export const base = css`
   position: relative;
-  .titleArea{
+  .titleArea {
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-content: center;
-    & > .Selector{
+    & > .Selector {
       width: 100px;
     }
   }
-  & > .breadCrumb{
+  & > .breadCrumb {
     margin-top: 10px;
   }
-  & > .bottom{
+  & > .bottom {
     width: 100%;
     position: absolute;
     left: 0;
     top: 100%;
     padding-top: 15px;
-    & > .keywordArea{
+    & > .keywordArea {
       display: flex;
       justify-content: center;
       align-content: center;
@@ -28,19 +28,19 @@ export const base = css`
       width: calc(100% - 100px);
       text-align: center;
       margin: 0 auto;
-      & > .keyword{
+      & > .keyword {
         display: block;
         max-width: calc(100% - 25px);
         text-align: center;
         font-size: 1.2rem;
-        overflow-wrap:  break-word;
-        color: ${({theme}) => theme.colors.gray_midium};
-        letter-spacing: .05em;
+        overflow-wrap: break-word;
+        color: ${({ theme }) => theme.colors.gray_midium};
+        letter-spacing: 0.05em;
         line-height: 1.6em;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
-        span{
+        span {
           font-size: 1.4rem;
           font-weight: bold;
           color: inherit;
@@ -48,11 +48,9 @@ export const base = css`
           line-height: inherit;
         }
       }
-      .CircleButton{
+      .CircleButton {
         margin-left: 5px;
       }
     }
-    
   }
 `;
-

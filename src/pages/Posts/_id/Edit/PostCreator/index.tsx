@@ -19,16 +19,19 @@ import { PostEditContext } from '../';
 import SummaryEditor from './SummaryEditor';
 import SubjectEditor from './SubjectEditor';
 import PostDelete from './PostDelete';
-import PostCreatorNav from './PostCreatorNav'
-import Exit from './Exit'
-import Release from './Release'
+import PostCreatorNav from './PostCreatorNav';
+import Exit from './Exit';
+import Release from './Release';
 import PostHeader from '../../../PostHeader';
 
 // component root class name
 const CLASSNAME = 'PostCreator';
 
 // declare types
-export type SummaryData = Pick<PostData, 'title' | 'description' | 'category_id' | 'specialty_id' | 'eye_catch_url'>;
+export type SummaryData = Pick<
+  PostData,
+  'title' | 'description' | 'category_id' | 'specialty_id' | 'eye_catch_url'
+>;
 
 interface ComponentProps {
   post: PostData;
@@ -36,7 +39,7 @@ interface ComponentProps {
 }
 
 interface Props extends ComponentProps {
-  isSaved: boolean;
+  isSaved: boolean | undefined;
   isNew: boolean | undefined;
   post: PostData;
   currentSubject: number | null;
@@ -55,17 +58,13 @@ interface Props extends ComponentProps {
   showSubjectModal: (i: number | null) => void;
   setSummary: (summary: SummaryData) => void;
   setSubject: (subject: Subject) => void;
-  release: (
-    releaseStatus: keyof typeof RELEASE_STATUS,
-    allowedUsers: UserData_overview[]
-  ) => void;
+  release: (releaseStatus: keyof typeof RELEASE_STATUS, allowedUsers: UserData_overview[]) => void;
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
-  
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='postHeader' ref={props.dom.header}>
+    <div className="postHeader" ref={props.dom.header}>
       <PostHeader
         isSaved={props.isSaved}
         onTitleClick={props.showSummaryModal}
@@ -73,32 +72,22 @@ const Component: React.FC<Props> = props => (
         post={props.post}
       />
       <RoundButton
-        className='summaryEditButton'
+        className="summaryEditButton"
         types={['gradient', 'm']}
         onClick={props.showSummaryModal}
       >
         基本情報を編集する
       </RoundButton>
     </div>
-    
-    <PostCreatorNav
-      isNew={props.isNew || false}
-      className='bottomNav'
-      save={props.save}
-    />
-    <div className='chartWrapper' ref={props.dom.chart}>
-      <Chart
-        subjects={props.post.subjects}
-        editable
-        openEditModal={props.showSubjectModal}
-      />
+
+    <PostCreatorNav isNew={props.isNew || false} className="bottomNav" save={props.save} />
+    <div className="chartWrapper" ref={props.dom.chart}>
+      <Chart subjects={props.post.subjects} editable openEditModal={props.showSubjectModal} />
     </div>
-    <Modal modalName='postEditSummary' className='modal -summary'>
-      <SummaryEditor
-        desideSummary={props.setSummary}
-      />
+    <Modal modalName="postEditSummary" className="modal -summary">
+      <SummaryEditor desideSummary={props.setSummary} />
     </Modal>
-    <Modal modalName='postEditSubject' className='modal'>
+    <Modal modalName="postEditSubject" className="modal">
       <SubjectEditor
         post={props.post}
         linkablePosts={props.linkablePosts}
@@ -106,20 +95,14 @@ const Component: React.FC<Props> = props => (
         desideSubject={props.setSubject}
       />
     </Modal>
-    <Modal modalName='postEditRelease' className='modal'>
-      <Release 
-        deside={props.release}
-      />
+    <Modal modalName="postEditRelease" className="modal">
+      <Release deside={props.release} />
     </Modal>
-    <Modal modalName='postEditFinish' className='modal'>
-      <Exit
-        exit={props.exit}
-      />
+    <Modal modalName="postEditFinish" className="modal">
+      <Exit exit={props.exit} />
     </Modal>
-    <Modal modalName='postDelete' className='modal'>
-      <PostDelete
-        deletePost={props.deletePost}
-      />
+    <Modal modalName="postDelete" className="modal">
+      <PostDelete deletePost={props.deletePost} />
     </Modal>
   </div>
 );
@@ -130,29 +113,30 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { post } = componentProps;
 
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
-  const {state, contextDispatch} = useContext(PostEditContext);
+  const { state, contextDispatch } = useContext(PostEditContext);
   const [currentSubject, setCurrentSubject] = useState<number | null>(null);
-  const resizeFunc = useRef<() => void>(() => {});
+  const resizeFunc = useRef<() => void>(() => {
+    return;
+  });
   const dom = {
     header: useRef<HTMLDivElement>(null),
     chart: useRef<HTMLDivElement>(null),
-  }
+  };
 
   const showSummaryModal = () => {
     dispatch(setModal('postEditSummary'));
-  }
+  };
 
-  const showSubjectModal = (i: number | null) => {    
+  const showSubjectModal = (i: number | null) => {
     dispatch(setModal('postEditSubject'));
     setCurrentSubject(i);
-  }
+  };
 
   const setSummary = (summary: SummaryData) => {
     contextDispatch({
@@ -164,16 +148,16 @@ const Container: React.FC<ComponentProps> = componentProps => {
       payload: {
         ...post,
         ...summary,
-      }
+      },
     });
-  }
-  
+  };
+
   const setSubject = (subject: Subject) => {
-    let newSubjects = post.subjects.slice();
-    if(currentSubject === null) {
-      newSubjects.push(subject);  
-    } else {      
-      newSubjects[currentSubject] = subject;      
+    const newSubjects = post.subjects.slice();
+    if (currentSubject === null) {
+      newSubjects.push(subject);
+    } else {
+      newSubjects[currentSubject] = subject;
     }
     contextDispatch({
       type: 'SET_IS_SAVED',
@@ -183,48 +167,45 @@ const Container: React.FC<ComponentProps> = componentProps => {
       type: 'SET_POST',
       payload: {
         ...post,
-        subjects: [
-          ...newSubjects,
-        ]
-      }
+        subjects: [...newSubjects],
+      },
     });
-  }
+  };
 
   const uplodadImage = async (imageUrl: string | ArrayBuffer | null) => {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise<string>(async (resolve, reject) => {
-      try{
+      try {
         const eyeCatchResult = await Post.postEyeCatch(imageUrl);
-        if(eyeCatchResult.status === 'success_upload_img') {
-          resolve(eyeCatchResult.data!.url);
+        if (eyeCatchResult.status === 'success_upload_img' && eyeCatchResult.data) {
+          resolve(eyeCatchResult.data.url);
         } else {
           reject(null);
         }
-      } catch(error) {
+      } catch (error) {
         reject(error);
-      };
+      }
     });
-  }
+  };
 
   const putOrCreate = async (postData: PostData = post) => {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise<PostData>(async (resolve, reject) => {
       dispatch(setModal(''));
       dispatch(setIsLoading(true));
-      try{
-        let newPost = postData;
+      try {
+        const newPost = postData;
 
-        if(postData.eye_catch_url.startsWith('data:image/')){
+        if (postData.eye_catch_url.startsWith('data:image/')) {
           const eyeCatchUploadResult = await uplodadImage(postData.eye_catch_url);
-          if(eyeCatchUploadResult) {
+          if (eyeCatchUploadResult) {
             newPost.eye_catch_url = eyeCatchUploadResult;
           }
         }
-        
-        const result = state.isNew
-          ? await Post.createPost(newPost)
-          : await Post.putPost(newPost);
-          
-        if(result.status === 'success_get_post' && result.data) {
 
+        const result = state.isNew ? await Post.createPost(newPost) : await Post.putPost(newPost);
+
+        if (result.status === 'success_get_post' && result.data) {
           contextDispatch({
             type: 'SET_POST',
             payload: result.data.post,
@@ -238,78 +219,90 @@ const Container: React.FC<ComponentProps> = componentProps => {
             payload: true,
           });
           dispatch(setIsLoading(false));
-          dispatch(setMessage({
-            isShow: true,
-            type: 'success',
-            message: state.isNew ? RESPONSE_MESSAGES.success_create_post : RESPONSE_MESSAGES.success_update_post,
-          }));
+          dispatch(
+            setMessage({
+              isShow: true,
+              type: 'success',
+              message: state.isNew
+                ? RESPONSE_MESSAGES.success_create_post
+                : RESPONSE_MESSAGES.success_update_post,
+            })
+          );
           resolve(result.data.post);
         }
-      } catch(error) {
+      } catch (error) {
         dispatch(setIsLoading(false));
-        dispatch(setMessage({
-          isShow: true,
-          type: 'error',
-          message: RESPONSE_MESSAGES.error,
-        }));
+        dispatch(
+          setMessage({
+            isShow: true,
+            type: 'error',
+            message: RESPONSE_MESSAGES.error,
+          })
+        );
         reject(false);
       }
     });
-  }
+  };
 
   const save = () => {
     putOrCreate();
-  }
+  };
 
-  const exit = async (isSave: boolean = false) => {
-    if(isSave) {
+  const exit = async (isSave = false) => {
+    if (isSave) {
       const result = await putOrCreate();
-      if(result) history.push(`/roadmaps/${post.id}`);
+      if (result) history.push(`/roadmaps/${post.id}`);
     } else {
       dispatch(setModal(''));
       history.push(`/roadmaps/${post.id}`);
     }
-  }
+  };
 
   const deletePost = async () => {
     dispatch(setModal(''));
     dispatch(setIsLoading(true));
-    try{
+    try {
       const result = await Post.delete(post.id);
-      if(result.status === 'success_delete_post') {
-        if(user) history.push(`/users/${user.id}`);
+      if (result.status === 'success_delete_post') {
+        if (user) history.push(`/users/${user.id}`);
         dispatch(setIsLoading(false));
-        dispatch(setMessage({
-          isShow: true,
-          type: 'success',
-          message: RESPONSE_MESSAGES.success_delete_post,
-        }));
+        dispatch(
+          setMessage({
+            isShow: true,
+            type: 'success',
+            message: RESPONSE_MESSAGES.success_delete_post,
+          })
+        );
       }
-    } catch(error) {
+    } catch (error) {
       dispatch(setIsLoading(false));
       const status: keyof typeof RESPONSE_MESSAGES = error.response.data.status;
-      switch(status) {
+      switch (status) {
         case 'error_no_post_exists':
         case 'fail_delete_post':
-          dispatch(setMessage({
-            isShow: true,
-            type: 'error',
-            message: RESPONSE_MESSAGES[status],
-          }));
+          dispatch(
+            setMessage({
+              isShow: true,
+              type: 'error',
+              message: RESPONSE_MESSAGES[status],
+            })
+          );
           break;
         default:
-          dispatch(setMessage({
-            isShow: true,
-            type: 'error',
-            message: RESPONSE_MESSAGES.error,
-          }));
+          dispatch(
+            setMessage({
+              isShow: true,
+              type: 'error',
+              message: RESPONSE_MESSAGES.error,
+            })
+          );
       }
     }
-  }
+  };
 
   const release = async (
     releaseStatus: keyof typeof RELEASE_STATUS,
-    allowedUsers: UserData_overview[],
+    allowedUsers: UserData_overview[]
   ) => {
     dispatch(setIsLoading(true));
 
@@ -319,75 +312,81 @@ const Container: React.FC<ComponentProps> = componentProps => {
         ...post,
         release_status: releaseStatus,
         allowedUsers,
-      }
-    });    
+      },
+    });
 
     const result = await putOrCreate({
       ...post,
       release_status: releaseStatus,
       allowedUsers,
     });
-    
-    if(result) {
+
+    if (result) {
       dispatch(setModal(''));
       history.push(`/roadmaps/${result.id}`);
       dispatch(setIsLoading(false));
-      dispatch(setMessage({
-        isShow: true,
-        type: 'success',
-        message: RESPONSE_MESSAGES.success_release_post,
-      }));
+      dispatch(
+        setMessage({
+          isShow: true,
+          type: 'success',
+          message: RESPONSE_MESSAGES.success_release_post,
+        })
+      );
     }
-  }
+  };
 
   const linkablePosts = (() => {
-    let options: {
+    const options: {
       value: number;
       label: string;
     }[] = [];
-    if(state.posts) {
-      if(state.posts.length < 1) {
+    if (state.posts) {
+      if (state.posts.length < 1) {
         options.push({
           value: 0,
-          label: 'リンクできるロードマップがありません'
+          label: 'リンクできるロードマップがありません',
         });
       } else {
         options.push({
           value: 0,
-          label: 'どのロードマップにもリンクしない'
+          label: 'どのロードマップにもリンクしない',
         });
         state.posts.forEach((post) => {
-          if(state.id !== null){
-            if(post.id !== state.id) {
+          if (state.id !== null) {
+            if (post.id !== state.id) {
               options.push({
                 value: post.id,
                 label: post.title,
-              });  
+              });
             }
           } else {
             options.push({
               value: post.id,
               label: post.title,
-            });            
+            });
           }
         });
       }
     }
-    
+
     return options;
   })();
 
   const adjustChartHeight = () => () => {
     console.log('resize');
-    
-    if(dom.chart.current && dom.header.current) {
-      dom.chart.current.style.height = `${window.innerHeight - (dom.header.current.getBoundingClientRect().height + 90)}px`;
+
+    if (dom.chart.current && dom.header.current) {
+      dom.chart.current.style.height = `${
+        window.innerHeight - (dom.header.current.getBoundingClientRect().height + 90)
+      }px`;
     }
-  }
+  };
 
   useEffect(() => {
-    if(dom.chart.current && dom.header.current) {
-      dom.chart.current.style.height = `${window.innerHeight - (dom.header.current.getBoundingClientRect().height + 90)}px`;
+    if (dom.chart.current && dom.header.current) {
+      dom.chart.current.style.height = `${
+        window.innerHeight - (dom.header.current.getBoundingClientRect().height + 90)
+      }px`;
     }
   }, [dom]);
 
@@ -398,11 +397,11 @@ const Container: React.FC<ComponentProps> = componentProps => {
     window.addEventListener('resize', resizeFunc.current);
     return () => {
       window.removeEventListener('resize', resizeFunc.current);
-    }
+    };
   }, []);
 
   const props = {
-    isSaved: state.isSaved!,
+    isSaved: state.isSaved,
     isNew: state.isNew,
     post,
     currentSubject,
@@ -418,6 +417,6 @@ const Container: React.FC<ComponentProps> = componentProps => {
     release,
   };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

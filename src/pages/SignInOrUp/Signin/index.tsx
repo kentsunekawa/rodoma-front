@@ -36,39 +36,39 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='row'>
+    <div className="row">
       <Error messages={props.validateStatus.errors.email}>
         <TextInput
-          type='text'
-          name='email'
+          type="text"
+          name="email"
           value={props.signinInfo.email}
           label="Email"
           onChange={props.change}
         />
       </Error>
     </div>
-    <div className='row'>
+    <div className="row">
       <Error messages={props.validateStatus.errors.password}>
         <TextInput
-          type='password'
-          name='password'
+          type="password"
+          name="password"
           value={props.signinInfo.password}
           label="Password"
           onChange={props.change}
         />
       </Error>
     </div>
-    <div className='row'>
-      <TextButton link='/forgetPass' types={['s', 'gray_midium']}>
+    <div className="row">
+      <TextButton link="/forgetPass" types={['s', 'gray_midium']}>
         パスワードを忘れた方はこちら
       </TextButton>
     </div>
     <RoundButton
       onClick={props.desideSigninInfo}
       types={['l', 'gradient']}
-      className='signinButton'
+      className="signinButton"
     >
       Signin
     </RoundButton>
@@ -81,15 +81,14 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { deside } = componentProps;
 
   const [validateStatus, setvalidateStatus] = useState<ValidateStatus<Errors>>({
     isInvalid: false,
     errors: {
       email: [],
-      password: []
+      password: [],
     },
   });
 
@@ -103,9 +102,9 @@ const Container: React.FC<ComponentProps> = componentProps => {
       ...signinInfo,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
-  const desideSigninInfo = () => {    
+  const desideSigninInfo = () => {
     const validateResult = validate_signin(signinInfo);
 
     setvalidateStatus({
@@ -113,17 +112,17 @@ const Container: React.FC<ComponentProps> = componentProps => {
       errors: {
         ...{
           email: [],
-          password: []
+          password: [],
         },
         ...validateResult.getErrors(),
-      }
-    }); 
-  
-    if(!validateResult.hasErrors()) deside(signinInfo);
-  }
+      },
+    });
+
+    if (!validateResult.hasErrors()) deside(signinInfo);
+  };
 
   const props = { signinInfo, validateStatus, change, desideSigninInfo };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

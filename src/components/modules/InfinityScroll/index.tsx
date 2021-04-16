@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useRef } from 'react';
 import Styled from 'styled-components';
 
@@ -17,6 +18,7 @@ interface ComponentProps {
 }
 
 interface Props extends ComponentProps {
+  children: React.ReactNode;
   isLoading: boolean;
   isFetched: boolean;
   listStatus: {
@@ -29,7 +31,7 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = (props) => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="num">
       <p className="numText">
@@ -69,7 +71,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     pageBottom: useRef<HTMLDivElement>(null),
   };
 
-  const getData = (currentList: any[] = [], currentOffset: number = 0) => {
+  const getData = (currentList: any[] = [], currentOffset = 0) => {
     getDataFunc(currentList, currentOffset, (count: number) => {
       if (isMounted.current) {
         setListStatus({
@@ -83,15 +85,14 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   };
 
   const createScrollFunc = () => () => {
-    if (dom.pageBottom.current) {
-      if (dom.pageBottom.current!.getBoundingClientRect().top < window.innerHeight) {
-        // if(list.length < listStatus.count && !isLoading) {
+    if (dom.pageBottom.current && scrollFunc.current) {
+      if (dom.pageBottom.current.getBoundingClientRect().top < window.innerHeight) {
         if (list.length < listStatus.count && !isLoading) {
           setIsLoading(true);
-          window.removeEventListener('scroll', scrollFunc.current!);
+          window.removeEventListener('scroll', scrollFunc.current);
           getData(list, listStatus.offset);
         } else {
-          window.removeEventListener('scroll', scrollFunc.current!);
+          window.removeEventListener('scroll', scrollFunc.current);
         }
       }
     }
@@ -99,11 +100,11 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
 
   useEffect(() => {
     if (list.length < listStatus.count && isMounted.current) {
-      window.removeEventListener('scroll', scrollFunc.current!);
+      if (scrollFunc.current) window.removeEventListener('scroll', scrollFunc.current);
       scrollFunc.current = createScrollFunc();
       window.addEventListener('scroll', scrollFunc.current);
     } else {
-      window.removeEventListener('scroll', scrollFunc.current!);
+      if (scrollFunc.current) window.removeEventListener('scroll', scrollFunc.current);
     }
   }, [list]);
 
@@ -127,7 +128,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     isMounted.current = true;
     return () => {
       isMounted.current = false;
-      window.removeEventListener('scroll', scrollFunc.current!);
+      if (scrollFunc.current) window.removeEventListener('scroll', scrollFunc.current);
     };
   }, []);
 
@@ -138,6 +139,10 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     listStatus,
   };
 
-  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+  return (
+    <StyeldComponent {...componentProps} {...props}>
+      {componentProps.children}
+    </StyeldComponent>
+  );
 };
 export default Container;

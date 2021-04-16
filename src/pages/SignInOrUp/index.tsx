@@ -33,23 +33,15 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <CoverContent>
-      <TabChanger
-        selected={0}
-      >
-        <Tab className='tab'>
-          <Tabs
-            tabList={[
-              'Signin',
-              'Signup',
-            ]}
-            tabType={'simple'}
-          />
+      <TabChanger selected={0}>
+        <Tab className="tab">
+          <Tabs tabList={['Signin', 'Signup']} tabType={'simple'} />
         </Tab>
         <TabContents>
-          <TabContent className='signin'>
+          <TabContent className="signin">
             <Signin deside={props.desideSigninInfo} />
           </TabContent>
           <TabContent>
@@ -58,7 +50,7 @@ const Component: React.FC<Props> = props => (
         </TabContents>
       </TabChanger>
       <div className={`${CLASSNAME}__bottom`}>
-        <TextButton link='/' types={['primary', 's']}>
+        <TextButton link="/" types={['primary', 's']}>
           サインインせずに使う
         </TextButton>
       </div>
@@ -72,31 +64,30 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const isSignupComplete = useSelector(isSignupCompleteSelector);
-  
+
   useEffect(() => {
-    if(isSignupComplete) {
-      history.push('/signupComplete')
+    if (isSignupComplete) {
+      history.push('/signupComplete');
     }
-  }, [isSignupComplete])
+  }, [isSignupComplete]);
 
   const desideSigninInfo = (signinInfo: SigninInfo) => {
     dispatch(setIsLoading(true));
     dispatch(requestSignin(signinInfo));
-  }
+  };
 
   const desideSignupInfo = (signupInfo: SignupInfo) => {
     dispatch(setIsLoading(true));
     dispatch(requestSignup(signupInfo));
-  }
+  };
 
   const props = { desideSigninInfo, desideSignupInfo };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

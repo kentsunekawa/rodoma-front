@@ -1,15 +1,15 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  & > .inner{
+  & > .inner {
     padding-top: 20px;
   }
-  &.-login{
+  &.-login {
     & .GunttChart,
-    & .PieChart{
-      & > .wrapper{
-        & > .inner{
-          & > .main{
+    & .PieChart {
+      & > .wrapper {
+        & > .inner {
+          & > .main {
             padding-bottom: 60px;
           }
         }

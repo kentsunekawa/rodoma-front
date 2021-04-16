@@ -1,7 +1,8 @@
-import { IoBanSharp } from "react-icons/io5";
+import React from 'react';
+import { IoBanSharp } from 'react-icons/io5';
 
-const IconBan = () => {
+const IconBan: React.FC = () => {
   return <IoBanSharp />;
-}
+};
 
 export default IconBan;

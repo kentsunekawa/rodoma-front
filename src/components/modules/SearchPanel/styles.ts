@@ -1,9 +1,6 @@
 import { css } from 'styled-components';
 
-import {
-  Gradient,
-  WithShadow
-} from 'components/style/Mixins';
+import { Gradient, WithShadow } from 'components/style/Mixins';
 
 export const base = css`
   display: none;
@@ -16,7 +13,7 @@ export const base = css`
   ${Gradient}
   padding: 130px 20px 30px;
   overflow-y: scroll;
-  & > .keywordArea{
+  & > .keywordArea {
     position: fixed;
     left: 0;
     top: 0;
@@ -24,12 +21,10 @@ export const base = css`
     padding: 80px 20px 30px;
     width: 100%;
     .Selector,
-    .SearchKeyword{
+    .SearchKeyword {
       ${WithShadow}
     }
   }
-  .categoryArea{
-
+  .categoryArea {
   }
 `;
-

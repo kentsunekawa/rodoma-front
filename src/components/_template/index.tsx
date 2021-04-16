@@ -13,10 +13,11 @@ interface ComponentProps {
   types?: StyleType[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props extends ComponentProps {}
 
 // dom component
-const Component: React.FC<Props> = (props) => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}></div>
 );
 

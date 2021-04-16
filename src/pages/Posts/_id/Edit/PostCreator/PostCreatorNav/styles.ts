@@ -4,12 +4,12 @@ export const base = css`
   display: flex;
   width: 100%;
   justify-content: center;
-  & > .button{
+  & > .button {
     margin: 0 4px;
-    &:first-child{
+    &:first-child {
       margin-left: 0;
     }
-    &:last-child{
+    &:last-child {
       margin-right: 0;
     }
   }

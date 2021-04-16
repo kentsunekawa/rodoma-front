@@ -9,7 +9,6 @@ import Logo from 'components/elements/Logo';
 
 import * as styles from './styles';
 
-
 // component root class name
 const CLASSNAME = 'Door';
 
@@ -21,17 +20,17 @@ interface ComponentProps {
 interface Props extends ComponentProps {
   isAppear: boolean;
   dom: {
-    root: React.Ref<HTMLDivElement>,
-    logo: React.Ref<HTMLDivElement>,
-  }
+    root: React.Ref<HTMLDivElement>;
+    logo: React.Ref<HTMLDivElement>;
+  };
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <>
     <FixedWindowHeight isAppear={props.isAppear}>
       <div className={`${CLASSNAME} ${props.className}`} ref={props.dom.root}>
-        <div className='logo'>
+        <div className="logo">
           <div ref={props.dom.logo}>
             <Logo />
           </div>
@@ -47,31 +46,30 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const isDoorShown = useSelector(isDoorShownSelector);
   const [isAppear, setIsAppear] = useState(isDoorShown);
 
   const dom = {
     root: useRef<HTMLDivElement>(null),
     logo: useRef<HTMLDivElement>(null),
-  }
+  };
 
   const hide = async () => {
-    if(dom.root.current && dom.logo.current){
+    if (dom.root.current && dom.logo.current) {
       await doorHide(dom.root.current, dom.logo.current);
       setIsAppear(false);
     }
-  }
+  };
 
   useEffect(() => {
-    if(!isDoorShown) {
+    if (!isDoorShown) {
       hide();
     }
-  }, [isDoorShown])
+  }, [isDoorShown]);
 
   const props = { dom, isAppear };
 
-  return isAppear ? <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent> : null;
-}
+  return isAppear ? <StyeldComponent {...componentProps} {...props}></StyeldComponent> : null;
+};
 export default Container;

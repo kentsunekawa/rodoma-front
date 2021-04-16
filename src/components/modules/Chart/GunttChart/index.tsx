@@ -16,7 +16,7 @@ type DisplayType = 'over' | 'fixed';
 
 interface ComponentProps {
   editable?: boolean;
-  subjects: Subject[],
+  subjects: Subject[];
   className?: string;
   onEdit?: (i: number | null) => void;
   onClickSubject: (i: number) => void;
@@ -29,60 +29,47 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    {
-      !props.editable && (
-        <div className='nav'>
-          <CircleButton
-            types={['m', 'gray_midium']}
-            onClick={props.changeDisplayType}
-          >
-          {
-            (() => {
-              switch(props.displayType) {
-                case 'fixed':
-                  return <IconWidthOver />;
-                default:
-                  return <IconWidthFixed />;
-              }
-            })()
-          }
-          </CircleButton>
-          <CircleButton
-            types={['m', 'gray_midium']}
-            onClick={() => props.onChangeChartType('pie')}
-          >
-            <IconPieChart />
-          </CircleButton>
-        </div>
-      )
-    }
-    <div className='wrapper'>
-      <div className='inner'>
-        <div className='main'>
+    {!props.editable && (
+      <div className="nav">
+        <CircleButton types={['m', 'gray_midium']} onClick={props.changeDisplayType}>
+          {(() => {
+            switch (props.displayType) {
+              case 'fixed':
+                return <IconWidthOver />;
+              default:
+                return <IconWidthFixed />;
+            }
+          })()}
+        </CircleButton>
+        <CircleButton types={['m', 'gray_midium']} onClick={() => props.onChangeChartType('pie')}>
+          <IconPieChart />
+        </CircleButton>
+      </div>
+    )}
+    <div className="wrapper">
+      <div className="inner">
+        <div className="main">
           <div className="nameArea">
-            <ul className='nameList'>
-              {
-                props.subjects.map((subject, i) => {
-                  return props.editable
-                    ? <li className='item' key={i}>
-                      <a
-                        onClick={() => props.onEdit && props.onEdit(i)}>
-                        <span>{subject.title}</span>
-                      </a>
-                    </li>
-                    : <li className='item' key={i}>
-                      <a
-                        onClick={() => props.onClickSubject(i)}
-                      >
-                        <span>{subject.title}</span>
-                      </a>
-                    </li>
-                })
-              }
-              {
-                props.editable && <li className='item'>
+            <ul className="nameList">
+              {props.subjects.map((subject, i) => {
+                return props.editable ? (
+                  <li className="item" key={i}>
+                    <a onClick={() => props.onEdit && props.onEdit(i)}>
+                      <span>{subject.title}</span>
+                    </a>
+                  </li>
+                ) : (
+                  <li className="item" key={i}>
+                    <a onClick={() => props.onClickSubject(i)}>
+                      <span>{subject.title}</span>
+                    </a>
+                  </li>
+                );
+              })}
+              {props.editable && (
+                <li className="item">
                   <CircleButton
                     types={['gray_light', 's']}
                     onClick={() => props.onEdit && props.onEdit(null)}
@@ -90,27 +77,27 @@ const Component: React.FC<Props> = props => (
                     <IconAdd />
                   </CircleButton>
                 </li>
-              }
+              )}
             </ul>
           </div>
-          <div className='barArea'>
-            <div className='bar'>
-              <ul className='list'>
-              {
-                props.subjects.map((subject, i) => {
-                  return <li className='item' key={i}>
-                    <Bar
-                      linkable={!props.editable}
-                      left={subject.renge_start}
-                      width={(subject.renge_end - subject.renge_start)}
-                      label={subject.label}
-                      linkedPostId={subject.linked_post_id}
-                    />
-                  </li>;
-                })
-              }
+          <div className="barArea">
+            <div className="bar">
+              <ul className="list">
+                {props.subjects.map((subject, i) => {
+                  return (
+                    <li className="item" key={i}>
+                      <Bar
+                        linkable={!props.editable}
+                        left={subject.renge_start}
+                        width={subject.renge_end - subject.renge_start}
+                        label={subject.label}
+                        linkedPostId={subject.linked_post_id}
+                      />
+                    </li>
+                  );
+                })}
               </ul>
-              <div className='lines'>
+              <div className="lines">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -132,20 +119,19 @@ const Component: React.FC<Props> = props => (
 // styled component
 const StyeldComponent = Styled(Component)`
   ${styles.base}
-  ${({displayType}) => styles[displayType]}
+  ${({ displayType }) => styles[displayType]}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-  
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const [displayType, setDisplayType] = useState<DisplayType>('fixed');
 
   const changeDisplayType = () => {
     setDisplayType(displayType === 'fixed' ? 'over' : 'fixed');
-  }
+  };
 
   const props = { displayType, changeDisplayType };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

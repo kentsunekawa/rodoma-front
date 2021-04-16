@@ -1,8 +1,8 @@
-import { IoCheckmarkCircleOutline } from "react-icons/io5";
+import React from 'react';
+import { IoCheckmarkCircleOutline } from 'react-icons/io5';
 
-
-const IconCheck = () => {
+const IconCheck: React.FC = () => {
   return <IoCheckmarkCircleOutline />;
-}
+};
 
 export default IconCheck;

@@ -8,8 +8,7 @@ import {
   IconPinterest,
   IconInstagram,
   IconYoutube,
-} from 'components/elements/icons'
-
+} from 'components/elements/icons';
 
 // component root class name
 const CLASSNAME = 'SnsLinkList';
@@ -23,40 +22,38 @@ interface ComponentProps {
   }[];
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <ul className='list'>
-      {
-        props.snsList.map((sns, i) => {
-          return <li className='item' key={i}>
-            <a href={sns.url} className='link' target='_blank'>
+    <ul className="list">
+      {props.snsList.map((sns, i) => {
+        return (
+          <li className="item" key={i}>
+            <a href={sns.url} className="link" target="_blank" rel="noopener noreferrer">
               {(() => {
-                switch(sns.id){
+                switch (sns.id) {
                   case 1:
-                    return <IconTwitter />
+                    return <IconTwitter />;
                   case 2:
-                    return <IconFacebook />
+                    return <IconFacebook />;
                   case 3:
-                    return <IconLinkedin />
+                    return <IconLinkedin />;
                   case 4:
-                      return <IconInstagram />
+                    return <IconInstagram />;
                   case 5:
-                    return <IconPinterest />
+                    return <IconPinterest />;
                   case 6:
-                      return <IconYoutube />
+                    return <IconYoutube />;
                   case 7:
-                    return <IconTwitter />
+                    return <IconTwitter />;
                   case 8:
-                    return <IconTwitter />
+                    return <IconTwitter />;
                 }
               })()}
             </a>
-          </li>;
-        })
-      }
+          </li>
+        );
+      })}
     </ul>
   </div>
 );
@@ -67,7 +64,7 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-  return <StyeldComponent { ...componentProps } ></StyeldComponent>;
-}
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  return <StyeldComponent {...componentProps}></StyeldComponent>;
+};
 export default Container;

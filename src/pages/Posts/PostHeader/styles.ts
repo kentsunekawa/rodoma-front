@@ -5,18 +5,18 @@ export const base = css`
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 20px;
-  & > .iconArea{
+  & > .iconArea {
     width: 90px;
   }
-  & > .info{
+  & > .info {
     position: relative;
-    & > .linkToEdit{
+    & > .linkToEdit {
       position: absolute;
       right: 0;
       top: 0;
       transform: translate(30%, -30%);
     }
-    & > .title{
+    & > .title {
       display: block;
       width: 100%;
       height: 2.8em;
@@ -28,11 +28,10 @@ export const base = css`
     }
     width: calc(100% - 100px);
   }
-  & > .date{
+  & > .date {
     width: 100%;
     font-size: 1rem;
-    color: ${({theme}) => theme.themeColors.gray_midium};
-    padding-top: .8em;
+    color: ${({ theme }) => theme.themeColors.gray_midium};
+    padding-top: 0.8em;
   }
 `;
-

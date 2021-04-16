@@ -10,12 +10,9 @@ interface ComponentProps {
   className?: string;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
-  <div className={`${CLASSNAME} ${props.className}`}>
-  </div>
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
+  <div className={`${CLASSNAME} ${props.className}`}></div>
 );
 
 // styled component
@@ -24,7 +21,7 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-  return <StyeldComponent { ...componentProps }></StyeldComponent>;
-}
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  return <StyeldComponent {...componentProps}></StyeldComponent>;
+};
 export default Container;

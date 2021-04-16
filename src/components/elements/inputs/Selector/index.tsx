@@ -12,7 +12,7 @@ type StyleType = 'l' | 's' | 'primary';
 interface Option {
   value: string | number;
   label: string;
-};
+}
 
 interface ComponentProps {
   label?: string | undefined;
@@ -31,8 +31,12 @@ interface Props extends ComponentProps {
 }
 
 // dom componentss
-const Component: React.FC<Props> = props => (
-  <div className={`${CLASSNAME} ${props.className} ${props.isSelected || !props.disabled ? '-selected' : ''} ${props.disabled ? '-disabled' : ''}`}>
+const Component: React.FC<Props> = (props: Props) => (
+  <div
+    className={`${CLASSNAME} ${props.className} ${
+      props.isSelected || !props.disabled ? '-selected' : ''
+    } ${props.disabled ? '-disabled' : ''}`}
+  >
     <select
       className="select"
       onChange={props.onSelectedFunc}
@@ -40,14 +44,13 @@ const Component: React.FC<Props> = props => (
       name={props.name}
       disabled={props.disabled}
     >
-      {
-        props.options.map((option, i) => {
-          return <option
-            value={option.value}
-            key={i}
-          >{option.label}</option>;
-        })
-      }
+      {props.options.map((option, i) => {
+        return (
+          <option value={option.value} key={i}>
+            {option.label}
+          </option>
+        );
+      })}
     </select>
     {props.label && <span className="label">{props.label}</span>}
     <div className="icon">
@@ -60,24 +63,23 @@ const Component: React.FC<Props> = props => (
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
-  const { selected, options, onChange, } = componentProps;
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  const { selected, options, onChange } = componentProps;
 
   const [isSelected, setIsSelected] = useState(() => isSelectedExist(selected, options));
 
   const onSelectedFunc = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setIsSelected(e.target.value ? true : false);
     onChange && onChange(e);
-  }
+  };
 
   const props = { isSelected, onSelectedFunc };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 
 export default Container;

@@ -1,7 +1,4 @@
 import { css } from 'styled-components';
-import {
-  WithShadow,
-} from 'components/style/Mixins';
 
 export const base = css`
   display: none;
@@ -15,18 +12,18 @@ export const base = css`
     position: absolute;
     bottom: 0;
     left: 0;
-    z-index: 1; 
+    z-index: 1;
     width: 100%;
     height: 80%;
-    background: ${({theme}) => theme.bg};
+    background: ${({ theme }) => theme.bg};
     border-radius: 10px 10px 0 0;
     overflow: hidden;
-    & > .inner{
+    & > .inner {
       width: 100%;
       height: 100%;
       overflow-y: scroll;
     }
-    & > .close{
+    & > .close {
       position: absolute;
       top: 20px;
       right: 20px;
@@ -34,4 +31,3 @@ export const base = css`
     }
   }
 `;
-

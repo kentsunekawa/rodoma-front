@@ -1,4 +1,4 @@
-import { RESPONSE_MESSAGES } from "utils/messages";
+import { RESPONSE_MESSAGES } from 'utils/messages';
 
 import {
   Sns,
@@ -9,7 +9,7 @@ import {
   RelationData,
   UserData,
   Comment,
-} from "./index";
+} from './index';
 
 export type ResponseStatus = keyof typeof RESPONSE_MESSAGES;
 

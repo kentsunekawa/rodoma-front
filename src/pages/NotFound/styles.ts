@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  .link{
+  .link {
     width: 300px;
     margin: 40px auto 0;
   }

@@ -7,7 +7,7 @@ import { UserData_overview } from 'types';
 import { formatDate } from 'utils';
 
 import UserIcon from 'components/elements/UserIcon';
-import CircleButton from 'components/elements/buttons/CircleButton'
+import CircleButton from 'components/elements/buttons/CircleButton';
 import { IconClose } from 'components/elements/icons/';
 
 import * as styles from './styles';
@@ -27,30 +27,26 @@ interface ComponentProps {
 }
 
 interface Props extends ComponentProps {
+  children: React.ReactNode;
   date: string;
   onClickDeleteButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='icon'>
+    <div className="icon">
       <Link to={`/users/${props.user.id}`}>
-        <UserIcon
-          url={props.user.icon_url}
-        />
+        <UserIcon url={props.user.icon_url} />
       </Link>
     </div>
-    <div className='comment'>
-      <div className='date'>{props.date}</div>
+    <div className="comment">
+      <div className="date">{props.date}</div>
       {props.children}
-      <span className='userName'>{props.user.name}</span>
+      <span className="userName">{props.user.name}</span>
       {props.isLogin && (
-        <div className='button'>
-          <CircleButton
-            onClick={props.onClickDeleteButton}
-            types={['gray_dark', 's']}
-          >
+        <div className="button">
+          <CircleButton onClick={props.onClickDeleteButton} types={['gray_dark', 's']}>
             <IconClose />
           </CircleButton>
         </div>
@@ -62,23 +58,25 @@ const Component: React.FC<Props> = props => (
 // styled component
 const StyeldComponent = Styled(Component)`
   ${styles.base}
-  ${({isLogin}) => isLogin && styles.login}
+  ${({ isLogin }) => isLogin && styles.login}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentPorps => {
-
+const Container: React.FC<ComponentProps> = (componentPorps) => {
   const { id, created_at, onClick } = componentPorps;
 
   const date = formatDate(new Date(created_at), 'YYYY/MM/DD HH:MM');
 
-  const onClickDeleteButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onClickDeleteButton = () => {
     onClick(id);
-  }
+  };
 
   const props = { onClickDeleteButton, date };
 
-  return <StyeldComponent { ...componentPorps } { ...props }></StyeldComponent>;
-}
+  return (
+    <StyeldComponent {...componentPorps} {...props}>
+      {componentPorps.children}
+    </StyeldComponent>
+  );
+};
 export default Container;
-

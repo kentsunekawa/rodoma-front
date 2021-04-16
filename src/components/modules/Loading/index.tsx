@@ -25,11 +25,11 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <>
     <FixedWindowHeight isAppear={props.isLoading}>
       <div className={`${CLASSNAME} ${props.className}`} ref={props.dom.root}>
-        <div className='logo'>
+        <div className="logo">
           <Logo />
         </div>
       </div>
@@ -43,39 +43,37 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const isLoading = useSelector(isLoadingSelector);
   const [isAppear, setIsAppear] = useState(isLoading);
 
-
   const dom = {
     root: useRef<HTMLDivElement>(null),
-  }  
+  };
 
   const toggle = async () => {
-    if(dom.root.current){ 
+    if (dom.root.current) {
       await toggleLoading(dom.root.current, isLoading);
-      if(!isLoading) {
+      if (!isLoading) {
         setIsAppear(false);
       }
     }
-  }
+  };
 
   useEffect(() => {
     toggle();
   }, [isAppear]);
 
   useEffect(() => {
-    if(isLoading) {
+    if (isLoading) {
       setIsAppear(true);
     } else {
       toggle();
     }
   }, [isLoading]);
-  
+
   const props = { dom, isLoading };
 
-  return isAppear ? <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent> : null;
-}
+  return isAppear ? <StyeldComponent {...componentProps} {...props}></StyeldComponent> : null;
+};
 export default Container;

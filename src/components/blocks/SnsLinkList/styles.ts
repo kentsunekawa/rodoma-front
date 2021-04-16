@@ -1,15 +1,15 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  & > .list{
+  & > .list {
     display: flex;
     justify-content: center;
-    & > .item{
+    & > .item {
       width: 40px;
       margin: 0 8px;
-      & > .link{
+      & > .link {
         display: block;
-        color: ${({theme}) => theme.themeColors.gray_dark};
+        color: ${({ theme }) => theme.themeColors.gray_dark};
         font-size: 2.5rem;
       }
     }

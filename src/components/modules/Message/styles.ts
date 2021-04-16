@@ -7,20 +7,20 @@ export const base = css`
   left: 0;
   display: none;
   width: 100%;
-  & > .counter{
+  & > .counter {
     position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
     height: 2px;
-    span{
+    span {
       display: block;
       width: 0;
       height: 100%;
       background: #fff;
     }
   }
-  .MessageBand{
+  .MessageBand {
     min-height: 60px;
   }
 `;

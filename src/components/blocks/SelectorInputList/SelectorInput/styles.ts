@@ -3,20 +3,20 @@ import { css } from 'styled-components';
 export const base = css`
   display: flex;
   justify-content: space-between;
-  & > .selector{
+  & > .selector {
     width: 100px;
   }
 
-  & > .input{
+  & > .input {
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-content: center;
     width: calc(100% - 105px);
-    & > .textInput{
+    & > .textInput {
       width: 100%;
     }
-    & > .deleteButton{
+    & > .deleteButton {
       width: 25px;
       margin-left: 5px;
     }
@@ -24,4 +24,3 @@ export const base = css`
 `;
 
 export const primary = css``;
-

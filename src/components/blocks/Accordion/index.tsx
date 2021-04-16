@@ -38,7 +38,7 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = (props) => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="parent">
       <TextButton onClick={() => props.onClick(props.parent.id)}>
@@ -84,7 +84,9 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   };
 
   const toggle = () => {
-    toggleAccordion(dom.child.current!, dom.inner.current!, !localIsOpen);
+    if (dom.child.current && dom.inner.current) {
+      toggleAccordion(dom.child.current, dom.inner.current, !localIsOpen);
+    }
     setLocalIsOpen(localIsOpen ? false : true);
   };
 

@@ -1,43 +1,42 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  & > .FollowButton{
+  & > .FollowButton {
     position: fixed;
     right: 20px;
     bottom: 20px;
   }
-  & > .PageBase{
+  & > .PageBase {
     padding-top: 120px;
   }
-  .mainTab{
+  .mainTab {
     position: fixed;
     top: 80px;
     left: 20px;
     z-index: 10;
     width: calc(100% - 40px);
-    
   }
-  .userMain{
+  .userMain {
     padding-top: 16px;
-    & > .editButton{
+    & > .editButton {
       position: fixed;
       right: 20px;
       top: 130px;
     }
-    & > .catchCopy{
+    & > .catchCopy {
       margin-bottom: 20px;
     }
-    & > .icon{
+    & > .icon {
       margin: 25px auto 30px;
     }
-    & > .category{
+    & > .category {
       margin-bottom: 24px;
     }
     & > .snsList {
       margin-bottom: 20px;
     }
   }
-  .userHeader{
+  .userHeader {
     margin-bottom: 16px;
   }
 `;

@@ -9,7 +9,7 @@ import { ValidateStatus } from 'types';
 import { forgetPass as validate_forgetPass } from 'validations';
 import {
   validateErrorStatusSelector,
-  cleanupValidateErrorStatus, 
+  cleanupValidateErrorStatus,
   setIsLoading,
   setMessage,
 } from 'state/modules/app';
@@ -45,47 +45,54 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    {
-      props.isMailSent
-      ? <CoverContent>
+    {props.isMailSent ? (
+      <CoverContent>
         <Paragraph types={['center', 'text']}>
-          パスワードリセット用の<br />
-          メールをお送りしました。<br />
-          メール記載のボタンより<br />
-          新パスワード設定ページへ<br />
-          アクセスしてください。<br />
+          パスワードリセット用の
+          <br />
+          メールをお送りしました。
+          <br />
+          メール記載のボタンより
+          <br />
+          新パスワード設定ページへ
+          <br />
+          アクセスしてください。
+          <br />
           （有効期限は1時間です）
         </Paragraph>
-        <RoundButton types={['gradient', 'l']} link='/'>
+        <RoundButton types={['gradient', 'l']} link="/">
           トップページへ
         </RoundButton>
       </CoverContent>
-      : <CoverContent>
-      <Paragraph types={['center', 'text']}>
-        パスワードリセット用の<br />
-        メールをお送りします。<br />
-        ご登録のメールアドレスを<br />
-        ご入力ください。
-      </Paragraph>
-      <div className='row'>
-        <Error messages={props.validateStatus.errors.email}>
-          <TextInput
-            type='text'
-            value={props.email}
-            label="Email"
-            name='email'
-            onChange={(e) => props.setEmail(e.target.value)}
-          />
-        </Error>
-      </div>
-      <RoundButton types={['gradient', 'l']} onClick={props.deside}>
-        送信
-      </RoundButton>
-    </CoverContent>
-    }
-
+    ) : (
+      <CoverContent>
+        <Paragraph types={['center', 'text']}>
+          パスワードリセット用の
+          <br />
+          メールをお送りします。
+          <br />
+          ご登録のメールアドレスを
+          <br />
+          ご入力ください。
+        </Paragraph>
+        <div className="row">
+          <Error messages={props.validateStatus.errors.email}>
+            <TextInput
+              type="text"
+              value={props.email}
+              label="Email"
+              name="email"
+              onChange={(e) => props.setEmail(e.target.value)}
+            />
+          </Error>
+        </div>
+        <RoundButton types={['gradient', 'l']} onClick={props.deside}>
+          送信
+        </RoundButton>
+      </CoverContent>
+    )}
   </div>
 );
 
@@ -95,8 +102,7 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
 
   const validateErrorStatus = useSelector(validateErrorStatusSelector);
@@ -106,11 +112,10 @@ const Container: React.FC<ComponentProps> = componentProps => {
     isInvalid: false,
     errors: {
       email: [],
-    }
+    },
   });
 
   const deside = async () => {
-
     const validateResult = validate_forgetPass({
       email,
     });
@@ -122,57 +127,64 @@ const Container: React.FC<ComponentProps> = componentProps => {
           email: [],
         },
         ...validateResult.getErrors(),
-      }
+      },
     });
-    if(!validateResult.hasErrors()){
+    if (!validateResult.hasErrors()) {
       dispatch(setIsLoading(true));
 
       try {
-        const result = await Auth.sendResetPasswordMail({ email });
+        await Auth.sendResetPasswordMail({ email });
         setIsMailSent(true);
         dispatch(setIsLoading(false));
-      } catch(error) { 
-        switch(error.response.data.status) {
+      } catch (error) {
+        switch (error.response.data.status) {
           case 'error_validation':
             setValidateStatus({
               isInvalid: false,
               errors: {
                 email: [],
                 ...adjustErrorMessage(error.response.data.data.errors),
-              }
+              },
             });
             dispatch(setIsLoading(false));
             break;
           case 'error_wait_retrying':
-            dispatch(setMessage({
-              isShow: true,
-              type: 'error',
-              message: RESPONSE_MESSAGES.error_wait_retrying,
-            }));
+            dispatch(
+              setMessage({
+                isShow: true,
+                type: 'error',
+                message: RESPONSE_MESSAGES.error_wait_retrying,
+              })
+            );
             dispatch(setIsLoading(false));
             break;
           case 'error_no_user_exists':
             setValidateStatus({
               isInvalid: false,
               errors: {
-                email: [RESPONSE_MESSAGES.error_no_user_exists]
-              }
+                email: [RESPONSE_MESSAGES.error_no_user_exists],
+              },
             });
             dispatch(setIsLoading(false));
             break;
           default:
-            dispatch(setMessage({
-              isShow: true,
-              type: 'error',
-              message: RESPONSE_MESSAGES.error,
-            }));
-        } 
-      }  
-    } 
+            dispatch(
+              setMessage({
+                isShow: true,
+                type: 'error',
+                message: RESPONSE_MESSAGES.error,
+              })
+            );
+        }
+      }
+    }
   };
 
   useEffect(() => {
-    if(validateErrorStatus.suiteName === 'forgetPass' && validateErrorStatus.validateState.isInvalid) {
+    if (
+      validateErrorStatus.suiteName === 'forgetPass' &&
+      validateErrorStatus.validateState.isInvalid
+    ) {
       setValidateStatus({
         isInvalid: validateErrorStatus.validateState.isInvalid,
         errors: {
@@ -180,7 +192,7 @@ const Container: React.FC<ComponentProps> = componentProps => {
             email: [],
           },
           ...validateErrorStatus.validateState.errors,
-        }
+        },
       });
     }
   }, [validateErrorStatus]);
@@ -188,11 +200,11 @@ const Container: React.FC<ComponentProps> = componentProps => {
   useEffect(() => {
     return () => {
       dispatch(cleanupValidateErrorStatus());
-    }
+    };
   }, []);
 
   const props = { isMailSent, validateStatus, email, setEmail, deside };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

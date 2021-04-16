@@ -1,36 +1,34 @@
 import { css } from 'styled-components';
-import {
-  WithShadow,
-} from 'components/style/Mixins';
+import { WithShadow } from 'components/style/Mixins';
 
 export const base = css`
-  & > label{
-    & > input{
+  & > label {
+    & > input {
       display: none;
     }
-    & > .rail{
+    & > .rail {
       position: relative;
       display: block;
       width: 35px;
       height: 14px;
-      & > .bg{
+      & > .bg {
         width: 100%;
         height: 100%;
         border-radius: 7px;
         overflow: hidden;
-        background: ${({theme}) => theme.colors.gray_dark};
-        box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.1) inset;
-        &:after{
+        background: ${({ theme }) => theme.colors.gray_dark};
+        box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1) inset;
+        &:after {
           content: '';
           display: block;
           width: 100%;
           height: 100%;
-          background: ${({theme}) => theme.colors.primary};
-          transition: width .2s ease-in-out;
-          box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.1) inset;
+          background: ${({ theme }) => theme.colors.primary};
+          transition: width 0.2s ease-in-out;
+          box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1) inset;
         }
       }
-      & > span{
+      & > span {
         position: absolute;
         display: block;
         width: 22px;
@@ -40,18 +38,18 @@ export const base = css`
         top: 50%;
         left: 50%;
         transform: translate(0%, -50%);
-        transition: transform .2s ease-in-out;
+        transition: transform 0.2s ease-in-out;
         ${WithShadow}
       }
     }
     & > input:checked {
-      & + .rail{
-        & > .bg{
-          &:after{
+      & + .rail {
+        & > .bg {
+          &:after {
             width: 0;
           }
         }
-        & > span{
+        & > span {
           transform: translate(-100%, -50%);
         }
       }
@@ -60,4 +58,3 @@ export const base = css`
 `;
 
 export const primary = css``;
-

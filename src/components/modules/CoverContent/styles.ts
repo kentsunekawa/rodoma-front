@@ -7,8 +7,8 @@ export const base = css`
   z-index: 200;
   width: 100%;
   height: 100%;
-  background: ${({theme}) => theme.bg};
-  & > .content{
+  background: ${({ theme }) => theme.bg};
+  & > .content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -16,8 +16,7 @@ export const base = css`
     width: 90%;
     max-width: 500px;
   }
-  .RoundButton{
+  .RoundButton {
     min-width: 172px;
   }
 `;
-

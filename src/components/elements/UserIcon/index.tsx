@@ -5,22 +5,18 @@ import { AspectFix } from 'components/style/Mixins';
 // component root class name
 const CLASSNAME = 'UserIcon';
 
-
 // declare types
 interface ComponentProps {
   className?: string;
   url?: string;
   alt?: string;
-  onClick?: (e: any) => void;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`} onClick={props.onClick}>
-    <div className='inner'></div>
-    {/* <img src={url} alt={alt} className={`img`}/> */}
+    <div className="inner"></div>
   </div>
 );
 
@@ -43,9 +39,8 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-  return <StyeldComponent { ...componentProps }></StyeldComponent>;
-}
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  return <StyeldComponent {...componentProps}></StyeldComponent>;
+};
 
 export default Container;

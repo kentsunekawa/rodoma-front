@@ -17,7 +17,7 @@ interface Value {
 
 interface ComponentProps {
   name: string;
-  selected: number | string,
+  selected: number | string;
   values: Value[];
   className?: string;
   onChange: (selected: string | number) => void;
@@ -29,25 +29,27 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <ul className='list'>
+    <ul className="list">
       {props.values.map((value, i) => {
-          const bgColor = AppTheme[props.mode].colors[value.color];
-          return <li key={i} className='item'>
+        const bgColor = AppTheme[props.mode].colors[value.color];
+        return (
+          <li key={i} className="item">
             <input
-              type='radio'
+              type="radio"
               id={`${props.name}_${i}`}
               value={value.label}
               checked={value.label === props.selected}
               onChange={props.onChildChange}
             />
-            <label htmlFor={`${props.name}_${i}`} className='label'>
-              <span className='ring' style={{border: `2px solid ${bgColor}`}}></span>
-              <span className='circle' style={{background: bgColor}} ></span>
+            <label htmlFor={`${props.name}_${i}`} className="label">
+              <span className="ring" style={{ border: `2px solid ${bgColor}` }}></span>
+              <span className="circle" style={{ background: bgColor }}></span>
             </label>
-          </li>;
-        })}
+          </li>
+        );
+      })}
     </ul>
   </div>
 );
@@ -58,22 +60,21 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { selected, onChange } = componentProps;
 
   const mode = useSelector(modeSelector);
 
   const onChildChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(typeof selected === 'number') {
+    if (typeof selected === 'number') {
       onChange(Number(e.target.value));
     } else {
       onChange(e.target.value);
     }
-  }
+  };
 
-  const props = { mode, onChildChange,  };
+  const props = { mode, onChildChange };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

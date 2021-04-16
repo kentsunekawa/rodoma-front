@@ -1,16 +1,15 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  .relationListArea{
-    & > .TabChanger{
-      & > .Tab{
+  .relationListArea {
+    & > .TabChanger {
+      & > .Tab {
         width: 247px;
         margin: 0 auto;
       }
     }
-    .TabContent{
+    .TabContent {
       padding-top: 20px;
     }
   }
 `;
-

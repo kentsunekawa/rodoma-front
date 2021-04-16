@@ -23,28 +23,28 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <ul className='list'>
-    {
-      props.CategoryTree.map((category, i) => {
-        if(i !== 0){
-          return <li className='item' key={i}>
-            <Accordion
-              types={['nega']}
-              onClick={props.onClick}
-              parent={{
-                id: category.id,
-                name: category.name,
-              }}
-              childList={category.specialties}
-            />
-          </li>
+    <ul className="list">
+      {props.CategoryTree.map((category, i) => {
+        if (i !== 0) {
+          return (
+            <li className="item" key={i}>
+              <Accordion
+                types={['nega']}
+                onClick={props.onClick}
+                parent={{
+                  id: category.id,
+                  name: category.name,
+                }}
+                childList={category.specialties}
+              />
+            </li>
+          );
         } else {
           return null;
         }
-      })
-    }
+      })}
     </ul>
   </div>
 );
@@ -55,18 +55,17 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { onChange } = componentProps;
 
   const CategoryTree = useSelector(categoryTreeSelector);
 
-  const onClick = (parentId: number, childId: number = 0) => {
+  const onClick = (parentId: number, childId = 0) => {
     onChange(parentId, childId);
-  }
+  };
 
   const props = { CategoryTree, onClick };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

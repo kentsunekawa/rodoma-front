@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Styled from 'styled-components';
 import * as styles from './styles';
 
@@ -23,26 +22,25 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <ul className='list'>
-      {
-        props.users.map((user, i) => {
-          return <li className='item' key={i} data-id={user.id}>
+    <ul className="list">
+      {props.users.map((user, i) => {
+        return (
+          <li className="item" key={i} data-id={user.id}>
             <UserBlock
               linkable
               userId={user.id}
               userName={user.name}
               icon_url={user.icon_url}
-              className='block'
+              className="block"
               types={['alignCenter', 'l']}
               onButtonClick={props.onRemove && (() => props.onClickRemoveButton(user.id))}
               buttonIcon={<IconMinus />}
             />
-          </li>;
-        })
-      }
-      
+          </li>
+        );
+      })}
     </ul>
   </div>
 );
@@ -53,18 +51,17 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { onRemove } = componentProps;
 
   const onClickRemoveButton = (id: number) => {
     onRemove && onRemove(id);
-  }
+  };
 
   const props = {
-    onClickRemoveButton
-  }
-  
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+    onClickRemoveButton,
+  };
+
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

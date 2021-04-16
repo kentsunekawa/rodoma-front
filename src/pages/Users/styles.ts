@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  .userListHeader{
+  .userListHeader {
     margin-bottom: 15px;
   }
 `;

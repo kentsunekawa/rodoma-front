@@ -4,30 +4,30 @@ export const base = css`
   position: relative;
   width: 100%;
   height: 100%;
-  & > .inner{
-    & > .upper{
+  & > .inner {
+    & > .upper {
       display: flex;
       justify-content: center;
       align-content: center;
       align-items: center;
       width: 100%;
       height: 240px;
-      & > .UserBlock{
-        & > p{
+      & > .UserBlock {
+        & > p {
           color: #fff;
         }
       }
     }
-    & > .menu{
-      & > .list{
-        & > .item{
+    & > .menu {
+      & > .list {
+        & > .item {
           text-align: center;
           margin-bottom: 24px;
         }
       }
     }
   }
-  & > .bottom{
+  & > .bottom {
     position: absolute;
     left: 0;
     bottom: 25px;
@@ -35,4 +35,3 @@ export const base = css`
     width: 100%;
   }
 `;
-

@@ -33,11 +33,11 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <PageBase>
       <ListHeader
-        title='ユーザー'
+        title="ユーザー"
         sortKeys={[
           // {
           //   value: 'likes_count',
@@ -45,19 +45,17 @@ const Component: React.FC<Props> = props => (
           // },
           {
             value: 'created_at',
-            label: 'New'
+            label: 'New',
           },
         ]}
-        className='userListHeader'
-      />      
+        className="userListHeader"
+      />
       <InfinityScroll
         resetTriggerKeys={[props.searchQuery]}
         list={props.users}
         getDataFunc={props.getUser}
       >
-        <UsersList
-          users={props.users}
-        />
+        <UsersList users={props.users} />
       </InfinityScroll>
     </PageBase>
   </div>
@@ -69,53 +67,51 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
-  const searchQuery = useSelector(searchQuerySelector);  
+  const searchQuery = useSelector(searchQuerySelector);
   const [users, setUsers] = useState<UserData_overview[]>([]);
-  const isMouted = useRef<Boolean>(false);
+  const isMouted = useRef<boolean>(false);
 
   const getUser = async (
     currentUsers: UserData_overview[] = [],
-    currentOffset: number = 0,
-    cb: (count: number) => void,
+    currentOffset = 0,
+    cb: (count: number) => void
   ) => {
     try {
       const result = await Users.getUsers(searchQuery, currentOffset, 20);
-      if(result.status === 'success_get_users' && result.data) {
-        if(isMouted.current) {
-          cb(result.data.query.all!);
-          setUsers([
-            ...currentUsers,
-            ...result.data.users,
-          ]); 
+      if (result.status === 'success_get_users' && result.data) {
+        if (isMouted.current && result.data.query.all) {
+          cb(result.data.query.all);
+          setUsers([...currentUsers, ...result.data.users]);
         }
       }
-    } catch(error) {
-      dispatch(setMessage({
-        isShow: true,
-        type: 'error',
-        message: RESPONSE_MESSAGES.error,
-      }));
+    } catch (error) {
+      dispatch(
+        setMessage({
+          isShow: true,
+          type: 'error',
+          message: RESPONSE_MESSAGES.error,
+        })
+      );
     }
-  }
+  };
 
   useEffect(() => {
-    if(isMouted.current) {
+    if (isMouted.current) {
       setUsers([]);
     }
-  }, [searchQuery])
+  }, [searchQuery]);
 
   useEffect(() => {
     isMouted.current = true;
     return () => {
       isMouted.current = false;
-    }
-  }, [])
+    };
+  }, []);
 
   const props = { searchQuery, users, getUser };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

@@ -1,7 +1,8 @@
-import { IoCaretDownSharp } from "react-icons/io5";
+import React from 'react';
+import { IoCaretDownSharp } from 'react-icons/io5';
 
-const IconDown = () => {
-  return <IoCaretDownSharp/>;
-}
+const IconDown: React.FC = () => {
+  return <IoCaretDownSharp />;
+};
 
 export default IconDown;

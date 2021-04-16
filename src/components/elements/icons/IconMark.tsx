@@ -1,7 +1,8 @@
-import { IoBookmarkOutline } from "react-icons/io5";
+import React from 'react';
+import { IoBookmarkOutline } from 'react-icons/io5';
 
-const IconMark = () => {
+const IconMark: React.FC = () => {
   return <IoBookmarkOutline />;
-}
+};
 
 export default IconMark;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import Styled from 'styled-components';
 
 import { setModal } from 'state/modules/app';
@@ -28,36 +28,20 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    {
-      !props.isNew && <CircleButton
-        types={['m', 'gray_dark']}
-        onClick={props.deleteConfirm}
-        className='button'
-      >
+    {!props.isNew && (
+      <CircleButton types={['m', 'gray_dark']} onClick={props.deleteConfirm} className="button">
         <IconTrash />
       </CircleButton>
-    }
-    <RoundButton
-      types={['m']}
-      onClick={props.finishConfirm}
-      className='button'
-    >
+    )}
+    <RoundButton types={['m']} onClick={props.finishConfirm} className="button">
       終了する
     </RoundButton>
-    <RoundButton
-      types={['m']}
-      onClick={props.save}
-      className='button'
-    >
+    <RoundButton types={['m']} onClick={props.save} className="button">
       保存する
     </RoundButton>
-    <RoundButton
-      types={['m', 'gradient']}
-      onClick={props.releaseConfirm}
-      className='button'
-    >
+    <RoundButton types={['m', 'gradient']} onClick={props.releaseConfirm} className="button">
       公開する
     </RoundButton>
   </div>
@@ -69,24 +53,23 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
 
   const finishConfirm = () => {
     dispatch(setModal('postEditFinish'));
-  }
+  };
 
   const releaseConfirm = () => {
     dispatch(setModal('postEditRelease'));
-  }
+  };
 
   const deleteConfirm = () => {
     dispatch(setModal('postDelete'));
-  }
+  };
 
   const props = { finishConfirm, releaseConfirm, deleteConfirm };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

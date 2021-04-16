@@ -20,26 +20,22 @@ interface ComponentProps {
   className?: string;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='row'>
-      <Paragraph>
-        終了しますか？
-      </Paragraph>
+    <div className="row">
+      <Paragraph>終了しますか？</Paragraph>
     </div>
-    <div className='row'>
+    <div className="row">
       <RoundButton
         onClick={() => props.exit(true)}
         types={['gradient', 'l']}
-        className='desideButton'
+        className="desideButton"
       >
         保存して終了
       </RoundButton>
     </div>
-    <div className='row'>
+    <div className="row">
       <TextButton onClick={() => props.exit()} types={['primary']}>
         保存せずに終了
       </TextButton>
@@ -53,16 +49,15 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
 
   const cancel = () => {
     dispatch(setModal(''));
-  }
+  };
 
   const props = { cancel };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

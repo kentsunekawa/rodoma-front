@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Styled from 'styled-components';
 
 import { UserData_overview } from 'types';
@@ -41,15 +41,13 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <Modal modalName={props.modalName} className='removeFollowModal'>
-      <div className='row'>
-        <Paragraph>
-          フォローを解除しますか？
-        </Paragraph>
+    <Modal modalName={props.modalName} className="removeFollowModal">
+      <div className="row">
+        <Paragraph>フォローを解除しますか？</Paragraph>
       </div>
-      <div className='row'>
+      <div className="row">
         <RoundButton onClick={props.removeFollow} types={['gradient', 'l']}>
           OK
         </RoundButton>
@@ -74,82 +72,83 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const modalName = 'removeFollow';
 
   const dispatch = useDispatch();
-  const {state, contextDispatch} = useContext(UserContext);
+  const { state } = useContext(UserContext);
   const [willRemoveId, setWillRemoveId] = useState<null | number>(null);
   const [followings, setFollowings] = useState<UserData_overview[]>([]);
   const [listResetCount, setListResetCount] = useState<number>(0);
-  const isMouted = useRef<Boolean>(false);
-  
+  const isMouted = useRef<boolean>(false);
 
   const getFollowers = async (
     currentFollowings: UserData_overview[] = [],
-    currentOffset: number = 0,
-    cb: (count: number) => void,
+    currentOffset = 0,
+    cb: (count: number) => void
   ) => {
-    if(state.id) {
-      try{
+    if (state.id) {
+      try {
         const result = await User.getFollowings(state.id, currentOffset, 20);
-        if(result.status === 'success_get_followings' && result.data) {
-          if(isMouted.current) {
-            cb(result.data.query.all!);
-            setFollowings([
-              ...currentFollowings,
-              ...result.data.users,
-            ]);
+        if (result.status === 'success_get_followings' && result.data) {
+          if (isMouted.current && result.data.query.all) {
+            cb(result.data.query.all);
+            setFollowings([...currentFollowings, ...result.data.users]);
           }
         }
-      } catch(error) {  
-        dispatch(setMessage({
-          isShow: true,
-          type: 'error',
-          message: RESPONSE_MESSAGES.error,
-        }));
+      } catch (error) {
+        dispatch(
+          setMessage({
+            isShow: true,
+            type: 'error',
+            message: RESPONSE_MESSAGES.error,
+          })
+        );
       }
     }
-  }
+  };
 
   const removeFollowConfirm = (id: number) => {
     setWillRemoveId(id);
     dispatch(setModal(modalName));
-  }
-  
+  };
+
   const removeFollow = async () => {
     dispatch(setModal(''));
     dispatch(setIsLoading(true));
-    if(state.id && willRemoveId) {
-      try{
+    if (state.id && willRemoveId) {
+      try {
         const result = await User.putRelation(state.id, willRemoveId);
-        if(!result.data?.relation) {
+        if (!result.data?.relation) {
           setListResetCount(listResetCount + 1);
           dispatch(setIsLoading(false));
-          dispatch(setMessage({
-            isShow: true,
-            type: 'success',
-            message: RESPONSE_MESSAGES.success_unfollow,
-          }));
+          dispatch(
+            setMessage({
+              isShow: true,
+              type: 'success',
+              message: RESPONSE_MESSAGES.success_unfollow,
+            })
+          );
         }
       } catch (error) {
         dispatch(setIsLoading(false));
-        dispatch(setMessage({
-          isShow: true,
-          type: 'error',
-          message: RESPONSE_MESSAGES.error,
-        }));
+        dispatch(
+          setMessage({
+            isShow: true,
+            type: 'error',
+            message: RESPONSE_MESSAGES.error,
+          })
+        );
       }
     }
-  }
+  };
 
   useEffect(() => {
     isMouted.current = true;
     return () => {
       isMouted.current = false;
-    }
-  }, [])
+    };
+  }, []);
 
   const props = {
     modalName,
@@ -162,6 +161,6 @@ const Container: React.FC<ComponentProps> = componentProps => {
     getFollowers,
   };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

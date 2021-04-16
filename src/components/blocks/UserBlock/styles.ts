@@ -4,17 +4,17 @@ export const base = css`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  align-content: center;  
+  align-content: center;
   & > .name {
     display: block;
     text-align: center;
-    color: ${({theme}) => theme.themeColors.black};
-    padding: 0 .5em;
+    color: ${({ theme }) => theme.themeColors.black};
+    padding: 0 0.5em;
   }
-  & > .icon{
+  & > .icon {
     position: relative;
     width: 34px;
-    & > .button{
+    & > .button {
       position: absolute;
       right: 0;
       top: 0;
@@ -28,7 +28,7 @@ export const iconLeft = css`
   & > .name {
     order: 2;
   }
-  & > .icon{
+  & > .icon {
     order: 1;
   }
 `;
@@ -38,21 +38,21 @@ export const iconRight = css`
   & > .name {
     order: 1;
   }
-  & > .icon{
+  & > .icon {
     order: 2;
   }
 `;
 
 export const alignCenter = css`
   justify-content: center;
-  & > .name{
+  & > .name {
     width: 100%;
-    margin-top: .5em;
+    margin-top: 0.5em;
   }
 `;
 
 export const s = css`
-  & > .icon{
+  & > .icon {
     width: 34px;
   }
   & > .name {
@@ -61,17 +61,17 @@ export const s = css`
 `;
 
 export const m = css`
-  & > .icon{
+  & > .icon {
     width: 56px;
   }
   & > .name {
-    margin-top: .2em;
+    margin-top: 0.2em;
     font-size: 1.4rem;
   }
 `;
 
 export const l = css`
-  & > .icon{
+  & > .icon {
     width: 128px;
   }
   & > .name {

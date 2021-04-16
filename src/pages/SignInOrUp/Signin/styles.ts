@@ -1,10 +1,8 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  .row{
+  .row {
     margin-bottom: 40px;
     text-align: center;
   }
 `;
-
-

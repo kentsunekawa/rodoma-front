@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 
-export const doorHide = (root: HTMLDivElement, logo: HTMLDivElement) => {
+export const doorHide = (root: HTMLDivElement, logo: HTMLDivElement): Promise<null> => {
   return new Promise((resolve) => {
     gsap.to(logo, {
       y: '-200px',
@@ -21,7 +21,7 @@ export const doorHide = (root: HTMLDivElement, logo: HTMLDivElement) => {
   });
 };
 
-export const toggleLoading = (root: HTMLDivElement, dir: boolean = true) => {
+export const toggleLoading = (root: HTMLDivElement, dir = true): Promise<null> => {
   if (dir) {
     return new Promise((resolve) => {
       gsap.killTweensOf(root);
@@ -60,8 +60,8 @@ export const toggleMenu = (
   root: HTMLDivElement,
   panel: HTMLDivElement,
   overlay: HTMLDivElement,
-  dir: boolean = true
-) => {
+  dir = true
+): void => {
   if (dir) {
     gsap.set(root, {
       display: 'block',
@@ -101,11 +101,7 @@ export const toggleMenu = (
   }
 };
 
-export const toggleAccordion = (
-  child: HTMLDivElement,
-  inner: HTMLDivElement,
-  dir: boolean = true
-) => {
+export const toggleAccordion = (child: HTMLDivElement, inner: HTMLDivElement, dir = true): void => {
   const ease = 'Power2.easeInOut';
   const duration = 0.3;
 
@@ -127,11 +123,7 @@ export const toggleAccordion = (
   }
 };
 
-export const toggleSearchPanel = (
-  bg: HTMLDivElement,
-  inner: HTMLDivElement,
-  dir: boolean = true
-) => {
+export const toggleSearchPanel = (bg: HTMLDivElement, inner: HTMLDivElement, dir = true): void => {
   const ease = 'Power2.easeOut';
   const duration = 0.3;
 
@@ -179,8 +171,8 @@ export const toggleModal = (
   root: HTMLDivElement,
   mask: HTMLDivElement,
   overlay: HTMLDivElement,
-  dir: boolean = true
-) => {
+  dir = true
+): Promise<null> => {
   const duration = 0.3;
   const ease = 'Power2.easeOut';
 
@@ -232,9 +224,9 @@ export const toggleModal = (
 export const toggleMessage = (
   root: HTMLDivElement,
   counter: HTMLSpanElement,
-  isShow: boolean = true,
+  isShow = true,
   count?: number
-) => {
+): Promise<null> => {
   return new Promise((resolve) => {
     if (isShow) {
       gsap.killTweensOf(counter);
@@ -278,8 +270,8 @@ export const toggleCard = (
   root: HTMLDivElement,
   panel: HTMLDivElement,
   overlay: HTMLDivElement,
-  dir: boolean = true
-) => {
+  dir = true
+): Promise<null> => {
   const duration = 0.4;
 
   return new Promise((resolve) => {

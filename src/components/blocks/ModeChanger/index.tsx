@@ -10,26 +10,22 @@ interface Props {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
-  <Switch
-    isChecked={props.isChecked}
-    onChange={props.change}
-  />
+const Component: React.FC<Props> = (props: Props) => (
+  <Switch isChecked={props.isChecked} onChange={props.change} />
 );
 
 // container component
 const Container: React.FC = () => {
-
   const dispatch = useDispatch();
   const mode = useSelector(modeSelector);
   const isChecked = mode === 'light' ? false : true;
 
   const change = (value: boolean) => {
     dispatch(modeChange(value ? 'dark' : 'light'));
-  }
+  };
 
   const props = { change, isChecked };
 
-  return <Component { ...props } ></Component>;
-}
+  return <Component {...props}></Component>;
+};
 export default Container;

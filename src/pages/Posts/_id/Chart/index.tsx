@@ -21,13 +21,9 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`} ref={props.childRef}>
-    {
-      props.post && <Chart
-        subjects={props.post.subjects}
-      />
-    }
+    {props.post && <Chart subjects={props.post.subjects} />}
   </div>
 );
 
@@ -37,12 +33,11 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
-  const {state, contextDispatch} = useContext(PostContext);
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  const { state } = useContext(PostContext);
 
   const props = { post: state.post };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

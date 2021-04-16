@@ -1,7 +1,5 @@
 import { css } from 'styled-components';
-import {
-  WithShadow,
-} from 'components/style/Mixins';
+import { WithShadow } from 'components/style/Mixins';
 
 export const base = css`
   display: none;
@@ -11,7 +9,7 @@ export const base = css`
   width: 100%;
   height: 100vh;
   z-index: 200;
-  & > .mask{
+  & > .mask {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -19,7 +17,7 @@ export const base = css`
     z-index: 1;
     display: block;
     width: 100%;
-    & > .panel{
+    & > .panel {
       position: absolute;
       display: block;
       left: 50%;
@@ -28,19 +26,19 @@ export const base = css`
       transform: translate(-50%, -50%);
       width: 90%;
       max-width: 500px;
-      background: ${({theme}) => theme.darkBg};
+      background: ${({ theme }) => theme.darkBg};
       border-radius: 3px;
       ${WithShadow}
-      & > .inner{
+      & > .inner {
         position: relative;
         z-index: 0;
         width: 100%;
         height: 100%;
         max-height: 70vh;
         overflow-y: scroll;
-        padding: 32px;        
+        padding: 32px;
       }
-      & > .closeButton{
+      & > .closeButton {
         position: absolute;
         top: 0;
         right: 0;
@@ -50,5 +48,3 @@ export const base = css`
     }
   }
 `;
-
-

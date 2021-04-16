@@ -7,7 +7,16 @@ import * as styles from './styles';
 const CLASSNAME = 'TextButton';
 
 // declare types
-type StyleType = 'primary' | 'nega' | 'withIconRight' | 's' | 'm' | 'l' | 'gray_midium' | 'block' | 'alignCenter';
+type StyleType =
+  | 'primary'
+  | 'nega'
+  | 'withIconRight'
+  | 's'
+  | 'm'
+  | 'l'
+  | 'gray_midium'
+  | 'block'
+  | 'alignCenter';
 
 interface ComponentProps {
   className?: string;
@@ -20,43 +29,33 @@ interface ComponentProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-interface Props extends ComponentProps {}
+interface Props extends ComponentProps {
+  children: React.ReactNode;
+}
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <>
-    {
-      props.onClick
-      ? <button className={`${CLASSNAME} ${props.className}`} onClick={props.onClick}>
+    {props.onClick ? (
+      <button className={`${CLASSNAME} ${props.className}`} onClick={props.onClick}>
         {props.children}
-        {props.icon && (
-          <div className="icon">
-            {props.icon}
-          </div>
-        )}
+        {props.icon && <div className="icon">{props.icon}</div>}
       </button>
-      : (<>
-        {
-          props.link
-            ? <Link  className={`${CLASSNAME} ${props.className}`} to={props.link}>
-              {props.children}
-              {props.icon && (
-                <div className="icon">
-                  {props.icon}
-                </div>
-              )}
-            </Link>
-            : <a  className={`${CLASSNAME} ${props.className}`} href={props.href} target={props.target}>
-              {props.children}
-              {props.icon && (
-                <div className="icon">
-                  {props.icon}
-                </div>
-              )}
-            </a>
-        }
-      </>)
-    }
+    ) : (
+      <>
+        {props.link ? (
+          <Link className={`${CLASSNAME} ${props.className}`} to={props.link}>
+            {props.children}
+            {props.icon && <div className="icon">{props.icon}</div>}
+          </Link>
+        ) : (
+          <a className={`${CLASSNAME} ${props.className}`} href={props.href} target={props.target}>
+            {props.children}
+            {props.icon && <div className="icon">{props.icon}</div>}
+          </a>
+        )}
+      </>
+    )}
   </>
 );
 
@@ -64,12 +63,12 @@ const Component: React.FC<Props> = props => (
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-  return <StyeldComponent { ...componentProps } ></StyeldComponent>;
-}
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  return <StyeldComponent {...componentProps}></StyeldComponent>;
+};
 
 export default Container;
