@@ -143,7 +143,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     return () => {
       dispatch(cleanupValidateErrorStatus());
     };
-  }, []);
+  }, [dispatch]);
 
   const change = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSignupInfo({

@@ -57,7 +57,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const { onChange } = componentProps;
 
   const onButtonClick = (i: number) => {
-    onChange && onChange(i);
+    if (onChange) onChange(i);
   };
 
   const props = { onButtonClick };

@@ -226,7 +226,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     if (currentSubject !== null) {
       setSubject(post.subjects[currentSubject]);
     }
-  }, [currentSubject]);
+  }, [currentSubject, post.subjects]);
 
   const props = {
     subject,

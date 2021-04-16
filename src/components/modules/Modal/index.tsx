@@ -83,11 +83,9 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       setIsAppear(true);
     } else {
       if (isAppear) {
-        console.log('remove');
         if (dom.root.current && dom.mask.current && dom.overlay.current) {
           await anim_toggleModal(dom.root.current, dom.mask.current, dom.overlay.current, false);
         }
-        console.log('remove');
         window.removeEventListener('resize', resizeFunc.current);
         setIsAppear(false);
         dispatch(setModal(''));
@@ -97,6 +95,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
 
   useEffect(() => {
     toggleAppear(modal);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modal]);
 
   useEffect(() => {
@@ -110,6 +109,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
         anim_toggleModal(dom.root.current, dom.mask.current, dom.overlay.current, true);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAppear]);
 
   const adjustHeight = () => () => {

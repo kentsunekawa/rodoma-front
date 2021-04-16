@@ -47,8 +47,6 @@ class Auth {
 
   static resetPass(resetPassInfo: ResetPassInfo): Promise<Response> {
     return new Promise<Response>((resolve, reject) => {
-      console.log(resetPassInfo);
-
       axios_app()
         .post(`/password/reset/${resetPassInfo.token}`, resetPassInfo)
         .then((result) => {

@@ -2,10 +2,8 @@ import React, { useEffect, createContext, Reducer, useReducer } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import Styled from 'styled-components';
-
 import { UserData, UserData_overview } from 'types';
 import { userSelector } from 'state/modules/user';
-
 import Summary from '../_id/Summary';
 import Posts from '../_id/Posts';
 import Marks from '../_id/Marks';
@@ -18,7 +16,6 @@ import TabContents from 'components/modules/TabChanger/TabContents';
 import TabContent from 'components/modules/TabChanger/TabContent';
 import FollowButton from 'components/elements/buttons/FollowButton';
 import { IconUser, IconList, IconMark, IconRelation } from 'components/elements/icons';
-
 import * as styles from './styles';
 
 // component root class name
@@ -159,7 +156,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       type: 'SET_IS_LOGIN_USER',
       payload: (user && user.id === state.user?.id) || false,
     });
-  }, [state.user]);
+  }, [state.user, user]);
 
   useEffect(() => {
     if (!Number(id)) {
@@ -174,7 +171,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
         payload: Number(id),
       });
     }
-  }, [id]);
+  }, [id, history]);
 
   const props = {
     user: state.user,

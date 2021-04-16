@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Styled from 'styled-components';
@@ -95,54 +95,54 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const categoryTree = useSelector(categoryTreeSelector);
   const { state, contextDispatch } = useContext(UserContext);
 
-  const getData = async (id: number) => {
-    try {
-      const result = await User.getUser(id);
-      if (result.status === 'success_get_user' && result.data) {
-        contextDispatch({
-          type: 'SET_USER',
-          payload: {
-            ...result.data.user,
-            profile: {
-              ...result.data.user.profile,
-              sns: result.data.user.profile.sns.map((sns) => ({
-                profile_id: sns.profile_id,
-                sns_id: sns.sns_id,
-                url: sns.url,
-              })),
+  const getData = useCallback(async () => {
+    if (state.id) {
+      try {
+        const result = await User.getUser(state.id);
+        if (result.status === 'success_get_user' && result.data) {
+          contextDispatch({
+            type: 'SET_USER',
+            payload: {
+              ...result.data.user,
+              profile: {
+                ...result.data.user.profile,
+                sns: result.data.user.profile.sns.map((sns) => ({
+                  profile_id: sns.profile_id,
+                  sns_id: sns.sns_id,
+                  url: sns.url,
+                })),
+              },
             },
-          },
-        });
-      }
-    } catch (error) {
-      switch (error.response.data.status) {
-        case 'error_no_user_exists':
-          history.push('/notFound');
-          dispatch(
-            setMessage({
-              isShow: true,
-              type: 'error',
-              message: RESPONSE_MESSAGES.error_no_user_exists,
-            })
-          );
-          break;
-        default:
-          dispatch(
-            setMessage({
-              isShow: true,
-              type: 'error',
-              message: RESPONSE_MESSAGES.error,
-            })
-          );
+          });
+        }
+      } catch (error) {
+        switch (error.response.data.status) {
+          case 'error_no_user_exists':
+            history.push('/notFound');
+            dispatch(
+              setMessage({
+                isShow: true,
+                type: 'error',
+                message: RESPONSE_MESSAGES.error_no_user_exists,
+              })
+            );
+            break;
+          default:
+            dispatch(
+              setMessage({
+                isShow: true,
+                type: 'error',
+                message: RESPONSE_MESSAGES.error,
+              })
+            );
+        }
       }
     }
-  };
+  }, [state.id, contextDispatch, dispatch, history]);
 
   useEffect(() => {
-    if (state.id) {
-      getData(state.id);
-    }
-  }, [state.id]);
+    getData();
+  }, [getData]);
 
   const snsListData = state.user
     ? state.user.profile.sns.map((sns) => {

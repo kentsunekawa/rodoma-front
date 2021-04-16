@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
@@ -51,18 +51,18 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     root: useRef<HTMLDivElement>(null),
   };
 
-  const toggle = async () => {
+  const toggle = useCallback(async () => {
     if (dom.root.current) {
       await toggleLoading(dom.root.current, isLoading);
       if (!isLoading) {
         setIsAppear(false);
       }
     }
-  };
+  }, [isLoading, dom.root]);
 
   useEffect(() => {
     toggle();
-  }, [isAppear]);
+  }, [isAppear, toggle]);
 
   useEffect(() => {
     if (isLoading) {
@@ -70,7 +70,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     } else {
       toggle();
     }
-  }, [isLoading]);
+  }, [isLoading, toggle]);
 
   const props = { dom, isLoading };
 

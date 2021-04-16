@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { messageSelector } from 'state/modules/app';
 import Styled from 'styled-components';
@@ -53,9 +53,10 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     root: useRef<HTMLDivElement>(null),
     counter: useRef<HTMLSpanElement>(null),
   };
+
   const timer = useRef<number | null>(null);
 
-  const hide = async () => {
+  const hide = useCallback(async () => {
     if (timer.current !== null) clearTimeout(timer.current);
     timer.current = null;
     if (dom.root.current && dom.counter.current) {
@@ -68,7 +69,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
         })
       );
     }
-  };
+  }, [dispatch, dom.root, dom.counter]);
 
   useEffect(() => {
     if (message.message) {
@@ -76,9 +77,8 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       timer.current = window.setTimeout(() => {
         hide();
       }, count);
-      console.log(timer.current);
     }
-  }, [message]);
+  }, [message, hide]);
 
   if (message.message !== '') {
     if (dom.root.current && dom.counter.current) {

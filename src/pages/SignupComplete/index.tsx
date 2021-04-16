@@ -61,6 +61,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     } else {
       history.push('/');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <StyeldComponent {...componentProps}></StyeldComponent>;

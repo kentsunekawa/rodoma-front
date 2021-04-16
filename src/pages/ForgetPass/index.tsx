@@ -201,7 +201,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     return () => {
       dispatch(cleanupValidateErrorStatus());
     };
-  }, []);
+  }, [dispatch]);
 
   const props = { isMailSent, validateStatus, email, setEmail, deside };
 

@@ -91,7 +91,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       try {
         const result = await User.getFollowings(state.id, currentOffset, 20);
         if (result.status === 'success_get_followings' && result.data) {
-          if (isMouted.current && result.data.query.all) {
+          if (isMouted.current && result.data.query.all !== undefined) {
             cb(result.data.query.all);
             setFollowings([...currentFollowings, ...result.data.users]);
           }

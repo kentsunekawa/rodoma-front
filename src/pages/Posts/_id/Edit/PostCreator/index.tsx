@@ -373,8 +373,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   })();
 
   const adjustChartHeight = () => () => {
-    console.log('resize');
-
     if (dom.chart.current && dom.header.current) {
       dom.chart.current.style.height = `${
         window.innerHeight - (dom.header.current.getBoundingClientRect().height + 90)
@@ -392,12 +390,12 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
 
   useEffect(() => {
     dispatch(setModal('postEditSummary'));
-
     resizeFunc.current = adjustChartHeight();
     window.addEventListener('resize', resizeFunc.current);
     return () => {
       window.removeEventListener('resize', resizeFunc.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const props = {

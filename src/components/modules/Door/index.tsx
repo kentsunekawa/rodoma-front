@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import Styled from 'styled-components';
 import { isDoorShownSelector } from 'state/modules/app';
@@ -55,18 +55,18 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     logo: useRef<HTMLDivElement>(null),
   };
 
-  const hide = async () => {
+  const hide = useCallback(async () => {
     if (dom.root.current && dom.logo.current) {
       await doorHide(dom.root.current, dom.logo.current);
       setIsAppear(false);
     }
-  };
+  }, [dom.root, dom.logo]);
 
   useEffect(() => {
     if (!isDoorShown) {
       hide();
     }
-  }, [isDoorShown]);
+  }, [isDoorShown, hide]);
 
   const props = { dom, isAppear };
 
