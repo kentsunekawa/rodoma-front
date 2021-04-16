@@ -12,7 +12,6 @@ import { UserData_overview } from 'types/';
 
 import Styled from 'styled-components';
 import * as styles from './styles';
-
 import { Link } from 'react-router-dom';
 import CircleButton from 'components/elements/buttons/CircleButton';
 import UserIcon from 'components/elements/UserIcon';

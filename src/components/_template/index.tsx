@@ -1,12 +1,12 @@
-import React from "react";
-import Styled from "styled-components";
-import * as styles from "./styles";
+import React from 'react';
+import Styled from 'styled-components';
+import * as styles from './styles';
 
 // component root class name
-const CLASSNAME = "";
+const CLASSNAME = '';
 
 // declare types
-type StyleType = "primary";
+type StyleType = 'primary';
 
 interface ComponentProps {
   className?: string;

@@ -1,5 +1,5 @@
-import { css, keyframes } from "styled-components";
-import { COLORS } from "./AppTheme";
+import { css, keyframes } from 'styled-components';
+import { COLORS } from './AppTheme';
 
 export const Gradient = css`
   background: linear-gradient(45deg, ${COLORS.primary}, ${COLORS.secondary});
@@ -8,7 +8,7 @@ export const Gradient = css`
 export const AspectFix = css<{ aspectWidth?: number; aspectHeight?: number }>`
   position: relative;
   &:before {
-    content: "";
+    content: '';
     display: block;
     padding-top: ${(props) =>
       ((props.aspectWidth ? props.aspectWidth : 1) /
