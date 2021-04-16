@@ -13,13 +13,13 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  // user: null,
-  user: {
-    id: 108,
-    name: 'c@gmail.com',
-    icon_url:
-      'https://rodoma.s3-ap-northeast-1.amazonaws.com/img/user/icon/user_d06f36b1-7174-47d4-8dc4-58f62b50d0ae.jpg',
-  },
+  user: null,
+  // user: {
+  //   id: 108,
+  //   name: 'c@gmail.com',
+  //   icon_url:
+  //     'https://rodoma.s3-ap-northeast-1.amazonaws.com/img/user/icon/user_d06f36b1-7174-47d4-8dc4-58f62b50d0ae.jpg',
+  // },
   isInitChecked: false,
   isVisited: null,
   isSignupComplete: false,
@@ -57,24 +57,11 @@ export const initCheck = () => (dispatch: Dispatch): void => {
   if (mode === 'dark') {
     dispatch(setMode(mode));
   }
-
   const isVisited = Boolean(localStorage.getItem('isVisited'));
   if (isVisited) {
     dispatch(setIsVisited(true));
     // const token = localStorage.getItem('token');
     dispatch(setInitCheckStatus(true));
-    // if(token) {
-    //     axios_app().get<ResponseData.UserByToken>('/')
-    //     .then(result => {
-    //       dispatch(setUser(result.data));
-    //       dispatch(setInitCheckStatus(true));
-    //     })
-    //     .catch((error: AxiosError<ResponseData.Error>) => {
-    //       dispatch(setInitCheckStatus(true));
-    //     });
-    // } else {
-    //   dispatch(setInitCheckStatus(true));
-    // }
   } else {
     localStorage.setItem('isVisited', '1');
     dispatch(setIsVisited(false));

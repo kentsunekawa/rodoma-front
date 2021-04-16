@@ -23,7 +23,7 @@ interface Props extends ComponentProps {
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <label>
-      <input type="checkbox" onChange={props.change} />
+      <input type="checkbox" onChange={props.change} checked={props.isChecked} />
       <div className="rail">
         <span></span>
         <div className="bg"></div>
@@ -43,15 +43,13 @@ const StyeldComponent = Styled(Component)`
 const Container: React.FC<ComponentProps> = (componentProps) => {
   const { isChecked, onChange } = componentProps;
 
-  const [localIsChecked, setLocalIsChecked] = useState(isChecked);
+  // const [localIsChecked, setLocalIsChecked] = useState(isChecked);
 
   const change = () => {
-    const value = localIsChecked ? false : true;
-    setLocalIsChecked(value);
-    onChange(value);
+    onChange(isChecked ? false : true);
   };
 
-  const props = { localIsChecked, change };
+  const props = { change };
 
   return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
 };
