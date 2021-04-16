@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
-import { requestSignin } from './actions/requestSignin';
-import { requestSignup } from './actions/requestSignup';
 import { UserData_overview } from 'types';
 import { RootState } from 'state/store';
 import { setMode } from 'state/modules/app';
+import { requestSignup } from './actions/requestSignup';
+import { requestSignin } from './actions/requestSignin';
 
 interface UserState {
   user: UserData_overview | null;

@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Styled from 'styled-components';
-
 import { UserData_overview } from 'types';
-
 import CheckList from 'components/blocks/CheckList';
 import ToggleTagList from 'components/blocks/ToggleTagList';
 import SearchKeyword from 'components/elements/inputs/SearchKeyword';
@@ -109,7 +107,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     setKeyword(e.target.value);
   };
 
-  const search = () => {
+  const search = useCallback(() => {
     const newUsers: CheckUserData[] = [];
     users.forEach((user) => {
       if (user.name.indexOf(keyword) !== -1) {
@@ -120,7 +118,20 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       }
     });
     setDisplayUsers(newUsers);
-  };
+  }, [keyword, users]);
+
+  // const search = () => {
+  //   const newUsers: CheckUserData[] = [];
+  //   users.forEach((user) => {
+  //     if (user.name.indexOf(keyword) !== -1) {
+  //       newUsers.push({
+  //         value: user.id,
+  //         label: user.name,
+  //       });
+  //     }
+  //   });
+  //   setDisplayUsers(newUsers);
+  // };
 
   const change = (values: (string | number)[]) => {
     if (!maxLength || (maxLength && maxLength >= values.length)) {
@@ -142,7 +153,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
 
   useEffect(() => {
     search();
-  }, [keyword]);
+  }, [search]);
 
   const props = {
     keyword,
