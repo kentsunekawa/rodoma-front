@@ -78,8 +78,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   };
 
   const search = (query: KeywordSearchQuery) => {
-    console.log(query);
-
     dispatch(
       setQuery({
         ...searchQuery,

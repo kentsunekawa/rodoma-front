@@ -58,6 +58,7 @@ export const base = css`
       line-height: 1em;
       margin-bottom: 8px;
       color: #fff;
+      text-align: left;
       &:last-of-type {
         margin-bottom: 0;
       }

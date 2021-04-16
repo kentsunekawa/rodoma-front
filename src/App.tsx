@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import GuestRoute from 'pages/GuestRoute';
 import Home from 'pages/Posts';
 import Users from 'pages/Users';
@@ -30,39 +30,34 @@ import Loading from 'components/modules/Loading';
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const isInitChecked = useSelector(isInitCheckedSelector);
   const isVisited = useSelector(isVisitedSelector);
   const isInitRender = useRef<boolean>(false);
-  const isInitCounted = useRef<boolean>(false);
+
+  const noRedirectPaths = ['/resetPass', '/emailVerify'];
 
   useEffect(() => {
     if (isInitRender.current) {
-      const timer = setInterval(() => {
-        if (isInitCounted.current) {
-          clearInterval(timer);
-          dispatch(setIsDoorShow(false));
-        }
-      }, 500);
+      dispatch(setIsDoorShow(false));
     }
   }, [dispatch, isInitChecked]);
 
   useEffect(() => {
+    console.log(noRedirectPaths.includes(location.pathname));
+
     if (isInitRender.current) {
-      if (!isVisited) {
+      if (!isVisited && !noRedirectPaths.includes(location.pathname)) {
         history.push('/intro');
       }
     }
-  }, [history, isVisited]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isVisited, history]);
 
   useEffect(() => {
-    setTimeout(() => {
-      isInitCounted.current = true;
-    }, 0);
     dispatch(initCheck());
-
     dispatch(requestCategoryTree());
     dispatch(requestSnsList());
-
     isInitRender.current = true;
   }, [dispatch]);
 
