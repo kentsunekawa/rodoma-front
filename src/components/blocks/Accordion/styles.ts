@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  & > .parent{
+  & > .parent {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,23 +9,23 @@ export const base = css`
     border-bottom: 2px solid #fff;
     padding: 5px 0;
   }
-  & > .child{
+  & > .child {
     padding-left: 30px;
     overflow: hidden;
     height: 0;
-    &.-open{
+    &.-open {
       height: auto;
     }
-    & > .inner{
+    & > .inner {
       padding-bottom: 15px;
-      & > .list{
-        & > .item{
+      & > .list {
+        & > .item {
           width: 100%;
           border-bottom: 2px solid #fff;
-          .TextButton{
+          .TextButton {
             width: 100%;
             text-align: left;
-            padding: .8em 0;       
+            padding: 0.8em 0;
           }
         }
       }
@@ -33,4 +33,3 @@ export const base = css`
   }
 `;
 export const nega = css``;
-

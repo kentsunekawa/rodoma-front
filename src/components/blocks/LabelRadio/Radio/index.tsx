@@ -23,7 +23,7 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <input
       checked={props.isChecked}
@@ -34,14 +34,13 @@ const Component: React.FC<Props> = props => (
       name={props.name}
       onChange={props.onChildChange}
     />
-    {
-      props.value === 0
-      ? <label className='label -noSelect' htmlFor={`${props.name}_${props.value}`}>
+    {props.value === 0 ? (
+      <label className="label -noSelect" htmlFor={`${props.name}_${props.value}`}>
         <IconClose />
       </label>
-      :  <label className='label' htmlFor={`${props.name}_${props.value}`}>
-      </label>
-    }
+    ) : (
+      <label className="label" htmlFor={`${props.name}_${props.value}`}></label>
+    )}
   </div>
 );
 
@@ -50,25 +49,24 @@ const StyeldComponent = Styled(Component)`
   ${styles.base}
   .label{
     &:before{
-      border-color: ${({theme, value}) => theme.colors.subjects[value]};
+      border-color: ${({ theme, value }) => theme.colors.subjects[value]};
     }
     &:after{
-      background: ${({theme, value}) => theme.colors.subjects[value]};
+      background: ${({ theme, value }) => theme.colors.subjects[value]};
     }
   }
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
-  const { onChange, value } = componentProps;
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  const { onChange } = componentProps;
 
   const onChildChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(Number(e.target.value));
-  }
+  };
 
   const props = { onChildChange };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

@@ -4,7 +4,7 @@ import Styled from 'styled-components';
 
 import { Subject, ValidateStatus, SubjectLabel, PostData } from 'types';
 import { LABEL_LIST } from 'utils';
-import { subject as validate_subject} from 'validations';
+import { subject as validate_subject } from 'validations';
 import { setModal } from 'state/modules/app';
 
 import Error from 'components/elements/Error';
@@ -44,11 +44,11 @@ interface Props extends ComponentProps {
     start: {
       value: number;
       label: string;
-    }[],
+    }[];
     end: {
       value: number;
       label: string;
-    }[],
+    }[];
   };
   textChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   linkPostChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -58,75 +58,70 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='row'>
-      <Error
-        messages={props.validateStatus.errors.title}
-      >
+    <div className="row">
+      <Error messages={props.validateStatus.errors.title}>
         <TextInput
-          label='Title'
-          name='title'
+          label="Title"
+          name="title"
           value={props.subject.title}
           onChange={props.textChange}
         />
       </Error>
     </div>
-    <div className='row -label'>
-      <span className='rowLabel'>Label</span>
+    <div className="row -label">
+      <span className="rowLabel">Label</span>
       <LabelRadio
-        name='label'
+        name="label"
         values={LABEL_LIST}
         selected={props.subject.label ? props.subject.label : 0}
         onChange={props.labelChange}
       />
     </div>
-    <div className='row -renge'>
+    <div className="row -renge">
       <Selector
         types={['s']}
-        label='Start'
-        name='renge_start'
+        label="Start"
+        name="renge_start"
         options={props.rengeOptions().start}
         selected={props.subject.renge_start.toString()}
         onChange={props.rengeChange}
-        className='rengeSelector'
+        className="rengeSelector"
       />
       〜
       <Selector
         types={['s']}
-        label='End'
-        name='renge_end'
+        label="End"
+        name="renge_end"
         options={props.rengeOptions().end}
         selected={props.subject.renge_end.toString()}
         onChange={props.rengeChange}
-        className='rengeSelector'
+        className="rengeSelector"
       />
     </div>
-    <div className='row'>
+    <div className="row">
       <TextArea
-        label='Description'
-        name='description'
+        label="Description"
+        name="description"
         value={props.subject.description}
         onChange={props.textChange}
       />
     </div>
-    <div className='row'>
+    <div className="row">
       <Selector
-        label='Link to other Roadmap'
-        name='linked_post_id'
+        label="Link to other Roadmap"
+        name="linked_post_id"
         options={props.linkablePosts}
         selected={props.subject.linked_post_id === null ? 0 : props.subject.linked_post_id}
         onChange={props.linkPostChange}
       />
     </div>
-    <div className='bottom'>
-        <RoundButton
-          types={['l', 'gradient']}
-          onClick={props.deside}
-        >
-          OK
-        </RoundButton>
-      </div>
+    <div className="bottom">
+      <RoundButton types={['l', 'gradient']} onClick={props.deside}>
+        OK
+      </RoundButton>
+    </div>
   </div>
 );
 
@@ -136,11 +131,10 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
   const { currentSubject, desideSubject, post } = componentProps;
-  const {state, contextDispatch} = useContext(PostEditContext);
+  const { state } = useContext(PostEditContext);
 
   const [subject, setSubject] = useState<Subject>({
     id: 0,
@@ -151,28 +145,28 @@ const Container: React.FC<ComponentProps> = componentProps => {
     renge_end: 50,
     title: 'subject title here...',
     description: '',
-  });  
+  });
 
   const [validateStatus, setValidateStatus] = useState<ValidateStatus<Errors>>({
     isInvalid: false,
     errors: {
       title: [],
-    }
+    },
   });
 
   const rengeOptions = () => {
-    let start = [];
-    for(let i = 0; i < subject.renge_end; i++) {
-      if(i % 5 === 0) {
+    const start = [];
+    for (let i = 0; i < subject.renge_end; i++) {
+      if (i % 5 === 0) {
         start.push({
           value: i,
           label: i.toString(),
         });
       }
     }
-    let end = [];
-    for(let i = subject.renge_start + 1; i <= 100; i++) {
-      if(i % 5 === 0) {
+    const end = [];
+    for (let i = subject.renge_start + 1; i <= 100; i++) {
+      if (i % 5 === 0) {
         end.push({
           value: i,
           label: i.toString(),
@@ -187,21 +181,21 @@ const Container: React.FC<ComponentProps> = componentProps => {
       ...subject,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
   const rengeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSubject({
       ...subject,
       [e.target.name]: Number(e.target.value),
     });
-  }
+  };
 
-  const linkPostChange = (e: React.ChangeEvent<HTMLSelectElement>) => {    
+  const linkPostChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSubject({
       ...subject,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
   const deside = () => {
     const validateResult = validate_subject(subject);
@@ -211,25 +205,25 @@ const Container: React.FC<ComponentProps> = componentProps => {
       errors: {
         title: [],
         ...validateResult.getErrors(),
-      }
+      },
     });
 
-    if(!validateResult.hasErrors()) {
+    if (!validateResult.hasErrors()) {
       desideSubject(subject);
       dispatch(setModal(''));
     }
-  }
-  
+  };
+
   const labelChange = (value: number) => {
-    const label = value === 0 ? null : value as SubjectLabel;
+    const label = value === 0 ? null : (value as SubjectLabel);
     setSubject({
       ...subject,
       label,
     });
-  }
+  };
 
   useEffect(() => {
-    if(currentSubject !== null) {      
+    if (currentSubject !== null) {
       setSubject(post.subjects[currentSubject]);
     }
   }, [currentSubject]);
@@ -242,9 +236,9 @@ const Container: React.FC<ComponentProps> = componentProps => {
     linkPostChange,
     rengeChange,
     labelChange,
-    deside
+    deside,
   };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

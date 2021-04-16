@@ -13,7 +13,7 @@ interface ComponentProps {
   value: string | number;
   label?: string;
   name?: string;
-  placeholder? : string;
+  placeholder?: string;
   className?: string;
   types?: StyleType[];
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -33,8 +33,12 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
-  <div className={`${CLASSNAME} ${props.className} ${props.isInputed || props.isFocus ? '-inputed' : ''}`}>
+const Component: React.FC<Props> = (props: Props) => (
+  <div
+    className={`${CLASSNAME} ${props.className} ${
+      props.isInputed || props.isFocus ? '-inputed' : ''
+    }`}
+  >
     <div className="inner">
       <input
         ref={props.dom.input}
@@ -45,9 +49,14 @@ const Component: React.FC<Props> = props => (
         placeholder={props.placeholder && props.placeholder}
         onFocus={props.onChildFocus}
         onChange={props.onChildChange}
-        onBlur={props.onChildBlur}/>
+        onBlur={props.onChildBlur}
+      />
     </div>
-    {props.label && <span className="label" onClick={props.labelClick}>{props.label}</span>}
+    {props.label && (
+      <span className="label" onClick={props.labelClick}>
+        {props.label}
+      </span>
+    )}
   </div>
 );
 
@@ -55,12 +64,11 @@ const Component: React.FC<Props> = props => (
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { value, onChange, onBlur } = componentProps;
 
   const [isInputed, setIsInputed] = useState(value ? true : false);
@@ -73,26 +81,26 @@ const Container: React.FC<ComponentProps> = componentProps => {
   const onChildChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsInputed(e.target.value !== '' ? true : false);
     onChange && onChange(e);
-  }
+  };
 
-  const onChildFocus = (e: React.FocusEvent<HTMLInputElement>) => {    
+  const onChildFocus = () => {
     setIsFocus(true);
-  }
+  };
 
   const onChildBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocus(false);
     setIsInputed(e.target.value !== '' ? true : false);
     onBlur && onBlur(e);
-  }
+  };
 
   const labelClick = () => {
-    if(!isFocus) {
+    if (!isFocus) {
       setIsFocus(true);
-      if(dom.input.current){
+      if (dom.input.current) {
         dom.input.current.focus();
       }
     }
-  }
+  };
 
   const props = {
     dom,
@@ -101,9 +109,9 @@ const Container: React.FC<ComponentProps> = componentProps => {
     labelClick,
     onChildChange,
     onChildBlur,
-    onChildFocus
+    onChildFocus,
   };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

@@ -2,15 +2,15 @@ import { css } from 'styled-components';
 
 export const base = css`
   position: relative;
-  & > .inner{
+  & > .inner {
     display: block;
-    border: 2px solid ${({theme}) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary};
     border-radius: 25px;
-    background: ${({theme}) => theme.bg};
-    color: ${({theme}) => theme.themeColors.black};
+    background: ${({ theme }) => theme.bg};
+    color: ${({ theme }) => theme.themeColors.black};
     font-size: 1.6rem;
     overflow: hidden;
-    & > .textarea{
+    & > .textarea {
       position: relative;
       z-index: 1;
       appearance: none;
@@ -28,22 +28,22 @@ export const base = css`
       text-align: left;
       line-height: 1.6em;
       resize: none;
-      &:focus{
+      &:focus {
         outline: none;
       }
     }
   }
-  
-  & > .label{
+
+  & > .label {
     position: absolute;
     top: 15px;
     left: 1em;
     z-index: 2;
     display: inline-block;
-    background: ${({theme}) => theme.bg};
-    color: ${({theme}) => theme.colors.primary};
-    transition: top .2s, font-size .2s;
-    padding: .2em .3em .1em;
+    background: ${({ theme }) => theme.bg};
+    color: ${({ theme }) => theme.colors.primary};
+    transition: top 0.2s, font-size 0.2s;
+    padding: 0.2em 0.3em 0.1em;
     font-size: 1.6rem;
     line-height: 1em;
   }
@@ -55,17 +55,17 @@ export const base = css`
 `;
 
 export const s = css`
-  & > .inner{
+  & > .inner {
     border-radius: 10px;
-    & > .textarea{
-      padding: .5em 1em;
+    & > .textarea {
+      padding: 0.5em 1em;
       font-size: 1.6rem;
     }
   }
 `;
 
 export const noBorder = css`
-  & > .inner{
+  & > .inner {
     border: none;
   }
 `;

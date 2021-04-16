@@ -1,19 +1,19 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  .cover{
+  .cover {
     position: relative;
     top: 0;
     left: 0;
     z-index: 0;
     width: 100%;
     background-size: cover;
-    &:before{
+    &:before {
       content: '';
       display: block;
       padding-top: 50%;
     }
-    .button{
+    .button {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -22,10 +22,10 @@ export const base = css`
       max-width: 270;
     }
   }
-  .main{
-    padding: 32px
+  .main {
+    padding: 32px;
   }
-  .categorySelector{
+  .categorySelector {
     margin-bottom: 20px;
   }
 `;

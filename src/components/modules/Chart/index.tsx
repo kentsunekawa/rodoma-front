@@ -28,7 +28,7 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = (props) => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="panel">
       {(() => {

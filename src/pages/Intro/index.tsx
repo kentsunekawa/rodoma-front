@@ -30,33 +30,28 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <TextButton
-      className='skipButton'
-      link='/signInOrUp'
+      className="skipButton"
+      link="/signInOrUp"
       types={['withIconRight']}
       icon={<IconRight />}
     >
       Skip
     </TextButton>
     <CoverContent>
-      
-      <div className='inner'>
-        <div className='logo'>
-          <Logo type='gradient' />
+      <div className="inner">
+        <div className="logo">
+          <Logo type="gradient" />
         </div>
-        <div className='text'>
+        <div className="text">
           <Paragraph types={['center', 'subTitle']}>
             サービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入ります
           </Paragraph>
         </div>
-        <div className='counter'>
-          <CircleCounter
-            isStart={props.isCountStart}
-            num={props.countSeconed}
-            types={['primary']}
-          />
+        <div className="counter">
+          <CircleCounter isStart={props.isCountStart} num={props.countSeconed} />
         </div>
       </div>
     </CoverContent>
@@ -69,8 +64,7 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const countSeconed = 10;
 
   const history = useHistory();
@@ -78,20 +72,20 @@ const Container: React.FC<ComponentProps> = componentProps => {
   const isDoorShow = useSelector(isDoorShownSelector);
 
   useEffect(() => {
-    if(!isDoorShow) {      
+    if (!isDoorShow) {
       setTimeout(() => {
         history.push('/signInOrUp');
       }, countSeconed * 1000);
-      setIsCountStart(true); 
+      setIsCountStart(true);
     }
   }, [isDoorShow]);
 
-  const skip = (() => {
+  const skip = () => {
     history.push('/signInOrUp');
-  });
+  };
 
   const props = { countSeconed, isCountStart, skip };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

@@ -1,18 +1,18 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  & > .list{
+  & > .list {
     display: flex;
     flex-wrap: wrap;
-    & > .item{
+    & > .item {
       width: 50%;
       padding: 15px 0;
-      & > a{
+      & > a {
         display: block;
       }
-     & > .UserBlock{
-       width: 100%;
-     }
+      & > .UserBlock {
+        width: 100%;
+      }
     }
   }
 `;

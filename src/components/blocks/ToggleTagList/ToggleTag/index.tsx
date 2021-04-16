@@ -13,17 +13,14 @@ interface ComponentProps {
   onClick?: (value: string) => void;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = ({ className, value, icon, onClick }) => (
-  <button className={`${CLASSNAME} ${className}`} onClick={() => onClick && onClick(value)}>
-    <div className="inner">{value}</div>
-    {icon && (
-      <div className="icon">
-        {icon}
-      </div>
-    )}
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
+  <button
+    className={`${CLASSNAME} ${props.className}`}
+    onClick={() => props.onClick && props.onClick(props.value)}
+  >
+    <div className="inner">{props.value}</div>
+    {props.icon && <div className="icon">{props.icon}</div>}
   </button>
 );
 
@@ -39,6 +36,6 @@ const Container: React.FC<ComponentProps> = ({
   className = '',
   onClick,
 }: ComponentProps) => {
-  return <StyeldComponent {...{className, value, icon, onClick}}></StyeldComponent>;
-}
+  return <StyeldComponent {...{ className, value, icon, onClick }}></StyeldComponent>;
+};
 export default Container;

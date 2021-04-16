@@ -1,17 +1,14 @@
 import { css } from 'styled-components';
-import {
-  Gradient,
-  WithShadow
-} from 'components/style/Mixins';
+import { Gradient, WithShadow } from 'components/style/Mixins';
 
 export const base = css`
-  & > .list{
+  & > .list {
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-content: center;
     height: 100%;
-    & > .item{
+    & > .item {
       height: 100%;
       & > .button {
         display: flex;
@@ -31,28 +28,28 @@ export const rounded = css`
   border-radius: 20px;
   ${Gradient}
   ${WithShadow}
-  & > .list{
-    & > .item{
+  & > .list {
+    & > .item {
       border-right: 1px solid #fff;
-      &:last-child{
+      &:last-child {
         border-right: none;
       }
       & > .button {
         font-size: 2.5rem;
         color: #fff;
-        svg{
-          opacity: .5;
-          transform: scale(.8);
-          transition: transform .2s, opacity .2s;
+        svg {
+          opacity: 0.5;
+          transform: scale(0.8);
+          transition: transform 0.2s, opacity 0.2s;
         }
-        &.-selected{
-          svg{
+        &.-selected {
+          svg {
             opacity: 1;
             transform: scale(1);
           }
         }
-        &:hover{
-          svg{
+        &:hover {
+          svg {
             opacity: 1;
           }
         }
@@ -68,9 +65,9 @@ export const switcher = css`
   ${WithShadow}
   & > .list {
     & > .item {
-      &.-selected{
+      &.-selected {
         position: relative;
-        &:before{
+        &:before {
           content: '';
           position: absolute;
           top: 50%;
@@ -81,15 +78,15 @@ export const switcher = css`
           width: calc(100% - 6px);
           height: 34px;
           border-radius: 17px;
-          background: ${({theme}) => theme.bg};
+          background: ${({ theme }) => theme.bg};
         }
       }
-      & > .button{
+      & > .button {
         position: relative;
         color: #fff;
         font-size: 1.6rem;
-        &.-selected{
-          color: ${({theme}) => theme.colors.primary};
+        &.-selected {
+          color: ${({ theme }) => theme.colors.primary};
         }
       }
     }
@@ -97,16 +94,15 @@ export const switcher = css`
 `;
 
 export const simple = css`
-  & > .list{
-    & > .item{
-      & > .button{
+  & > .list {
+    & > .item {
+      & > .button {
         font-size: 3rem;
-        color: ${({theme}) => theme.colors.gray_light};
-        &.-selected{
-          color: ${({theme}) => theme.colors.primary};
+        color: ${({ theme }) => theme.colors.gray_light};
+        &.-selected {
+          color: ${({ theme }) => theme.colors.primary};
         }
       }
     }
   }
 `;
-

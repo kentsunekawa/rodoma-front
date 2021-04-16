@@ -1,12 +1,12 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  & > .inner{
+  & > .inner {
     padding: 20px 20px 0;
-    & > .scrollableArea{
+    & > .scrollableArea {
       padding-bottom: 90px;
     }
-    & > .inputArea{
+    & > .inputArea {
       position: fixed;
       left: 0;
       bottom: 0;
@@ -14,7 +14,7 @@ export const base = css`
       width: 100%;
     }
   }
-  .CommentList{
+  .CommentList {
     width: 100%;
   }
 `;

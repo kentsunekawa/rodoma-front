@@ -14,7 +14,7 @@ const CLASSNAME = 'SelectorInput';
 interface ComponentProps {
   index: number;
   name: string;
-  onClickDelete: (index:number) => void;
+  onClickDelete: (index: number) => void;
   onSelectorChange: (value: number | string, index: number) => void;
   onTextChange: (value: string, index: number) => void;
   className?: string;
@@ -29,32 +29,31 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className="selector">
-      <Selector
-        selected={props.selectorData.selected}
-        options={props.selectorData.options!}
-        onChange={props.selectorChange}
-        types={['primary', 's']}
-        name={`${props.name}_selectro`}
-      />
-    </div>
+    {props.selectorData.options && (
+      <div className="selector">
+        <Selector
+          selected={props.selectorData.selected}
+          options={props.selectorData.options}
+          onChange={props.selectorChange}
+          types={['primary', 's']}
+          name={`${props.name}_selectro`}
+        />
+      </div>
+    )}
     <div className="input">
       <div className="textInput">
         <TextInput
-          type='text'
+          type="text"
           types={['s']}
-          { ...props.inputData }
+          {...props.inputData}
           onChange={props.textChange}
           name={`${props.name}_input`}
         />
       </div>
       <div className="deleteButton">
-        <CircleButton
-          onClick={props.clickDelete}
-          types={['xs', 'gray_dark']}
-        >
+        <CircleButton onClick={props.clickDelete} types={['xs', 'gray_dark']}>
           <IconClose />
         </CircleButton>
       </div>
@@ -68,36 +67,28 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
-  const {
-    index,
-    selectorData,
-    onSelectorChange,
-    onTextChange,
-    onClickDelete
-  } = componentProps;
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  const { index, selectorData, onSelectorChange, onTextChange, onClickDelete } = componentProps;
 
   const selectorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    
     const selectorValueType = selectorData.options && typeof selectorData.options[0].value;
-    if(selectorValueType === 'number') {
-      onSelectorChange(Number(e.target.value) ,index)  
+    if (selectorValueType === 'number') {
+      onSelectorChange(Number(e.target.value), index);
     } else {
-      onSelectorChange(e.target.value ,index)
+      onSelectorChange(e.target.value, index);
     }
-  }
+  };
 
-  const textChange = (e: React.ChangeEvent<HTMLInputElement>) => {    
-    onTextChange(e.target.value ,index)
-  }
+  const textChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onTextChange(e.target.value, index);
+  };
 
   const clickDelete = () => {
     onClickDelete(index);
-  }
+  };
 
   const props = { textChange, clickDelete, selectorChange };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

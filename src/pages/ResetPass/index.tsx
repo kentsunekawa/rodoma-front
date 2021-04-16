@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Styled from 'styled-components';
 
@@ -27,7 +27,7 @@ type Errors = {
   email: string[];
   password: string[];
   password_confirmation: string[];
-}
+};
 
 interface ComponentProps {
   className?: string;
@@ -41,43 +41,45 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <CoverContent>
       <Paragraph types={['center', 'text']}>
-        登録済のメールアドレスと、<br />
-        ご希望の新しいパスワードを<br />
+        登録済のメールアドレスと、
+        <br />
+        ご希望の新しいパスワードを
+        <br />
         ご入力ください。
       </Paragraph>
-      <div className='row'>
+      <div className="row">
         <Error messages={props.validateStatus.errors.email}>
           <TextInput
-            type='text'
+            type="text"
             value={props.resetPassInfo.email}
             label="Email"
-            name='email'
+            name="email"
             onChange={props.change}
           />
         </Error>
       </div>
-      <div className='row'>
+      <div className="row">
         <Error messages={props.validateStatus.errors.password}>
           <TextInput
-            type='password'
+            type="password"
             value={props.resetPassInfo.password}
             label="Password"
-            name='password'
+            name="password"
             onChange={props.change}
           />
         </Error>
       </div>
-      <div className='row'>
+      <div className="row">
         <Error messages={props.validateStatus.errors.password_confirmation}>
           <TextInput
-            type='password'
+            type="password"
             value={props.resetPassInfo.password_confirmation}
             label="Password Confirmation"
-            name='password_confirmation'
+            name="password_confirmation"
             onChange={props.change}
           />
         </Error>
@@ -95,8 +97,7 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -105,7 +106,7 @@ const Container: React.FC<ComponentProps> = componentProps => {
     email: '',
     password: '',
     password_confirmation: '',
-  })
+  });
 
   const [validateStatus, setValidateStatus] = useState<ValidateStatus<Errors>>({
     isInvalid: false,
@@ -113,7 +114,7 @@ const Container: React.FC<ComponentProps> = componentProps => {
       email: [],
       password: [],
       password_confirmation: [],
-    }
+    },
   });
 
   const change = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,10 +122,9 @@ const Container: React.FC<ComponentProps> = componentProps => {
       ...resetPassInfo,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
   const deside = async () => {
-
     const validateResult = validate_resetPass(resetPassInfo);
 
     setValidateStatus({
@@ -136,22 +136,24 @@ const Container: React.FC<ComponentProps> = componentProps => {
           password_confirmation: [],
         },
         ...validateResult.getErrors(),
-      }
+      },
     });
-  
-    if(!validateResult.hasErrors()) {
+
+    if (!validateResult.hasErrors()) {
       dispatch(setIsLoading(true));
       try {
         const result = await Auth.resetPass(resetPassInfo);
-        dispatch(setMessage({
-          isShow: true,
-          type: 'success',
-          message: RESPONSE_MESSAGES[result.status],
-        }));
+        dispatch(
+          setMessage({
+            isShow: true,
+            type: 'success',
+            message: RESPONSE_MESSAGES[result.status],
+          })
+        );
         dispatch(setIsLoading(false));
         history.push('/signInOrUp');
-      } catch(error) {
-        switch(error.response.data.status) {
+      } catch (error) {
+        switch (error.response.data.status) {
           case 'error_validation':
             setValidateStatus({
               isInvalid: false,
@@ -160,35 +162,37 @@ const Container: React.FC<ComponentProps> = componentProps => {
                 password: [],
                 password_confirmation: [],
                 ...adjustErrorMessage(error.response.data.data.errors),
-              }
+              },
             });
             dispatch(setIsLoading(false));
             break;
           case 'error_reset_token_invalid':
-            dispatch(setMessage({
-              isShow: true,
-              type: 'error',
-              message: RESPONSE_MESSAGES.error_reset_token_invalid,
-            }));
+            dispatch(
+              setMessage({
+                isShow: true,
+                type: 'error',
+                message: RESPONSE_MESSAGES.error_reset_token_invalid,
+              })
+            );
             dispatch(setIsLoading(false));
             break;
           default:
-            dispatch(setMessage({
-              isShow: true,
-              type: 'error',
-              message: RESPONSE_MESSAGES.error,
-            }));
+            dispatch(
+              setMessage({
+                isShow: true,
+                type: 'error',
+                message: RESPONSE_MESSAGES.error,
+              })
+            );
             dispatch(setIsLoading(false));
-        } 
+        }
       }
     }
-
-    // console.log(resetPassInfo);
-  }
+  };
 
   useEffect(() => {
     const token = getParam('token', window.location.href);
-    if(token) {
+    if (token) {
       setResetPassInfo({
         ...resetPassInfo,
         token,
@@ -200,6 +204,6 @@ const Container: React.FC<ComponentProps> = componentProps => {
 
   const props = { resetPassInfo, validateStatus, change, deside };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

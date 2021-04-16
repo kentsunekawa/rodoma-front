@@ -1,9 +1,5 @@
 import { css } from 'styled-components';
-import {
-  Gradient,
-  ButtonTapAction,
-  WithShadow
-} from 'components/style/Mixins';
+import { Gradient, ButtonTapAction, WithShadow } from 'components/style/Mixins';
 
 export const base = css`
   position: relative;
@@ -15,20 +11,20 @@ export const base = css`
   height: 40px;
   border-radius: 20px;
   font-size: 1.5rem;
-  color: ${({theme}) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
   background: #fff;
-  .icon{
+  .icon {
     position: absolute;
     top: 50%;
-    right: .3em;
+    right: 0.3em;
     transform: translateY(-50%);
     display: block;
     font-size: 150%;
   }
   ${WithShadow}
   ${ButtonTapAction}
-  &.-disabled{
-    opacity: .5;
+  &.-disabled {
+    opacity: 0.5;
   }
 `;
 
@@ -51,19 +47,18 @@ export const l = css`
   font-size: 2rem;
 `;
 
-
 export const gray_light = css`
-  background: ${({theme}) => theme.colors.gray_light};
+  background: ${({ theme }) => theme.colors.gray_light};
   color: #fff;
 `;
 
 export const gray_midium = css`
-  background: ${({theme}) => theme.colors.gray_midium};
+  background: ${({ theme }) => theme.colors.gray_midium};
   color: #fff;
 `;
 
 export const gray_dark = css`
-  background: ${({theme}) => theme.colors.gray_dark};
+  background: ${({ theme }) => theme.colors.gray_dark};
   color: #fff;
 `;
 

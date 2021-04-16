@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Styled from 'styled-components';
-import { NumberLiteralType } from 'typescript';
 import * as styles from './styles';
 
 // component root class name
 const CLASSNAME = 'CircleCounter';
 
 // declare types
-type StyleType = 'primary';
 
 interface ComponentProps {
   isStart: boolean;
   num: number;
   className?: string;
-  types?: StyleType[];
 }
 
 interface Props extends ComponentProps {
@@ -21,7 +18,7 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className={`circle${props.isStart && ' -started'}`}></div>
     <span>{props.count}</span>
@@ -31,44 +28,41 @@ const Component: React.FC<Props> = props => (
 // styled component
 const StyeldComponent = Styled(Component)`
   ${styles.base}
-  // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { isStart, num } = componentProps;
 
   const [count, setCount] = useState(num);
   const refCount = useRef(num);
   const timer = useRef<null | NodeJS.Timeout>(null);
 
-  useEffect(() => {  
-    if(isStart) {
+  useEffect(() => {
+    if (isStart) {
       timer.current = setInterval(() => {
-        if(refCount.current === 0) {
-          if(timer.current) {
+        if (refCount.current === 0) {
+          if (timer.current) {
             clearInterval(timer.current);
           }
           timer.current = null;
           setCount(0);
         }
-        if(refCount.current) {
+        if (refCount.current) {
           setCount(--refCount.current);
-        } 
+        }
       }, 1000);
     }
 
     return () => {
-      if(timer.current) {
+      if (timer.current) {
         clearInterval(timer.current);
       }
-    }
+    };
   }, [isStart]);
 
   const props = { count };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

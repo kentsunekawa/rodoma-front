@@ -13,12 +13,13 @@ const CLASSNAME = 'CoverContent';
 interface ComponentProps {
   className?: string;
 }
-
 // tslint:disable-next-line: no-empty-interface
-interface Props extends ComponentProps {}
+interface Props extends ComponentProps {
+  children: React.ReactNode;
+}
 
 // dom component
-const Component: React.FC<Props> = (props) => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="content">{props.children}</div>
   </div>
@@ -42,6 +43,10 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
 
   const props = {};
 
-  return <StyeldComponent {...componentProps} {...props} />;
+  return (
+    <StyeldComponent {...componentProps} {...props}>
+      {componentProps.children}
+    </StyeldComponent>
+  );
 };
 export default Container;

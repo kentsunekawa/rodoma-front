@@ -17,7 +17,7 @@ const CLASSNAME = 'PieChart';
 // declare types
 
 interface ComponentProps {
-  subjects: Subject[],
+  subjects: Subject[];
   className?: string;
   onChangeChartType: (type: Chart) => void;
   onClickSubject: (i: number) => void;
@@ -33,24 +33,18 @@ interface Props extends ComponentProps {
   mode: Mode;
 }
 
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='nav'>
-      <CircleButton
-        types={['m', 'gray_midium']}
-        onClick={() => props.onChangeChartType('guntt')}
-      >
+    <div className="nav">
+      <CircleButton types={['m', 'gray_midium']} onClick={() => props.onChangeChartType('guntt')}>
         <IconGanttChart />
       </CircleButton>
     </div>
-    <div className='wrapper'>
-      <div className='inner'>
-        <div className='main'>
-          <div className='chartWrapper'>
-
-          </div>
+    <div className="wrapper">
+      <div className="inner">
+        <div className="main">
+          <div className="chartWrapper"></div>
         </div>
       </div>
     </div>
@@ -63,12 +57,11 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { subjects } = componentProps;
   const mode = useSelector(modeSelector);
 
-  const graphData = subjects.map(subject => {
+  const graphData = subjects.map((subject) => {
     const colorIndex = subject.label !== null ? subject.label : 0;
     return {
       label: subject.title,
@@ -80,6 +73,6 @@ const Container: React.FC<ComponentProps> = componentProps => {
 
   const props = { graphData, mode };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

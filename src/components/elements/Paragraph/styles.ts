@@ -4,8 +4,8 @@ export const base = css`
   display: block;
   font-size: 1.4rem;
   line-height: 1.6em;
-  letter-spacing: .04em;
-  color: ${({theme}) => theme.themeColors.black};
+  letter-spacing: 0.04em;
+  color: ${({ theme }) => theme.themeColors.black};
 `;
 
 export const inline = css`
@@ -18,7 +18,7 @@ export const caption = css`
 
 export const bigTitle = css`
   font-size: 3rem;
-  letter-spacing: .05;
+  letter-spacing: 0.05;
 `;
 
 export const title = css`
@@ -51,11 +51,9 @@ export const center = css`
 `;
 
 export const primary = css`
-  color: ${({theme}) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const nega = css`
   color: #fff;
 `;
-
-

@@ -7,8 +7,7 @@ export const base = css`
   align-items: center;
   align-content: center;
   height: 80px;
-  .IconLoading{
+  .IconLoading {
     width: 40px;
   }
 `;
-

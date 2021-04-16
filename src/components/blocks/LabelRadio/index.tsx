@@ -12,20 +12,18 @@ const CLASSNAME = 'LabelRadio';
 interface ComponentProps {
   name: string;
   values: typeof LABEL_LIST;
-  selected: typeof LABEL_LIST[number],
+  selected: typeof LABEL_LIST[number];
   className?: string;
   onChange: (value: number) => void;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <ul className='list'>
-      {
-        props.values.map((value, i) => {
-          return <li className="item" key={i}>
+    <ul className="list">
+      {props.values.map((value, i) => {
+        return (
+          <li className="item" key={i}>
             <Radio
               isChecked={props.selected === value}
               value={value}
@@ -33,8 +31,8 @@ const Component: React.FC<Props> = props => (
               onChange={props.onChange}
             />
           </li>
-        })
-      }
+        );
+      })}
     </ul>
   </div>
 );
@@ -45,7 +43,7 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentPrps => {
-  return <StyeldComponent { ...componentPrps }></StyeldComponent>;
-}
+const Container: React.FC<ComponentProps> = (componentPrps) => {
+  return <StyeldComponent {...componentPrps}></StyeldComponent>;
+};
 export default Container;

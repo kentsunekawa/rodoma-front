@@ -1,20 +1,13 @@
 import { css } from 'styled-components';
-// import {
-//   Gradient,
-//   WithShadow,
-//   AspectFix,
-//   AbsCenterMiddle,
-//   ButtonTapAction
-// } from 'components/style/Mixins';
 
 export const base = css`
-  & > .CoverContent{
-    & > .content{
+  & > .CoverContent {
+    & > .content {
       width: 240px;
-      .Paragraph{
+      .Paragraph {
         margin-bottom: 40px;
       }
-      .row{
+      .row {
         margin-bottom: 40px;
       }
       .RoundButton {

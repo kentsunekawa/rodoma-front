@@ -6,7 +6,7 @@ import { Subject } from 'types';
 import MarkdownToHtml from 'components/modules/MarkdownToHtml';
 import CircleButton from 'components/elements/buttons/CircleButton';
 import { IconLink } from 'components/elements/icons';
-import Paragraph from 'components/elements/Paragraph'
+import Paragraph from 'components/elements/Paragraph';
 
 import * as styles from './styles';
 
@@ -19,23 +19,23 @@ interface ComponentProps {
   className?: string;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    {
-      props.subject.linked_post_id && <CircleButton types={['s', 'gray_midium']} className='link' link={`/roadmaps/${props.subject.linked_post_id}`}>
+    {props.subject.linked_post_id && (
+      <CircleButton
+        types={['s', 'gray_midium']}
+        className="link"
+        link={`/roadmaps/${props.subject.linked_post_id}`}
+      >
         <IconLink />
       </CircleButton>
-    }
-    
-    <div className='title'>
-      <Paragraph types={['title']}>
-        {props.subject.title}
-      </Paragraph>
+    )}
+
+    <div className="title">
+      <Paragraph types={['title']}>{props.subject.title}</Paragraph>
     </div>
-    <div className='main'>
+    <div className="main">
       <MarkdownToHtml>{props.subject.description}</MarkdownToHtml>
     </div>
   </div>
@@ -47,10 +47,9 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const props = {};
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

@@ -2,30 +2,29 @@ import { css } from 'styled-components';
 
 export const base = css`
   display: inline-block;
-  .inner{
+  .inner {
     display: flex;
     justify-content: flex-start;
     align-content: center;
     align-items: center;
   }
-  .icon{
+  .icon {
     font-size: 2rem;
-    margin-right: .2em;
+    margin-right: 0.2em;
   }
-  .num{
+  .num {
     font-size: 1.2rem;
-    color: ${({theme}) => theme.themeColors.black};
+    color: ${({ theme }) => theme.themeColors.black};
   }
 `;
 
 export const like = css`
-  .icon{
-    color: ${({theme}) => theme.colors.primary};
+  .icon {
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 export const mark = css`
-  .icon{
-    color: ${({theme}) => theme.colors.secondary};
+  .icon {
+    color: ${({ theme }) => theme.colors.secondary};
   }
 `;
-

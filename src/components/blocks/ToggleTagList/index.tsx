@@ -22,32 +22,25 @@ interface ComponentProps {
   types?: StyleType[];
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <ul className="list">
-      {
-        props.list.map((item, i) => {
-          return <li className="item" key={i}>
-              <div className="inner">
-                {
-                  (props.separator && i !== 0) && (
-                    <span className="separator">{props.separator}</span>
-                  )
-                }
-                <ToggleTag
-                  key={i}
-                  value={item.name}
-                  icon={props.icon}
-                  onClick={() => props.onClick(i)}
-                />
-              </div>
-              
-            </li>;
-        })
-      }
+      {props.list.map((item, i) => {
+        return (
+          <li className="item" key={i}>
+            <div className="inner">
+              {props.separator && i !== 0 && <span className="separator">{props.separator}</span>}
+              <ToggleTag
+                key={i}
+                value={item.name}
+                icon={props.icon}
+                onClick={() => props.onClick(i)}
+              />
+            </div>
+          </li>
+        );
+      })}
     </ul>
   </div>
 );
@@ -56,14 +49,13 @@ const Component: React.FC<Props> = props => (
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {  
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const props = {};
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

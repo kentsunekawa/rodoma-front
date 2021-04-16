@@ -3,9 +3,9 @@ import { css } from 'styled-components';
 export const base = css`
   display: inline-block;
   font-size: 1.5rem;
-  padding: .5em 0;
-  color: ${({theme}) => theme.themeColors.black};
-  & > .icon{
+  padding: 0.5em 0;
+  color: ${({ theme }) => theme.themeColors.black};
+  & > .icon {
     position: absolute;
     display: block;
     top: 50%;
@@ -28,21 +28,21 @@ export const l = css`
 `;
 
 export const primary = css`
-  color: ${({theme}) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const nega = css`
-  color: ${({theme}) => theme.themeColors.white};
+  color: ${({ theme }) => theme.themeColors.white};
 `;
 
 export const gray_midium = css`
-  color: ${({theme}) => theme.themeColors.gray_midium};
+  color: ${({ theme }) => theme.themeColors.gray_midium};
 `;
 
 export const withIconRight = css`
   position: relative;
   padding-right: 1.5em;
-  & > .icon{
+  & > .icon {
     right: 0;
   }
 `;

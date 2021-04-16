@@ -1,7 +1,8 @@
-import { IoBookmarkSharp } from "react-icons/io5";
+import React from 'react';
+import { IoBookmarkSharp } from 'react-icons/io5';
 
-const IconMarkFill = () => {
+const IconMarkFill: React.FC = () => {
   return <IoBookmarkSharp />;
-}
+};
 
 export default IconMarkFill;

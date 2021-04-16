@@ -1,21 +1,21 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  .row{
-    & > .rowLabel{
+  .row {
+    & > .rowLabel {
       display: block;
       width: 100%;
       text-align: left;
-      color: ${({theme}) => theme.colors.primary};
+      color: ${({ theme }) => theme.colors.primary};
       font-size: 1.6rem;
-      padding-left: .2em;
+      padding-left: 0.2em;
       margin-bottom: 15px;
     }
-    &.-renge{
+    &.-renge {
       justify-content: space-between;
       align-items: center;
       align-content: center;
-      & > .rengeSelector{
+      & > .rengeSelector {
         width: 42% !important;
       }
     }

@@ -12,13 +12,9 @@ interface ComponentProps {
   className?: string;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
-  <div className={`${CLASSNAME} ${props.className}`}>
-    {props.children}
-  </div>
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
+  <div className={`${CLASSNAME} ${props.className}`}>{props.children}</div>
 );
 
 // styled component
@@ -27,12 +23,9 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { isSelected } = componentProps;
 
-  return isSelected
-    ? <StyeldComponent { ...componentProps }></StyeldComponent>
-    : null;
-}
+  return isSelected ? <StyeldComponent {...componentProps}></StyeldComponent> : null;
+};
 export default Container;

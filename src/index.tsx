@@ -7,9 +7,9 @@ import { store } from './state/store';
 import 'fontsource-roboto';
 import 'destyle.css';
 import App from './App';
-import Theme from  './components/Theme';
+import Theme from './components/Theme';
 
-if(window.location.href.indexOf('isDev') !== -1) {
+if (window.location.href.indexOf('isDev') !== -1) {
   console.log('dev');
   localStorage.setItem('isVisited', '');
 }

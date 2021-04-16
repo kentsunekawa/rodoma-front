@@ -1,13 +1,6 @@
 import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 import { RootState } from 'state/store';
-import {
-  Mode,
-  SearchQuery,
-  CategoryTree,
-  Message,
-  Sns,
-  ValidateErrorStatus,
-} from 'types';
+import { Mode, SearchQuery, CategoryTree, Message, Sns, ValidateErrorStatus } from 'types';
 
 import { requestSnsList, requestCategoryTree } from './actions/requestCommonData';
 
@@ -40,7 +33,7 @@ const initialState: AppState = {
     },
   },
   modal: '',
-  message:{
+  message: {
     isShow: false,
     type: 'success',
     message: '',
@@ -59,7 +52,7 @@ const initialState: AppState = {
   },
   categoryTree: [],
   snsList: [],
-}
+};
 
 export const slice = createSlice({
   name: 'app',
@@ -101,7 +94,7 @@ export const slice = createSlice({
     setModal: (state, action: PayloadAction<string>) => {
       state.modal = action.payload;
     },
-    setMessage: (state, action: PayloadAction<Message>) => {      
+    setMessage: (state, action: PayloadAction<Message>) => {
       state.message = action.payload;
     },
     setCard: (state, action: PayloadAction<string>) => {
@@ -113,28 +106,29 @@ export const slice = createSlice({
     setSnsList: (state, action: PayloadAction<Sns[]>) => {
       state.snsList = action.payload;
     },
-  }
+  },
 });
 
 // selectors
-export const isDoorShownSelector = (state: RootState) => state.app.isDoorShown;
-export const isLoadingSelector = (state: RootState) => state.app.isLoading;
-export const isMenuOpenSelector = (state: RootState) => state.app.isMenuOpen;
-export const isSearchPanelOpenSelector = (state: RootState) => state.app.isSearchPanelOpen;
-export const isCoverSelector = (state: RootState) => state.app.isCover;
-export const cardSelector = (state: RootState) => state.app.card;
-export const modeSelector = (state: RootState) => state.app.mode;
-export const categoryTreeSelector = (state: RootState) => state.app.categoryTree;
-export const modalSelector = (state: RootState) => state.app.modal;
-export const messageSelector = (state: RootState) => state.app.message;
-export const validateErrorStatusSelector = (state: RootState) => state.app.validateErrorStatus;
-export const searchQuerySelector = (state: RootState) => state.app.searchQuery;
-export const snsListSelector = (state: RootState) => state.app.snsList;
+export const isDoorShownSelector = (state: RootState): boolean => state.app.isDoorShown;
+export const isLoadingSelector = (state: RootState): boolean => state.app.isLoading;
+export const isMenuOpenSelector = (state: RootState): boolean => state.app.isMenuOpen;
+export const isSearchPanelOpenSelector = (state: RootState): boolean => state.app.isSearchPanelOpen;
+export const isCoverSelector = (state: RootState): boolean => state.app.isCover;
+export const cardSelector = (state: RootState): string => state.app.card;
+export const modeSelector = (state: RootState): Mode => state.app.mode;
+export const categoryTreeSelector = (state: RootState): CategoryTree => state.app.categoryTree;
+export const modalSelector = (state: RootState): string => state.app.modal;
+export const messageSelector = (state: RootState): Message => state.app.message;
+export const validateErrorStatusSelector = (state: RootState): ValidateErrorStatus =>
+  state.app.validateErrorStatus;
+export const searchQuerySelector = (state: RootState): SearchQuery => state.app.searchQuery;
+export const snsListSelector = (state: RootState): Sns[] => state.app.snsList;
 
-export const modeChange = (mode: Mode) => (dispatch: Dispatch) => {
+export const modeChange = (mode: Mode) => (dispatch: Dispatch): void => {
   localStorage.setItem('mode', mode);
   dispatch(setMode(mode));
-}
+};
 
 // export actions
 export const {
@@ -154,9 +148,6 @@ export const {
   setSnsList,
 } = slice.actions;
 
-export {
-  requestSnsList,
-  requestCategoryTree,
-};
+export { requestSnsList, requestCategoryTree };
 
 export default slice.reducer;

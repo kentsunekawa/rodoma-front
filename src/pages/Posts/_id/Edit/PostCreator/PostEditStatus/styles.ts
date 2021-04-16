@@ -1,10 +1,10 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  & > .Tag{
+  & > .Tag {
     width: 100%;
     margin-bottom: 5px;
-    &:last-child{
+    &:last-child {
       margin-bottom: 0;
     }
   }

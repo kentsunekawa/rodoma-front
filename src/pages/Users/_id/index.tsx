@@ -17,12 +17,7 @@ import Tab from 'components/modules/TabChanger/Tab';
 import TabContents from 'components/modules/TabChanger/TabContents';
 import TabContent from 'components/modules/TabChanger/TabContent';
 import FollowButton from 'components/elements/buttons/FollowButton';
-import {
-  IconUser,
-  IconList,
-  IconMark,
-  IconRelation
-} from 'components/elements/icons';
+import { IconUser, IconList, IconMark, IconRelation } from 'components/elements/icons';
 
 import * as styles from './styles';
 
@@ -40,24 +35,24 @@ interface State {
 type SET_ID = {
   type: 'SET_ID';
   payload: number;
-}
+};
 
 type SET_USER = {
   type: 'SET_USER';
   payload: UserData | null;
-}
+};
 
 type SET_IS_LOGIN_USER = {
   type: 'SET_IS_LOGIN_USER';
   payload: boolean;
-}
+};
 
 type Actions = SET_ID | SET_USER | SET_IS_LOGIN_USER;
 
 interface Context {
   state: Partial<State>;
   contextDispatch: (arg0: Actions) => void;
-};
+}
 
 interface ComponentProps {
   className?: string;
@@ -70,23 +65,23 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <PageBase>
       <TabChanger
         trigger={{
           keys: [props.id],
-          selectedTab: 0
+          selectedTab: 0,
         }}
         selected={0}
       >
-        <Tab className='mainTab'>
+        <Tab className="mainTab">
           <Tabs
             tabList={[
-              <IconUser />,
-              <IconList />,
-              <IconMark />,
-              <IconRelation />,
+              <IconUser key={1} />,
+              <IconList key={2} />,
+              <IconMark key={3} />,
+              <IconRelation key={4} />,
             ]}
             tabType={'rounded'}
           />
@@ -107,11 +102,7 @@ const Component: React.FC<Props> = props => (
         </TabContents>
       </TabChanger>
     </PageBase>
-    {
-      props.user && <FollowButton
-        targetUserId={props.id!}
-      />
-    }
+    {props.user && props.id && <FollowButton targetUserId={props.id} />}
   </div>
 );
 
@@ -123,7 +114,9 @@ const StyeldComponent = Styled(Component)`
 // context
 export const UserContext = createContext<Context>({
   state: {},
-  contextDispatch: () => {}
+  contextDispatch: () => {
+    return;
+  },
 });
 
 // reducer
@@ -133,12 +126,12 @@ const reducer: Reducer<State, Actions> = (state: State, action: Actions) => {
       return {
         ...state,
         isLogin: action.payload,
-      }
+      };
     case 'SET_USER':
       return {
         ...state,
         user: action.payload,
-      }
+      };
     case 'SET_ID':
       return {
         ...state,
@@ -147,15 +140,14 @@ const reducer: Reducer<State, Actions> = (state: State, action: Actions) => {
     default:
       return state;
   }
-}
+};
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const history = useHistory();
-  const { id } = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
   const user = useSelector(userSelector);
- 
+
   const [state, contextDispatch] = useReducer(reducer, {
     isLogin: false,
     id: Number(id),
@@ -165,12 +157,12 @@ const Container: React.FC<ComponentProps> = componentProps => {
   useEffect(() => {
     contextDispatch({
       type: 'SET_IS_LOGIN_USER',
-      payload: (user && (user.id === state.user?.id)) || false,
+      payload: (user && user.id === state.user?.id) || false,
     });
-  }, [state.user])
+  }, [state.user]);
 
   useEffect(() => {
-    if(!Number(id)) {
+    if (!Number(id)) {
       history.push('/notFound');
     } else {
       contextDispatch({
@@ -190,8 +182,10 @@ const Container: React.FC<ComponentProps> = componentProps => {
     isLogin: state.isLogin,
   };
 
-  return <UserContext.Provider value={{state, contextDispatch}}>
-    <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>
-  </UserContext.Provider>;
-}
+  return (
+    <UserContext.Provider value={{ state, contextDispatch }}>
+      <StyeldComponent {...componentProps} {...props}></StyeldComponent>
+    </UserContext.Provider>
+  );
+};
 export default Container;

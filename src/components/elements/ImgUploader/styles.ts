@@ -1,12 +1,10 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  .label{
+  .label {
     display: block;
   }
-  input[type=file]{
+  input[type='file'] {
     display: none;
   }
 `;
-
-

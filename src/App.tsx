@@ -1,18 +1,8 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Route,
-  Switch,
-  useHistory
-} from 'react-router-dom';
-import {
-  initCheck,
-  isInitCheckedSelector,
-  isVisitedSelector
-} from './state/modules/user';
+import { Route, Switch, useHistory } from 'react-router-dom';
+import { initCheck, isInitCheckedSelector, isVisitedSelector } from './state/modules/user';
 import { setIsDoorShow, requestCategoryTree, requestSnsList } from './state/modules/app';
-
-// pages
 import MemberRoute from 'pages/MemberRoute';
 import GuestRoute from 'pages/GuestRoute';
 import Home from 'pages/Posts';
@@ -27,12 +17,8 @@ import EmailVerify from 'pages/EmailVerify';
 import ForgetPass from 'pages/ForgetPass';
 import ResetPass from 'pages/ResetPass';
 import NotFound from 'pages/NotFound';
-
 import Post from 'pages/Posts/_id';
 import PostEdit from 'pages/Posts/_id/Edit';
-import Test from 'pages/Test';
-
-// components
 import Header from './components/modules/Header';
 import Menu from './components/modules/Menu';
 import SearchPanel from './components/modules/SearchPanel';
@@ -41,35 +27,34 @@ import Message from './components/modules/Message';
 import Door from './components/modules/Door';
 import Loading from './components/modules/Loading';
 
-function App() {
-
+const App: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const isInitChecked = useSelector(isInitCheckedSelector);
   const isVisited = useSelector(isVisitedSelector);
   const isInitRender = useRef<boolean>(false);
   const isInitCounted = useRef<boolean>(false);
-    
-  useEffect(() => {
-    if(isInitRender.current) {
-      const timer = setInterval(() => {
-        if(isInitCounted.current) {
-          clearInterval(timer);
-          dispatch(setIsDoorShow(false));
-        } 
-      }, 500);
-    }
-  }, [isInitChecked]);
 
   useEffect(() => {
-    if(isInitRender.current) {
-      if(!isVisited) {
+    if (isInitRender.current) {
+      const timer = setInterval(() => {
+        if (isInitCounted.current) {
+          clearInterval(timer);
+          dispatch(setIsDoorShow(false));
+        }
+      }, 500);
+    }
+  }, [dispatch, isInitChecked]);
+
+  useEffect(() => {
+    if (isInitRender.current) {
+      if (!isVisited) {
         history.push('/intro');
       }
     }
-  }, [isVisited]);
+  }, [history, isVisited]);
 
-  useEffect(() => {    
+  useEffect(() => {
     setTimeout(() => {
       isInitCounted.current = true;
     }, 0);
@@ -79,85 +64,85 @@ function App() {
     dispatch(requestSnsList());
 
     isInitRender.current = true;
-  }, []);
+  }, [dispatch]);
 
-    return <>
+  return (
+    <>
       <Door />
       <Loading />
-        <FixWindow>
-          <Message />
-          <Menu />
-          <SearchPanel />
-          <Header />
-          <Switch>
+      <FixWindow>
+        <Message />
+        <Menu />
+        <SearchPanel />
+        <Header />
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
 
-            <Route path="/" exact>
-              <Home />
-            </Route>
+          <MemberRoute path="/roadmaps/:id/edit" to="/">
+            <PostEdit />
+          </MemberRoute>
 
-            <MemberRoute path="/roadmaps/:id/edit" to="/">
-              <PostEdit />
-            </MemberRoute>
+          <MemberRoute path="/roadmaps/create" to="/">
+            <PostEdit />
+          </MemberRoute>
 
-            <MemberRoute path="/roadmaps/create" to="/">
-              <PostEdit />
-            </MemberRoute>
+          <Route path="/roadmaps/:id">
+            <Post />
+          </Route>
 
-            <Route path="/roadmaps/:id">
-              <Post />
-            </Route>
+          <MemberRoute path="/users/:id/edit" to="/">
+            <UserEdit />
+          </MemberRoute>
 
-            <MemberRoute path="/users/:id/edit" to="/">
-              <UserEdit />
-            </MemberRoute>
+          <Route path="/users/:id">
+            <User />
+          </Route>
 
-            <Route path="/users/:id">
-              <User />
-            </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
 
-            <Route path="/users">
-              <Users />
-            </Route>
+          <GuestRoute path="/intro" to="/">
+            <Intro />
+          </GuestRoute>
 
-            <GuestRoute path="/intro" to="/">
-              <Intro />
-            </GuestRoute>
+          <GuestRoute path="/signInOrUp" to="/">
+            <SignInOrUp />
+          </GuestRoute>
 
-            <GuestRoute path="/signInOrUp" to="/">
-              <SignInOrUp />
-            </GuestRoute>
+          <MemberRoute path="/signupComplete" to="/signInOrUp">
+            <SignupComplete />
+          </MemberRoute>
 
-            <MemberRoute path="/signupComplete" to="/signInOrUp">
-              <SignupComplete />
-            </MemberRoute>
+          <GuestRoute path="/forgetPass" to="/">
+            <ForgetPass />
+          </GuestRoute>
 
-            <GuestRoute path="/forgetPass" to="/">
-              <ForgetPass />
-            </GuestRoute>
+          <Route path="/emailVerify">
+            <EmailVerify />
+          </Route>
 
-            <Route path="/emailVerify">
-              <EmailVerify />
-            </Route>
-            
-            <GuestRoute path="/resetPass" to='/'>
-              <ResetPass />
-            </GuestRoute>
-            
-            <Route path="/about">
-              <About />
-            </Route>
+          <GuestRoute path="/resetPass" to="/">
+            <ResetPass />
+          </GuestRoute>
 
-            <Route path="/notFound">
-              <NotFound />
-            </Route>
+          <Route path="/about">
+            <About />
+          </Route>
 
-            <Route>
-              <NotFound />
-            </Route>
+          <Route path="/notFound">
+            <NotFound />
+          </Route>
 
-          </Switch>
-        </FixWindow>
-    </>;
-}
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
+      </FixWindow>
+    </>
+  );
+};
 
 export default App;

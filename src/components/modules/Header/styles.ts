@@ -1,10 +1,6 @@
 import { css } from 'styled-components';
 
-import {
-  Gradient,
-  WithShadow,
-  AspectFix
-} from 'components/style/Mixins';
+import { Gradient, WithShadow, AspectFix } from 'components/style/Mixins';
 
 export const base = css`
   display: flex;
@@ -20,26 +16,26 @@ export const base = css`
   padding-right: 10px;
   ${Gradient}
   ${WithShadow}
-  & > .logo{
+  & > .logo {
     display: flex;
     width: 60px;
     ${AspectFix}
-    svg{
+    svg {
       fill: #fff;
       width: 60%;
       margin: 0 auto;
     }
   }
-  & > .nav{
+  & > .nav {
     display: flex;
     align-items: flex-end;
     align-content: flex-end;
-    & > .item{
-      & > .button{
+    & > .item {
+      & > .button {
         display: block;
         width: 42px;
         ${AspectFix}
-        & > .UserIcon{
+        & > .UserIcon {
           position: absolute;
           top: 0;
           left: 0;
@@ -49,4 +45,3 @@ export const base = css`
     }
   }
 `;
-

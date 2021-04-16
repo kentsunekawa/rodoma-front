@@ -19,46 +19,31 @@ interface ComponentProps {
   className?: string;
   userName?: string;
   icon_url?: string;
-  types?: StyleType[]
+  types?: StyleType[];
   buttonIcon?: React.ReactNode;
   onButtonClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="icon">
-      {
-        props.onButtonClick && (
-          <div className="button">
-            <CircleButton
-              types={['s', 'gray_dark']}
-              onClick={props.onButtonClick}
-            >
-              {props.buttonIcon}
-            </CircleButton>
-          </div>
-        )
-      }
-      {
-        props.linkable
-        ? <Link to={`/users/${props.userId}`}>
-          <UserIcon
-            url={props.icon_url}
-          />
+      {props.onButtonClick && (
+        <div className="button">
+          <CircleButton types={['s', 'gray_dark']} onClick={props.onButtonClick}>
+            {props.buttonIcon}
+          </CircleButton>
+        </div>
+      )}
+      {props.linkable ? (
+        <Link to={`/users/${props.userId}`}>
+          <UserIcon url={props.icon_url} />
         </Link>
-        : <UserIcon
-          url={props.icon_url}
-        />
-      }
+      ) : (
+        <UserIcon url={props.icon_url} />
+      )}
     </div>
-    {
-      props.userName && (
-        <p className="name">{props.userName}</p>
-      )
-    }
+    {props.userName && <p className="name">{props.userName}</p>}
   </div>
 );
 
@@ -66,13 +51,12 @@ const Component: React.FC<Props> = props => (
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-  return <StyeldComponent { ...componentProps }></StyeldComponent>;
-}
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  return <StyeldComponent {...componentProps}></StyeldComponent>;
+};
 
 export default Container;

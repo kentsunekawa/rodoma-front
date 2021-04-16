@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import Styled from 'styled-components';
 
 import { UserData } from 'types';
@@ -29,28 +29,20 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='userMain'>
-      <div className='userHeader'>
+    <div className="userMain">
+      <div className="userHeader">
         <UserBlock
           icon_url={props.user?.icon_url}
           userName={props.user?.name}
           types={['m', 'iconLeft']}
         />
       </div>
-      <div className='relationListArea'>
-        <TabChanger
-          selected={0}
-        >
+      <div className="relationListArea">
+        <TabChanger selected={0}>
           <Tab>
-            <Tabs
-              tabList={[
-                'Followings',
-                'Followers',
-              ]}
-              tabType={'switcher'}
-            />
+            <Tabs tabList={['Followings', 'Followers']} tabType={'switcher'} />
           </Tab>
           <TabContents>
             <TabContent>
@@ -72,12 +64,11 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
-  const {state, contextDispatch} = useContext(UserContext);
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  const { state } = useContext(UserContext);
 
   const props = { user: state.user };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

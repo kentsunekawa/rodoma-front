@@ -1,7 +1,8 @@
-import { IoListSharp } from "react-icons/io5";
+import React from 'react';
+import { IoListSharp } from 'react-icons/io5';
 
-const IconList = () => {
+const IconList: React.FC = () => {
   return <IoListSharp />;
-}
+};
 
 export default IconList;

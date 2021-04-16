@@ -6,8 +6,8 @@ import * as styles from './styles';
 const CLASSNAME = 'Paragraph';
 
 // declare types
-type StyleType = 
-  'inline'
+type StyleType =
+  | 'inline'
   | 'caption'
   | 'bigTitle'
   | 'title'
@@ -26,24 +26,20 @@ interface ComponentProps {
   types?: StyleType[];
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
-  <p className={`${CLASSNAME} ${props.className}`}>
-    {props.children}
-  </p>
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
+  <p className={`${CLASSNAME} ${props.className}`}>{props.children}</p>
 );
 
 // styled component
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = ComponentProps => {
-  return <StyeldComponent { ...ComponentProps }></StyeldComponent>;
-}
+const Container: React.FC<ComponentProps> = (ComponentProps) => {
+  return <StyeldComponent {...ComponentProps}></StyeldComponent>;
+};
 export default Container;

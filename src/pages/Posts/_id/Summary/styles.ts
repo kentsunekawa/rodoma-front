@@ -1,9 +1,9 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  & > .inner{
+  & > .inner {
     padding: 20px 20px 40px;
-    & > .title{
+    & > .title {
       margin-bottom: 16px;
     }
   }

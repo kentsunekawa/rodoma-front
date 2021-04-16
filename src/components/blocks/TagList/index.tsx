@@ -16,22 +16,17 @@ interface ComponentProps {
   types?: StyleType[];
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <ul className="list">
-      {
-        props.values.map((value, i) => {
-          return <li key={i} className="item">
-            <Tag
-              types={props.tagTypes}
-              value={value}
-            />
-          </li>;
-        })
-      }
+      {props.values.map((value, i) => {
+        return (
+          <li key={i} className="item">
+            <Tag types={props.tagTypes} value={value} />
+          </li>
+        );
+      })}
     </ul>
   </div>
 );
@@ -40,11 +35,11 @@ const Component: React.FC<Props> = props => (
 const StyeldComponent = Styled(Component)`
   ${styles.base}
     // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-  return <StyeldComponent { ...componentProps }></StyeldComponent>;
-}
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  return <StyeldComponent {...componentProps}></StyeldComponent>;
+};
 export default Container;

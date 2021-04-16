@@ -1,30 +1,22 @@
 import { css } from 'styled-components';
-// import {
-//   Gradient,
-//   WithShadow,
-//   AspectFix,
-//   AbsCenterMiddle,
-//   ButtonTapAction
-// } from '../style/Mixins';
 
 export const base = css`
-  .tab{
+  .tab {
     margin-bottom: 30px;
   }
   .signinButton,
-  .signupButton{
+  .signupButton {
     margin: 30px auto 0;
   }
 
-  .SignInOrUp__bottom{
+  .SignInOrUp__bottom {
     text-align: center;
     margin-top: 30px;
   }
 
-  .CoverContent{
-    & > .content{
+  .CoverContent {
+    & > .content {
       width: 240px;
     }
   }
 `;
-

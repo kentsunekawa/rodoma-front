@@ -33,69 +33,46 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="nav">
-      {
-        props.onDelete && (
-          <CircleButton
-            onClick={props.onClickDeleteButton}
-            types={['gray_dark', 'xs']}
-          >
-            <IconClose />
-          </CircleButton>   
-        )
-      }
-      {
-        props.editable && (
-          <Link to={`/roadmaps/${props.post.id}/edit`}>
-            <CircleButton
-              types={['gray_dark', 'xs']}
-            >
-              <IconEdit />
-            </CircleButton>
-          </Link>
-        )
-      }
-      {
-        props.onRemove && (
-          <CircleButton
-            onClick={props.onClickRemoveButton}
-            types={['gray_dark', 'xs']}
-          >
-            <IconMinus />
+      {props.onDelete && (
+        <CircleButton onClick={props.onClickDeleteButton} types={['gray_dark', 'xs']}>
+          <IconClose />
+        </CircleButton>
+      )}
+      {props.editable && (
+        <Link to={`/roadmaps/${props.post.id}/edit`}>
+          <CircleButton types={['gray_dark', 'xs']}>
+            <IconEdit />
           </CircleButton>
-        )
-      }
-      
+        </Link>
+      )}
+      {props.onRemove && (
+        <CircleButton onClick={props.onClickRemoveButton} types={['gray_dark', 'xs']}>
+          <IconMinus />
+        </CircleButton>
+      )}
     </div>
-    <Link className='link' to={`/roadmaps/${props.post.id}`}>
-      {
-        props.statusVisible && <div className='status'>
-          <Tag
-            value={RELEASE_STATUS[props.post.release_status]}
-            types={['gradient']}
-          />
+    <Link className="link" to={`/roadmaps/${props.post.id}`}>
+      {props.statusVisible && (
+        <div className="status">
+          <Tag value={RELEASE_STATUS[props.post.release_status]} types={['gradient']} />
         </div>
-      }
-      <div className='imageArea'>
-        <div className='image' style={{backgroundImage: `url(${props.post.eye_catch_url})`}}></div>
+      )}
+      <div className="imageArea">
+        <div
+          className="image"
+          style={{ backgroundImage: `url(${props.post.eye_catch_url})` }}
+        ></div>
       </div>
-      <div className='info'>
-        <Paragraph className='title'>
-          {props.post.title}
-        </Paragraph>
-        <div className='status'>
-          <StatusCounter
-            StatusType='like'
-            num={props.post.likes_count}
-          />
-          <StatusCounter
-            StatusType='mark'
-            num={props.post.marks_count}
-          />
+      <div className="info">
+        <Paragraph className="title">{props.post.title}</Paragraph>
+        <div className="status">
+          <StatusCounter StatusType="like" num={props.post.likes_count} />
+          <StatusCounter StatusType="mark" num={props.post.marks_count} />
         </div>
-        <div className='user'>
+        <div className="user">
           <UserBlock
             userName={props.post.user.name}
             icon_url={props.post.user.icon_url}
@@ -113,23 +90,22 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { onDelete, onRemove, post } = componentProps;
 
-  const onClickDeleteButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onClickDeleteButton = () => {
     onDelete && onDelete(post.id);
-  }
+  };
 
-  const onClickRemoveButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onClickRemoveButton = () => {
     onRemove && onRemove(post.id);
-  }
+  };
 
   const props = {
     onClickDeleteButton,
-    onClickRemoveButton
+    onClickRemoveButton,
   };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

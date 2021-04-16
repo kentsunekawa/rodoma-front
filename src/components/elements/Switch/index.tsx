@@ -20,13 +20,13 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <label>
-      <input type="checkbox" onChange={props.change}/>
-      <div className='rail'>
+      <input type="checkbox" onChange={props.change} />
+      <div className="rail">
         <span></span>
-        <div className='bg'></div>
+        <div className="bg"></div>
       </div>
     </label>
   </div>
@@ -36,12 +36,11 @@ const Component: React.FC<Props> = props => (
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { isChecked, onChange } = componentProps;
 
   const [localIsChecked, setLocalIsChecked] = useState(isChecked);
@@ -50,10 +49,10 @@ const Container: React.FC<ComponentProps> = componentProps => {
     const value = localIsChecked ? false : true;
     setLocalIsChecked(value);
     onChange(value);
-  }
+  };
 
   const props = { localIsChecked, change };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

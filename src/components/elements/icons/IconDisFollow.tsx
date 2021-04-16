@@ -1,7 +1,8 @@
-import { IoPersonRemoveSharp } from "react-icons/io5";
+import React from 'react';
+import { IoPersonRemoveSharp } from 'react-icons/io5';
 
-const IconDisFollow = () => {
+const IconDisFollow: React.FC = () => {
   return <IoPersonRemoveSharp />;
-}
+};
 
 export default IconDisFollow;

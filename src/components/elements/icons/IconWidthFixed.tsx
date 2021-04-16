@@ -1,7 +1,8 @@
-import { BiArrowToRight } from "react-icons/bi";
+import React from 'react';
+import { BiArrowToRight } from 'react-icons/bi';
 
-const IconWidthFixed = () => {
-  return <BiArrowToRight/>;
-}
+const IconWidthFixed: React.FC = () => {
+  return <BiArrowToRight />;
+};
 
 export default IconWidthFixed;

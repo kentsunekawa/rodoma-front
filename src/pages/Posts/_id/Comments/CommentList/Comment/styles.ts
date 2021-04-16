@@ -1,43 +1,40 @@
 import { css } from 'styled-components';
-import {
-  Gradient,
-  WithShadow
-} from 'components/style/Mixins';
+import { Gradient, WithShadow } from 'components/style/Mixins';
 
 export const base = css`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   align-content: flex-start;
-  & > .icon{
+  & > .icon {
     width: 40px;
   }
-  & > .comment{
+  & > .comment {
     position: relative;
     width: calc(100% - 50px);
-    background: linear-gradient(45deg, #D9D9D9, #fff);
+    background: linear-gradient(45deg, #d9d9d9, #fff);
     border-radius: 5px;
     ${WithShadow}
     padding: 10px 14px;
     font-size: 1.4rem;
     line-height: 1.6em;
-    letter-spacing: .08em;
-    & > .userName{
+    letter-spacing: 0.08em;
+    & > .userName {
       display: block;
       font-size: 1rem;
       line-height: 1em;
       text-align: right;
       margin-top: 15px;
-      color: ${({theme}) => theme.colors.gray_midium};
+      color: ${({ theme }) => theme.colors.gray_midium};
     }
-    & > .date{
+    & > .date {
       position: absolute;
       bottom: 100%;
       right: 0;
-      color: ${({theme}) => theme.colors.gray_midium};
+      color: ${({ theme }) => theme.colors.gray_midium};
       font-size: 1rem;
     }
-    & > .button{
+    & > .button {
       position: absolute;
       left: 0;
       top: 0;
@@ -47,16 +44,15 @@ export const base = css`
 `;
 
 export const login = css`
-  & > .comment{
+  & > .comment {
     order: 1;
     color: #fff;
     ${Gradient}
-    & > .userName{
+    & > .userName {
       color: #fff;
     }
   }
-  & > .icon{
+  & > .icon {
     order: 2;
   }
 `;
-

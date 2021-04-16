@@ -1,7 +1,8 @@
-import { IoPieChartOutline } from "react-icons/io5";
+import React from 'react';
+import { IoPieChartOutline } from 'react-icons/io5';
 
-const IconPieChart = () => {
+const IconPieChart: React.FC = () => {
   return <IoPieChartOutline />;
-}
+};
 
 export default IconPieChart;

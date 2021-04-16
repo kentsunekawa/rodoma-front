@@ -1,22 +1,22 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  & > .list{
+  & > .list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    & > .item{
-      & > .inner{
+    & > .item {
+      & > .inner {
         display: flex;
         align-items: center;
-        & > .separator{
-        color: ${({theme}) => theme.colors.primary};
-        font-size: 2.5rem;
-        padding: 0 .2em; 
+        & > .separator {
+          color: ${({ theme }) => theme.colors.primary};
+          font-size: 2.5rem;
+          padding: 0 0.2em;
+        }
       }
-      }
-      
-      .ToggleTag{
+
+      .ToggleTag {
         width: 100%;
       }
     }
@@ -24,11 +24,9 @@ export const base = css`
 `;
 
 export const inlineBlock = css`
-  & > .list{
-    & > .item{
+  & > .list {
+    & > .item {
       display: inline-block;
-      
     }
   }
 `;
-

@@ -1,17 +1,21 @@
-import React from "react";
-import { ThemeProvider } from "styled-components";
-import AppTheme from "./style/AppTheme";
-import { useSelector } from "react-redux";
-import { modeSelector } from "state/modules/app";
-import GlobalStyle from "./style/GlobalStyle";
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import AppTheme from './style/AppTheme';
+import { useSelector } from 'react-redux';
+import { modeSelector } from 'state/modules/app';
+import GlobalStyle from './style/GlobalStyle';
 
-const Theme: React.FC = ({ children }) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const Theme: React.FC<Props> = (props: Props) => {
   const mode = useSelector(modeSelector);
 
   return (
     <ThemeProvider theme={AppTheme[mode]}>
       <GlobalStyle />
-      {children}
+      {props.children}
     </ThemeProvider>
   );
 };

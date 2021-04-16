@@ -21,19 +21,15 @@ interface ComponentProps {
   children: React.ReactNode;
   className?: string;
   trigger?: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     keys: any[];
     selectedTab: number;
-  }
-}
-
-interface Props extends ComponentProps {
+  };
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
-  <div className={`${CLASSNAME} ${props.className}`}>
-    {props.children}
-  </div>
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
+  <div className={`${CLASSNAME} ${props.className}`}>{props.children}</div>
 );
 
 // styled component
@@ -42,7 +38,10 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // reducer
-const reducer: React.Reducer<TabChangerState, TabChangerAction> = (state: TabChangerState, action: TabChangerAction) => {
+const reducer: React.Reducer<TabChangerState, TabChangerAction> = (
+  state: TabChangerState,
+  action: TabChangerAction
+) => {
   switch (action.type) {
     case 'CHANGE_SELECTED':
       return {
@@ -52,38 +51,43 @@ const reducer: React.Reducer<TabChangerState, TabChangerAction> = (state: TabCha
     default:
       return state;
   }
-}
+};
 
 // context
 export const TabChengerConext = createContext<{
   state: Partial<TabChangerState>;
-  dispatch: (arg0: TabChangerAction)=>void;
+  dispatch: (arg0: TabChangerAction) => void;
 }>({
   state: { selected: 0 },
-  dispatch: () => {}
+  dispatch: () => {
+    return;
+  },
 });
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { selected, trigger } = componentProps;
 
   const [state, dispatch] = useReducer(reducer, {
     selected,
   });
 
-  useEffect(() => {
-    if(trigger) {
-      dispatch({
-        type: 'CHANGE_SELECTED',
-        payload: trigger.selectedTab,
-      });
-    }
-  }, trigger ? trigger.keys : []);
-  
+  useEffect(
+    () => {
+      if (trigger) {
+        dispatch({
+          type: 'CHANGE_SELECTED',
+          payload: trigger.selectedTab,
+        });
+      }
+    },
+    trigger ? trigger.keys : []
+  );
 
-  return <TabChengerConext.Provider value={{state, dispatch}}>
-    <StyeldComponent { ...componentProps }></StyeldComponent>
-  </TabChengerConext.Provider>;
-}
+  return (
+    <TabChengerConext.Provider value={{ state, dispatch }}>
+      <StyeldComponent {...componentProps}>{componentProps.children}</StyeldComponent>
+    </TabChengerConext.Provider>
+  );
+};
 export default Container;

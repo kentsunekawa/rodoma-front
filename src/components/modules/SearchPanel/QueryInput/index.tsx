@@ -23,7 +23,7 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="selector">
       <Selector
@@ -36,7 +36,7 @@ const Component: React.FC<Props> = props => (
           {
             label: 'ユーザー',
             value: 'user',
-          }
+          },
         ]}
         onChange={props.onSelectorChange}
         types={['primary', 's']}
@@ -44,7 +44,7 @@ const Component: React.FC<Props> = props => (
     </div>
     <div className="input">
       <SearchKeyword
-        placeholder='Keyword...'
+        placeholder="Keyword..."
         value={props.keywordQuery.keyword}
         onChange={props.onKeywordChange}
         onClick={props.onClickSearchButton}
@@ -59,34 +59,33 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { query, onSearch } = componentProps;
 
   const [keywordQuery, setKeywordQuery] = useState(query);
 
   const onClickSearchButton = () => {
     onSearch(keywordQuery);
-  }
+  };
 
   const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(e.target.value.length <= 30){
+    if (e.target.value.length <= 30) {
       setKeywordQuery({
         ...keywordQuery,
         keyword: e.target.value,
       });
     }
-  }
+  };
 
   const onSelectorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setKeywordQuery({
       ...keywordQuery,
       key: e.target.value === 'user' ? 'user' : 'post',
     });
-  }
+  };
 
   const props = { keywordQuery, onSelectorChange, onKeywordChange, onClickSearchButton };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

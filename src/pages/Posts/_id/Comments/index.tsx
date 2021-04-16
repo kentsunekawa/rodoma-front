@@ -8,7 +8,7 @@ import { Comment as CommentType, UserData_overview } from 'types';
 import { userSelector } from 'state/modules/user';
 import { setMessage } from 'state/modules/app';
 
-import InfinityScroll from 'components/modules/InfinityScroll'
+import InfinityScroll from 'components/modules/InfinityScroll';
 
 import { PostContext } from '../';
 import CommentInput from './CommentInput';
@@ -41,11 +41,11 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='inner'>
+    <div className="inner">
       <InfinityScroll
-        className='scrollableArea'
+        className="scrollableArea"
         resetTriggerKeys={[props.postId, props.listResetCount]}
         list={props.comments}
         getDataFunc={props.getComments}
@@ -57,7 +57,7 @@ const Component: React.FC<Props> = props => (
           deleteComment={props.deleteComment}
         />
       </InfinityScroll>
-      <div className='inputArea'>
+      <div className="inputArea">
         <CommentInput
           isLogin={props.user ? true : false}
           isLoading={props.isCommentPosting}
@@ -74,116 +74,131 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
-  const {state, contextDispatch} = useContext(PostContext);
+  const { state } = useContext(PostContext);
   const user = useSelector(userSelector);
   const [comments, setComments] = useState<CommentType[]>([]);
   const [listResetCount, setListResetCount] = useState<number>(0);
   const [isCommentPosting, setIsCommentPosting] = useState<boolean>(false);
   const [loadingCommentIds, setLoadingCommentIds] = useState<number[]>([]);
-  
-  const isMouted = useRef<Boolean>(false);
+
+  const isMouted = useRef<boolean>(false);
 
   const getComments = async (
     currentComments: CommentType[] = [],
-    currentOffset: number = 0,
-    cb: (count: number) => void,
+    currentOffset = 0,
+    cb: (count: number) => void
   ) => {
-    if(state.id && !isCommentPosting) {
-      try{
+    if (state.id && !isCommentPosting) {
+      try {
         const result = await Comment.getComments(state.id, currentOffset);
-        if(result.status === 'success_get_comments' && result.data) {
-          if(isMouted.current) {
-            cb(result.data.query.all!);
-            setComments([
-              ...currentComments,
-              ...result.data.comments,
-            ]);
-          } 
-        }
-      } catch(error) {
-        dispatch(setMessage({
-          isShow: true,
-          type: 'error',
-          message: RESPONSE_MESSAGES.error,
-        }));
-      }
-    }
-  }
-
-  const deleteComment = async (commentId: number) =>{
-    if(state.id && !loadingCommentIds.includes(commentId)) {
-      console.log('delete');
-      
-      
-        try{
-          const ids = loadingCommentIds.slice();
-          ids.push(commentId);
-          setLoadingCommentIds(ids);
-          const result = await Comment.deleteComment(state.id, commentId);
-          if(result.status === 'success_delete_comment') {
-            setListResetCount(listResetCount + 1);
-            setLoadingCommentIds(loadingCommentIds.splice(loadingCommentIds.indexOf(commentId), 1));
+        if (result.status === 'success_get_comments' && result.data) {
+          if (isMouted.current && result.data.query.all) {
+            cb(result.data.query.all);
+            setComments([...currentComments, ...result.data.comments]);
           }
-          dispatch(setMessage({
-            isShow: true,
-            type: 'success',
-            message: RESPONSE_MESSAGES.success_delete_comment,
-          }));
-        } catch(error) {
-          dispatch(setMessage({
+        }
+      } catch (error) {
+        dispatch(
+          setMessage({
             isShow: true,
             type: 'error',
             message: RESPONSE_MESSAGES.error,
-          }));
+          })
+        );
+      }
+    }
+  };
+
+  const deleteComment = async (commentId: number) => {
+    if (state.id && !loadingCommentIds.includes(commentId)) {
+      console.log('delete');
+
+      try {
+        const ids = loadingCommentIds.slice();
+        ids.push(commentId);
+        setLoadingCommentIds(ids);
+        const result = await Comment.deleteComment(state.id, commentId);
+        if (result.status === 'success_delete_comment') {
+          setListResetCount(listResetCount + 1);
+          setLoadingCommentIds(loadingCommentIds.splice(loadingCommentIds.indexOf(commentId), 1));
         }
+        dispatch(
+          setMessage({
+            isShow: true,
+            type: 'success',
+            message: RESPONSE_MESSAGES.success_delete_comment,
+          })
+        );
+      } catch (error) {
+        dispatch(
+          setMessage({
+            isShow: true,
+            type: 'error',
+            message: RESPONSE_MESSAGES.error,
+          })
+        );
+      }
     } else {
       console.log('deleting');
     }
-  }
+  };
 
   const postComment = async (comment: string) => {
-    if(state.id && user) {
-      try{
+    if (state.id && user) {
+      try {
         setIsCommentPosting(true);
         const result = await Comment.postComment(state.id, {
           user_id: user.id,
           comment,
         });
-        if(result.status === 'success_post_comment'){
+        if (result.status === 'success_post_comment') {
           setIsCommentPosting(false);
           setListResetCount(listResetCount + 1);
         }
-      } catch(error) {
+      } catch (error) {
         setIsCommentPosting(false);
-        if(error.response.data.status === 'fail_post_comment'){
-          dispatch(setMessage({
-            isShow: true,
-            type: 'error',
-            message: RESPONSE_MESSAGES.fail_post_comment,
-          }));  
+        if (error.response.data.status === 'fail_post_comment') {
+          dispatch(
+            setMessage({
+              isShow: true,
+              type: 'error',
+              message: RESPONSE_MESSAGES.fail_post_comment,
+            })
+          );
         } else {
-          dispatch(setMessage({
-            isShow: true,
-            type: 'error',
-            message: RESPONSE_MESSAGES.error,
-          }));
+          dispatch(
+            setMessage({
+              isShow: true,
+              type: 'error',
+              message: RESPONSE_MESSAGES.error,
+            })
+          );
         }
       }
     }
-  }
+  };
 
   useEffect(() => {
     isMouted.current = true;
     return () => {
       isMouted.current = false;
-    }
-  }, [])
+    };
+  }, []);
 
-  const props = { user, comments, postId: state.id, listResetCount, isCommentPosting, loadingCommentIds, getComments, postComment, deleteComment };
+  const props = {
+    user,
+    comments,
+    postId: state.id,
+    listResetCount,
+    isCommentPosting,
+    loadingCommentIds,
+    getComments,
+    postComment,
+    deleteComment,
+  };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;
