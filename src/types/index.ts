@@ -135,7 +135,7 @@ export interface SignupInfo {
 }
 
 export interface ResetPassInfo {
-  token: string;
+  token: string | null;
   email: string;
   password: string;
   password_confirmation: string;

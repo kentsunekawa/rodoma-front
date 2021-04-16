@@ -38,7 +38,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       type: 'CHANGE_SELECTED',
       payload: i,
     });
-    onChange && onChange(i);
+    if (onChange) onChange(i);
   };
 
   const clone = React.cloneElement(children, {

@@ -41,7 +41,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   };
 
   const adjustHeight = () => () => {
-    console.log('resize');
     if (dom.root.current) {
       dom.root.current.style.height = `${window.innerHeight}px`;
     }

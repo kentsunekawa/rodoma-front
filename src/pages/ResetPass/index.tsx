@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Styled from 'styled-components';
-
 import { RESPONSE_MESSAGES } from 'utils/messages';
 import Auth from 'utils/request/Auth';
 import { getParam, adjustErrorMessage } from 'utils';
 import { setIsLoading, setMessage } from 'state/modules/app';
 import { ValidateStatus, ResetPassInfo } from 'types';
 import { resetPass as validate_resetPass } from 'validations';
-
 import CoverContent from 'components/modules/CoverContent';
 import RoundButton from 'components/elements/buttons/RoundButton';
 import Error from 'components/elements/Error';
@@ -22,7 +20,6 @@ import * as styles from './styles';
 const CLASSNAME = '';
 
 // declare types
-
 type Errors = {
   email: string[];
   password: string[];
@@ -101,8 +98,8 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [resetPassInfo, setResetPassInfo] = useState({
-    token: '',
+  const [resetPassInfo, setResetPassInfo] = useState<ResetPassInfo>({
+    token: getParam('token', window.location.href),
     email: '',
     password: '',
     password_confirmation: '',
@@ -191,16 +188,10 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   };
 
   useEffect(() => {
-    const token = getParam('token', window.location.href);
-    if (token) {
-      setResetPassInfo({
-        ...resetPassInfo,
-        token,
-      });
-    } else {
+    if (!resetPassInfo.token) {
       history.push('/signInOrUp');
     }
-  }, []);
+  }, [resetPassInfo, history]);
 
   const props = { resetPassInfo, validateStatus, change, deside };
 

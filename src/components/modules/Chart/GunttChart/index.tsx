@@ -56,15 +56,15 @@ const Component: React.FC<Props> = (props: Props) => (
               {props.subjects.map((subject, i) => {
                 return props.editable ? (
                   <li className="item" key={i}>
-                    <a onClick={() => props.onEdit && props.onEdit(i)}>
+                    <button onClick={() => props.onEdit && props.onEdit(i)}>
                       <span>{subject.title}</span>
-                    </a>
+                    </button>
                   </li>
                 ) : (
                   <li className="item" key={i}>
-                    <a onClick={() => props.onClickSubject(i)}>
+                    <button onClick={() => props.onClickSubject(i)}>
                       <span>{subject.title}</span>
-                    </a>
+                    </button>
                   </li>
                 );
               })}

@@ -13,7 +13,7 @@ import {
 
 export type ResponseStatus = keyof typeof RESPONSE_MESSAGES;
 
-export type Response<T = any> = {
+export type Response<T = unknown> = {
   status: ResponseStatus;
   data?: T;
 };

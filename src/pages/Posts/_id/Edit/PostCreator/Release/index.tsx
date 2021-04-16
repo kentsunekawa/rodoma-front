@@ -106,7 +106,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       setIsLimited(state.post.release_status === 2);
       setAllowedUsers(state.post.allowedUsers);
     }
-  }, []);
+  }, [state.post]);
 
   const props = {
     isLimited,

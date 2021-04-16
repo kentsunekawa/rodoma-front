@@ -78,7 +78,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       }, countSeconed * 1000);
       setIsCountStart(true);
     }
-  }, [isDoorShow]);
+  }, [isDoorShow, history]);
 
   const skip = () => {
     history.push('/signInOrUp');

@@ -283,6 +283,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     } else {
       history.push('/notFound');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const props = { post: state.post };

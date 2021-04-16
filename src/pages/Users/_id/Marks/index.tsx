@@ -104,7 +104,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       if (state.id) {
         const result = await User.getPostsMarkedBySpecificUser(state.id, currentOffset, 20);
         if (result.status === 'success_get_posts' && result.data) {
-          if (isMouted.current && result.data.query.all) {
+          if (isMouted.current && result.data.query.all !== undefined) {
             cb(result.data.query.all);
             setPosts([...currentPosts, ...result.data.posts]);
           }

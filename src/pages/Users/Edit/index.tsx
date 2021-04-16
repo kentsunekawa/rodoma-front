@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import Styled from 'styled-components';
-
 import { UserData, ValidateStatus } from 'types';
 import { userEdit as validate_userEdit } from 'validations';
 import { adjustErrorMessage } from 'utils';
@@ -10,7 +9,6 @@ import User from 'utils/request/User';
 import { userSelector, setUser } from 'state/modules/user';
 import { setMessage, categoryTreeSelector, snsListSelector, setIsLoading } from 'state/modules/app';
 import { RESPONSE_MESSAGES } from 'utils/messages';
-
 import PageBase from 'components/layouts/PageBase';
 import SelectorInputList from 'components/blocks/SelectorInputList';
 import { ListData } from 'components/blocks/SelectorInputList/types';
@@ -200,36 +198,47 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     },
   });
 
-  const getUser = async (id: number) => {
-    try {
-      const result = await User.getUser(id);
-      if (result.status === 'success_get_user' && result.data) {
-        setUserData(result.data.user);
-      }
-      setIsLodalLoading(false);
-    } catch (error) {
-      if (error.response.data) {
-        if (error.response.data.status === 'error_no_user_exists') {
-          dispatch(
-            setMessage({
-              isShow: true,
-              type: 'error',
-              message: RESPONSE_MESSAGES.error_no_user_exists,
-            })
-          );
-          history.push('/users');
-        } else {
-          dispatch(
-            setMessage({
-              isShow: true,
-              type: 'error',
-              message: RESPONSE_MESSAGES.error,
-            })
-          );
+  const getUser = useCallback(
+    async (id: number) => {
+      try {
+        const result = await User.getUser(id);
+        if (result.status === 'success_get_user' && result.data) {
+          setUserData(result.data.user);
+        }
+        setIsLodalLoading(false);
+      } catch (error) {
+        if (error.response.data) {
+          if (error.response.data.status === 'error_no_user_exists') {
+            dispatch(
+              setMessage({
+                isShow: true,
+                type: 'error',
+                message: RESPONSE_MESSAGES.error_no_user_exists,
+              })
+            );
+            history.push('/users');
+          } else {
+            dispatch(
+              setMessage({
+                isShow: true,
+                type: 'error',
+                message: RESPONSE_MESSAGES.error,
+              })
+            );
+          }
         }
       }
+    },
+    [dispatch, history]
+  );
+
+  const initCheck = useCallback(() => {
+    if (user && user.id === Number(id)) {
+      getUser(Number(id));
+    } else {
+      history.push(`/users/${id}`);
     }
-  };
+  }, [user, id, getUser, history]);
 
   const putUser = async (userData: UserData) => {
     try {
@@ -506,15 +515,11 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     if (!defaultEmail && userData) {
       setDefaultEmail(userData.email);
     }
-  }, [userData]);
+  }, [userData, defaultEmail]);
 
   useEffect(() => {
-    if (user && user.id === Number(id)) {
-      getUser(Number(id));
-    } else {
-      history.push(`/users/${id}`);
-    }
-  }, []);
+    initCheck();
+  }, [initCheck]);
 
   const props = {
     categoryOptions,

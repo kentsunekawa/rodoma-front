@@ -120,19 +120,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     setDisplayUsers(newUsers);
   }, [keyword, users]);
 
-  // const search = () => {
-  //   const newUsers: CheckUserData[] = [];
-  //   users.forEach((user) => {
-  //     if (user.name.indexOf(keyword) !== -1) {
-  //       newUsers.push({
-  //         value: user.id,
-  //         label: user.name,
-  //       });
-  //     }
-  //   });
-  //   setDisplayUsers(newUsers);
-  // };
-
   const change = (values: (string | number)[]) => {
     if (!maxLength || (maxLength && maxLength >= values.length)) {
       const newUsers: UserData_overview[] = [];

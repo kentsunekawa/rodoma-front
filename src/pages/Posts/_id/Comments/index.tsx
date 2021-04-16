@@ -94,7 +94,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       try {
         const result = await Comment.getComments(state.id, currentOffset);
         if (result.status === 'success_get_comments' && result.data) {
-          if (isMouted.current && result.data.query.all) {
+          if (isMouted.current && result.data.query.all !== undefined) {
             cb(result.data.query.all);
             setComments([...currentComments, ...result.data.comments]);
           }

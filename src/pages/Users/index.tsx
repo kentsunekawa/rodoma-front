@@ -81,7 +81,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     try {
       const result = await Users.getUsers(searchQuery, currentOffset, 20);
       if (result.status === 'success_get_users' && result.data) {
-        if (isMouted.current && result.data.query.all) {
+        if (isMouted.current && result.data.query.all !== undefined) {
           cb(result.data.query.all);
           setUsers([...currentUsers, ...result.data.users]);
         }

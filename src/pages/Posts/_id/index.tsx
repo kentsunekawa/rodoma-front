@@ -194,6 +194,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const resizeFunc = useRef<() => void>(() => {
     return;
   });
+
   const dom = {
     header: useRef<HTMLDivElement>(null),
     main: useRef<HTMLDivElement>(null),
@@ -341,10 +342,12 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       type: 'SET_ID',
       payload: Number(id),
     });
+
     getPost(Number(id));
     if (user) {
       getRelationStatus(Number(id), user.id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   useEffect(() => {
@@ -352,11 +355,9 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       type: 'SET_IS_LOGIN_USER',
       payload: (user && state.post && user.id === state.post.user_id) || false,
     });
-  }, [state.post]);
+  }, [state.post, user]);
 
   const adjustChartHeight = () => () => {
-    console.log('resize');
-
     if (dom.chart.current && dom.header.current) {
       dom.chart.current.style.height = `${
         window.innerHeight - (dom.header.current.getBoundingClientRect().height + 90)
@@ -370,6 +371,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     return () => {
       window.removeEventListener('resize', resizeFunc.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const props = {

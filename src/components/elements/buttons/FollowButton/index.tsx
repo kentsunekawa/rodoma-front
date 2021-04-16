@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Styled from 'styled-components';
 
@@ -92,25 +92,27 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     }
   };
 
-  const getRelationId = async (userId: number) => {
-    try {
-      const result = await User.getRelation(userId, targetUserId);
-      if (result.data?.relation) {
-        setLocalRelationId(result.data?.relation.id);
-      } else {
-        setLocalRelationId(null);
+  const getRelationId = useCallback(async () => {
+    if (user) {
+      try {
+        const result = await User.getRelation(user.id, targetUserId);
+        if (result.data?.relation) {
+          setLocalRelationId(result.data?.relation.id);
+        } else {
+          setLocalRelationId(null);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        dispatch(
+          setMessage({
+            isShow: true,
+            type: 'error',
+            message: RESPONSE_MESSAGES.error,
+          })
+        );
       }
-      setIsLoading(false);
-    } catch (error) {
-      dispatch(
-        setMessage({
-          isShow: true,
-          type: 'error',
-          message: RESPONSE_MESSAGES.error,
-        })
-      );
     }
-  };
+  }, [targetUserId, user, dispatch]);
 
   const toggleFollow = () => {
     setIsLoading(true);
@@ -120,10 +122,8 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   };
 
   useEffect(() => {
-    if (user) {
-      getRelationId(user.id);
-    }
-  }, [targetUserId]);
+    getRelationId();
+  }, [getRelationId]);
 
   const props = { localRelationId, isLoading, toggleFollow };
 

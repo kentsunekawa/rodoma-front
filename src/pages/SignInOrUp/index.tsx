@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Styled from 'styled-components';
-
 import { requestSignin, requestSignup, isSignupCompleteSelector } from 'state/modules/user';
 import { setIsLoading } from 'state/modules/app';
 import { SigninInfo, SignupInfo } from 'types';
-
 import * as styles from './styles';
-
 import Signin from 'pages/SignInOrUp/Signin';
 import Signup from './Signup';
 import CoverContent from 'components/modules/CoverContent';
@@ -70,12 +67,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
 
   const isSignupComplete = useSelector(isSignupCompleteSelector);
 
-  useEffect(() => {
-    if (isSignupComplete) {
-      history.push('/signupComplete');
-    }
-  }, [isSignupComplete]);
-
   const desideSigninInfo = (signinInfo: SigninInfo) => {
     dispatch(setIsLoading(true));
     dispatch(requestSignin(signinInfo));
@@ -85,6 +76,16 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     dispatch(setIsLoading(true));
     dispatch(requestSignup(signupInfo));
   };
+
+  const isSignupedCheck = useCallback(() => {
+    if (isSignupComplete) {
+      history.push('/signupComplete');
+    }
+  }, [isSignupComplete, history]);
+
+  useEffect(() => {
+    isSignupedCheck();
+  }, [isSignupedCheck]);
 
   const props = { desideSigninInfo, desideSignupInfo };
 

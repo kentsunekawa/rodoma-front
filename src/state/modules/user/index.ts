@@ -13,12 +13,13 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  user: null,
-  // user: {
-  //   id: 101,
-  //   name: 'Ken Tsunekawa',
-  //   icon_url: 'https://rodoma.s3-ap-northeast-1.amazonaws.com/img/user/icon/user_d06f36b1-7174-47d4-8dc4-58f62b50d0ae.jpg',
-  // },
+  // user: null,
+  user: {
+    id: 108,
+    name: 'c@gmail.com',
+    icon_url:
+      'https://rodoma.s3-ap-northeast-1.amazonaws.com/img/user/icon/user_d06f36b1-7174-47d4-8dc4-58f62b50d0ae.jpg',
+  },
   isInitChecked: false,
   isVisited: null,
   isSignupComplete: false,
