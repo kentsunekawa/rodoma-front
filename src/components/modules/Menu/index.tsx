@@ -34,28 +34,20 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props) => (
   <div className={`${CLASSNAME} ${props.className}`} ref={props.dom.root}>
     <div className="panel" ref={props.dom.panel}>
       <div className="header">
         <ModeChanger />
-        <CircleButton
-          onClick={props.close}
-        >
-          <IconClose/>
+        <CircleButton onClick={props.close}>
+          <IconClose />
         </CircleButton>
       </div>
-      <div className='inner'>
-        <MenuContent
-          user={props.user}
-          closeFunc={props.close}
-        />
+      <div className="inner">
+        <MenuContent user={props.user} closeFunc={props.close} />
       </div>
     </div>
-    <Overlay
-      childRef={props.dom.overlay}
-      onClick={props.close}
-    />
+    <Overlay childRef={props.dom.overlay} onClick={props.close} />
   </div>
 );
 
@@ -66,7 +58,6 @@ const StyeldComponent = Styled(Component)`
 
 // container component
 const Container: React.FC<ComponentProps> = (componentProps: ComponentProps) => {
-
   const isOpen = useSelector(isMenuOpenSelector);
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
@@ -75,14 +66,14 @@ const Container: React.FC<ComponentProps> = (componentProps: ComponentProps) => 
     root: useRef<HTMLDivElement>(null),
     panel: useRef<HTMLDivElement>(null),
     overlay: useRef<HTMLDivElement>(null),
-  }  
+  };
 
   const close = () => {
     dispatch(toggleMenu(false));
-  }
+  };
 
-  if(dom.root.current && dom.panel.current && dom.overlay.current){
-    if(isOpen) {
+  if (dom.root.current && dom.panel.current && dom.overlay.current) {
+    if (isOpen) {
       anim_toggleMenu(dom.root.current, dom.panel.current, dom.overlay.current);
     } else {
       anim_toggleMenu(dom.root.current, dom.panel.current, dom.overlay.current, false);
@@ -91,6 +82,6 @@ const Container: React.FC<ComponentProps> = (componentProps: ComponentProps) => 
 
   const props = { close, user, dom };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

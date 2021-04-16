@@ -4,10 +4,7 @@ import * as styles from './styles';
 import TextButton from 'components/elements/buttons/TextButton';
 import Paragraph from 'components/elements/Paragraph';
 import CircleButton from 'components/elements/buttons/CircleButton';
-import {
-  IconUp,
-  IconDown
-} from 'components/elements/icons';
+import { IconUp, IconDown } from 'components/elements/icons';
 import { toggleAccordion } from 'components/animations';
 
 // component root class name
@@ -21,7 +18,7 @@ interface ComponentProps {
   parent: {
     id: number;
     name: string;
-  }
+  };
   childList: {
     id: number;
     name: string;
@@ -37,41 +34,33 @@ interface Props extends ComponentProps {
   dom: {
     child: React.Ref<HTMLDivElement>;
     inner: React.Ref<HTMLDivElement>;
-  }
+  };
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='parent'>
+    <div className="parent">
       <TextButton onClick={() => props.onClick(props.parent.id)}>
-        <Paragraph types={props.types}>
-          {props.parent.name}
-        </Paragraph>
+        <Paragraph types={props.types}>{props.parent.name}</Paragraph>
       </TextButton>
       <CircleButton onClick={props.toggle} types={['outline', 's']}>
-        {
-          props.localIsOpen
-            ? <IconUp />
-            : <IconDown />
-        }
+        {props.localIsOpen ? <IconUp /> : <IconDown />}
       </CircleButton>
     </div>
-    
+
     <div className={`child${props.localIsOpen ? ' -open' : ''}`} ref={props.dom.child}>
-      <div className='inner' ref={props.dom.inner}>
-        <ul className='list'>
-          {
-            props.childList.map((child, i) => {
-              return <li className='item' key={i}>
+      <div className="inner" ref={props.dom.inner}>
+        <ul className="list">
+          {props.childList.map((child, i) => {
+            return (
+              <li className="item" key={i}>
                 <TextButton onClick={() => props.onClick(props.parent.id, child.id)}>
-                  <Paragraph types={props.types}>
-                    {child.name}
-                  </Paragraph>
+                  <Paragraph types={props.types}>{child.name}</Paragraph>
                 </TextButton>
               </li>
-            })
-          }
+            );
+          })}
         </ul>
       </div>
     </div>
@@ -84,8 +73,7 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { isOpen } = componentProps;
 
   const [localIsOpen, setLocalIsOpen] = useState(isOpen ? true : false);
@@ -93,16 +81,15 @@ const Container: React.FC<ComponentProps> = componentProps => {
   const dom = {
     child: useRef<HTMLDivElement>(null),
     inner: useRef<HTMLDivElement>(null),
-  }
+  };
 
   const toggle = () => {
     toggleAccordion(dom.child.current!, dom.inner.current!, !localIsOpen);
     setLocalIsOpen(localIsOpen ? false : true);
-  }
+  };
 
+  const props = { localIsOpen, toggle, dom };
 
-  const props =  { localIsOpen, toggle, dom };
-
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props} />;
+};
 export default Container;

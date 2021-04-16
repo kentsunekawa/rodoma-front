@@ -3,9 +3,8 @@ import Styled from 'styled-components';
 import { Chart, Subject } from 'types';
 
 import * as styles from './styles';
-import TextButton from 'components/elements/buttons/TextButton';
 import CircleButton from 'components/elements/buttons/CircleButton';
-import { IconPieChart, IconRight, IconWidthFixed, IconWidthOver, IconAdd } from 'components/elements/icons';
+import { IconPieChart, IconWidthFixed, IconWidthOver, IconAdd } from 'components/elements/icons';
 import Bar from './Bar';
 
 // component root class name

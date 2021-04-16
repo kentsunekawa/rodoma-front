@@ -23,7 +23,7 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <input
       checked={props.isChecked}
@@ -35,7 +35,7 @@ const Component: React.FC<Props> = props => (
       onChange={props.onChildChange}
     />
     <label className="label" htmlFor={`${props.name}_${props.value}`}>
-      <div className="icon"></div>
+      <div className="icon" />
       <span className="text">{props.label}</span>
     </label>
   </div>
@@ -45,24 +45,23 @@ const Component: React.FC<Props> = props => (
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { value, onChange } = componentProps;
 
   const onChildChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(typeof value === 'number') {
+    if (typeof value === 'number') {
       onChange(Number(e.target.value));
     } else {
       onChange(e.target.value);
     }
-  }
+  };
 
   const props = { onChildChange };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props} />;
+};
 export default Container;
