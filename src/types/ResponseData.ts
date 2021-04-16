@@ -1,4 +1,4 @@
-import { RESPONSE_MESSAGES } from 'utils/messages';
+import { RESPONSE_MESSAGES } from "utils/messages";
 
 import {
   Sns,
@@ -9,7 +9,7 @@ import {
   RelationData,
   UserData,
   Comment,
-} from './index';
+} from "./index";
 
 export type ResponseStatus = keyof typeof RESPONSE_MESSAGES;
 
@@ -21,7 +21,7 @@ export type Response<T = any> = {
 export interface Query {
   keyword?: string;
   category_id?: number;
-  specialty_id?: number
+  specialty_id?: number;
   status?: number;
   sort?: string;
   offset?: number;
@@ -40,7 +40,7 @@ export interface Signin {
 
 export interface Signup {
   user: UserData_overview;
-};
+}
 
 export interface CategoryTree {
   categoryTree: CategoryList;
@@ -78,7 +78,7 @@ export interface Comments {
 }
 
 export interface Relation {
-  relation: RelationData | null,
+  relation: RelationData | null;
 }
 
 export interface Error {

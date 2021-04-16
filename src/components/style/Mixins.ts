@@ -1,22 +1,25 @@
-import { css, keyframes } from 'styled-components';
-import { COLORS } from './AppTheme';
+import { css, keyframes } from "styled-components";
+import { COLORS } from "./AppTheme";
 
 export const Gradient = css`
   background: linear-gradient(45deg, ${COLORS.primary}, ${COLORS.secondary});
 `;
 
-export const AspectFix = css<{aspectWidth?: number; aspectHeight?: number;}>`
+export const AspectFix = css<{ aspectWidth?: number; aspectHeight?: number }>`
   position: relative;
-  &:before{
-    content: '';
+  &:before {
+    content: "";
     display: block;
-    padding-top: ${props => (props.aspectWidth ? props.aspectWidth : 1) / (props.aspectHeight ? props.aspectHeight : 1) * 100}%;
+    padding-top: ${(props) =>
+      ((props.aspectWidth ? props.aspectWidth : 1) /
+        (props.aspectHeight ? props.aspectHeight : 1)) *
+      100}%;
   }
 `;
 
 export const AbsCenterMiddle = css`
   position: relative;
-  & > .inner{
+  & > .inner {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -25,18 +28,18 @@ export const AbsCenterMiddle = css`
 `;
 
 export const WithShadow = css`
-  box-shadow: 0px 3px 6px 0px rgba(0,0,0,.16);
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
 `;
 
 export const ButtonTapAction = css`
-  transition: .2s transform;
-  &:active{
+  transition: 0.2s transform;
+  &:active {
     transform: translateY(10%);
   }
-  &.-disabled{
-    &:active{
+  &.-disabled {
+    &:active {
       transform: none;
-    } 
+    }
   }
 `;
 

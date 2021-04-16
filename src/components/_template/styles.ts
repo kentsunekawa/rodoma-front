@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from "styled-components";
 // import {
 //   Gradient,
 //   WithShadow,
@@ -10,4 +10,3 @@ import { css } from 'styled-components';
 export const base = css``;
 
 export const primary = css``;
-

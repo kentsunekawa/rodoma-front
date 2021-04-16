@@ -1,5 +1,5 @@
-import "styled-components"
-import AppTheme from "../components/style/AppTheme"
+import "styled-components";
+import AppTheme from "../components/style/AppTheme";
 
 type Theme = typeof AppTheme.dark | AppTheme.light;
 
