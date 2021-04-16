@@ -1,63 +1,60 @@
-import gsap from 'gsap';
+import gsap from "gsap";
 
-export const doorHide = (
-  root: HTMLDivElement,
-  logo: HTMLDivElement,
-) => {
-  return new Promise(resolve => {
+export const doorHide = (root: HTMLDivElement, logo: HTMLDivElement) => {
+  return new Promise((resolve) => {
     gsap.to(logo, {
-      y: '-200px',
+      y: "-200px",
       duration: 1,
-      ease: 'Power3.easeOut'
+      ease: "Power3.easeOut",
     });
     gsap.to(root, {
       opacity: 0,
-      duration: .5,
-      ease: 'linear',
+      duration: 0.5,
+      ease: "linear",
       onComplete: () => {
         gsap.set(root, {
-          display: 'none',
+          display: "none",
         });
         resolve(null);
-      }
+      },
     });
   });
 };
 
-export const toggleLoading = (root: HTMLDivElement, dir: boolean = true) => {  
-  if(dir) {
-    return new Promise(resolve => {
+export const toggleLoading = (root: HTMLDivElement, dir: boolean = true) => {
+  if (dir) {
+    return new Promise((resolve) => {
       gsap.killTweensOf(root);
       gsap.set(root, {
-        display: 'block',
-        opacity: '0',
+        display: "block",
+        opacity: "0",
       });
       gsap.to(root, {
         opacity: 1,
-        duration: .2,
-        ease: 'linear',
+        duration: 0.2,
+        ease: "linear",
         onComplete: () => {
           resolve(null);
-        }
+        },
       });
     });
   } else {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       gsap.killTweensOf(root);
       gsap.to(root, {
         opacity: 0,
-        duration: .2,
-        ease: 'linear',
+        duration: 0.2,
+        ease: "linear",
         onComplete: () => {
           gsap.set(root, {
-            display: 'none',
+            display: "none",
           });
           resolve(null);
-        }
+        },
       });
     });
   }
-}
+};
 
 export const toggleMenu = (
   root: HTMLDivElement,
@@ -65,56 +62,56 @@ export const toggleMenu = (
   overlay: HTMLDivElement,
   dir: boolean = true
 ) => {
-  if(dir) { 
+  if (dir) {
     gsap.set(root, {
-      display: 'block',
+      display: "block",
     });
     gsap.set(overlay, {
       opacity: 0,
     });
     gsap.set(panel, {
-      x: '100%',
+      x: "100%",
     });
     gsap.to(overlay, {
       opacity: 1,
-      duration: .3,
-      ease: 'Power1.easeInOut',
+      duration: 0.3,
+      ease: "Power1.easeInOut",
     });
     gsap.to(panel, {
-      x: '0',
-      duration: .3,
+      x: "0",
+      duration: 0.3,
     });
   } else {
     gsap.to(overlay, {
       opacity: 0,
-      duration: .3,
+      duration: 0.3,
     });
     gsap.to(panel, {
-      x: '100%',
-      duration: .3,
-      ease: 'Power1.easeInOut',
+      x: "100%",
+      duration: 0.3,
+      ease: "Power1.easeInOut",
       onComplete: () => {
-        root.style.display = 'none';
-      }
+        root.style.display = "none";
+      },
     });
     gsap.set(root, {
-      display: 'none',
-      delay: .3,
+      display: "none",
+      delay: 0.3,
     });
-  }  
+  }
 };
 
 export const toggleAccordion = (
   child: HTMLDivElement,
   inner: HTMLDivElement,
-  dir: boolean = true,
+  dir: boolean = true
 ) => {
-  const ease = 'Power2.easeInOut';
-  const duration = .3;
+  const ease = "Power2.easeInOut";
+  const duration = 0.3;
 
-  if(dir) {
+  if (dir) {
     gsap.set(child, {
-      height: 0
+      height: 0,
     });
     gsap.to(child, {
       height: inner.clientHeight,
@@ -128,40 +125,40 @@ export const toggleAccordion = (
       ease,
     });
   }
-}
+};
 
 export const toggleSearchPanel = (
   bg: HTMLDivElement,
   inner: HTMLDivElement,
-  dir: boolean = true,
+  dir: boolean = true
 ) => {
-  const ease = 'Power2.easeOut';
-  const duration = .3;
+  const ease = "Power2.easeOut";
+  const duration = 0.3;
 
-  if(dir) {
+  if (dir) {
     gsap.set(bg, {
-      display: 'block',
+      display: "block",
       opacity: 0,
     });
     gsap.set(inner, {
       opacity: 0,
-      y: '50px'
+      y: "50px",
     });
     gsap.to(bg, {
       opacity: 1,
       duration,
-      ease: 'Power0.easeNone',
+      ease: "Power0.easeNone",
     });
     gsap.to(inner, {
       y: 0,
       opacity: 1,
       duration,
       ease,
-      delay: .1,
+      delay: 0.1,
     });
   } else {
     gsap.to(inner, {
-      y: '50px',
+      y: "50px",
       opacity: 0,
       duration,
       ease,
@@ -169,164 +166,163 @@ export const toggleSearchPanel = (
     gsap.to(bg, {
       opacity: 0,
       duration,
-      ease: 'Power0.easeNone',
+      ease: "Power0.easeNone",
       // delay: .2,
       onComplete: () => {
-        bg.style.display = 'none';
-      }
+        bg.style.display = "none";
+      },
     });
   }
-}
+};
 
 export const toggleModal = (
   root: HTMLDivElement,
   mask: HTMLDivElement,
   overlay: HTMLDivElement,
-  dir: boolean = true,
+  dir: boolean = true
 ) => {
-  const duration = .3;
-  const ease = 'Power2.easeOut';
+  const duration = 0.3;
+  const ease = "Power2.easeOut";
 
-  return new Promise(resolve => {
-    if(dir) {
+  return new Promise((resolve) => {
+    if (dir) {
       gsap.set(root, {
-        display: 'block',
+        display: "block",
       });
       gsap.set(overlay, {
         opacity: 0,
       });
       gsap.set(mask, {
-        y: '50px',
+        y: "50px",
         opacity: 0,
       });
       gsap.to(overlay, {
         opacity: 1,
         duration,
-        ease: 'Power0.easeNone'
+        ease: "Power0.easeNone",
       });
       gsap.to(mask, {
         y: 0,
         opacity: 1,
         duration,
         ease,
-        onComplete(){
+        onComplete() {
           resolve(null);
-        }
+        },
       });
     } else {
       gsap.to(overlay, {
         opacity: 0,
         duration,
-        ease: 'Power0.easeNone'
+        ease: "Power0.easeNone",
       });
       gsap.to(mask, {
-        y: '50px',
+        y: "50px",
         opacity: 0,
         duration,
         ease,
-        onComplete(){
+        onComplete() {
           resolve(null);
-        }
+        },
       });
     }
-  }); 
-}
+  });
+};
 
 export const toggleMessage = (
   root: HTMLDivElement,
   counter: HTMLSpanElement,
   isShow: boolean = true,
-  count?: number,
+  count?: number
 ) => {
-  
-  return new Promise(resolve => {
-    if(isShow) {
+  return new Promise((resolve) => {
+    if (isShow) {
       gsap.killTweensOf(counter);
       gsap.set(root, {
-        display: 'block',
+        display: "block",
         opacity: 0,
       });
       gsap.set(counter, {
         width: 0,
       });
       gsap.to(counter, {
-        width: '100%',
+        width: "100%",
         duration: count,
-        ease: 'linear'
+        ease: "linear",
       });
       gsap.to(root, {
         opacity: 1,
-        duration: .3,
-        ease: 'Power0.easeNone',
+        duration: 0.3,
+        ease: "Power0.easeNone",
         onComplete: () => {
           resolve(null);
-        }
+        },
       });
     } else {
       gsap.to(root, {
         opacity: 0,
-        duration: .3,
-        ease: 'Power0.easeNone',
+        duration: 0.3,
+        ease: "Power0.easeNone",
         onComplete: () => {
           gsap.set(root, {
-            display: 'none',
+            display: "none",
           });
           resolve(null);
-        }
+        },
       });
     }
-  })
+  });
 };
 
 export const toggleCard = (
   root: HTMLDivElement,
   panel: HTMLDivElement,
   overlay: HTMLDivElement,
-  dir: boolean = true,
+  dir: boolean = true
 ) => {
-  const duration = .4;
+  const duration = 0.4;
 
-  return new Promise(resolve => {
-    if(dir) {
+  return new Promise((resolve) => {
+    if (dir) {
       gsap.set(root, {
-        display: 'block',
+        display: "block",
       });
       gsap.set(overlay, {
         opacity: 0,
       });
       gsap.set(panel, {
-        bottom: '-100%',
+        bottom: "-100%",
       });
       gsap.to(overlay, {
         opacity: 1,
         duration,
-        ease: 'linear'
+        ease: "linear",
       });
       gsap.to(panel, {
         bottom: 0,
         duration,
-        ease: 'Power3.easeOut',
+        ease: "Power3.easeOut",
         onComplete: () => {
           resolve(null);
-        }
+        },
       });
     } else {
       gsap.to(panel, {
-        bottom: '-100%',
+        bottom: "-100%",
         duration,
-        ease: 'Power3.easeIn'
+        ease: "Power3.easeIn",
       });
       gsap.to(overlay, {
         opacity: 0,
         duration,
-        ease: 'linear',
+        ease: "linear",
         onComplete: () => {
           gsap.set(root, {
-            display: 'none',
+            display: "none",
           });
           resolve(null);
-        }
+        },
       });
     }
-  })
-}
+  });
+};

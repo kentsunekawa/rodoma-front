@@ -1,7 +1,7 @@
-import * as ResponseData from './ResponseData';
-import { RELEASE_STATUS } from 'utils';
+import * as ResponseData from "./ResponseData";
+import { RELEASE_STATUS } from "utils";
 
-export type Mode = 'light' | 'dark';
+export type Mode = "light" | "dark";
 
 export type Profile = {
   id: number;
@@ -15,7 +15,7 @@ export type Profile = {
     sns_id: number;
     url: string;
   }[];
-}
+};
 
 export interface UserData {
   id: number;
@@ -41,7 +41,7 @@ export interface PostData {
   specialty_id: number;
   release_status: ReleaseStatus;
   title: string;
-  description: string; 
+  description: string;
   eye_catch_url: string;
   created_at: string | null;
   updated_at: string | null;
@@ -77,19 +77,19 @@ export interface Subject {
   renge_start: number;
   renge_end: number;
   title: string;
-  description: string; 
+  description: string;
 }
 
 export interface Specialty {
   id: number;
   name: string;
-};
+}
 
 export interface Category {
   id: number;
   name: string;
   specialties: Specialty[];
-};
+}
 
 export type CategoryTree = Category[];
 
@@ -100,27 +100,27 @@ export interface Comment {
   user: UserData_overview;
 }
 
-export type PostSearchSortKeys = 'created_at' | 'likes_count' | 'marks_count';
-export type UserSearchSortKeys = 'created_at' | 'likes_count';
+export type PostSearchSortKeys = "created_at" | "likes_count" | "marks_count";
+export type UserSearchSortKeys = "created_at" | "likes_count";
 export type KeywordSearchQuery = {
   keyword: string;
-  key: 'user' | 'post';
+  key: "user" | "post";
 };
 
 export type SearchQuery = {
   keyword: KeywordSearchQuery;
   category: number;
   specialty: number;
-  orderBy: PostSearchSortKeys | UserSearchSortKeys | '';
+  orderBy: PostSearchSortKeys | UserSearchSortKeys | "";
 };
 
-export type MessageType = 'error' | 'success';
+export type MessageType = "error" | "success";
 
 export interface Message {
   isShow: boolean;
   type: MessageType;
   message: string;
-};
+}
 
 export interface SigninInfo {
   email: string;
@@ -138,7 +138,7 @@ export interface ResetPassInfo {
   token: string;
   email: string;
   password: string;
-  password_confirmation: string;  
+  password_confirmation: string;
 }
 
 export interface CommenInfo {
@@ -146,16 +146,16 @@ export interface CommenInfo {
   comment: string;
 }
 
-export type Chart = 'guntt' | 'pie';
- 
-export type Size = 'xxl' | 'xl' | 'l' | 'm' | 's' | 'xs' | 'xxs';
+export type Chart = "guntt" | "pie";
+
+export type Size = "xxl" | "xl" | "l" | "m" | "s" | "xs" | "xxs";
 
 export type SubjectLabel = null | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export type Sns = {
   id: number;
   name: string;
-}
+};
 
 export interface ValidateStatus<T> {
   isInvalid: boolean;
@@ -169,8 +169,8 @@ export interface ValidateErrorStatus {
     errors: {
       [key: string]: string[];
     } | null;
-  }
-};
+  };
+}
 
 export type BreadCrumbList = {
   id: number;

@@ -1,9 +1,13 @@
-import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
+import {
+  configureStore,
+  getDefaultMiddleware,
+  combineReducers,
+} from "@reduxjs/toolkit";
+import logger from "redux-logger";
 // import authReducer from './modules/user';
-import appReducer from './modules/app';
-import userReducer from './modules/user';
-import postReducer from './modules/post';
+import appReducer from "./modules/app";
+import userReducer from "./modules/user";
+import postReducer from "./modules/post";
 
 export const createStore = () => {
   return configureStore({
@@ -13,11 +17,9 @@ export const createStore = () => {
       user: userReducer,
       post: postReducer,
     }),
-    middleware: [...getDefaultMiddleware(), logger]
+    middleware: [...getDefaultMiddleware(), logger],
   });
-}
-
-
+};
 
 export const store = createStore();
 
