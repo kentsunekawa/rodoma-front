@@ -21,7 +21,7 @@ export const base = css`
               &:last-child {
                 border: none;
               }
-              & > a {
+              & > .button {
                 font-size: 1.4rem;
                 line-height: 1.4em;
                 color: #fff;
@@ -32,13 +32,17 @@ export const base = css`
                 width: 100%;
                 height: 2.8em;
                 padding: 0;
-
                 span {
                   display: -webkit-box;
                   overflow: hidden;
                   -webkit-line-clamp: 2;
                   -webkit-box-orient: vertical;
                 }
+              }
+              & > .alert {
+                display: block;
+                width: 100%;
+                padding: 0.2em 0;
               }
               & > .CircleButton {
                 margin: 0 auto;

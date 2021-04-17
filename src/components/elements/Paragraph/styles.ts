@@ -16,6 +16,10 @@ export const caption = css`
   font-size: 1.2rem;
 `;
 
+export const smallCaption = css`
+  font-size: 1rem;
+`;
+
 export const bigTitle = css`
   font-size: 3rem;
   letter-spacing: 0.05;

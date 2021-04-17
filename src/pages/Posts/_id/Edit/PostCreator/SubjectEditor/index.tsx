@@ -1,24 +1,25 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import Styled from 'styled-components';
-
 import { Subject, ValidateStatus, SubjectLabel, PostData } from 'types';
 import { LABEL_LIST } from 'utils';
 import { subject as validate_subject } from 'validations';
 import { setModal } from 'state/modules/app';
-
+import LabelRadio from 'components/blocks/LabelRadio';
 import Error from 'components/elements/Error';
 import TextInput from 'components/elements/inputs/TextInput';
 import TextArea from 'components/elements/inputs/TextArea';
 import Selector from 'components/elements/inputs/Selector';
 import RoundButton from 'components/elements/buttons/RoundButton';
-import LabelRadio from 'components/blocks/LabelRadio';
-
+import CircleButton from 'components/elements/buttons/CircleButton';
+import TextButton from 'components/elements/buttons/TextButton';
+import Paragraph from 'components/elements/Paragraph';
+import { IconTrash } from 'components/elements/icons';
 import { PostEditContext } from '../../';
 import * as styles from './styles';
 
 // component root class name
-const CLASSNAME = '';
+const CLASSNAME = 'SubjectEditor';
 
 // declare types
 
@@ -35,6 +36,7 @@ interface ComponentProps {
   currentSubject: number | null;
   className?: string;
   desideSubject: (subject: Subject) => void;
+  deleteSubject: () => void;
 }
 
 interface Props extends ComponentProps {
@@ -50,78 +52,111 @@ interface Props extends ComponentProps {
       label: string;
     }[];
   };
+  isDeleteConfirm: boolean;
   textChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   linkPostChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   rengeChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   labelChange: (value: number) => void;
   deside: () => void;
+  toggleDeleteConfirm: () => void;
 }
 
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className="row">
-      <Error messages={props.validateStatus.errors.title}>
-        <TextInput
-          label="Title"
-          name="title"
-          value={props.subject.title}
-          onChange={props.textChange}
-        />
-      </Error>
-    </div>
-    <div className="row -label">
-      <span className="rowLabel">Label</span>
-      <LabelRadio
-        name="label"
-        values={LABEL_LIST}
-        selected={props.subject.label ? props.subject.label : 0}
-        onChange={props.labelChange}
-      />
-    </div>
-    <div className="row -renge">
-      <Selector
-        types={['s']}
-        label="Start"
-        name="renge_start"
-        options={props.rengeOptions().start}
-        selected={props.subject.renge_start.toString()}
-        onChange={props.rengeChange}
-        className="rengeSelector"
-      />
-      〜
-      <Selector
-        types={['s']}
-        label="End"
-        name="renge_end"
-        options={props.rengeOptions().end}
-        selected={props.subject.renge_end.toString()}
-        onChange={props.rengeChange}
-        className="rengeSelector"
-      />
-    </div>
-    <div className="row">
-      <TextArea
-        label="Description"
-        name="description"
-        value={props.subject.description}
-        onChange={props.textChange}
-      />
-    </div>
-    <div className="row">
-      <Selector
-        label="Link to other Roadmap"
-        name="linked_post_id"
-        options={props.linkablePosts}
-        selected={props.subject.linked_post_id === null ? 0 : props.subject.linked_post_id}
-        onChange={props.linkPostChange}
-      />
-    </div>
-    <div className="bottom">
-      <RoundButton types={['l', 'gradient']} onClick={props.deside}>
-        OK
-      </RoundButton>
-    </div>
+    {!props.isDeleteConfirm ? (
+      <div className="edit">
+        <div className="row">
+          <Error messages={props.validateStatus.errors.title}>
+            <TextInput
+              label="Title"
+              name="title"
+              value={props.subject.title}
+              onChange={props.textChange}
+            />
+          </Error>
+        </div>
+        <div className="row -label">
+          <span className="rowLabel">Label</span>
+          <LabelRadio
+            name="label"
+            values={LABEL_LIST}
+            selected={props.subject.label ? props.subject.label : 0}
+            onChange={props.labelChange}
+          />
+        </div>
+        <div className="row -renge">
+          <Selector
+            types={['s']}
+            label="Start"
+            name="renge_start"
+            options={props.rengeOptions().start}
+            selected={props.subject.renge_start.toString()}
+            onChange={props.rengeChange}
+            className="rengeSelector"
+          />
+          〜
+          <Selector
+            types={['s']}
+            label="End"
+            name="renge_end"
+            options={props.rengeOptions().end}
+            selected={props.subject.renge_end.toString()}
+            onChange={props.rengeChange}
+            className="rengeSelector"
+          />
+        </div>
+        <div className="row">
+          <TextArea
+            label="Description"
+            name="description"
+            value={props.subject.description}
+            onChange={props.textChange}
+          />
+        </div>
+        <div className="row">
+          <Selector
+            label="Link to other Roadmap"
+            name="linked_post_id"
+            options={props.linkablePosts}
+            selected={props.subject.linked_post_id === null ? 0 : props.subject.linked_post_id}
+            onChange={props.linkPostChange}
+          />
+        </div>
+        <div className="bottom">
+          <CircleButton
+            types={['gray_midium']}
+            className="deleteButton"
+            onClick={props.toggleDeleteConfirm}
+          >
+            <IconTrash />
+          </CircleButton>
+          <RoundButton types={['l', 'gradient']} onClick={props.deside}>
+            OK
+          </RoundButton>
+        </div>
+      </div>
+    ) : (
+      <div className="confirm">
+        <div className="row">
+          <Paragraph>項目を削除してもよろしいですか？</Paragraph>
+        </div>
+        <div className="row">
+          <RoundButton
+            onClick={props.deleteSubject}
+            types={['gradient', 'l']}
+            className="desideButton"
+          >
+            OK
+          </RoundButton>
+        </div>
+        <div className="row">
+          <TextButton onClick={props.toggleDeleteConfirm} types={['primary']}>
+            編集を続ける
+          </TextButton>
+        </div>
+      </div>
+    )}
   </div>
 );
 
@@ -133,7 +168,7 @@ const StyeldComponent = Styled(Component)`
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
-  const { currentSubject, desideSubject, post } = componentProps;
+  const { currentSubject, post, deleteSubject, desideSubject } = componentProps;
   const { state } = useContext(PostEditContext);
 
   const [subject, setSubject] = useState<Subject>({
@@ -153,6 +188,8 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       title: [],
     },
   });
+
+  const [isDeleteConfirm, setIsDeleteConfirm] = useState<boolean>(false);
 
   const rengeOptions = () => {
     const start = [];
@@ -199,7 +236,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
 
   const deside = () => {
     const validateResult = validate_subject(subject);
-
     setValidateStatus({
       isInvalid: validateResult.hasErrors(),
       errors: {
@@ -212,6 +248,10 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       desideSubject(subject);
       dispatch(setModal(''));
     }
+  };
+
+  const toggleDeleteConfirm = () => {
+    setIsDeleteConfirm(isDeleteConfirm ? false : true);
   };
 
   const labelChange = (value: number) => {
@@ -231,6 +271,8 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const props = {
     subject,
     validateStatus,
+    isDeleteConfirm,
+    toggleDeleteConfirm,
     rengeOptions,
     textChange,
     linkPostChange,

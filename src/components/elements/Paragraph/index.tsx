@@ -9,6 +9,7 @@ const CLASSNAME = 'Paragraph';
 type StyleType =
   | 'inline'
   | 'caption'
+  | 'smallCaption'
   | 'bigTitle'
   | 'title'
   | 'subTitle'
