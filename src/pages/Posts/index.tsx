@@ -39,6 +39,7 @@ const Component: React.FC<Props> = (props: Props) => (
     <PageBase>
       <ListHeader
         title="ロードマップ"
+        listType="post"
         sortKeys={[
           {
             value: 'likes_count',

@@ -101,7 +101,7 @@ export interface Comment {
 }
 
 export type PostSearchSortKeys = 'created_at' | 'likes_count' | 'marks_count';
-export type UserSearchSortKeys = 'created_at' | 'likes_count';
+export type UserSearchSortKeys = 'created_at' | 'followers_count';
 export type KeywordSearchQuery = {
   keyword: string;
   key: 'user' | 'post';
@@ -111,7 +111,10 @@ export type SearchQuery = {
   keyword: KeywordSearchQuery;
   category: number;
   specialty: number;
-  orderBy: PostSearchSortKeys | UserSearchSortKeys | '';
+  orderBy: {
+    user: UserSearchSortKeys;
+    post: PostSearchSortKeys;
+  };
 };
 
 export type MessageType = 'error' | 'success';
