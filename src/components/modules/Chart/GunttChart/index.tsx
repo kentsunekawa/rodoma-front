@@ -4,6 +4,7 @@ import { Chart, Subject } from 'types';
 
 import * as styles from './styles';
 import CircleButton from 'components/elements/buttons/CircleButton';
+import Paragraph from 'components/elements/Paragraph';
 import { IconPieChart, IconWidthFixed, IconWidthOver, IconAdd } from 'components/elements/icons';
 import Bar from './Bar';
 
@@ -56,27 +57,39 @@ const Component: React.FC<Props> = (props: Props) => (
               {props.subjects.map((subject, i) => {
                 return props.editable ? (
                   <li className="item" key={i}>
-                    <button onClick={() => props.onEdit && props.onEdit(i)}>
+                    <button onClick={() => props.onEdit && props.onEdit(i)} className="button">
                       <span>{subject.title}</span>
                     </button>
                   </li>
                 ) : (
                   <li className="item" key={i}>
-                    <button onClick={() => props.onClickSubject(i)}>
+                    <button onClick={() => props.onClickSubject(i)} className="button">
                       <span>{subject.title}</span>
                     </button>
                   </li>
                 );
               })}
               {props.editable && (
-                <li className="item">
-                  <CircleButton
-                    types={['gray_light', 's']}
-                    onClick={() => props.onEdit && props.onEdit(null)}
-                  >
-                    <IconAdd />
-                  </CircleButton>
-                </li>
+                <>
+                  {props.subjects.length < 20 ? (
+                    <li className="item">
+                      <CircleButton
+                        types={['gray_light', 's']}
+                        onClick={() => props.onEdit && props.onEdit(null)}
+                      >
+                        <IconAdd />
+                      </CircleButton>
+                    </li>
+                  ) : (
+                    <li className="item">
+                      <Paragraph types={['caption', 'center', 'smallCaption']} className="alert">
+                        ※設定できる項目の
+                        <br />
+                        上限（20個）に達しました
+                      </Paragraph>
+                    </li>
+                  )}
+                </>
               )}
             </ul>
           </div>
