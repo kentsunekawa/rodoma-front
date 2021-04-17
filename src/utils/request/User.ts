@@ -9,7 +9,7 @@ class User {
     offset = 0,
     limit: number | null = null
   ): Promise<Response<Users>> {
-    let q = `?keyword=${searchQuery.keyword.keyword}&category=${searchQuery.category}&specialty=${searchQuery.specialty}&sort=${searchQuery.orderBy}&offset=${offset}`;
+    let q = `?keyword=${searchQuery.keyword.keyword}&category=${searchQuery.category}&specialty=${searchQuery.specialty}&sort=${searchQuery.orderBy.user}&offset=${offset}`;
     if (limit !== null) {
       q += `&limit=${limit}`;
     }

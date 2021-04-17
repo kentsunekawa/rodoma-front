@@ -48,7 +48,10 @@ const initialState: AppState = {
     },
     category: 0,
     specialty: 0,
-    orderBy: '',
+    orderBy: {
+      post: 'likes_count',
+      user: 'created_at',
+    },
   },
   categoryTree: [],
   snsList: [],

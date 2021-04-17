@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Styled from 'styled-components';
-
-import { BreadCrumbList, PostSearchSortKeys, SearchQuery, UserSearchSortKeys } from 'types';
+import { BreadCrumbList, SearchQuery, PostSearchSortKeys, UserSearchSortKeys } from 'types';
 import { createBreadCrumbList } from 'utils';
 import { searchQuerySelector, categoryTreeSelector, setQuery } from 'state/modules/app';
-
 import ToggleTagList from 'components/blocks/ToggleTagList';
 import Paragraph from 'components/elements/Paragraph';
 import Selector from 'components/elements/inputs/Selector';
@@ -21,11 +19,11 @@ const CLASSNAME = 'ListHeader';
 
 interface ComponentProps {
   title: string;
-  // count: number;
   sortKeys: {
     value: string;
     label: string;
   }[];
+  listType: 'user' | 'post';
   className?: string;
 }
 
@@ -43,7 +41,7 @@ const Component: React.FC<Props> = (props: Props) => (
     <div className="titleArea">
       <Paragraph types={['title']}>{props.title}</Paragraph>
       <Selector
-        selected={props.searchQuery.orderBy}
+        selected={props.searchQuery.orderBy[props.listType]}
         types={['s', 'primary']}
         name="orderBy"
         options={props.sortKeys}
@@ -83,6 +81,8 @@ const StyeldComponent = Styled(Component)`
 
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
+  const { listType } = componentProps;
+
   const dispatch = useDispatch();
   const searchQuery = useSelector(searchQuerySelector);
   const categoryTree = useSelector(categoryTreeSelector);
@@ -128,7 +128,10 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     dispatch(
       setQuery({
         ...searchQuery,
-        orderBy: e.target.value as UserSearchSortKeys | PostSearchSortKeys,
+        orderBy: {
+          ...searchQuery.orderBy,
+          [listType]: e.target.value,
+        },
       })
     );
   };

@@ -9,7 +9,7 @@ class Post {
     offset = 0,
     limit: number | null = null
   ): Promise<Response<Posts>> {
-    let q = `?keyword=${searchQuery.keyword.keyword}&category=${searchQuery.category}&specialty=${searchQuery.specialty}&sort=${searchQuery.orderBy}&offset=${offset}&status=1`;
+    let q = `?keyword=${searchQuery.keyword.keyword}&category=${searchQuery.category}&specialty=${searchQuery.specialty}&sort=${searchQuery.orderBy.post}&offset=${offset}&status=1`;
     if (limit !== null) {
       q += `&limit=${limit}`;
     }
