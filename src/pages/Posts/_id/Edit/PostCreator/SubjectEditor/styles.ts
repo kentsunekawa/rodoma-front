@@ -20,4 +20,17 @@ export const base = css`
       }
     }
   }
+  .bottom {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    position: relative;
+    .deleteButton {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
 `;
