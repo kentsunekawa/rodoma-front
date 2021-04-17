@@ -43,6 +43,7 @@ const Component: React.FC<Props> = (props: Props) => (
     <div className="titleArea">
       <Paragraph types={['title']}>{props.title}</Paragraph>
       <Selector
+        selected={props.searchQuery.orderBy}
         types={['s', 'primary']}
         name="orderBy"
         options={props.sortKeys}
