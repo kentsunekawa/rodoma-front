@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import GuestRoute from 'pages/GuestRoute';
+import MemberRoute from './pages/MemberRoute';
+import Auth from 'components/modules/Auth';
 import Home from 'pages/Posts';
 import Users from 'pages/Users';
 import User from 'pages/Users/_id';
@@ -16,9 +18,8 @@ import ResetPass from 'pages/ResetPass';
 import NotFound from 'pages/NotFound';
 import Post from 'pages/Posts/_id';
 import PostEdit from 'pages/Posts/_id/Edit';
-import MemberRoute from './pages/MemberRoute';
 import { setIsDoorShow, requestCategoryTree, requestSnsList } from 'state/modules/app';
-import { initCheck, isInitCheckedSelector, isVisitedSelector } from 'state/modules/user';
+import { isInitCheckedSelector, isVisitedSelector } from 'state/modules/user';
 import Header from 'components/modules/Header';
 import Menu from 'components/modules/Menu';
 import SearchPanel from 'components/modules/SearchPanel';
@@ -40,12 +41,12 @@ const App: React.FC = () => {
   useEffect(() => {
     if (isInitRender.current) {
       dispatch(setIsDoorShow(false));
+      dispatch(requestCategoryTree());
+      dispatch(requestSnsList());
     }
   }, [dispatch, isInitChecked]);
 
   useEffect(() => {
-    console.log(noRedirectPaths.includes(location.pathname));
-
     if (isInitRender.current) {
       if (!isVisited && !noRedirectPaths.includes(location.pathname)) {
         history.push('/intro');
@@ -55,14 +56,11 @@ const App: React.FC = () => {
   }, [isVisited, history]);
 
   useEffect(() => {
-    dispatch(initCheck());
-    dispatch(requestCategoryTree());
-    dispatch(requestSnsList());
     isInitRender.current = true;
-  }, [dispatch]);
+  }, []);
 
   return (
-    <>
+    <Auth>
       <Door />
       <Loading />
       <FixWindow>
@@ -136,7 +134,7 @@ const App: React.FC = () => {
           </Route>
         </Switch>
       </FixWindow>
-    </>
+    </Auth>
   );
 };
 

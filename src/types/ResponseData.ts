@@ -36,6 +36,7 @@ export type Token = string;
 export interface Signin {
   token: Token;
   user: UserData_overview;
+  expires_in: number;
 }
 
 export interface Signup {

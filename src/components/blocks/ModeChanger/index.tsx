@@ -19,7 +19,6 @@ const Component: React.FC<Props> = (props: Props) => (
 const Container: React.FC = () => {
   const dispatch = useDispatch();
   const mode = useSelector(modeSelector);
-  console.log(mode);
 
   const change = (value: boolean) => {
     dispatch(modeChange(value ? 'dark' : 'light'));

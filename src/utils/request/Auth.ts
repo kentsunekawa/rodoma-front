@@ -1,4 +1,4 @@
-import { axios_app } from 'utils/axios';
+import { axios_app, axios_auth } from 'utils/axios';
 
 import { ResetPassInfo, SigninInfo, SignupInfo } from 'types';
 import { Response, Signin, Signup } from 'types/ResponseData';
@@ -49,6 +49,32 @@ class Auth {
     return new Promise<Response>((resolve, reject) => {
       axios_app()
         .post(`/password/reset/${resetPassInfo.token}`, resetPassInfo)
+        .then((result) => {
+          resolve(result.data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  static refreshToken(): Promise<Response<Signin>> {
+    return new Promise<Response<Signin>>((resolve, reject) => {
+      axios_auth()
+        .get(`/refresh`)
+        .then((result) => {
+          resolve(result.data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  static getUserByToken(): Promise<Response<Signin>> {
+    return new Promise<Response<Signin>>((resolve, reject) => {
+      axios_auth()
+        .get(`/user`)
         .then((result) => {
           resolve(result.data);
         })
