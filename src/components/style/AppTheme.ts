@@ -4,6 +4,7 @@ export const COLORS = {
   gray_dark: '#555',
   gray_midium: '#707070',
   gray_light: '#aaa',
+  gray_pale: '#e8e8e8',
   white: '#fff',
   black: '#333',
   subject0: 'rgba(255, 255, 255, .4)',
@@ -25,6 +26,7 @@ export const BaseTheme = {
     gray_dark: COLORS.gray_dark,
     gray_midium: COLORS.gray_midium,
     gray_light: COLORS.gray_light,
+    gray_pale: COLORS.gray_pale,
     white: COLORS.white,
     black: COLORS.black,
     success: COLORS.success,
@@ -49,6 +51,8 @@ const AppTheme = {
     darkBg: '#fff',
     themeColors: {
       black: COLORS.black,
+      gray_pale: COLORS.gray_pale,
+      gray_light: COLORS.gray_light,
       gray_midium: COLORS.gray_midium,
       gray_dark: COLORS.gray_dark,
     },
@@ -62,6 +66,7 @@ const AppTheme = {
     darkBg: '#000',
     themeColors: {
       black: COLORS.white,
+      gray_pale: COLORS.gray_dark,
       gray_midium: COLORS.gray_light,
       gray_dark: COLORS.gray_light,
     },

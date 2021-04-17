@@ -1,19 +1,20 @@
 import { css } from 'styled-components';
 
 export const base = css`
+  color: ${({ theme }) => theme.themeColors.black};
   a {
     color: ${({ theme }) => theme.colors.primary};
     text-decoration: none;
   }
 
   a:visited {
-    color: #0b0080;
+    color: ${({ theme }) => theme.colors.primary};
   }
   a:hover {
-    color: #06e;
+    opacity: 0.8;
   }
   a:active {
-    color: #faa700;
+    opacity: 0.8;
   }
   a:focus {
     outline: thin dotted;
@@ -42,6 +43,7 @@ export const base = css`
   }
 
   p {
+    color: inherit;
     margin: 1em 0;
     font-size: 1.6rem;
     line-height: 1.8em;
@@ -58,7 +60,7 @@ export const base = css`
   h5,
   h6 {
     font-weight: normal;
-    color: #111;
+    color: inherit;
     line-height: 1.4em;
   }
   h4,
@@ -88,7 +90,7 @@ export const base = css`
   blockquote {
     padding-left: 3em;
     margin: 0;
-    color: #666666;
+    color: ${({ theme }) => theme.themeColors.gray_midium};
     border-left: 0.5em #eee solid;
   }
 
@@ -98,17 +100,16 @@ export const base = css`
     display: block;
     height: 2px;
     border: 0;
-    border-top: 1px solid #aaa;
-    border-bottom: 1px solid #eee;
+    border-top: 1px solid ${({ theme }) => theme.themeColors.gray_midium};
   }
 
   pre,
   code,
   kbd,
   samp {
-    color: #000;
+    color: inherit;
     font-size: 1.6rem;
-    background: #eee;
+    background: ${({ theme }) => theme.themeColors.gray_pale};
     line-height: 1.6em;
     padding: 0.1em 0.4em;
   }
