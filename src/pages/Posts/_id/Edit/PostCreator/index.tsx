@@ -3,18 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Styled from 'styled-components';
 import * as styles from './styles';
-
 import { PostData, Subject, UserData_overview } from 'types';
-import { setModal, setIsLoading, setMessage } from 'state/modules/app';
+import { setModal, setIsLoading, setMessage, setMode } from 'state/modules/app';
 import { userSelector } from 'state/modules/user';
 import { RELEASE_STATUS } from 'utils';
 import { RESPONSE_MESSAGES } from 'utils/messages';
 import Post from 'utils/request/Post';
-
 import Modal from 'components/modules/Modal';
 import Chart from 'components/modules/Chart';
 import RoundButton from 'components/elements/buttons/RoundButton';
-
 import { PostEditContext } from '../';
 import SummaryEditor from './SummaryEditor';
 import SubjectEditor from './SubjectEditor';
@@ -58,6 +55,7 @@ interface Props extends ComponentProps {
   showSubjectModal: (i: number | null) => void;
   setSummary: (summary: SummaryData) => void;
   setSubject: (subject: Subject) => void;
+  deleteSubject: () => void;
   release: (releaseStatus: keyof typeof RELEASE_STATUS, allowedUsers: UserData_overview[]) => void;
 }
 
@@ -93,6 +91,7 @@ const Component: React.FC<Props> = (props: Props) => (
         linkablePosts={props.linkablePosts}
         currentSubject={props.currentSubject}
         desideSubject={props.setSubject}
+        deleteSubject={props.deleteSubject}
       />
     </Modal>
     <Modal modalName="postEditRelease" className="modal">
@@ -134,8 +133,10 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   };
 
   const showSubjectModal = (i: number | null) => {
-    dispatch(setModal('postEditSubject'));
-    setCurrentSubject(i);
+    if (post.subjects.length <= 20) {
+      dispatch(setModal('postEditSubject'));
+      setCurrentSubject(i);
+    }
   };
 
   const setSummary = (summary: SummaryData) => {
@@ -170,6 +171,32 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
         subjects: [...newSubjects],
       },
     });
+  };
+
+  const deleteSubject = () => {
+    dispatch(setModal(''));
+    if (currentSubject !== null) {
+      const newSubjects = post.subjects.slice();
+      newSubjects.splice(currentSubject, 1);
+      contextDispatch({
+        type: 'SET_IS_SAVED',
+        payload: false,
+      });
+      contextDispatch({
+        type: 'SET_POST',
+        payload: {
+          ...post,
+          subjects: [...newSubjects],
+        },
+      });
+      dispatch(
+        setMessage({
+          isShow: true,
+          type: 'success',
+          message: '項目を削除しました',
+        })
+      );
+    }
   };
 
   const uplodadImage = async (imageUrl: string | ArrayBuffer | null) => {
@@ -412,6 +439,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     showSubjectModal,
     setSummary,
     setSubject,
+    deleteSubject,
     release,
   };
 
