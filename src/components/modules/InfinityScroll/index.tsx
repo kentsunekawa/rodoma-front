@@ -38,15 +38,17 @@ const Component: React.FC<Props> = (props: Props) => (
         all: <span>{props.listStatus.count}</span>
       </p>
     </div>
-    {props.children}
-    {props.list.length === 0 && props.isFetched ? (
-      <div className="listMessage">該当するデータは見つかりませんでした</div>
-    ) : null}
-    {props.list.length > 0 && props.list.length >= props.listStatus.count ? (
-      <div className="listMessage">全てのデータが表示されました</div>
-    ) : null}
-    {props.isLoading && <LoadingBlock />}
-    <div id="pageBottom" ref={props.dom.pageBottom}></div>
+    <div className="main">
+      {props.children}
+      {props.list.length === 0 && props.isFetched ? (
+        <div className="listMessage">該当するデータは見つかりませんでした</div>
+      ) : null}
+      {props.list.length > 0 && props.list.length >= props.listStatus.count ? (
+        <div className="listMessage">全てのデータが表示されました</div>
+      ) : null}
+      {props.isLoading && <LoadingBlock />}
+      <div id="pageBottom" ref={props.dom.pageBottom}></div>
+    </div>
   </div>
 );
 

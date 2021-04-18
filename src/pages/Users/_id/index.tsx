@@ -83,7 +83,7 @@ const Component: React.FC<Props> = (props: Props) => (
             tabType={'rounded'}
           />
         </Tab>
-        <TabContents>
+        <TabContents className="mainTabContents">
           <TabContent>
             <Summary />
           </TabContent>

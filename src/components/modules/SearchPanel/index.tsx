@@ -36,7 +36,11 @@ interface Props extends ComponentProps {
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`} ref={props.dom.bg}>
     <div className="keywordArea">
-      <QueryInput query={props.searchQuery.keyword} onSearch={props.search} />
+      <QueryInput
+        query={props.searchQuery.keyword}
+        onSearch={props.search}
+        className="queryInput"
+      />
     </div>
     <div className="inner" ref={props.dom.inner}>
       <div className="categoryArea">

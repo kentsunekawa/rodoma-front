@@ -66,8 +66,11 @@ const Component: React.FC<Props> = (props: Props) => (
           style={{ backgroundImage: `url(${props.post.eye_catch_url})` }}
         ></div>
       </div>
+
       <div className="info">
-        <Paragraph className="title">{props.post.title}</Paragraph>
+        <Paragraph className="title" types={['semiBold']}>
+          {props.post.title}
+        </Paragraph>
         <div className="status">
           <StatusCounter StatusType="like" num={props.post.likes_count} />
           <StatusCounter StatusType="mark" num={props.post.marks_count} />

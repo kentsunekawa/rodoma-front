@@ -65,7 +65,11 @@ const Component: React.FC<Props> = (props: Props) => (
           <p className="keyword">
             Keyword: <span>{props.searchQuery.keyword.keyword}</span>
           </p>
-          <CircleButton onClick={props.deleteKeyword} types={['xxs', 'gray_light']}>
+          <CircleButton
+            onClick={props.deleteKeyword}
+            types={['xxs', 'gray_light']}
+            className="removeKeyword"
+          >
             <IconClose />
           </CircleButton>
         </div>

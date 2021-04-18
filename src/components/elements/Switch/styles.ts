@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { WithShadow } from 'components/style/Mixins';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   & > label {
@@ -29,6 +30,7 @@ export const base = css`
         }
       }
       & > span {
+        cursor: pointer;
         position: absolute;
         display: block;
         width: 22px;
@@ -55,6 +57,11 @@ export const base = css`
       }
     }
   }
+  /* @media ${mq.tbMin_gt} {
+    &:hover{
+      
+    }
+  } */
 `;
 
 export const primary = css``;

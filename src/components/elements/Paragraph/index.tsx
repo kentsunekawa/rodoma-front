@@ -13,6 +13,8 @@ type StyleType =
   | 'bigTitle'
   | 'title'
   | 'subTitle'
+  | 'catchText'
+  | 'semiBold'
   | 'bold'
   | 'text'
   | 'alignLeft'

@@ -1,11 +1,5 @@
 import { css } from 'styled-components';
-// import {
-//   Gradient,
-//   WithShadow,
-//   AspectFix,
-//   AbsCenterMiddle,
-//   ButtonTapAction
-// } from 'components/style/Mixins';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   .listMessage {
@@ -13,10 +7,9 @@ export const base = css`
     text-align: center;
     font-size: 1.2rem;
     color: ${({ theme }) => theme.themeColors.gray_midium};
-    padding: 10px 0;
+    padding: 20px 0;
   }
   & > .num {
-    margin-bottom: 10px;
     & > .numText {
       display: flex;
       justify-content: flex-end;
@@ -38,6 +31,25 @@ export const base = css`
         line-height: inherit;
         padding-left: 0.2em;
       }
+    }
+  }
+  & > .main {
+    margin-top: 10px;
+  }
+  @media ${mq.tbMin_gt} {
+    .listMessage {
+      padding: 40px 0;
+    }
+    & > .num {
+      & > .numText {
+        font-size: 1.4rem;
+        span {
+          font-size: 1.6rem;
+        }
+      }
+    }
+    & > .main {
+      margin-top: 40px;
     }
   }
 `;

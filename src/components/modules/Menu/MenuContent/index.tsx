@@ -44,27 +44,27 @@ const Component: React.FC<Props> = (props: Props) => (
           <ul className="list">
             <li className="item">
               <Link to={`/users/${props.user?.id}`} onClick={props.closeFunc}>
-                <Paragraph types={['center', 'nega', 'text']}>プロフィール</Paragraph>
+                <Paragraph types={['center', 'nega', 'catchText']}>プロフィール</Paragraph>
               </Link>
             </li>
             <li className="item">
               <Link to="/" onClick={props.closeFunc}>
-                <Paragraph types={['center', 'nega', 'text']}>ロードマップを探す</Paragraph>
+                <Paragraph types={['center', 'nega', 'catchText']}>ロードマップを探す</Paragraph>
               </Link>
             </li>
             <li className="item">
               <Link to="/roadmaps/create" onClick={props.closeFunc}>
-                <Paragraph types={['center', 'nega', 'text']}>ロードマップを作る</Paragraph>
+                <Paragraph types={['center', 'nega', 'catchText']}>ロードマップを作る</Paragraph>
               </Link>
             </li>
             <li className="item">
               <Link to="/users" onClick={props.closeFunc}>
-                <Paragraph types={['center', 'nega', 'text']}>ユーザーを探す</Paragraph>
+                <Paragraph types={['center', 'nega', 'catchText']}>ユーザーを探す</Paragraph>
               </Link>
             </li>
             <li className="item">
               <button onClick={props.logout}>
-                <Paragraph types={['center', 'nega', 'text']}>サインアウト</Paragraph>
+                <Paragraph types={['center', 'nega', 'catchText']}>サインアウト</Paragraph>
               </button>
             </li>
           </ul>
@@ -81,12 +81,12 @@ const Component: React.FC<Props> = (props: Props) => (
           <ul className="list">
             <li className="item">
               <Link to="/" onClick={props.closeFunc}>
-                <Paragraph types={['center', 'nega']}>ロードマップを探す</Paragraph>
+                <Paragraph types={['center', 'nega', 'catchText']}>ロードマップを探す</Paragraph>
               </Link>
             </li>
             <li className="item">
               <Link to="/users" onClick={props.closeFunc}>
-                <Paragraph types={['center', 'nega']}>ユーザーを探す</Paragraph>
+                <Paragraph types={['center', 'nega', 'catchText']}>ユーザーを探す</Paragraph>
               </Link>
             </li>
           </ul>

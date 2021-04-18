@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   position: relative;
@@ -30,8 +31,20 @@ export const base = css`
   & > .bottom {
     position: absolute;
     left: 0;
-    bottom: 25px;
+    bottom: 50px;
     text-align: center;
     width: 100%;
+  }
+
+  @media ${mq.tbMin_gt} {
+    & > .bottom {
+      bottom: 80px;
+    }
+    & > .inner {
+      margin-top: 40px;
+      & > .menu {
+        margin-top: 32px;
+      }
+    }
   }
 `;

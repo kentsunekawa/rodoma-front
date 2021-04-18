@@ -8,6 +8,12 @@ export const base = css`
     align-content: center;
     border-bottom: 2px solid #fff;
     padding: 5px 0;
+    & > .parentText {
+      width: calc(100% - 80px);
+    }
+    & > .parentOpenButton {
+      width: 30px;
+    }
   }
   & > .child {
     padding-left: 30px;

@@ -3,8 +3,8 @@ import { Gradient } from 'components/style/Mixins';
 
 export const base = css`
   display: inline-block;
-  height: 24px;
-  border-radius: 12px;
+  height: 28px;
+  border-radius: 14px;
   background: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.themeColors.gray_midium};
   border: 1px solid ${({ theme }) => theme.themeColors.gray_midium};
@@ -24,8 +24,10 @@ export const base = css`
       }
     }
     & > .text {
+      font-size: 1.4rem;
+      line-height: 28px;
       display: block;
-      padding-top: 0.1em;
+      /* padding-bottom: 0.1em; */
     }
   }
 `;

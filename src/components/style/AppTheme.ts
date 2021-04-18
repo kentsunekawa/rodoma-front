@@ -1,6 +1,7 @@
 export const bk = {
   spMin: 320,
   sp: 375,
+  spLarge: 520,
   spMax: 768,
   tbMin: 769,
   tbMax: 959,
@@ -13,6 +14,9 @@ export const bk = {
 
 export const mq = {
   spMin_gt: `(min-width: ${bk.spMin}px)`,
+  spLarge_lt: `(max-width: ${bk.spLarge}px)`,
+  spLarge_gt: `(min-width: ${bk.spLarge}px)`,
+  spLarge_gt_spMax_lt: `(min-width: ${bk.spLarge}px) and (max-width: ${bk.spMax}px)`,
   spMax_lt: `(max-width: ${bk.spMax}px)`,
   tbMin_gt: `(min-width: ${bk.tbMin}px)`,
   tbMax_lt: `(max-width: ${bk.tbMax}px)`,
@@ -107,7 +111,7 @@ const AppTheme = {
       gray_midium: COLORS.gray_light,
       gray_dark: COLORS.gray_light,
     },
-    border: '1px solid #333',
+    border: '1px solid #555',
     fadeOut:
       'linear-gradient(to bottom, rgba(17,17,17,1) 0%,rgba(17,17,17,1) 50%,rgba(17,17,17,0) 100%)',
   },
