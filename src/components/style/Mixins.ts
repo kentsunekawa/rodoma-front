@@ -5,6 +5,15 @@ export const Gradient = css`
   background: linear-gradient(45deg, ${COLORS.primary}, ${COLORS.secondary});
 `;
 
+export const Gradient_success = css`
+  /* background: linear-gradient(-225deg, #2cd8d5 0%, #6b8dd6 48%, #8e37d7 100%); */
+  background: linear-gradient(to right, #02aab0, #00cdac);
+`;
+
+export const Gradient_error = css`
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+`;
+
 export const AspectFix = css<{ aspectWidth?: number; aspectHeight?: number }>`
   position: relative;
   &:before {

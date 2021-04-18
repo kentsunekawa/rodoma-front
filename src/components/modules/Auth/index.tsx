@@ -79,9 +79,11 @@ const Container: React.FC<Props> = (props: Props) => {
       dispatch(setIsVisited(true));
       signin();
     } else {
-      localStorage.setItem('isVisited', '1');
+      // localStorage.setItem('isVisited', '1');
       dispatch(setIsVisited(false));
-      dispatch(setInitCheckStatus(true));
+      setTimeout(() => {
+        dispatch(setInitCheckStatus(true));
+      }, 1500);
     }
   };
 

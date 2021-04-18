@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 export const base = css`
   display: block;
   font-size: 1.4rem;
-  line-height: 1.6em;
+  line-height: 1.8em;
   letter-spacing: 0.04em;
   color: ${({ theme }) => theme.themeColors.black};
 `;

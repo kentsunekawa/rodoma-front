@@ -6,19 +6,11 @@ import { SigninInfo } from 'types';
 enforce.extend({ isEmail });
 
 const suite = vest.create('signin', (signinInfo: SigninInfo) => {
-  test('email', 'メールアドレスは入力必須です', () => {
-    enforce(signinInfo.email).isNotEmpty();
-  });
   test('email', 'メールアドレスを入力してください', () => {
-    enforce(signinInfo.email).isEmail();
+    enforce(signinInfo.email).isNotEmpty().isEmail();
   });
-
-  test('password', 'パスワードは入力必須です', () => {
-    enforce(signinInfo.password).isNotEmpty();
-  });
-
-  test('password', 'パスワード8以上入力してください', () => {
-    enforce(signinInfo.password).longerThanOrEquals(8);
+  test('password', 'パスワードを8以上入力してください', () => {
+    enforce(signinInfo.password).isNotEmpty().longerThanOrEquals(8);
   });
 });
 

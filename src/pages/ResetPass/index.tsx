@@ -13,6 +13,7 @@ import RoundButton from 'components/elements/buttons/RoundButton';
 import Error from 'components/elements/Error';
 import TextInput from 'components/elements/inputs/TextInput';
 import Paragraph from 'components/elements/Paragraph';
+import TextButton from 'components/elements/buttons/TextButton';
 
 import * as styles from './styles';
 

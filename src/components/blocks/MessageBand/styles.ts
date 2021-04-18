@@ -1,5 +1,7 @@
 import { css } from 'styled-components';
 
+import { Gradient_success, Gradient_error } from 'components/style/Mixins';
+
 export const base = css`
   display: flex;
   justify-content: space-between;
@@ -30,9 +32,9 @@ export const base = css`
 `;
 
 export const error = css`
-  background: ${({ theme }) => theme.colors.error};
+  ${Gradient_error}/* background: ${({ theme }) => theme.colors.error}; */
 `;
 
 export const success = css`
-  background: ${({ theme }) => theme.colors.success};
+  ${Gradient_success}/* background: ${({ theme }) => theme.colors.success}; */
 `;

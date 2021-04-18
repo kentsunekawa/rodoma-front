@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 import Styled from 'styled-components';
-
-import { isDoorShownSelector } from 'state/modules/app';
 
 import CoverContent from 'components/modules/CoverContent';
 import Logo from 'components/elements/Logo';
 import Paragraph from 'components/elements/Paragraph';
 import TextButton from 'components/elements/buttons/TextButton';
-import { IconRight } from 'components/elements/icons';
-import CircleCounter from 'components/elements/CircleCounter';
+import RoundButton from 'components/elements/buttons/RoundButton';
 
 import * as styles from './styles';
 
@@ -23,35 +18,29 @@ interface ComponentProps {
   className?: string;
 }
 
-interface Props extends ComponentProps {
-  countSeconed: number;
-  isCountStart: boolean;
-  skip: () => void;
-}
-
 // dom component
-const Component: React.FC<Props> = (props: Props) => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <TextButton
-      className="skipButton"
-      link="/signInOrUp"
-      types={['withIconRight']}
-      icon={<IconRight />}
-    >
-      Skip
-    </TextButton>
     <CoverContent>
       <div className="inner">
         <div className="logo">
           <Logo type="gradient" />
         </div>
-        <div className="text">
-          <Paragraph types={['center', 'subTitle']}>
-            サービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入ります
-          </Paragraph>
+        <Paragraph types={['primary']} className="title">
+          Welcome to rodoma.
+        </Paragraph>
+        <p className="description">
+          サービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入ります
+        </p>
+        <div className="row">
+          <RoundButton types={['l', 'gradient']} link="/signInOrUp" className="nextButton">
+            サインインする
+          </RoundButton>
         </div>
-        <div className="counter">
-          <CircleCounter isStart={props.isCountStart} num={props.countSeconed} />
+        <div className="row">
+          <TextButton link="/" types={['primary', 's']}>
+            サインインせずに使う
+          </TextButton>
         </div>
       </div>
     </CoverContent>
@@ -65,27 +54,6 @@ const StyeldComponent = Styled(Component)`
 
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
-  const countSeconed = 10;
-
-  const history = useHistory();
-  const [isCountStart, setIsCountStart] = useState(false);
-  const isDoorShow = useSelector(isDoorShownSelector);
-
-  useEffect(() => {
-    if (!isDoorShow) {
-      setTimeout(() => {
-        history.push('/signInOrUp');
-      }, countSeconed * 1000);
-      setIsCountStart(true);
-    }
-  }, [isDoorShow, history]);
-
-  const skip = () => {
-    history.push('/signInOrUp');
-  };
-
-  const props = { countSeconed, isCountStart, skip };
-
-  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+  return <StyeldComponent {...componentProps}></StyeldComponent>;
 };
 export default Container;

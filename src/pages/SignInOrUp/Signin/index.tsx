@@ -70,7 +70,7 @@ const Component: React.FC<Props> = (props: Props) => (
       types={['l', 'gradient']}
       className="signinButton"
     >
-      Signin
+      サインイン
     </RoundButton>
   </div>
 );

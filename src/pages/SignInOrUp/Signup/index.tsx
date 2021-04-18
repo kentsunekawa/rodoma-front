@@ -88,7 +88,7 @@ const Component: React.FC<Props> = (props: Props) => (
       className="signupButton"
       onClick={props.desideSignupInfo}
     >
-      Signup
+      サインアップ
     </RoundButton>
   </div>
 );

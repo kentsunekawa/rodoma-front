@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Styled from 'styled-components';
-
 import { adjustErrorMessage } from 'utils';
 import { RESPONSE_MESSAGES } from 'utils/messages';
 import Auth from 'utils/request/Auth';
@@ -13,13 +12,12 @@ import {
   setIsLoading,
   setMessage,
 } from 'state/modules/app';
-// import { requestSendPasswordResetMail } from 'state/modules/user';
-
 import CoverContent from 'components/modules/CoverContent';
 import RoundButton from 'components/elements/buttons/RoundButton';
 import Error from 'components/elements/Error';
 import TextInput from 'components/elements/inputs/TextInput';
 import Paragraph from 'components/elements/Paragraph';
+import TextButton from 'components/elements/buttons/TextButton';
 
 import * as styles from './styles';
 
@@ -77,7 +75,7 @@ const Component: React.FC<Props> = (props: Props) => (
           <br />
           ご入力ください。
         </Paragraph>
-        <div className="row">
+        <div className="row -input">
           <Error messages={props.validateStatus.errors.email}>
             <TextInput
               type="text"
@@ -88,9 +86,16 @@ const Component: React.FC<Props> = (props: Props) => (
             />
           </Error>
         </div>
-        <RoundButton types={['gradient', 'l']} onClick={props.deside}>
-          送信
-        </RoundButton>
+        <div className="row">
+          <RoundButton types={['gradient', 'l']} onClick={props.deside}>
+            送信
+          </RoundButton>
+        </div>
+        <div className="row">
+          <TextButton link="/signInOrUp" types={['s', 'gray_midium']}>
+            戻る
+          </TextButton>
+        </div>
       </CoverContent>
     )}
   </div>
