@@ -61,7 +61,7 @@ export const VALIDATE_ERROR_MESSAGES = {
   email_required: 'メールアドレスを入力してください',
   email_used: 'このメールアドレスは既に登録済です',
   password_required: 'パスワードは必須です',
-  password_shorter: 'パスワード8文字以上で設定してください',
+  password_shorter: 'パスワードを8文字以上で設定してください',
   password_not_match: 'パスワードが一致しません',
   url_required: 'URLは必須です',
   file_type_invalid: 'jpg / jpeg / png 形式の画像をアップロードしてください',

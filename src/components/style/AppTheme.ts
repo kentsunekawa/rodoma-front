@@ -1,3 +1,40 @@
+export const bk = {
+  spMin: 320,
+  sp: 375,
+  spMax: 768,
+  tbMin: 769,
+  tbMax: 959,
+  pcMin: 960,
+  pc: 1200,
+  pcMidium: 1440,
+  pcLarge: 1600,
+  pcHuge: 2000,
+};
+
+export const mq = {
+  spMin_gt: `(min-width: ${bk.spMin}px)`,
+  spMax_lt: `(max-width: ${bk.spMax}px)`,
+  tbMin_gt: `(min-width: ${bk.tbMin}px)`,
+  tbMax_lt: `(max-width: ${bk.tbMax}px)`,
+  pcMin_gt: `(min-width: ${bk.pcMin}px)`,
+  pc_lt: `(max-width: ${bk.pc}px)`,
+  pc_gt: `(min-width: ${bk.pc}px)`,
+  pcMidium_lt: `(max-width: ${bk.pcMidium}px)`,
+  pcMidium_gt: `(min-width: ${bk.pcMidium}px)`,
+  pcLarge_lt: `(max-width: ${bk.pcLarge}px)`,
+  pcLarge_gt: `(min-width: ${bk.pcLarge}px)`,
+  pcHuge_lt: `(max-width: ${bk.pcHuge}px)`,
+  pcHuge_gt: `(min-width: ${bk.pcHuge}px)`,
+};
+
+// export const mq = (d: keyof typeof device, style: string): string => {
+//   return `
+//     @media ${d} {
+//       ${style}
+//     }
+//   `;
+// };
+
 export const COLORS = {
   primary: '#f83610',
   secondary: '#f9d423',
