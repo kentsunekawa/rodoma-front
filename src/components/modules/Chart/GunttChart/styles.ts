@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   & > .wrapper {
@@ -124,6 +125,21 @@ export const base = css`
       }
     }
   }
+  @media ${mq.tbMin_gt} {
+    & > .wrapper {
+      & > .inner {
+        & > .main {
+          padding: 32px 0;
+          & > .nameArea {
+            padding: 0 16px 0 32px;
+          }
+          & > .barArea {
+            padding-left: 16px;
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const fixed = css`
@@ -139,6 +155,17 @@ export const fixed = css`
       }
     }
   }
+  @media ${mq.tbMin_gt} {
+    & > .wrapper {
+      & > .inner {
+        & > .main {
+          & > .barArea {
+            padding-right: 32px;
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const over = css`
@@ -148,7 +175,20 @@ export const over = css`
         & > .barArea {
           & > .bar {
             width: 300%;
-            padding-right: 10px;
+            padding-right: 20px;
+          }
+        }
+      }
+    }
+  }
+  @media ${mq.tbMin_gt} {
+    & > .wrapper {
+      & > .inner {
+        & > .main {
+          & > .barArea {
+            & > .bar {
+              padding-right: 32px;
+            }
           }
         }
       }

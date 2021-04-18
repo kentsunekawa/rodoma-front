@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { WithShadow } from 'components/style/Mixins';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   display: block;
@@ -8,7 +9,7 @@ export const base = css`
     display: block;
     width: calc(100% - 40px);
     margin: 0 auto 10px;
-    padding: 20px 0;
+    padding: 0;
     text-align: center;
   }
   & > .inner {
@@ -16,7 +17,7 @@ export const base = css`
     justify-content: space-between;
     align-content: center;
     align-items: center;
-    padding: 10px 20px;
+    padding: 0 20px 10px;
     & > .CircleButton {
       .IconLoading {
         width: 30px;
@@ -27,6 +28,20 @@ export const base = css`
       & > .inner {
         ${WithShadow}
         background: #fff;
+        color: ${({ theme }) => theme.colors.black};
+      }
+    }
+  }
+  @media ${mq.tbMin_gt} {
+    & > button {
+      margin: 0 auto 20px;
+    }
+    & > .inner {
+      padding: 0 40px 20px;
+      & > .TextArea {
+        & > .inner {
+          height: 100px;
+        }
       }
     }
   }

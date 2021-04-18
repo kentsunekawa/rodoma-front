@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { WithShadow } from 'components/style/Mixins';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   display: none;
@@ -26,8 +27,6 @@ export const base = css`
       transform: translate(-50%, -50%);
       width: 90%;
       max-width: 500px;
-      background: ${({ theme }) => theme.darkBg};
-      border-radius: 3px;
       ${WithShadow}
       & > .inner {
         position: relative;
@@ -37,6 +36,10 @@ export const base = css`
         max-height: 70vh;
         overflow-y: scroll;
         padding: 32px;
+        border-radius: 5px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        background: ${({ theme }) => theme.darkBg};
       }
       & > .closeButton {
         position: absolute;
@@ -44,6 +47,15 @@ export const base = css`
         right: 0;
         z-index: 1;
         transform: translate(50%, -50%);
+      }
+    }
+  }
+  @media ${mq.tbMin_gt} {
+    & > .mask {
+      & > .panel {
+        & > .inner {
+          max-height: 95%;
+        }
       }
     }
   }

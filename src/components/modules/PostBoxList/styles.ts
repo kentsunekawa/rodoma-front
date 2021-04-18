@@ -12,7 +12,10 @@ export const base = css`
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-start;
+      align-content: stretch;
+      align-content: stretch;
       & > .item {
+        display: flex;
         width: calc(50% - 15px);
         margin-right: 30px;
         margin-bottom: 40px;

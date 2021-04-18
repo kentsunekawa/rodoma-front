@@ -28,6 +28,7 @@ export const base = css`
     display: flex;
     flex-wrap: wrap;
     color: ${({ theme }) => theme.colors.black};
+    height: 100%;
     & > .status {
       position: absolute;
       left: 5px;
@@ -59,9 +60,12 @@ export const base = css`
       width: 100%;
       padding: 10px;
       & > .title {
-        display: block;
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 16px;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
       & > .user {
         display: flex;
@@ -97,10 +101,13 @@ export const base = css`
   @media ${mq.tbMin_gt} {
     border-radius: 5px;
     & > .link {
+      & > .imageArea {
+        height: 150px;
+      }
       & > .info {
         padding: 15px;
         & > .title {
-          margin-bottom: 15px;
+          margin-bottom: 24px;
         }
       }
       & > .imageArea {

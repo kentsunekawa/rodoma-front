@@ -46,11 +46,15 @@ interface Props extends ComponentProps {
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <Modal modalName={props.modalName}>
-      <Paragraph>マークを外しますがよろしいですか？</Paragraph>
-      <RoundButton onClick={props.removeMark} types={['gradient', 'l']}>
-        OK
-      </RoundButton>
+    <Modal modalName={props.modalName} className="confirmModal">
+      <div className="row">
+        <Paragraph>マークを外しますがよろしいですか？</Paragraph>
+      </div>
+      <div className="row">
+        <RoundButton onClick={props.removeMark} types={['gradient', 'l']} className="desideButton">
+          OK
+        </RoundButton>
+      </div>
     </Modal>
     <div className="userMain">
       <div className="userHeader">

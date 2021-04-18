@@ -41,11 +41,22 @@ export const base = css`
   .userHeader {
     margin-bottom: 16px;
   }
-
+  .confirmModal {
+    .row {
+      text-align: center;
+      margin-bottom: 40px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .desideButton {
+      margin: 0 auto;
+    }
+  }
   @media ${mq.tbMin_gt} {
     .mainTab {
       top: 100px;
-      /* width: calc(100% - 80px); */
+      width: calc(100% - 80px);
       max-width: 880px;
     }
     .mainTabContents {
@@ -56,9 +67,21 @@ export const base = css`
       & > .description {
         margin-top: 60px;
       }
+      & > .editButton {
+        top: 160px;
+        right: 40px;
+      }
     }
     .userHeader {
       margin-bottom: 32px;
+    }
+  }
+
+  @media ${mq.pcMin_gt} {
+    .userMain {
+      & > .editButton {
+        right: calc(50vw - 440px);
+      }
     }
   }
 `;
