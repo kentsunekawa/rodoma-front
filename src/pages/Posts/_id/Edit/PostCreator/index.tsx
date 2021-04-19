@@ -281,7 +281,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       if (result) history.push(`/roadmaps/${post.id}`);
     } else {
       dispatch(setModal(''));
-      history.push(`/roadmaps/${post.id}`);
+      history.push(post.id ? `/roadmaps/${post.id}` : '/');
     }
   };
 
