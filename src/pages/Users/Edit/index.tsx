@@ -6,7 +6,12 @@ import { UserData, ValidateStatus } from 'types';
 import { userEdit as validate_userEdit } from 'validations';
 import { adjustErrorMessage } from 'utils';
 import User from 'utils/request/User';
-import { userSelector, setUser, isInitCheckedSelector } from 'state/modules/user';
+import {
+  userSelector,
+  setUser,
+  isInitCheckedSelector,
+  isSampleUserSelector,
+} from 'state/modules/user';
 import { setMessage, categoryTreeSelector, snsListSelector, setIsLoading } from 'state/modules/app';
 import { RESPONSE_MESSAGES } from 'utils/messages';
 import PageBase from 'components/layouts/PageBase';
@@ -57,6 +62,7 @@ interface Props extends ComponentProps {
   }[];
   validateStatus: ValidateStatus<ValidateErrors>;
   defaultEmail: string | null;
+  isSampleUser: boolean;
   summaryChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   profileChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   categoryChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -164,9 +170,15 @@ const Component: React.FC<Props> = (props: Props) => (
             </Error>
           </div>
           <div className="bottom">
-            <RoundButton className="saveButton" types={['l', 'gradient']} onClick={props.deside}>
-              保存する
-            </RoundButton>
+            {!props.isSampleUser ? (
+              <RoundButton className="saveButton" types={['l', 'gradient']} onClick={props.deside}>
+                保存する
+              </RoundButton>
+            ) : (
+              <RoundButton className="saveButton -sampleUser" types={['l', 'gradient']} disabled>
+                サンプルユーザーのため変更不可
+              </RoundButton>
+            )}
           </div>
         </div>
       )}
@@ -187,6 +199,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
 
   const { id } = useParams<{ id: string }>();
   const user = useSelector(userSelector);
+  const isSampleUser = useSelector(isSampleUserSelector);
   const isInitChecked = useSelector(isInitCheckedSelector);
   const categoryTree = useSelector(categoryTreeSelector);
   const snsList = useSelector(snsListSelector);
@@ -544,6 +557,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     adjustedUserSnsList,
     validateStatus,
     defaultEmail,
+    isSampleUser,
     summaryChange,
     profileChange,
     categoryChange,

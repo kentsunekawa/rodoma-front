@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { UserData_overview } from 'types';
 import { setIsVisited, setUser, setInitCheckStatus } from 'state/modules/user';
+import { getParam } from 'utils';
 import Auth from 'utils/request/Auth';
 import { RESPONSE_MESSAGES } from 'utils/messages';
 import { setMessage, setMode } from 'state/modules/app';
@@ -78,20 +79,40 @@ const Container: React.FC<Props> = (props: Props) => {
   const initCheck = () => {
     modeCheck();
     const isVisited = Boolean(localStorage.getItem('isVisited'));
+    const isSampleUser = getParam('isSampleUser', window.location.href) !== null;
     if (isVisited) {
       dispatch(setIsVisited(true));
-      if (localStorage.getItem('token')) {
-        signin();
-      } else {
+      if (isSampleUser) {
         dispatch(setInitCheckStatus(true));
+        history.push({
+          pathname: '/signInOrUp',
+          state: {
+            isSampleUser: true,
+          },
+        });
+      } else {
+        if (localStorage.getItem('token')) {
+          signin();
+        } else {
+          dispatch(setInitCheckStatus(true));
+        }
       }
     } else {
       localStorage.setItem('isVisited', '1');
       dispatch(setIsVisited(false));
-      history.push('/intro');
       setTimeout(() => {
         dispatch(setInitCheckStatus(true));
       }, 1500);
+      if (isSampleUser) {
+        history.push({
+          pathname: '/Intro',
+          state: {
+            isSampleUser: true,
+          },
+        });
+      } else {
+        history.push('/intro');
+      }
     }
   };
 

@@ -95,7 +95,7 @@ const Component: React.FC<Props> = (props: Props) => (
     )}
     <div className="bottom">
       <Link to="/about" onClick={props.closeFunc}>
-        <Paragraph types={['center', 'nega']}>rodoma とは</Paragraph>
+        <Paragraph types={['center', 'nega', 'catchText']}>rodoma とは</Paragraph>
       </Link>
     </div>
   </div>

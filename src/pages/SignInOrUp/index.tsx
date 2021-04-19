@@ -1,8 +1,13 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import Styled from 'styled-components';
-import { requestSignin, requestSignup, isSignupCompleteSelector } from 'state/modules/user';
+import {
+  requestSignin,
+  requestSignup,
+  isSignupCompleteSelector,
+  isSampleUserSelector,
+} from 'state/modules/user';
 import { setIsLoading } from 'state/modules/app';
 import { SigninInfo, SignupInfo } from 'types';
 import * as styles from './styles';
@@ -20,11 +25,16 @@ import TextButton from 'components/elements/buttons/TextButton';
 const CLASSNAME = 'SignInOrUp';
 
 // declare types
+interface LocationState {
+  isSampleUser: boolean;
+}
+
 interface ComponentProps {
   className?: string;
 }
 
 interface Props extends ComponentProps {
+  isSampleUser: boolean;
   desideSigninInfo: (signinInfo: SigninInfo) => void;
   desideSignupInfo: (signupInfo: SignupInfo) => void;
 }
@@ -39,7 +49,7 @@ const Component: React.FC<Props> = (props: Props) => (
         </Tab>
         <TabContents>
           <TabContent className="signin">
-            <Signin deside={props.desideSigninInfo} />
+            <Signin deside={props.desideSigninInfo} isSampleUser={props.isSampleUser} />
           </TabContent>
           <TabContent>
             <Signup deside={props.desideSignupInfo} />
@@ -64,12 +74,16 @@ const StyeldComponent = Styled(Component)`
 const Container: React.FC<ComponentProps> = (componentProps) => {
   const history = useHistory();
   const dispatch = useDispatch();
-
+  const location = useLocation<LocationState>();
+  const isGlobalSampleUser = useSelector(isSampleUserSelector);
+  const [isLodalSampleUser, setIsLocalSampleUser] = useState<boolean>(false);
   const isSignupComplete = useSelector(isSignupCompleteSelector);
+
+  const isSampleUser = isLodalSampleUser || isGlobalSampleUser;
 
   const desideSigninInfo = (signinInfo: SigninInfo) => {
     dispatch(setIsLoading(true));
-    dispatch(requestSignin(signinInfo));
+    dispatch(requestSignin(signinInfo, isSampleUser));
   };
 
   const desideSignupInfo = (signupInfo: SignupInfo) => {
@@ -87,7 +101,13 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     isSignupedCheck();
   }, [isSignupedCheck]);
 
-  const props = { desideSigninInfo, desideSignupInfo };
+  useEffect(() => {
+    if (location.state && location.state.isSampleUser) {
+      setIsLocalSampleUser(true);
+    }
+  }, [location]);
+
+  const props = { isSampleUser, desideSigninInfo, desideSignupInfo };
 
   return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
 };

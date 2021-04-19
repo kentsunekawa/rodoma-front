@@ -75,6 +75,9 @@ export const base = css`
       & > .saveButton {
         margin: 0 auto;
         width: 100%;
+        &.-sampleUser {
+          font-size: 1.6rem;
+        }
       }
     }
   }

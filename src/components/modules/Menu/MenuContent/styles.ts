@@ -31,7 +31,7 @@ export const base = css`
   & > .bottom {
     position: absolute;
     left: 0;
-    bottom: 50px;
+    bottom: 140px;
     text-align: center;
     width: 100%;
   }

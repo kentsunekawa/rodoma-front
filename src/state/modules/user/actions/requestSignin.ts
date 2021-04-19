@@ -2,10 +2,10 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { SigninInfo } from 'types';
 import { RESPONSE_MESSAGES } from 'utils/messages';
 import Auth from 'utils/request/Auth';
-import { setUser } from 'state/modules/user';
+import { setUser, setIsSampleUser } from 'state/modules/user';
 import { setMessage, setIsLoading } from 'state/modules/app';
 
-export const requestSignin = (signinInfo: SigninInfo) => async (
+export const requestSignin = (signinInfo: SigninInfo, isSampleUser = false) => async (
   dispatch: Dispatch
 ): Promise<void> => {
   try {
@@ -26,6 +26,7 @@ export const requestSignin = (signinInfo: SigninInfo) => async (
           message: RESPONSE_MESSAGES.success_signin,
         })
       );
+      dispatch(setIsSampleUser(isSampleUser));
     }
   } catch (error) {
     if (error.response) {
