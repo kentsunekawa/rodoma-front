@@ -25,10 +25,21 @@ export const base = css`
     }
   }
   .main {
-    padding: 32px;
+    padding: 32px 32px 64px;
   }
   .categorySelector {
     margin-bottom: 20px;
+  }
+  .bottom {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 10px 0;
+    z-index: 5;
+    width: 100%;
+    .desideButton {
+      margin: 0 auto;
+    }
   }
   @media ${mq.tbMin_gt} {
     .cover {

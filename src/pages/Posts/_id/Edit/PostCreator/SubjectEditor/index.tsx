@@ -84,6 +84,7 @@ const Component: React.FC<Props> = (props: Props) => (
             values={LABEL_LIST}
             selected={props.subject.label ? props.subject.label : 0}
             onChange={props.labelChange}
+            className="labelSelector"
           />
         </div>
         <div className="row -renge">

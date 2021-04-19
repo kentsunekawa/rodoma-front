@@ -3,6 +3,13 @@ import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   & > .modal {
+    & > .mask {
+      & > .panel {
+        & > .inner {
+          position: relative;
+        }
+      }
+    }
     &.-summary {
       & > .mask {
         & > .panel {

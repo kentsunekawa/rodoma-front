@@ -82,7 +82,7 @@ const Component: React.FC<Props> = (props: Props) => (
     <div className="chartWrapper" ref={props.dom.chart}>
       <Chart subjects={props.post.subjects} editable openEditModal={props.showSubjectModal} />
     </div>
-    <Modal modalName="postEditSummary" className="modal -summary" types={['wide']}>
+    <Modal modalName="postEditSummary" className="modal -summary">
       <SummaryEditor desideSummary={props.setSummary} />
     </Modal>
     <Modal modalName="postEditSubject" className="modal">

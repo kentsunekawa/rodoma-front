@@ -6,6 +6,9 @@ export const base = css`
     justify-content: flex-start;
     & > .item {
       margin-right: 8px;
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 `;
