@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Styled from 'styled-components';
-
 import CircleButton from 'components/elements/buttons/CircleButton';
 import RoundButton from 'components/elements/buttons/RoundButton';
 import TextArea from 'components/elements/inputs/TextArea';
@@ -19,6 +18,7 @@ interface ComponentProps {
   isLoading: boolean;
   className?: string;
   desideComment: (comment: string) => void;
+  linkToSignin: () => void;
 }
 
 interface Props extends ComponentProps {
@@ -47,7 +47,7 @@ const Component: React.FC<Props> = (props: Props) => (
         </CircleButton>
       </div>
     ) : (
-      <RoundButton link="/signInOrUp" types={['l', 'gradient']}>
+      <RoundButton types={['l', 'gradient']} onClick={props.linkToSignin}>
         <Paragraph types={['text', 'nega']}>サインインしてコメントを残しましょう</Paragraph>
       </RoundButton>
     )}

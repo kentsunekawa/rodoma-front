@@ -4,7 +4,6 @@ import Styled from 'styled-components';
 import CoverContent from 'components/modules/CoverContent';
 import Logo from 'components/elements/Logo';
 import Paragraph from 'components/elements/Paragraph';
-import TextButton from 'components/elements/buttons/TextButton';
 import RoundButton from 'components/elements/buttons/RoundButton';
 
 import * as styles from './styles';
@@ -45,13 +44,6 @@ const Component: React.FC<Props> = (props: Props) => (
             はじめる
           </RoundButton>
         </div>
-        {/* {!props.isSampleUser && (
-          <div className="row">
-            <TextButton link="/" types={['s']}>
-              サインインせずに使う
-            </TextButton>
-          </div>
-        )} */}
       </div>
     </CoverContent>
   </div>

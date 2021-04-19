@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import Styled from 'styled-components';
-
 import { RESPONSE_MESSAGES } from 'utils/messages';
 import Comment from 'utils/request/Comment';
 import { Comment as CommentType, UserData_overview } from 'types';
 import { userSelector } from 'state/modules/user';
-import { setMessage } from 'state/modules/app';
-
+import { setMessage, setRedirectPath } from 'state/modules/app';
 import InfinityScroll from 'components/modules/InfinityScroll';
 
 import { PostContext } from '../';
@@ -38,6 +37,7 @@ interface Props extends ComponentProps {
   ) => void;
   postComment: (comment: string) => void;
   deleteComment: (commentId: number) => void;
+  linkToSignin: () => void;
 }
 
 // dom component
@@ -62,6 +62,7 @@ const Component: React.FC<Props> = (props: Props) => (
           isLogin={props.user ? true : false}
           isLoading={props.isCommentPosting}
           desideComment={props.postComment}
+          linkToSignin={props.linkToSignin}
         />
       </div>
     </div>
@@ -76,6 +77,9 @@ const StyeldComponent = Styled(Component)`
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
+
   const { state } = useContext(PostContext);
   const user = useSelector(userSelector);
   const [comments, setComments] = useState<CommentType[]>([]);
@@ -113,8 +117,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
 
   const deleteComment = async (commentId: number) => {
     if (state.id && !loadingCommentIds.includes(commentId)) {
-      console.log('delete');
-
       try {
         const ids = loadingCommentIds.slice();
         ids.push(commentId);
@@ -140,8 +142,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
           })
         );
       }
-    } else {
-      console.log('deleting');
     }
   };
 
@@ -180,6 +180,11 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     }
   };
 
+  const linkToSignin = () => {
+    dispatch(setRedirectPath(location.pathname));
+    history.push('/signInOrUp');
+  };
+
   useEffect(() => {
     isMouted.current = true;
     return () => {
@@ -197,6 +202,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     getComments,
     postComment,
     deleteComment,
+    linkToSignin,
   };
 
   return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;

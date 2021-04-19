@@ -1,11 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Styled from 'styled-components';
 import { SearchQuery, PostData_overview, UserData_overview } from 'types';
 import { RESPONSE_MESSAGES } from 'utils/messages';
 import Post from 'utils/request/Post';
 import PageBase from 'components/layouts/PageBase';
-import { searchQuerySelector, setMessage } from 'state/modules/app';
+import {
+  searchQuerySelector,
+  setMessage,
+  redirectPathSelector,
+  setRedirectPath,
+} from 'state/modules/app';
 import { userSelector } from 'state/modules/user';
 import InfinityScroll from 'components/modules/InfinityScroll';
 import PostBoxList from 'components/modules/PostBoxList';
@@ -82,6 +88,8 @@ const StyeldComponent = Styled(Component)`
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const redirectToPath = useSelector(redirectPathSelector);
   const searchQuery = useSelector(searchQuerySelector);
   const user = useSelector(userSelector);
   const [posts, setPosts] = useState<PostData_overview[]>([]);
@@ -118,11 +126,15 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   }, [searchQuery]);
 
   useEffect(() => {
+    if (redirectToPath) {
+      dispatch(setRedirectPath(''));
+      history.push(redirectToPath);
+    }
     isMouted.current = true;
     return () => {
       isMouted.current = false;
     };
-  }, []);
+  }, [redirectToPath, dispatch, history]);
 
   const props = { posts, searchQuery, user, getPosts };
 
