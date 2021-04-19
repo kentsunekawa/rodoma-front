@@ -8,7 +8,7 @@ import { RESPONSE_MESSAGES } from 'utils/messages';
 import Post from 'utils/request/Post';
 import User from 'utils/request/User';
 import { setMessage } from 'state/modules/app';
-import { userSelector } from 'state/modules/user';
+import { userSelector, isInitCheckedSelector } from 'state/modules/user';
 
 import LoadingBlock from 'components/blocks/LoadingBlock';
 import PostCreator from './PostCreator';
@@ -136,6 +136,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string | undefined }>();
   const user = useSelector(userSelector);
+  const isInitChecked = useSelector(isInitCheckedSelector);
   const [state, contextDispatch] = useReducer(reducer, {
     isNew: false,
     isSaved: false,
@@ -268,23 +269,29 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   };
 
   useEffect(() => {
-    if (state.id) {
-      getPost(state.id);
-    } else if (state.id === null) {
-      contextDispatch({
-        type: 'SET_IS_NEW',
-        payload: true,
-      });
-      if (user) {
-        setData(emptyPost(user));
-        getPosts(user.id);
-        getFollowings(user.id);
+    if (isInitChecked) {
+      if (state.id) {
+        if (user) {
+          getPost(state.id);
+        } else {
+          history.push(`/roadmaps/${id}`);
+        }
+      } else if (state.id === null) {
+        contextDispatch({
+          type: 'SET_IS_NEW',
+          payload: true,
+        });
+        if (user) {
+          setData(emptyPost(user));
+          getPosts(user.id);
+          getFollowings(user.id);
+        }
+      } else {
+        history.push('/notFound');
       }
-    } else {
-      history.push('/notFound');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isInitChecked]);
 
   const props = { post: state.post };
 

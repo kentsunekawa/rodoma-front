@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { UserData_overview } from 'types';
 import { setIsVisited, setUser, setInitCheckStatus } from 'state/modules/user';
 import Auth from 'utils/request/Auth';
@@ -13,13 +13,16 @@ interface Props {
 
 // container component
 const Container: React.FC<Props> = (props: Props) => {
+  const noCheckPaths = ['/resetPass', '/emailVerify'];
+
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const isMounted = useRef<boolean>(false);
 
   const redirectToSignin = () => {
     dispatch(setInitCheckStatus(true));
-    // history.push('/signInOrUp');
+    history.push('/signInOrUp');
   };
 
   const successSignin = (user: UserData_overview) => {
@@ -77,10 +80,15 @@ const Container: React.FC<Props> = (props: Props) => {
     const isVisited = Boolean(localStorage.getItem('isVisited'));
     if (isVisited) {
       dispatch(setIsVisited(true));
-      signin();
+      if (localStorage.getItem('token')) {
+        signin();
+      } else {
+        dispatch(setInitCheckStatus(true));
+      }
     } else {
       localStorage.setItem('isVisited', '1');
       dispatch(setIsVisited(false));
+      history.push('/intro');
       setTimeout(() => {
         dispatch(setInitCheckStatus(true));
       }, 1500);
@@ -89,7 +97,11 @@ const Container: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     if (!isMounted.current) {
-      initCheck();
+      if (!noCheckPaths.includes(location.pathname)) {
+        initCheck();
+      } else {
+        dispatch(setInitCheckStatus(true));
+      }
     }
     isMounted.current = true;
     // eslint-disable-next-line react-hooks/exhaustive-deps

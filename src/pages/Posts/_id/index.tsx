@@ -7,8 +7,7 @@ import { PostData, UserData_overview } from 'types';
 import { RESPONSE_MESSAGES } from 'utils/messages';
 import Post from 'utils/request/Post';
 import { setMessage } from 'state/modules/app';
-import { userSelector } from 'state/modules/user';
-
+import { userSelector, isInitCheckedSelector } from 'state/modules/user';
 import TabChanger from 'components/modules/TabChanger/';
 import Tabs from 'components/modules/TabChanger/Tabs';
 import Tab from 'components/modules/TabChanger/Tab';
@@ -180,6 +179,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
   const user = useSelector(userSelector);
+  const isInitChecked = useSelector(isInitCheckedSelector);
 
   const [selectedTab, setSelectedTab] = useState<string>(tabs[defaultSelectedTab]);
   const [state, contextDispatch] = useReducer(reducer, {
@@ -231,7 +231,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
             payload: result.data.post,
           });
         } else {
-          history.push('/');
+          history.push('/notFound');
         }
       }
     } catch (error) {
@@ -334,21 +334,27 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   }, [dom]);
 
   useEffect(() => {
-    contextDispatch({
-      type: 'SET_POST',
-      payload: null,
-    });
-    contextDispatch({
-      type: 'SET_ID',
-      payload: Number(id),
-    });
+    if (!Number(id)) {
+      history.push('/notFound');
+    } else {
+      if (isInitChecked) {
+        contextDispatch({
+          type: 'SET_POST',
+          payload: null,
+        });
+        contextDispatch({
+          type: 'SET_ID',
+          payload: Number(id),
+        });
 
-    getPost(Number(id));
-    if (user) {
-      getRelationStatus(Number(id), user.id);
+        getPost(Number(id));
+        if (user) {
+          getRelationStatus(Number(id), user.id);
+        }
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [id, isInitChecked]);
 
   useEffect(() => {
     contextDispatch({

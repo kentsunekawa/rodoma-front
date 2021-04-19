@@ -63,14 +63,14 @@ export const base = css`
         max-width: 880px;
       }
     }
-    .bottomNav {
-      right: calc(50vw - 460px);
-    }
   }
 
   @media ${mq.pcMin_gt} {
     .chartWrapper {
       left: calc(50vw - 480px);
+    }
+    .bottomNav {
+      right: calc(50vw - 460px);
     }
   }
 

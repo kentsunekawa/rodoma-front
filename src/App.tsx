@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import GuestRoute from 'pages/GuestRoute';
 import MemberRoute from './pages/MemberRoute';
 import Auth from 'components/modules/Auth';
@@ -19,7 +19,7 @@ import NotFound from 'pages/NotFound';
 import Post from 'pages/Posts/_id';
 import PostEdit from 'pages/Posts/_id/Edit';
 import { setIsDoorShow, requestCategoryTree, requestSnsList } from 'state/modules/app';
-import { isInitCheckedSelector, isVisitedSelector } from 'state/modules/user';
+import { isInitCheckedSelector } from 'state/modules/user';
 import Header from 'components/modules/Header';
 import Menu from 'components/modules/Menu';
 import SearchPanel from 'components/modules/SearchPanel';
@@ -30,13 +30,8 @@ import Loading from 'components/modules/Loading';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const location = useLocation();
   const isInitChecked = useSelector(isInitCheckedSelector);
-  const isVisited = useSelector(isVisitedSelector);
   const isInitRender = useRef<boolean>(false);
-
-  const noRedirectPaths = ['/resetPass', '/emailVerify'];
 
   useEffect(() => {
     if (isInitRender.current) {
@@ -45,15 +40,6 @@ const App: React.FC = () => {
       dispatch(requestSnsList());
     }
   }, [dispatch, isInitChecked]);
-
-  useEffect(() => {
-    if (isInitRender.current) {
-      if (!isVisited && !noRedirectPaths.includes(location.pathname)) {
-        history.push('/intro');
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isVisited, history]);
 
   useEffect(() => {
     isInitRender.current = true;
@@ -70,19 +56,19 @@ const App: React.FC = () => {
           <SearchPanel />
           <Header />
           <Switch>
-            <Route path="/signupComplete">
-              <SignupComplete />
-            </Route>
-
             <Route path="/" exact>
               <Home />
+            </Route>
+
+            <Route path="/roadmaps" exact>
+              <Redirect to="/" />
             </Route>
 
             <MemberRoute path="/roadmaps/:id/edit" to="/">
               <PostEdit />
             </MemberRoute>
 
-            <MemberRoute path="/roadmaps/create" to="/">
+            <MemberRoute path="/roadmaps/create" to="/signInOrUp">
               <PostEdit />
             </MemberRoute>
 
@@ -94,11 +80,11 @@ const App: React.FC = () => {
               <UserEdit />
             </MemberRoute>
 
-            <Route path="/users/:id">
+            <Route path="/users/:id" exact>
               <User />
             </Route>
 
-            <Route path="/users">
+            <Route path="/users" exact>
               <Users />
             </Route>
 
@@ -110,9 +96,9 @@ const App: React.FC = () => {
               <SignInOrUp />
             </GuestRoute>
 
-            {/* <MemberRoute path="/signupComplete" to="/signInOrUp">
-            <SignupComplete />
-          </MemberRoute> */}
+            <MemberRoute path="/signupComplete" to="/signInOrUp">
+              <SignupComplete />
+            </MemberRoute>
 
             <GuestRoute path="/forgetPass" to="/">
               <ForgetPass />
@@ -122,7 +108,7 @@ const App: React.FC = () => {
               <EmailVerify />
             </Route>
 
-            <GuestRoute path="/resetPass" to="/">
+            <GuestRoute path="/resetPass" to="/signInOrUp">
               <ResetPass />
             </GuestRoute>
 

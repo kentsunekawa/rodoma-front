@@ -6,7 +6,7 @@ import { UserData, ValidateStatus } from 'types';
 import { userEdit as validate_userEdit } from 'validations';
 import { adjustErrorMessage } from 'utils';
 import User from 'utils/request/User';
-import { userSelector, setUser } from 'state/modules/user';
+import { userSelector, setUser, isInitCheckedSelector } from 'state/modules/user';
 import { setMessage, categoryTreeSelector, snsListSelector, setIsLoading } from 'state/modules/app';
 import { RESPONSE_MESSAGES } from 'utils/messages';
 import PageBase from 'components/layouts/PageBase';
@@ -187,6 +187,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
 
   const { id } = useParams<{ id: string }>();
   const user = useSelector(userSelector);
+  const isInitChecked = useSelector(isInitCheckedSelector);
   const categoryTree = useSelector(categoryTreeSelector);
   const snsList = useSelector(snsListSelector);
   const [userData, setUserData] = useState<UserData | null>(null);
@@ -233,14 +234,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     },
     [dispatch, history]
   );
-
-  const initCheck = useCallback(() => {
-    if (user && user.id === Number(id)) {
-      getUser(Number(id));
-    } else {
-      history.push(`/users/${id}`);
-    }
-  }, [user, id, getUser, history]);
 
   const putUser = async (userData: UserData) => {
     try {
@@ -520,8 +513,15 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   }, [userData, defaultEmail]);
 
   useEffect(() => {
-    initCheck();
-  }, [initCheck]);
+    if (isInitChecked) {
+      if (user && user.id === Number(id)) {
+        getUser(Number(id));
+      } else {
+        history.push(`/users/${id}`);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isInitChecked, id]);
 
   const props = {
     categoryOptions,
