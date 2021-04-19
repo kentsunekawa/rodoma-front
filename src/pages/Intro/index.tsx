@@ -38,7 +38,7 @@ const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
           </RoundButton>
         </div>
         <div className="row">
-          <TextButton link="/" types={['primary', 's']}>
+          <TextButton link="/" types={['s']}>
             サインインせずに使う
           </TextButton>
         </div>

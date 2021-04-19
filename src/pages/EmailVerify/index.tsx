@@ -36,7 +36,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const history = useHistory();
 
   const verify = (url: string) => {
-    console.log(url);
     return new Promise<Response>((resolve, reject) => {
       axios
         .get(url)
@@ -66,7 +65,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
         }
       } catch (error) {
         dispatch(setIsLoading(false));
-        history.push('/');
+        history.push('/signInOrUp');
         if (error.response.status === 500) {
           dispatch(
             setMessage({
@@ -75,20 +74,12 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
               message: RESPONSE_MESSAGES.error_internal_server_error,
             })
           );
-        } else if (error.response.data.status === 'fail_email_verify') {
-          dispatch(
-            setMessage({
-              isShow: true,
-              type: 'error',
-              message: RESPONSE_MESSAGES.fail_email_verify,
-            })
-          );
         } else {
           dispatch(
             setMessage({
               isShow: true,
               type: 'error',
-              message: RESPONSE_MESSAGES.error,
+              message: RESPONSE_MESSAGES.fail_email_verify,
             })
           );
         }
@@ -99,10 +90,10 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
 
   useEffect(() => {
     const url = getParam('queryUrl', window.location.href);
-    dispatch(setIsLoading(true));
     if (!url) {
       history.push('/signInOrUp');
     } else {
+      dispatch(setIsLoading(true));
       requestVerify(url);
     }
     return () => {
