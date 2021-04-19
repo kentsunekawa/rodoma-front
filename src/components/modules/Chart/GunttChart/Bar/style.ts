@@ -1,11 +1,9 @@
 import { css } from 'styled-components';
 
-import { Gradient } from 'components/style/Mixins';
-
 export const base = css`
   position: relative;
   height: 20px;
-  .bar{
+  .bar {
     position: absolute;
     top: 0;
     z-index: 0;
@@ -14,7 +12,7 @@ export const base = css`
     border-radius: 10px;
     border: 1px solid #fff;
   }
-  .icon{
+  .icon {
     position: absolute;
     top: 50%;
     left: 50%;

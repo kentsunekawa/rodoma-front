@@ -6,11 +6,10 @@ export const base = css`
   & > .selector {
     width: 130px;
   }
-  & > .input{
+  & > .input {
     width: calc(100% - 135px);
   }
-  .Selector{
+  .Selector {
     background: #fff;
   }
 `;
-

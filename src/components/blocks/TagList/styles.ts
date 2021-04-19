@@ -4,7 +4,7 @@ export const base = css`
   & > .list {
     display: flex;
     justify-content: center;
-    & > .item{
+    & > .item {
       padding: 0 2px;
       margin-bottom: 3px;
     }
@@ -14,7 +14,7 @@ export const base = css`
 export const alignLeft = css`
   & > .list {
     justify-content: flex-start;
-    & > .item{
+    & > .item {
       margin-right: 3px;
     }
   }
@@ -23,7 +23,7 @@ export const alignLeft = css`
 export const alignRight = css`
   & > .list {
     justify-content: flex-end;
-    & > .item{
+    & > .item {
       margin-left: 3px;
     }
   }
@@ -32,9 +32,9 @@ export const alignRight = css`
 export const center = css`
   & > .list {
     flex-wrap: wrap;
-    & > .item{
+    & > .item {
       width: 100%;
-      .Tag{
+      .Tag {
         width: 100%;
       }
     }

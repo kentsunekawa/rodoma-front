@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect, useContext } from 'react';
 import Styled from 'styled-components';
 
 import { RELEASE_STATUS } from 'utils';
@@ -20,15 +19,12 @@ const CLASSNAME = 'Release';
 
 interface ComponentProps {
   className?: string;
-  deside: (
-    releaseStatus: keyof typeof RELEASE_STATUS,
-    allowedUsers: UserData_overview[]
-  ) => void;
+  deside: (releaseStatus: keyof typeof RELEASE_STATUS, allowedUsers: UserData_overview[]) => void;
 }
 
 interface Props extends ComponentProps {
   isLimited: boolean;
-  followings: UserData_overview[];
+  followings: UserData_overview[] | undefined;
   allowedUsers: UserData_overview[];
   maxLength: number;
   selectUser: (allowedUsers: UserData_overview[]) => void;
@@ -37,40 +33,41 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
-  <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='row'>
+const Component: React.FC<Props> = (props: Props) => (
+  <div className={`${CLASSNAME} ${props.className}${props.isLimited ? ' -limited' : ''}`}>
+    <div className="row">
       <Paragraph>公開しますか？</Paragraph>
     </div>
-    <div className='row'>
+    <div className="row">
       <CheckBox
         types={['outline']}
         isChecked={props.isLimited}
         value={2}
-        label='限定公開する'
+        label="限定公開する"
         onChange={props.toggleIsLimited}
       />
     </div>
-    {
-      props.isLimited && (
-        <>
-          <div className='row'>
+    {props.isLimited && (
+      <>
+        {props.followings && (
+          <div className="row">
             <UserSearch
               maxLength={5}
-              users={props.followings!}
+              users={props.followings}
               selectedUsers={props.allowedUsers}
               onChange={props.selectUser}
-              className='userSearch'
+              className="userSearch"
             />
           </div>
-        </>
-      )
-    }
-    <div className='row'>
+        )}
+      </>
+    )}
+    <div className="bottom">
       <RoundButton
         disabled={props.isLimited && props.allowedUsers.length < 1}
         onClick={props.deside}
         types={['l', 'gradient']}
+        className="desideButton"
       >
         公開する
       </RoundButton>
@@ -84,35 +81,44 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const maxLength = 5;
-  const { state, contextDispatch } = useContext(PostEditContext);
+  const { state } = useContext(PostEditContext);
 
   const [isLimited, setIsLimited] = useState<boolean>(false);
   const [allowedUsers, setAllowedUsers] = useState<UserData_overview[]>([]);
 
-  const toggleIsLimited = (value: number | string) => {
-    if(isLimited) setAllowedUsers([]);
+  const toggleIsLimited = () => {
+    if (isLimited) setAllowedUsers([]);
     setIsLimited(isLimited ? false : true);
-  }
+  };
 
   const deside = () => {
     const releaseStatus = isLimited ? 2 : 1;
     componentProps.deside(releaseStatus, allowedUsers);
-  }
+  };
 
   const selectUser = (allowedUsers: UserData_overview[]) => {
     setAllowedUsers(allowedUsers);
-  }
+  };
 
   useEffect(() => {
-    setIsLimited(state.post!.release_status === 2);
-    setAllowedUsers(state.post!.allowedUsers);
-  }, []);
+    if (state.post) {
+      setIsLimited(state.post.release_status === 2);
+      setAllowedUsers(state.post.allowedUsers);
+    }
+  }, [state.post]);
 
-  const props = { isLimited, allowedUsers, followings: state.followings!, maxLength, toggleIsLimited, deside, selectUser };
+  const props = {
+    isLimited,
+    allowedUsers,
+    followings: state.followings,
+    maxLength,
+    toggleIsLimited,
+    deside,
+    selectUser,
+  };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

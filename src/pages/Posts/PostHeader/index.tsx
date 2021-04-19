@@ -39,51 +39,48 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='info' onClick={props.onTitleClick && props.onTitleClick}>
-      {
-        props.isAuthor && <CircleButton
-          types={['xs', 'gray_dark']}
-          link={`/roadmaps/${props.post.id}/edit`}
-          className='linkToEdit'
-        >
-          <IconEdit />
-        </CircleButton>
-      }
-      <Paragraph className='title' types={['subTitle']}>{props.post.title}</Paragraph>
-      <TagList
-        tagTypes={['gradient']}
-        types={['alignLeft']}
-        values={props.tabTextList}
-      />
-    </div>
-    <div className='iconArea'>
-      {
-        props.editable
-        ? <PostEditStatus
-          isSaved={props.isSaved!}
-          eyeCatchUrl={props.post.eye_catch_url}
-          postStatusList={props.postStatusList}
-        />
-        : <UserBlock
-          linkable={!props.editable}
-          userId={props.post.user.id}
-          userName={props.post.user.name}
-          icon_url={props.post.user.icon_url}
-          types={['alignCenter', 'm']}
-        />
-      }
-      
-    </div>
-    {
-      (props.post.created_at && props.post.updated_at) && (
-        <div className='date'>
-          作成日: {props.post.created_at.split(' ')[0]} / 更新日: {props.post.updated_at.split(' ')[0]}
+    <div className="inner">
+      <div className="info" onClick={props.onTitleClick && props.onTitleClick}>
+        {props.isAuthor && (
+          <CircleButton
+            types={['xs', 'gray_dark']}
+            link={`/roadmaps/${props.post.id}/edit`}
+            className="linkToEdit"
+          >
+            <IconEdit />
+          </CircleButton>
+        )}
+        <Paragraph className="title" types={['subTitle']}>
+          {props.post.title}
+        </Paragraph>
+        <TagList tagTypes={['gradient']} types={['alignLeft']} values={props.tabTextList} />
+      </div>
+      <div className="iconArea">
+        {props.editable ? (
+          <PostEditStatus
+            isSaved={props.isSaved ? true : false}
+            eyeCatchUrl={props.post.eye_catch_url}
+            postStatusList={props.postStatusList}
+          />
+        ) : (
+          <UserBlock
+            linkable={!props.editable}
+            userId={props.post.user.id}
+            userName={props.post.user.name}
+            icon_url={props.post.user.icon_url}
+            types={['alignCenter', 'm']}
+          />
+        )}
+      </div>
+      {props.post.created_at && props.post.updated_at && (
+        <div className="date">
+          作成日: {props.post.created_at.split(' ')[0]} / 更新日:{' '}
+          {props.post.updated_at.split(' ')[0]}
         </div>
-      )
-    }
-    
+      )}
+    </div>
   </div>
 );
 
@@ -93,13 +90,12 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { post, isSaved } = componentProps;
 
   const categoryTree = useSelector(categoryTreeSelector);
   const tabTextList = createCategoryTagList(post.category_id, post.specialty_id, categoryTree);
-  
+
   const postStatusList = (() => {
     return [
       {
@@ -109,7 +105,7 @@ const Container: React.FC<ComponentProps> = componentProps => {
       {
         types: post.release_status === 0 ? [] : ['success'],
         value: RELEASE_STATUS[post.release_status],
-      }
+      },
     ];
   })() as {
     types: StyleType[];
@@ -118,6 +114,6 @@ const Container: React.FC<ComponentProps> = componentProps => {
 
   const props = { tabTextList, postStatusList };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

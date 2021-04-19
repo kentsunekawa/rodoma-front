@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Styled from 'styled-components';
-
 import { UserData_overview } from 'types';
-
 import CheckList from 'components/blocks/CheckList';
-import ToggleTagList from 'components/blocks/ToggleTagList'
+import ToggleTagList from 'components/blocks/ToggleTagList';
 import SearchKeyword from 'components/elements/inputs/SearchKeyword';
 import Paragraph from 'components/elements/Paragraph';
 import { IconMinus } from 'components/elements/icons';
@@ -18,7 +16,7 @@ const CLASSNAME = 'UserSearch';
 interface CheckUserData {
   value: number;
   label: string;
-};
+}
 
 interface ComponentProps {
   maxLength?: number;
@@ -43,41 +41,37 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='panel'>
+    <div className="panel">
       <SearchKeyword
-        placeholder='フォローしているユーザー名'
+        placeholder="フォローしているユーザー名"
         value={props.keyword}
         onChange={props.changeKeyword}
         onClick={props.search}
       />
-      {
-        props.displayUsers.length
-        ? <CheckList
-          name='allowedUsers'
+      {props.displayUsers.length ? (
+        <CheckList
+          name="allowedUsers"
           values={props.displayUsers}
           selected={props.selectedIds}
           boxTypes={['nega']}
           onChange={props.change}
-          className='userCheckList'
+          className="userCheckList"
         />
-        : <Paragraph className='message' types={['caption', 'nega', 'center']}>該当するユーザーが見つかりません</Paragraph>
-      }
-    </div>
-    {
-      props.maxLength && (
-        <Paragraph types={['text', 'center', 'primary']} className='numMessage'>
-          あと{props.maxLength - props.selectedIds.length}名選択可能です
+      ) : (
+        <Paragraph className="message" types={['caption', 'nega', 'center']}>
+          該当するユーザーが見つかりません
         </Paragraph>
-      )
-    }
-    <div className='listArea'>
-      <ToggleTagList
-        list={props.tagUserList}
-        onClick={props.tagClick}
-        icon={<IconMinus />}
-      />
+      )}
+    </div>
+    {props.maxLength && (
+      <Paragraph types={['text', 'center', 'primary']} className="numMessage">
+        あと{props.maxLength - props.selectedIds.length}名選択可能です
+      </Paragraph>
+    )}
+    <div className="listArea">
+      <ToggleTagList list={props.tagUserList} onClick={props.tagClick} icon={<IconMinus />} />
     </div>
   </div>
 );
@@ -88,21 +82,20 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { selectedUsers, users, maxLength, onChange } = componentProps;
 
   const [keyword, setKeyword] = useState<string>('');
   const [displayUsers, setDisplayUsers] = useState<CheckUserData[]>([]);
 
   const selectedIds = (() => {
-    return selectedUsers.map(user => {
+    return selectedUsers.map((user) => {
       return user.id;
     });
   })();
 
   const tagUserList = (() => {
-    return selectedUsers.map(user => {
+    return selectedUsers.map((user) => {
       return {
         id: user.id,
         name: user.name,
@@ -112,12 +105,12 @@ const Container: React.FC<ComponentProps> = componentProps => {
 
   const changeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
-  }
+  };
 
-  const search = () => {
-    let newUsers: CheckUserData[] = [];
-    users.forEach(user => {
-      if(user.name.indexOf(keyword) !== -1){
+  const search = useCallback(() => {
+    const newUsers: CheckUserData[] = [];
+    users.forEach((user) => {
+      if (user.name.indexOf(keyword) !== -1) {
         newUsers.push({
           value: user.id,
           label: user.name,
@@ -125,29 +118,29 @@ const Container: React.FC<ComponentProps> = componentProps => {
       }
     });
     setDisplayUsers(newUsers);
-  }
+  }, [keyword, users]);
 
-  const change = (values: (string | number)[]) => {    
-    if(!maxLength || (maxLength && maxLength >= values.length)) {
-      let newUsers: UserData_overview[] = [];
-      users.forEach(user => {
-        if(values.includes(user.id)) {
+  const change = (values: (string | number)[]) => {
+    if (!maxLength || (maxLength && maxLength >= values.length)) {
+      const newUsers: UserData_overview[] = [];
+      users.forEach((user) => {
+        if (values.includes(user.id)) {
           newUsers.push(user);
         }
       });
       onChange(newUsers);
     }
-  }
-  
+  };
+
   const tagClick = (i: number) => {
-    let newUsers: UserData_overview[] = selectedUsers.slice();
+    const newUsers: UserData_overview[] = selectedUsers.slice();
     newUsers.splice(i, 1);
     onChange(newUsers);
-  }
+  };
 
   useEffect(() => {
     search();
-  }, [keyword]);
+  }, [search]);
 
   const props = {
     keyword,
@@ -157,9 +150,9 @@ const Container: React.FC<ComponentProps> = componentProps => {
     tagClick,
     search,
     changeKeyword,
-    change
+    change,
   };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

@@ -8,17 +8,18 @@ const CLASSNAME = 'FixedWindowHeight';
 // declare types
 interface ComponentProps {
   isAppear: boolean;
-  className?: string; 
+  className?: string;
 }
 
 interface Props extends ComponentProps {
+  children: React.ReactNode;
   dom: {
     root: React.Ref<HTMLDivElement>;
-  }; 
+  };
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`} ref={props.dom.root}>
     {props.children}
   </div>
@@ -30,34 +31,38 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { isAppear } = componentProps;
-  const resizeFunc = useRef<() => void>(() => {});
+  const resizeFunc = useRef<() => void>(() => {
+    return;
+  });
   const dom = {
     root: useRef<HTMLDivElement>(null),
-  }
+  };
 
   const adjustHeight = () => () => {
-    console.log('resize');
-    if(dom.root.current) {
+    if (dom.root.current) {
       dom.root.current.style.height = `${window.innerHeight}px`;
     }
-  }
+  };
 
-  useEffect(() => {    
-    if(dom.root.current) {
+  useEffect(() => {
+    if (dom.root.current) {
       dom.root.current.style.height = `${window.innerHeight}px`;
     }
     resizeFunc.current = adjustHeight();
     window.addEventListener('resize', resizeFunc.current);
     return () => {
       window.removeEventListener('resize', resizeFunc.current);
-    }
-  }, [isAppear])
+    };
+  }, [isAppear]);
 
   const props = { dom };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return (
+    <StyeldComponent {...componentProps} {...props}>
+      {componentProps.children}
+    </StyeldComponent>
+  );
+};
 export default Container;

@@ -12,13 +12,9 @@ interface ComponentProps {
   className?: string;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = ({ className, children }) => (
-  <div className={`${CLASSNAME} ${className}`}>
-    {children}
-  </div>
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
+  <div className={`${CLASSNAME} ${props.className}`}>{props.children}</div>
 );
 
 // styled component
@@ -27,10 +23,8 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = ({
-  children,
-  className = '',
-}: ComponentProps) => {
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  const { children } = componentProps;
 
   const { state } = useContext(TabChengerConext);
 
@@ -40,7 +34,7 @@ const Container: React.FC<ComponentProps> = ({
       key: i,
     });
   });
-  
-  return <StyeldComponent {...{ clones, className }}>{clones}</StyeldComponent>;
-}
+
+  return <StyeldComponent {...componentProps}>{clones}</StyeldComponent>;
+};
 export default Container;

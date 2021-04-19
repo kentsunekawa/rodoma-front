@@ -1,11 +1,5 @@
 import { css } from 'styled-components';
-// import {
-//   Gradient,
-//   WithShadow,
-//   AspectFix,
-//   AbsCenterMiddle,
-//   ButtonTapAction
-// } from 'utils/style/Mixins';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   position: relative;
@@ -14,21 +8,21 @@ export const base = css`
   overflow: hidden;
   background: #fff;
   font-size: 1.6rem;
-  & > .input{
+  & > .input {
     position: relative;
     z-index: 0;
     display: block;
     width: 100%;
     height: 100%;
-    padding: 0 1em; 
+    padding: 0 1em;
     background: none;
     border: none;
     font-size: inherit;
-    &:focus{
+    &:focus {
       outline: none;
     }
   }
-  & > .button{
+  & > .button {
     position: absolute;
     right: 0;
     top: 0;
@@ -36,15 +30,16 @@ export const base = css`
     height: 100%;
     width: 30px;
     background: #fff;
-    & > .icon{
+    & > .icon {
       position: absolute;
       top: 50%;
-      right: .5em;
+      right: 0.5em;
       transform: translateY(-50%);
-      color: ${({theme}) => theme.colors.primary};
+      color: ${({ theme }) => theme.colors.primary};
       font-size: 2rem;
     }
   }
-  
+  @media ${mq.tbMin_gt} {
+    font-size: 1.4rem;
+  }
 `;
-

@@ -19,13 +19,14 @@ interface ComponentProps {
 }
 
 interface Props extends ComponentProps {
+  children: React.ReactNode;
   change: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <label htmlFor={props.id} className='label'>
+    <label htmlFor={props.id} className="label">
       <input type="file" id={props.id} onChange={props.change} />
       {props.children}
     </label>
@@ -38,49 +39,56 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { onUpload } = componentProps;
 
   const dispatch = useDispatch();
 
   const validate = (file: File) => {
-    if(file.type !== 'image/jpeg' && file.type !== 'image/png') {
-      dispatch(setMessage({
-        isShow: true,
-        type: 'error',
-        message: VALIDATE_ERROR_MESSAGES.file_type_invalid,
-      }));
-      return false;  
+    if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+      dispatch(
+        setMessage({
+          isShow: true,
+          type: 'error',
+          message: VALIDATE_ERROR_MESSAGES.file_type_invalid,
+        })
+      );
+      return false;
     }
-    if(file.size > 500000) {
-      dispatch(setMessage({
-        isShow: true,
-        type: 'error',
-        message: VALIDATE_ERROR_MESSAGES.file_size_invalid,
-      }));
+    if (file.size > 500000) {
+      dispatch(
+        setMessage({
+          isShow: true,
+          type: 'error',
+          message: VALIDATE_ERROR_MESSAGES.file_size_invalid,
+        })
+      );
       return false;
     }
     return true;
-  }
+  };
 
   const change = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(e.target.files && e.target.files.length) {
+    if (e.target.files && e.target.files.length) {
       const file = e.target.files[0];
       const result: boolean = validate(file);
-      if(result){
+      if (result) {
         const reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
         reader.onload = () => {
           const dataUrl = reader.result;
           onUpload(dataUrl);
-        }
+        };
       }
     }
-  }
+  };
 
-  const props = { change, };
+  const props = { change };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return (
+    <StyeldComponent {...componentProps} {...props}>
+      {componentProps.children}
+    </StyeldComponent>
+  );
+};
 export default Container;

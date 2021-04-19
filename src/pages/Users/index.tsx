@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Styled from 'styled-components';
-
 import { RESPONSE_MESSAGES } from 'utils/messages';
 import { SearchQuery, UserData_overview } from 'types';
 import Users from 'utils/request/User';
 import { searchQuerySelector, setMessage } from 'state/modules/app';
-
 import PageBase from 'components/layouts/PageBase';
 import InfinityScroll from 'components/modules/InfinityScroll';
 import ListHeader from 'components/blocks/ListHeader';
 import UsersList from 'components/modules/UsersList';
-
 import * as styles from './styles';
 
 // component root class name
@@ -33,31 +30,30 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <PageBase>
       <ListHeader
-        title='ユーザー'
+        listType="user"
+        title="ユーザー"
         sortKeys={[
-          // {
-          //   value: 'likes_count',
-          //   label: 'Like'
-          // },
           {
             value: 'created_at',
-            label: 'New'
+            label: 'New',
+          },
+          {
+            value: 'followers_count',
+            label: 'Followers',
           },
         ]}
-        className='userListHeader'
-      />      
+        className="userListHeader"
+      />
       <InfinityScroll
         resetTriggerKeys={[props.searchQuery]}
         list={props.users}
         getDataFunc={props.getUser}
       >
-        <UsersList
-          users={props.users}
-        />
+        <UsersList users={props.users} />
       </InfinityScroll>
     </PageBase>
   </div>
@@ -69,53 +65,52 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
-  const searchQuery = useSelector(searchQuerySelector);  
+  const searchQuery = useSelector(searchQuerySelector);
   const [users, setUsers] = useState<UserData_overview[]>([]);
-  const isMouted = useRef<Boolean>(false);
+  const isMouted = useRef<boolean>(false);
 
   const getUser = async (
     currentUsers: UserData_overview[] = [],
-    currentOffset: number = 0,
-    cb: (count: number) => void,
+    currentOffset = 0,
+    cb: (count: number) => void
   ) => {
     try {
       const result = await Users.getUsers(searchQuery, currentOffset, 20);
-      if(result.status === 'success_get_users' && result.data) {
-        if(isMouted.current) {
-          cb(result.data.query.all!);
-          setUsers([
-            ...currentUsers,
-            ...result.data.users,
-          ]); 
+      if (result.status === 'success_get_users' && result.data) {
+        if (isMouted.current && result.data.query.all !== undefined) {
+          cb(result.data.query.all);
+          setUsers([...currentUsers, ...result.data.users]);
         }
       }
-    } catch(error) {
-      dispatch(setMessage({
-        isShow: true,
-        type: 'error',
-        message: RESPONSE_MESSAGES.error,
-      }));
+    } catch (error) {
+      dispatch(
+        setMessage({
+          isShow: true,
+          type: 'error',
+          message: RESPONSE_MESSAGES.error,
+        })
+      );
     }
-  }
+  };
 
   useEffect(() => {
-    if(isMouted.current) {
+    if (isMouted.current) {
       setUsers([]);
     }
-  }, [searchQuery])
+  }, [searchQuery, dispatch]);
 
   useEffect(() => {
     isMouted.current = true;
+
     return () => {
       isMouted.current = false;
-    }
-  }, [])
+    };
+  }, []);
 
   const props = { searchQuery, users, getUser };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

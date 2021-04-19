@@ -4,7 +4,6 @@ import Styled from 'styled-components';
 import CircleButton from 'components/elements/buttons/CircleButton';
 import { IconClose } from 'components/elements/icons';
 
-
 import * as styles from './styles';
 
 // component root class name
@@ -20,32 +19,38 @@ interface ComponentProps {
 }
 
 interface Props extends ComponentProps {
+  children: React.ReactNode;
   toggleShow: () => void;
   isShow: boolean;
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <>
     {props.children}
-    {props.messages && props.messages.length > 0
-      ? <div className={`${CLASSNAME} ${props.className}`}>
-        <p className='text'>※入力内容に誤りがあります<button onClick={props.toggleShow}>詳細</button></p>
-        {
-          props.isShow && <div className='box'>
-            {
-              props.messages.map((message, i) => {
-                return message && <span key={i} className='message'>{message}</span>;
-              })
-            }
-            <CircleButton types={['s', 'gray_dark']} onClick={props.toggleShow} className='close'>
+    {props.messages && props.messages.length > 0 ? (
+      <div className={`${CLASSNAME} ${props.className}`}>
+        <p className="text">
+          ※入力内容に誤りがあります<button onClick={props.toggleShow}>詳細</button>
+        </p>
+        {props.isShow && (
+          <div className="box">
+            {props.messages.map((message, i) => {
+              return (
+                message && (
+                  <span key={i} className="message">
+                    {message}
+                  </span>
+                )
+              );
+            })}
+            <CircleButton types={['s', 'gray_dark']} onClick={props.toggleShow} className="close">
               <IconClose />
             </CircleButton>
           </div>
-        }
+        )}
       </div>
-      : null
-    }
+    ) : null}
   </>
 );
 
@@ -53,12 +58,11 @@ const Component: React.FC<Props> = props => (
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const [isShow, setIsShow] = useState<boolean>(false);
 
   const toggleShow = () => {
@@ -67,6 +71,10 @@ const Container: React.FC<ComponentProps> = componentProps => {
 
   const props = { isShow, toggleShow };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return (
+    <StyeldComponent {...componentProps} {...props}>
+      {componentProps.children}
+    </StyeldComponent>
+  );
+};
 export default Container;

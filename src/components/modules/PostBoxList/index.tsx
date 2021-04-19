@@ -17,25 +17,24 @@ interface ComponentProps {
   onRemove?: (id: number) => void;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <ul className='list'>
-      {
-        props.posts.map((post, i) => {
-          return <li className='item' key={i} data-id={post.id}>
+    <ul className="list">
+      {props.posts.map((post, i) => {
+        return (
+          <li className="item" key={i} data-id={post.id}>
             <PostBox
+              className="postBox"
               post={post}
               statusVisible={props.statusVisible}
               editable={props.editable}
               onDelete={props.onDelete}
               onRemove={props.onRemove}
             />
-          </li>;
-        })
-      }
+          </li>
+        );
+      })}
     </ul>
   </div>
 );
@@ -47,13 +46,6 @@ const StyeldComponent = Styled(Component)`
 
 // container component
 const Container: React.FC<ComponentProps> = ({ ...ComponentProps }: ComponentProps) => {
-
-  const {} = ComponentProps;
-
-  const Props = {
-
-  }
-
-  return <StyeldComponent {...ComponentProps } { ...Props }></StyeldComponent>;
-}
+  return <StyeldComponent {...ComponentProps}></StyeldComponent>;
+};
 export default Container;

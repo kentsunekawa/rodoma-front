@@ -10,7 +10,7 @@ type StyleType = 'rounded' | 'switcher' | 'simple';
 
 interface ComponentProps {
   selected?: number;
-  tabList: React.ReactElement[] | string[];  
+  tabList: React.ReactElement[] | string[];
   className?: string;
   tabType?: StyleType;
   onChange?: (i: number) => void;
@@ -21,18 +21,21 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <ul className="list">
-      {
-        props.tabList.map((tab: React.ReactElement | string, i: number) => {
-          return <li key={i} className={`item${props.selected === i ? ' -selected' : ''}`}>
-            <button onClick={() => props.onButtonClick(i)}  className={`button${props.selected === i ? ' -selected' : ''}`}>
+      {props.tabList.map((tab: React.ReactElement | string, i: number) => {
+        return (
+          <li key={i} className={`item${props.selected === i ? ' -selected' : ''}`}>
+            <button
+              onClick={() => props.onButtonClick(i)}
+              className={`button${props.selected === i ? ' -selected' : ''}`}
+            >
               {tab}
             </button>
-          </li>;
-        })
-      }
+          </li>
+        );
+      })}
     </ul>
   </div>
 );
@@ -42,24 +45,23 @@ const StyeldComponent = Styled(Component)`
   ${styles.base}
   & > .list{
     & > .item{
-      width: ${({tabList}) => `${100 / tabList.length}%`};
+      width: ${({ tabList }) => `${100 / tabList.length}%`};
     }
   }
   // extended styles
-  ${({tabType}) => tabType && styles[tabType]}
+  ${({ tabType }) => tabType && styles[tabType]}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { onChange } = componentProps;
 
   const onButtonClick = (i: number) => {
-    onChange && onChange(i);
-  }
+    if (onChange) onChange(i);
+  };
 
   const props = { onButtonClick };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

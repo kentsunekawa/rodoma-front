@@ -1,8 +1,8 @@
 import React from 'react';
 import Styled from 'styled-components';
 import * as styles from './styles';
-import { IconLike } from 'components/elements/icons'
-import { IconMark } from 'components/elements/icons'
+import { IconLike } from 'components/elements/icons';
+import { IconMark } from 'components/elements/icons';
 
 // component root class name
 const CLASSNAME = 'StatusCounter';
@@ -16,15 +16,13 @@ interface ComponentProps {
   StatusType: StatusType;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = ({ num, StatusType, className }) => (
-  <div className={`${CLASSNAME} ${className}`}>
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
+  <div className={`${CLASSNAME} ${props.className}`}>
     <div className="inner">
       <div className="icon">
         {(() => {
-          switch(StatusType) {
+          switch (props.StatusType) {
             case 'like':
               return <IconLike />;
             case 'mark':
@@ -34,7 +32,7 @@ const Component: React.FC<Props> = ({ num, StatusType, className }) => (
           }
         })()}
       </div>
-      <div className="num">{num}</div>
+      <div className="num">{props.num}</div>
     </div>
   </div>
 );
@@ -43,7 +41,7 @@ const Component: React.FC<Props> = ({ num, StatusType, className }) => (
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({StatusType}) => styles[StatusType] }
+  ${({ StatusType }) => styles[StatusType]}
 `;
 
 // container component
@@ -53,5 +51,5 @@ const Container: React.FC<ComponentProps> = ({
   StatusType,
 }: ComponentProps) => {
   return <StyeldComponent {...{ num, className, StatusType }}></StyeldComponent>;
-}
+};
 export default Container;

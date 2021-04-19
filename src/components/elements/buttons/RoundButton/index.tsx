@@ -8,14 +8,14 @@ const CLASSNAME = 'RoundButton';
 
 // declare types
 type StyleType =
-  's' 
-  | 'm' 
-  | 'l' 
-  | 'gradient' 
-  | 'gray_dark' 
-  | 'gray_midium' 
-  | 'gray_light' 
-  | 'nega' 
+  | 's'
+  | 'm'
+  | 'l'
+  | 'gradient'
+  | 'gray_dark'
+  | 'gray_midium'
+  | 'gray_light'
+  | 'nega'
   | 'withIcon';
 
 interface ComponentProps {
@@ -28,56 +28,57 @@ interface ComponentProps {
 }
 
 interface Props extends ComponentProps {
+  children: React.ReactNode;
   clickFunc: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <>
-    {
-      (!props.link && !props.onClick)
-      ? <div className={`${CLASSNAME} ${props.className}${props.disabled ? ' -disabled' : ''}`}>
+    {!props.link && !props.onClick ? (
+      <div className={`${CLASSNAME} ${props.className}${props.disabled ? ' -disabled' : ''}`}>
         {props.children}
-        {props.icon && (<div className="icon">
-          {props.icon}
-        </div>)}
+        {props.icon && <div className="icon">{props.icon}</div>}
       </div>
-      : <button className={`${CLASSNAME} ${props.className}${props.disabled ? ' -disabled' : ''}`}
-        onClick={props.clickFunc}>
+    ) : (
+      <button
+        className={`${CLASSNAME} ${props.className}${props.disabled ? ' -disabled' : ''}`}
+        onClick={props.clickFunc}
+      >
         {props.children}
-        {props.icon && (<div className="icon">
-          {props.icon}
-        </div>)}
+        {props.icon && <div className="icon">{props.icon}</div>}
       </button>
-    }
+    )}
   </>
-  
 );
 
 // styled component
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({types}) => types && types.map(type => styles[type])}}
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-  
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const history = useHistory();
 
   const { disabled, link, onClick } = componentProps;
 
   const clickFunc = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if(disabled !== true) {
-      if(onClick) onClick(e);
-      if(link) history.push(link);
+    if (disabled !== true) {
+      if (onClick) onClick(e);
+      if (link) history.push(link);
     }
-  }
+  };
 
   const props = { clickFunc };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return (
+    <StyeldComponent {...componentProps} {...props}>
+      {componentProps.children}
+    </StyeldComponent>
+  );
+};
 
 export default Container;

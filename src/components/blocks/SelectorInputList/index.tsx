@@ -30,36 +30,33 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="inputArea">
       <ul className="list">
-      {
-        props.localListData.map((data: any, i: number) => {
-          return <li className="item" key={data.selectorData.selected}>
-            <SelectorInput
-              name={props.name}
-              index={i}
-              onClickDelete={props.deleteFunc}
-              onSelectorChange={props.selectorChange}
-              onTextChange={props.textChange}
-              { ...data }
-            />
-          </li>
-        })
-      }
+        {props.localListData.map((data: ListData, i: number) => {
+          return (
+            <li className="item" key={data.selectorData.selected}>
+              <SelectorInput
+                name={props.name}
+                index={i}
+                onClickDelete={props.deleteFunc}
+                onSelectorChange={props.selectorChange}
+                onTextChange={props.textChange}
+                {...data}
+              />
+            </li>
+          );
+        })}
       </ul>
     </div>
-    {props.isAddable &&
-    <div className="buttonArea">
-      <CircleButton
-        onClick={props.add}
-        types={['gray_light', 's']}
-      >
-        <IconAdd />
-      </CircleButton>
-    </div>
-    }
+    {props.isAddable && (
+      <div className="buttonArea">
+        <CircleButton onClick={props.add} types={['gray_light', 's']}>
+          <IconAdd />
+        </CircleButton>
+      </div>
+    )}
   </div>
 );
 
@@ -69,42 +66,40 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
-  const { options, label, listData, onChangeList,  } = componentProps;
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  const { options, label, listData, onChangeList } = componentProps;
 
   const createListData = (listData: ListData[]) => {
-    let newlistData = listData.slice();
-    return newlistData.map((data: ListData)  => {
-      let newOptions: Options = [];
-      for(let i = 0; i < options.length; i ++) {
+    const newlistData = listData.slice();
+    return newlistData.map((data: ListData) => {
+      const newOptions: Options = [];
+      for (let i = 0; i < options.length; i++) {
         let isAdd = true;
-        for(let j = 0; j < newlistData.length; j++) {
-          if(
-            options[i].value === newlistData[j].selectorData.selected
-            &&
+        for (let j = 0; j < newlistData.length; j++) {
+          if (
+            options[i].value === newlistData[j].selectorData.selected &&
             options[i].value !== data.selectorData.selected
           ) {
             isAdd = false;
           }
         }
-        if(isAdd) {
+        if (isAdd) {
           newOptions.push(options[i]);
         }
       }
       data.selectorData.options = newOptions;
       data.inputData.label = label;
       return data;
-    })
+    });
   };
 
   const [localListData, setLocalListData] = useState(createListData(listData));
 
   const isAddable = (() => {
-    if(localListData.length　=== 0) {
+    if (localListData.length === 0) {
       return true;
     } else {
-      if(options.length > localListData.length){
+      if (options.length > localListData.length) {
         return true;
       }
     }
@@ -112,16 +107,16 @@ const Container: React.FC<ComponentProps> = componentProps => {
   })();
 
   const add = () => {
-    for(let i = 0; i < options.length; i++) {
+    for (let i = 0; i < options.length; i++) {
       let isSelected = false;
-      for(let j = 0; j < localListData.length; j++) {
-        if(options[i].value === localListData[j].selectorData.selected) {
+      for (let j = 0; j < localListData.length; j++) {
+        if (options[i].value === localListData[j].selectorData.selected) {
           isSelected = true;
           break;
         }
       }
-      if(!isSelected) {
-        let newListData = localListData.slice();
+      if (!isSelected) {
+        const newListData = localListData.slice();
         newListData.push({
           selectorData: {
             selected: options[i].value,
@@ -136,31 +131,31 @@ const Container: React.FC<ComponentProps> = componentProps => {
         return;
       }
     }
-  }
+  };
 
   const deleteFunc = (index: number) => {
-    let newListData = localListData.slice();
+    const newListData = localListData.slice();
     newListData.splice(index, 1);
     const newLocalListData = createListData(newListData);
     setLocalListData(newLocalListData);
     onChangeList(newLocalListData);
-  }
+  };
 
   const selectorChange = (value: string | number, index: number) => {
-    let newListData = localListData.slice();
-    newListData[index].selectorData.selected = value
+    const newListData = localListData.slice();
+    newListData[index].selectorData.selected = value;
     const newLocalListData = createListData(newListData);
     setLocalListData(newLocalListData);
     onChangeList(newLocalListData);
-  }
+  };
 
   const textChange = (value: string, index: number) => {
-    let newListData = localListData.slice();
+    const newListData = localListData.slice();
     newListData[index].inputData.value = value;
     const newLocalListData = createListData(newListData);
     setLocalListData(newLocalListData);
     onChangeList(newLocalListData);
-  }
+  };
 
   const props = {
     localListData,
@@ -168,11 +163,9 @@ const Container: React.FC<ComponentProps> = componentProps => {
     deleteFunc,
     selectorChange,
     textChange,
-    add
+    add,
   };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;
-
-

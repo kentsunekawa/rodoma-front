@@ -1,8 +1,14 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useContext } from 'react';
 import Styled from 'styled-components';
 
 import CircleButton from 'components/elements/buttons/CircleButton';
-import { IconMark, IconMarkFill, IconLike, IconLikeFill, IconLoading } from 'components/elements/icons';
+import {
+  IconMark,
+  IconMarkFill,
+  IconLike,
+  IconLikeFill,
+  IconLoading,
+} from 'components/elements/icons';
 
 import { PostContext, RelationStatus } from '../index';
 import * as styles from './styles';
@@ -24,47 +30,35 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <CircleButton
       onClick={() => props.clickButton('mark')}
       types={['m', 'gray_midium']}
       className={`button -mark${props.status?.mark ? ' -active' : ''}`}
     >
-      {
-        props.status?.mark !== null
-        ? <>
-          {
-            props.status?.mark
-              ? <>
-              {
-                props.status?.mark
-                ? <IconMarkFill />
-                : <IconMark />
-              }
-              </>
-              : <IconMark />
-          }
+      {props.status?.mark !== null ? (
+        <>
+          {props.status?.mark ? (
+            <>{props.status?.mark ? <IconMarkFill /> : <IconMark />}</>
+          ) : (
+            <IconMark />
+          )}
         </>
-        : <IconLoading />
-      }
+      ) : (
+        <IconLoading />
+      )}
     </CircleButton>
     <CircleButton
       onClick={() => props.clickButton('like')}
       types={['m', 'gray_midium']}
       className={`button -like${props.status?.like ? ' -active' : ''}`}
     >
-      {
-        props.status?.like !== null
-        ? <>
-        {
-          props.status?.like
-          ? <IconLikeFill />
-          : <IconLike />
-        }
-        </>
-        : <IconLoading />
-      }
+      {props.status?.like !== null ? (
+        <>{props.status?.like ? <IconLikeFill /> : <IconLike />}</>
+      ) : (
+        <IconLoading />
+      )}
     </CircleButton>
   </div>
 );
@@ -75,31 +69,30 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { toggleFuncs } = componentProps;
 
-  const {state, contextDispatch} = useContext(PostContext);
+  const { state, contextDispatch } = useContext(PostContext);
   // const isMounted = useRef<boolean>(false);
 
-  const clickButton = (type: ButtonTypes) => {    
-    if(state.relationStatus && state.relationStatus[type] !== null) {
+  const clickButton = (type: ButtonTypes) => {
+    if (state.relationStatus && state.relationStatus[type] !== null) {
       contextDispatch({
         type: 'SET_RELATION_STATUS',
         payload: {
           ...state.relationStatus,
           [type]: null,
-        }
+        },
       });
       toggleFuncs(type);
     }
-  }
+  };
 
-  const props = {    
+  const props = {
     status: state.relationStatus,
     clickButton,
   };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

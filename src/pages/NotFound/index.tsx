@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import Styled from 'styled-components';
 
 import PageBase from 'components/layouts/PageBase';
@@ -17,19 +16,15 @@ interface ComponentProps {
   className?: string;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <PageBase>
-      <Paragraph types={['bigTitle', 'center', 'primary']}>
+      <Paragraph types={['bigTitle', 'center', 'primary']} className="title">
         Oops!
       </Paragraph>
-      <Paragraph types={['title', 'center', 'primary']}>
-        Page not found
-      </Paragraph>
-      <RoundButton types={['gradient', 'l']} className='link' link='/'>
+      <Paragraph types={['subTitle', 'center', 'primary']}>ページが見つかりません</Paragraph>
+      <RoundButton types={['gradient', 'l']} className="link" link="/">
         トップへ
       </RoundButton>
     </PageBase>
@@ -42,10 +37,9 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const props = {};
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

@@ -1,13 +1,7 @@
 import { css } from 'styled-components';
-// import {
-//   Gradient,
-//   WithShadow,
-//   AspectFix,
-//   AbsCenterMiddle,
-//   ButtonTapAction
-// } from 'components/style/Mixins';
 
-export const base = css``;
-
-export const primary = css``;
-
+export const base = css`
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+`;

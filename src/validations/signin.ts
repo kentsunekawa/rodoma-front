@@ -1,24 +1,17 @@
-import vest, { test, enforce } from "vest";
-import isEmail from "validator/es/lib/isEmail";
+import vest, { test, enforce } from 'vest';
+import isEmail from 'validator/es/lib/isEmail';
+import { VALIDATE_ERROR_MESSAGES } from 'utils/messages';
 
-import { SigninInfo } from "types";
+import { SigninInfo } from 'types';
 
 enforce.extend({ isEmail });
 
-const suite = vest.create("signin", (signinInfo: SigninInfo) => {
-  test("email", "メールアドレスは入力必須です", () => {
-    enforce(signinInfo.email).isNotEmpty();
+const suite = vest.create('signin', (signinInfo: SigninInfo) => {
+  test('email', VALIDATE_ERROR_MESSAGES.email_required, () => {
+    enforce(signinInfo.email).isNotEmpty().isEmail();
   });
-  test("email", "メールアドレスを入力してください", () => {
-    enforce(signinInfo.email).isEmail();
-  });
-
-  test("password", "パスワードは入力必須です", () => {
-    enforce(signinInfo.password).isNotEmpty();
-  });
-
-  test("password", "パスワード8以上入力してください", () => {
-    enforce(signinInfo.password).longerThanOrEquals(8);
+  test('password', VALIDATE_ERROR_MESSAGES.password_shorter, () => {
+    enforce(signinInfo.password).isNotEmpty().longerThanOrEquals(8);
   });
 });
 

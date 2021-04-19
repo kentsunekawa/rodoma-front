@@ -1,11 +1,14 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  & > .list{
+  & > .list {
     display: flex;
     justify-content: flex-start;
-    & > .item{
+    & > .item {
       margin-right: 8px;
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 `;

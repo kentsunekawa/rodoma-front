@@ -1,20 +1,9 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Route,
-  Switch,
-  useHistory
-} from 'react-router-dom';
-import {
-  initCheck,
-  isInitCheckedSelector,
-  isVisitedSelector
-} from './state/modules/user';
-import { setIsDoorShow, requestCategoryTree, requestSnsList } from './state/modules/app';
-
-// pages
-import MemberRoute from 'pages/MemberRoute';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import GuestRoute from 'pages/GuestRoute';
+import MemberRoute from './pages/MemberRoute';
+import Auth from 'components/modules/Auth';
 import Home from 'pages/Posts';
 import Users from 'pages/Users';
 import User from 'pages/Users/_id';
@@ -27,79 +16,59 @@ import EmailVerify from 'pages/EmailVerify';
 import ForgetPass from 'pages/ForgetPass';
 import ResetPass from 'pages/ResetPass';
 import NotFound from 'pages/NotFound';
-
 import Post from 'pages/Posts/_id';
 import PostEdit from 'pages/Posts/_id/Edit';
-import Test from 'pages/Test';
+import { setIsDoorShow, requestCategoryTree, requestSnsList } from 'state/modules/app';
+import { isInitCheckedSelector } from 'state/modules/user';
+import Header from 'components/modules/Header';
+import Menu from 'components/modules/Menu';
+import SearchPanel from 'components/modules/SearchPanel';
+import FixWindow from 'components/modules/FixWindow';
+import Message from 'components/modules/Message';
+import Door from 'components/modules/Door';
+import Loading from 'components/modules/Loading';
 
-// components
-import Header from './components/modules/Header';
-import Menu from './components/modules/Menu';
-import SearchPanel from './components/modules/SearchPanel';
-import FixWindow from './components/modules/FixWindow';
-import Message from './components/modules/Message';
-import Door from './components/modules/Door';
-import Loading from './components/modules/Loading';
-
-function App() {
-
+const App: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const isInitChecked = useSelector(isInitCheckedSelector);
-  const isVisited = useSelector(isVisitedSelector);
   const isInitRender = useRef<boolean>(false);
-  const isInitCounted = useRef<boolean>(false);
-    
-  useEffect(() => {
-    if(isInitRender.current) {
-      const timer = setInterval(() => {
-        if(isInitCounted.current) {
-          clearInterval(timer);
-          dispatch(setIsDoorShow(false));
-        } 
-      }, 500);
-    }
-  }, [isInitChecked]);
 
   useEffect(() => {
-    if(isInitRender.current) {
-      if(!isVisited) {
-        history.push('/intro');
-      }
+    if (isInitRender.current) {
+      dispatch(setIsDoorShow(false));
+      dispatch(requestCategoryTree());
+      dispatch(requestSnsList());
     }
-  }, [isVisited]);
+  }, [dispatch, isInitChecked]);
 
-  useEffect(() => {    
-    setTimeout(() => {
-      isInitCounted.current = true;
-    }, 0);
-    dispatch(initCheck());
-
-    dispatch(requestCategoryTree());
-    dispatch(requestSnsList());
-
+  useEffect(() => {
     isInitRender.current = true;
   }, []);
 
-    return <>
-      <Door />
-      <Loading />
+  return (
+    <>
+      <Auth>
+        <Door />
+        <Loading />
         <FixWindow>
           <Message />
           <Menu />
           <SearchPanel />
           <Header />
           <Switch>
-
             <Route path="/" exact>
               <Home />
+            </Route>
+
+            <Route path="/roadmaps" exact>
+              <Redirect to="/" />
             </Route>
 
             <MemberRoute path="/roadmaps/:id/edit" to="/">
               <PostEdit />
             </MemberRoute>
 
-            <MemberRoute path="/roadmaps/create" to="/">
+            <MemberRoute path="/roadmaps/create" to="/signInOrUp">
               <PostEdit />
             </MemberRoute>
 
@@ -111,11 +80,11 @@ function App() {
               <UserEdit />
             </MemberRoute>
 
-            <Route path="/users/:id">
+            <Route path="/users/:id" exact>
               <User />
             </Route>
 
-            <Route path="/users">
+            <Route path="/users" exact>
               <Users />
             </Route>
 
@@ -138,11 +107,11 @@ function App() {
             <Route path="/emailVerify">
               <EmailVerify />
             </Route>
-            
-            <GuestRoute path="/resetPass" to='/'>
+
+            <GuestRoute path="/resetPass" to="/signInOrUp">
               <ResetPass />
             </GuestRoute>
-            
+
             <Route path="/about">
               <About />
             </Route>
@@ -154,10 +123,11 @@ function App() {
             <Route>
               <NotFound />
             </Route>
-
           </Switch>
         </FixWindow>
-    </>;
-}
+      </Auth>
+    </>
+  );
+};
 
 export default App;

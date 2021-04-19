@@ -1,13 +1,13 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  & > .input{
+  & > .input {
     display: none;
-    &:checked{
-      & + .label{
-        & > .icon{
-          background: ${({theme}) => theme.colors.primary};
-          &:before{
+    &:checked {
+      & + .label {
+        & > .icon {
+          background: ${({ theme }) => theme.colors.primary};
+          &:before {
             content: '';
             position: absolute;
             left: 45%;
@@ -20,16 +20,16 @@ export const base = css`
             border-bottom: 2px solid #fff;
             transform: translate(-50%, -50%) rotate(45deg);
           }
-        }    
-      }    
+        }
+      }
     }
   }
-  & > .label{
+  & > .label {
     display: flex;
     align-items: center;
     align-content: center;
-    color: ${({theme}) => theme.themeColors.black};
-    & > .icon{
+    color: ${({ theme }) => theme.themeColors.black};
+    & > .icon {
       position: relative;
       display: block;
       width: 20px;
@@ -38,30 +38,30 @@ export const base = css`
       border-radius: 2px;
       margin-right: 8px;
     }
-    & > .text{
+    & > .text {
       font-size: 1.4rem;
       line-height: 20px;
-      padding-top: .2em;
+      padding-top: 0.2em;
       color: inherit;
     }
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
-  }  
+  }
 `;
 
 export const nega = css`
-  & > .label{
-    & > .text{
+  & > .label {
+    & > .text {
       color: #fff;
     }
   }
 `;
 
 export const outline = css`
-  & > .label{
-    & > .icon{
-      border: 2px solid ${({theme}) => theme.colors.primary};
+  & > .label {
+    & > .icon {
+      border: 2px solid ${({ theme }) => theme.colors.primary};
       background: none;
     }
   }

@@ -1,21 +1,14 @@
-import {
-  configureStore,
-  getDefaultMiddleware,
-  combineReducers,
-} from "@reduxjs/toolkit";
-import logger from "redux-logger";
-// import authReducer from './modules/user';
-import appReducer from "./modules/app";
-import userReducer from "./modules/user";
-import postReducer from "./modules/post";
+import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
+import appReducer from './modules/app';
+import userReducer from './modules/user';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const createStore = () => {
   return configureStore({
     reducer: combineReducers({
       app: appReducer,
-      // auth: authReducer,
       user: userReducer,
-      post: postReducer,
     }),
     middleware: [...getDefaultMiddleware(), logger],
   });

@@ -4,25 +4,25 @@ import {
   WithShadow,
   AspectFix,
   AbsCenterMiddle,
-  ButtonTapAction
+  ButtonTapAction,
 } from 'components/style/Mixins';
 
 export const base = css`
-    display: block;
-    width: 42px;
-    border-radius: 50%;
-    font-size: 2.2rem;
-    color: #fff;
-    & > .inner{
-      font-size: inherit;
-      color: inherit;
-      & > svg{
-        display: block;
-        margin: 0 auto;
-      }
+  display: block;
+  width: 42px;
+  border-radius: 50%;
+  font-size: 2.2rem;
+  color: #fff;
+  & > .inner {
+    font-size: inherit;
+    color: inherit;
+    & > svg {
+      display: block;
+      margin: 0 auto;
     }
-    ${AspectFix}
-    ${AbsCenterMiddle}
+  }
+  ${AspectFix}
+  ${AbsCenterMiddle}
     ${ButtonTapAction}
 `;
 
@@ -52,17 +52,17 @@ export const l = css`
 `;
 
 export const gray_light = css`
-  background: ${({theme}) => theme.colors.gray_light};
+  background: ${({ theme }) => theme.colors.gray_light};
   ${WithShadow}
 `;
 
 export const gray_midium = css`
-  background: ${({theme}) => theme.colors.gray_midium};
+  background: ${({ theme }) => theme.colors.gray_midium};
   ${WithShadow}
 `;
 
 export const gray_dark = css`
-  background: ${({theme}) => theme.colors.gray_dark};
+  background: ${({ theme }) => theme.colors.gray_dark};
   ${WithShadow}
 `;
 
@@ -72,17 +72,17 @@ export const gradient = css`
 `;
 
 export const primary = css`
-  background: ${({theme}) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.primary};
   ${WithShadow}
 `;
 
 export const secondary = css`
-  background: ${({theme}) => theme.colors.secondary};
+  background: ${({ theme }) => theme.colors.secondary};
   ${WithShadow}
 `;
 
 export const posi = css`
-  color: ${({theme}) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 export const outline = css`

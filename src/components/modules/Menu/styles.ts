@@ -1,9 +1,6 @@
 import { css } from 'styled-components';
 
-import {
-  Gradient,
-  WithShadow
-} from 'components/style/Mixins';
+import { Gradient, WithShadow } from 'components/style/Mixins';
 
 export const base = css`
   display: none;
@@ -12,17 +9,18 @@ export const base = css`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;  
-  & > .panel{
+  height: 100vh;
+  & > .panel {
     position: absolute;
     z-index: 1;
     top: 0;
     right: 0;
     width: 70%;
+    max-width: 364px;
     height: 100%;
     ${Gradient}
     ${WithShadow}
-    & > .header{
+    & > .header {
       position: relative;
       z-index: 1;
       display: flex;
@@ -32,11 +30,11 @@ export const base = css`
       width: 100%;
       height: 60px;
       padding: 0 10px;
-      & > .Switch{
+      & > .Switch {
         margin-left: 5px;
       }
     }
-    & > .inner{
+    & > .inner {
       position: absolute;
       top: 0;
       left: 0;

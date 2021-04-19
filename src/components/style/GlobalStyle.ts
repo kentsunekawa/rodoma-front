@@ -1,5 +1,6 @@
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
+import { mq } from 'components/style/AppTheme';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -18,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     font-family: 'Roboto',"ヒラギノ角ゴ ProN", 'sans-serif';
     font-weight: 300;
+    letter-spacing: .06em;
   }
   body{
     background: ${({ theme }) => theme.bg};
@@ -43,6 +45,22 @@ const GlobalStyle = createGlobalStyle`
     background: none;
     &:focus{
       outline: none;
+    }
+  }
+
+  @media ${mq.tbMin_gt} {
+    button {
+      transition: transform .2s linear, opacity .5s linear;
+      &:hover {
+        transform: translateY(2%);
+        opacity: .8;
+      }
+    }
+    a{
+      &:hover{
+        opacity: .8;
+        transition: opacity .2s linear;
+      }
     }
   }
 `;

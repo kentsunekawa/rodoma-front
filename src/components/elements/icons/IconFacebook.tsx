@@ -1,7 +1,8 @@
-import { IoLogoFacebook } from "react-icons/io5";
+import React from 'react';
+import { IoLogoFacebook } from 'react-icons/io5';
 
-const IconFacebook = () => {
-  return <IoLogoFacebook/>;
-}
+const IconFacebook: React.FC = () => {
+  return <IoLogoFacebook />;
+};
 
 export default IconFacebook;

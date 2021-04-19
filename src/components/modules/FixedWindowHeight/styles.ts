@@ -8,5 +8,3 @@ export const base = css`
   height: 100vh;
   width: 100vw;
 `;
-
-

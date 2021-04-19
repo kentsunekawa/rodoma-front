@@ -3,9 +3,7 @@ import Styled from 'styled-components';
 import * as styles from './styles';
 import CircleButton from 'components/elements/buttons/CircleButton';
 import { IconInfo, IconCheck, IconClose } from 'components/elements/icons';
-import {
-  MessageType
-} from 'types';
+import { MessageType } from 'types';
 
 // component root class name
 const CLASSNAME = 'MessageBand';
@@ -24,28 +22,21 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="icon">
-      {
-        (() => {
-          switch(props.messageType) {
-            case 'error':
-              return <IconInfo />;
-            default:
-              return <IconCheck />;
-          }
-        })()
-      }
+      {(() => {
+        switch (props.messageType) {
+          case 'error':
+            return <IconInfo />;
+          default:
+            return <IconCheck />;
+        }
+      })()}
     </div>
-    <div className="message">
-      {props.children}
-    </div>
+    <div className="message">{props.children}</div>
     <div className="button">
-      <CircleButton
-        types={[]}
-        onClick={props.onClick}
-      >
+      <CircleButton types={[]} onClick={props.onClick}>
         <IconClose />
       </CircleButton>
     </div>
@@ -55,20 +46,19 @@ const Component: React.FC<Props> = props => (
 // styled component
 const StyeldComponent = Styled(Component)`
   ${styles.base}
-  ${({messageType}) => messageType && styles[messageType]}
+  ${({ messageType }) => messageType && styles[messageType]}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { onButtonClick } = componentProps;
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     onButtonClick && onButtonClick(e);
-  }
+  };
 
   const props = { onClick };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

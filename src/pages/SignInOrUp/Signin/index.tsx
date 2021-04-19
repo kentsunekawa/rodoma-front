@@ -24,8 +24,9 @@ interface Errors {
 }
 
 interface ComponentProps {
-  deside: (signinInfo: SigninInfo) => void;
+  isSampleUser: boolean;
   className?: string;
+  deside: (signinInfo: SigninInfo) => void;
 }
 
 interface Props extends ComponentProps {
@@ -33,45 +34,63 @@ interface Props extends ComponentProps {
   signinInfo: SigninInfo;
   change: (e: React.ChangeEvent<HTMLInputElement>) => void;
   desideSigninInfo: () => void;
+  signinAsSampleUser: () => void;
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='row'>
-      <Error messages={props.validateStatus.errors.email}>
-        <TextInput
-          type='text'
-          name='email'
-          value={props.signinInfo.email}
-          label="Email"
-          onChange={props.change}
-        />
-      </Error>
+    <div className="row">
+      <div className="input">
+        <Error messages={props.validateStatus.errors.email}>
+          <TextInput
+            required
+            type="text"
+            name="email"
+            value={props.signinInfo.email}
+            label="Email"
+            onChange={props.change}
+            className="input"
+          />
+        </Error>
+      </div>
     </div>
-    <div className='row'>
-      <Error messages={props.validateStatus.errors.password}>
-        <TextInput
-          type='password'
-          name='password'
-          value={props.signinInfo.password}
-          label="Password"
-          onChange={props.change}
-        />
-      </Error>
+    <div className="row">
+      <div className="input">
+        <Error messages={props.validateStatus.errors.password}>
+          <TextInput
+            required
+            type="password"
+            name="password"
+            value={props.signinInfo.password}
+            label="Password"
+            onChange={props.change}
+            className="input"
+          />
+        </Error>
+      </div>
     </div>
-    <div className='row'>
-      <TextButton link='/forgetPass' types={['s', 'gray_midium']}>
+    <div className="row -forget">
+      <TextButton link="/forgetPass" types={['s', 'primary']}>
         パスワードを忘れた方はこちら
       </TextButton>
     </div>
-    <RoundButton
-      onClick={props.desideSigninInfo}
-      types={['l', 'gradient']}
-      className='signinButton'
-    >
-      Signin
-    </RoundButton>
+    <div className="row">
+      <RoundButton onClick={props.desideSigninInfo} types={['l', 'gradient']} className="button">
+        サインイン
+      </RoundButton>
+    </div>
+    {props.isSampleUser && (
+      <div className="row">
+        <RoundButton
+          types={['gradient', 'm']}
+          onClick={props.signinAsSampleUser}
+          className="button"
+        >
+          サンプルユーザーとしてサインインする
+        </RoundButton>
+      </div>
+    )}
   </div>
 );
 
@@ -81,15 +100,14 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { deside } = componentProps;
 
   const [validateStatus, setvalidateStatus] = useState<ValidateStatus<Errors>>({
     isInvalid: false,
     errors: {
       email: [],
-      password: []
+      password: [],
     },
   });
 
@@ -103,9 +121,16 @@ const Container: React.FC<ComponentProps> = componentProps => {
       ...signinInfo,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
-  const desideSigninInfo = () => {    
+  const signinAsSampleUser = () => {
+    deside({
+      email: 'sample@rodoma.net',
+      password: '00000000',
+    });
+  };
+
+  const desideSigninInfo = () => {
     const validateResult = validate_signin(signinInfo);
 
     setvalidateStatus({
@@ -113,17 +138,17 @@ const Container: React.FC<ComponentProps> = componentProps => {
       errors: {
         ...{
           email: [],
-          password: []
+          password: [],
         },
         ...validateResult.getErrors(),
-      }
-    }); 
-  
-    if(!validateResult.hasErrors()) deside(signinInfo);
-  }
+      },
+    });
 
-  const props = { signinInfo, validateStatus, change, desideSigninInfo };
+    if (!validateResult.hasErrors()) deside(signinInfo);
+  };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  const props = { signinInfo, validateStatus, change, desideSigninInfo, signinAsSampleUser };
+
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

@@ -24,7 +24,7 @@ interface Errors {
   password_confirmation: string[];
 }
 
-interface ComponentProps {  
+interface ComponentProps {
   className?: string;
   deside: (signupInfo: SignupInfo) => void;
 }
@@ -37,59 +37,72 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className='row'>
-      <Error messages={props.validateStatus.errors.name}>
-        <TextInput
-          type='text'
-          value={props.signupInfo.name}
-          label="Name"
-          name='name'
-          onChange={props.change}
-        />
-      </Error>
+    <div className="row">
+      <div className="input">
+        <Error messages={props.validateStatus.errors.name}>
+          <TextInput
+            required
+            type="text"
+            value={props.signupInfo.name}
+            label="Name"
+            name="name"
+            onChange={props.change}
+            className="input"
+          />
+        </Error>
+      </div>
     </div>
-    <div className='row'>
-      <Error messages={props.validateStatus.errors.email}>
-        <TextInput
-          type='text'
-          value={props.signupInfo.email}
-          label="Email"
-          name='email'
-          onChange={props.change}
-        />
-      </Error>
+    <div className="row">
+      <div className="input">
+        <Error messages={props.validateStatus.errors.email}>
+          <TextInput
+            required
+            type="text"
+            value={props.signupInfo.email}
+            label="Email"
+            name="email"
+            onChange={props.change}
+          />
+        </Error>
+      </div>
     </div>
-    <div className='row'>
-      <Error messages={props.validateStatus.errors.password}>
-        <TextInput
-          type='password'
-          value={props.signupInfo.password}
-          label="Password"
-          name='password'
-          onChange={props.change}
-        />
-      </Error>
+    <div className="row">
+      <div className="input">
+        <Error messages={props.validateStatus.errors.password}>
+          <TextInput
+            required
+            type="password"
+            value={props.signupInfo.password}
+            label="Password"
+            name="password"
+            onChange={props.change}
+            className="input"
+          />
+        </Error>
+      </div>
     </div>
-    <div className='row'>
-      <Error messages={props.validateStatus.errors.password_confirmation}>
-        <TextInput
-          type='password'
-          value={props.signupInfo.password_confirmation}
-          label="Password Confirmation"
-          name='password_confirmation'
-          onChange={props.change}
-        />
-      </Error>
+    <div className="row">
+      <div className="input">
+        <Error messages={props.validateStatus.errors.password_confirmation}>
+          <TextInput
+            required
+            type="password"
+            value={props.signupInfo.password_confirmation}
+            label="Password Confirmation"
+            name="password_confirmation"
+            onChange={props.change}
+            className="input"
+          />
+        </Error>
+      </div>
     </div>
-    <RoundButton
-      types={['l', 'gradient']}
-      className='signupButton'
-      onClick={props.desideSignupInfo}
-    >
-      Signup
-    </RoundButton>
+    <div className="row -deside">
+      <RoundButton types={['l', 'gradient']} className="button" onClick={props.desideSignupInfo}>
+        サインアップ
+      </RoundButton>
+    </div>
   </div>
 );
 
@@ -99,8 +112,7 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { deside } = componentProps;
 
   const dispatch = useDispatch();
@@ -123,9 +135,8 @@ const Container: React.FC<ComponentProps> = componentProps => {
     password_confirmation: '',
   });
 
-
   useEffect(() => {
-    if(validateErrorStatus.suiteName === 'signup' && validateErrorStatus.validateState.isInvalid){
+    if (validateErrorStatus.suiteName === 'signup' && validateErrorStatus.validateState.isInvalid) {
       setvalidateStatus({
         isInvalid: validateErrorStatus.validateState.isInvalid,
         errors: {
@@ -136,7 +147,7 @@ const Container: React.FC<ComponentProps> = componentProps => {
             password_confirmation: [],
           },
           ...validateErrorStatus.validateState.errors,
-        }
+        },
       });
     }
   }, [validateErrorStatus]);
@@ -144,20 +155,19 @@ const Container: React.FC<ComponentProps> = componentProps => {
   useEffect(() => {
     return () => {
       dispatch(cleanupValidateErrorStatus());
-    }
-  }, [])
+    };
+  }, [dispatch]);
 
   const change = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSignupInfo({
       ...signupInfo,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
   const desideSignupInfo = () => {
-    
     const validateResult = validate_signup(signupInfo);
-    
+
     setvalidateStatus({
       isInvalid: validateResult.hasErrors(),
       errors: {
@@ -168,14 +178,14 @@ const Container: React.FC<ComponentProps> = componentProps => {
           password_confirmation: [],
         },
         ...validateResult.getErrors(),
-      }
-    }); 
+      },
+    });
 
-    if(!validateResult.hasErrors()) deside(signupInfo);
-  }
+    if (!validateResult.hasErrors()) deside(signupInfo);
+  };
 
   const props = { validateStatus, signupInfo, change, desideSignupInfo };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

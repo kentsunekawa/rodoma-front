@@ -1,34 +1,31 @@
 import { css } from 'styled-components';
 
-import {
-  AspectFix
-} from 'components/style/Mixins';
+import { AspectFix } from 'components/style/Mixins';
 
 export const base = css`
-  & > .list{
+  & > .list {
     display: flex;
     justify-content: flex-start;
-    & > .item{
+    & > .item {
       width: 30px;
       margin-right: 5px;
-      & > input{
+      & > input {
         display: none;
-        &:checked{
-          & + .label{
-            & > .ring{
-              
+        &:checked {
+          & + .label {
+            & > .ring {
               transform: translate(-50%, -50%) scale(1);
-            }    
+            }
           }
         }
       }
-      & > .label{
+      & > .label {
         ${AspectFix}
         display: block;
-        &:hover{
+        &:hover {
           cursor: pointer;
         }
-        & > span{
+        & > span {
           position: absolute;
           top: 50%;
           left: 50%;
@@ -36,15 +33,15 @@ export const base = css`
           display: block;
           border-radius: 50%;
         }
-        & > .circle{
+        & > .circle {
           width: 70%;
           height: 70%;
         }
-        & > .ring{
+        & > .ring {
           width: 100%;
           height: 100%;
-          transform: translate(-50%, -50%) scale(.1);
-          transition: transform .2s;
+          transform: translate(-50%, -50%) scale(0.1);
+          transition: transform 0.2s;
         }
       }
     }

@@ -2,10 +2,8 @@ import React, { useEffect, createContext, Reducer, useReducer } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import Styled from 'styled-components';
-
 import { UserData, UserData_overview } from 'types';
 import { userSelector } from 'state/modules/user';
-
 import Summary from '../_id/Summary';
 import Posts from '../_id/Posts';
 import Marks from '../_id/Marks';
@@ -17,13 +15,7 @@ import Tab from 'components/modules/TabChanger/Tab';
 import TabContents from 'components/modules/TabChanger/TabContents';
 import TabContent from 'components/modules/TabChanger/TabContent';
 import FollowButton from 'components/elements/buttons/FollowButton';
-import {
-  IconUser,
-  IconList,
-  IconMark,
-  IconRelation
-} from 'components/elements/icons';
-
+import { IconUser, IconList, IconMark, IconRelation } from 'components/elements/icons';
 import * as styles from './styles';
 
 // component root class name
@@ -40,24 +32,24 @@ interface State {
 type SET_ID = {
   type: 'SET_ID';
   payload: number;
-}
+};
 
 type SET_USER = {
   type: 'SET_USER';
   payload: UserData | null;
-}
+};
 
 type SET_IS_LOGIN_USER = {
   type: 'SET_IS_LOGIN_USER';
   payload: boolean;
-}
+};
 
 type Actions = SET_ID | SET_USER | SET_IS_LOGIN_USER;
 
 interface Context {
   state: Partial<State>;
   contextDispatch: (arg0: Actions) => void;
-};
+}
 
 interface ComponentProps {
   className?: string;
@@ -70,28 +62,28 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <PageBase>
       <TabChanger
         trigger={{
           keys: [props.id],
-          selectedTab: 0
+          selectedTab: 0,
         }}
         selected={0}
       >
-        <Tab className='mainTab'>
+        <Tab className="mainTab">
           <Tabs
             tabList={[
-              <IconUser />,
-              <IconList />,
-              <IconMark />,
-              <IconRelation />,
+              <IconUser key={1} />,
+              <IconList key={2} />,
+              <IconMark key={3} />,
+              <IconRelation key={4} />,
             ]}
             tabType={'rounded'}
           />
         </Tab>
-        <TabContents>
+        <TabContents className="mainTabContents">
           <TabContent>
             <Summary />
           </TabContent>
@@ -107,11 +99,7 @@ const Component: React.FC<Props> = props => (
         </TabContents>
       </TabChanger>
     </PageBase>
-    {
-      props.user && <FollowButton
-        targetUserId={props.id!}
-      />
-    }
+    {props.user && props.id && <FollowButton targetUserId={props.id} className="followButton" />}
   </div>
 );
 
@@ -123,7 +111,9 @@ const StyeldComponent = Styled(Component)`
 // context
 export const UserContext = createContext<Context>({
   state: {},
-  contextDispatch: () => {}
+  contextDispatch: () => {
+    return;
+  },
 });
 
 // reducer
@@ -133,12 +123,12 @@ const reducer: Reducer<State, Actions> = (state: State, action: Actions) => {
       return {
         ...state,
         isLogin: action.payload,
-      }
+      };
     case 'SET_USER':
       return {
         ...state,
         user: action.payload,
-      }
+      };
     case 'SET_ID':
       return {
         ...state,
@@ -147,15 +137,14 @@ const reducer: Reducer<State, Actions> = (state: State, action: Actions) => {
     default:
       return state;
   }
-}
+};
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const history = useHistory();
-  const { id } = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
   const user = useSelector(userSelector);
- 
+
   const [state, contextDispatch] = useReducer(reducer, {
     isLogin: false,
     id: Number(id),
@@ -165,12 +154,12 @@ const Container: React.FC<ComponentProps> = componentProps => {
   useEffect(() => {
     contextDispatch({
       type: 'SET_IS_LOGIN_USER',
-      payload: (user && (user.id === state.user?.id)) || false,
+      payload: (user && user.id === state.user?.id) || false,
     });
-  }, [state.user])
+  }, [state.user, user]);
 
   useEffect(() => {
-    if(!Number(id)) {
+    if (!Number(id)) {
       history.push('/notFound');
     } else {
       contextDispatch({
@@ -182,7 +171,7 @@ const Container: React.FC<ComponentProps> = componentProps => {
         payload: Number(id),
       });
     }
-  }, [id]);
+  }, [id, history]);
 
   const props = {
     user: state.user,
@@ -190,8 +179,10 @@ const Container: React.FC<ComponentProps> = componentProps => {
     isLogin: state.isLogin,
   };
 
-  return <UserContext.Provider value={{state, contextDispatch}}>
-    <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>
-  </UserContext.Provider>;
-}
+  return (
+    <UserContext.Provider value={{ state, contextDispatch }}>
+      <StyeldComponent {...componentProps} {...props}></StyeldComponent>
+    </UserContext.Provider>
+  );
+};
 export default Container;

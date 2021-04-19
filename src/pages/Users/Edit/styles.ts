@@ -1,15 +1,18 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
-  .main{
+  .main {
     padding-bottom: 80px;
-    & > .iconArea{
+    max-width: 700px;
+    margin: 0 auto;
+    & > .iconArea {
       display: flex;
       justify-content: center;
       padding: 30px 0 50px;
-      & > .icon{
+      & > .icon {
         position: relative;
-        & > .iconChangeButton{
+        & > .iconChangeButton {
           position: absolute;
           right: 0;
           top: 0;
@@ -17,11 +20,11 @@ export const base = css`
         }
       }
     }
-    
-    & > .row{
+
+    & > .row {
       position: relative;
       margin-bottom: 40px;
-      & > .caption{
+      & > .caption {
         position: absolute;
         right: 0;
         bottom: 100%;
@@ -31,30 +34,30 @@ export const base = css`
         align-content: center;
         width: 100%;
         font-size: 1.2rem;
-        padding: .4em;
-        color: ${({theme}) => theme.colors.error};
-        svg{
+        padding: 0.4em;
+        color: ${({ theme }) => theme.colors.error};
+        svg {
           display: block;
           width: 1em;
-          margin-right: .2em;
+          margin-right: 0.2em;
         }
-        &.-verified{
-          color: ${({theme}) => theme.colors.gray_midium};
+        &.-verified {
+          color: ${({ theme }) => theme.colors.success};
         }
       }
-      & > .label{
+      & > .label {
         font-size: 1.6rem;
         display: block;
         margin-bottom: 15px;
-        color: ${({theme}) => theme.colors.primary};
-        padding-left: .2em;
+        color: ${({ theme }) => theme.colors.primary};
+        padding-left: 0.2em;
       }
-      &.-category{
+      &.-category {
         width: 80%;
         margin: 0 auto 40px;
-        .Selector{
+        .Selector {
           margin-bottom: 20px;
-          &:last-child{
+          &:last-child {
             margin-bottom: 0;
           }
         }
@@ -69,9 +72,22 @@ export const base = css`
       z-index: 50;
       width: auto;
       width: calc(100% - 40px);
-      & > .saveButton{
+      & > .saveButton {
         margin: 0 auto;
         width: 100%;
+        &.-sampleUser {
+          font-size: 1.6rem;
+        }
+      }
+    }
+  }
+
+  @media ${mq.tbMin_gt} {
+    .main {
+      & > .bottom {
+        & > .saveButton {
+          max-width: 700px;
+        }
       }
     }
   }

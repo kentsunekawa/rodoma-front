@@ -29,77 +29,73 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    {
-      props.user
-        ? <div className='inner -login'>
-          <div className='upper'>
-            <UserBlock
-              userName={props.user.name}
-              icon_url={props.user.icon_url}
-              types={['l', 'alignCenter']}
-            />
-          </div>
-          <div className='menu'>
-            <ul className='list'>
-              <li className='item'>
-                <Link to={`/users/${props.user?.id}`} onClick={props.closeFunc}>
-                  <Paragraph types={['center', 'nega', 'text']}>プロフィール</Paragraph>
-                </Link>
-              </li>
-              <li className='item'>
-                <Link to='/' onClick={props.closeFunc}>
-                  <Paragraph types={['center', 'nega', 'text']}>ロードマップを探す</Paragraph>
-                </Link>
-              </li>
-              <li className='item'>
-                <Link to='/roadmaps/create' onClick={props.closeFunc}>
-                  <Paragraph types={['center', 'nega', 'text']}>ロードマップを作る</Paragraph>
-                </Link>
-              </li>
-              <li className='item'>
-                <Link to='/users' onClick={props.closeFunc}>
-                  <Paragraph types={['center', 'nega', 'text']}>ユーザーを探す</Paragraph>
-                </Link>
-              </li>
-              <li className='item'>
-                <button onClick={props.logout}>
-                  <Paragraph types={['center', 'nega', 'text']}>サインアウト</Paragraph>
-                </button>
-              </li>
-            </ul>
-          </div>
+    {props.user ? (
+      <div className="inner -login">
+        <div className="upper">
+          <UserBlock
+            userName={props.user.name}
+            icon_url={props.user.icon_url}
+            types={['l', 'alignCenter']}
+          />
         </div>
-        : <div className='inner'>
-          <div className='upper'>
-            <RoundButton
-              types={['l', 'gradient']}
-              link='/signInOrUp'
-              onClick={props.closeFunc}
-            >
-              サインイン
-            </RoundButton>
-          </div>
-          <div className='menu'>
-            <ul className='list'>
-              <li className='item'>
-                <Link to='/' onClick={props.closeFunc}>
-                  <Paragraph types={['center', 'nega']}>ロードマップを探す</Paragraph>
-                </Link>
-              </li>
-              <li className='item'>
-                <Link to='/users' onClick={props.closeFunc}>
-                  <Paragraph types={['center', 'nega']}>ユーザーを探す</Paragraph>
-                </Link>
-              </li>
-            </ul>
-          </div>
+        <div className="menu">
+          <ul className="list">
+            <li className="item">
+              <Link to={`/users/${props.user?.id}`} onClick={props.closeFunc}>
+                <Paragraph types={['center', 'nega', 'catchText']}>プロフィール</Paragraph>
+              </Link>
+            </li>
+            <li className="item">
+              <Link to="/" onClick={props.closeFunc}>
+                <Paragraph types={['center', 'nega', 'catchText']}>ロードマップを探す</Paragraph>
+              </Link>
+            </li>
+            <li className="item">
+              <Link to="/roadmaps/create" onClick={props.closeFunc}>
+                <Paragraph types={['center', 'nega', 'catchText']}>ロードマップを作る</Paragraph>
+              </Link>
+            </li>
+            <li className="item">
+              <Link to="/users" onClick={props.closeFunc}>
+                <Paragraph types={['center', 'nega', 'catchText']}>ユーザーを探す</Paragraph>
+              </Link>
+            </li>
+            <li className="item">
+              <button onClick={props.logout}>
+                <Paragraph types={['center', 'nega', 'catchText']}>サインアウト</Paragraph>
+              </button>
+            </li>
+          </ul>
         </div>
-    }
-    <div className='bottom'>
-      <Link to='/about' onClick={props.closeFunc}>
-        <Paragraph types={['center', 'nega']}>rodoma とは</Paragraph>
+      </div>
+    ) : (
+      <div className="inner">
+        <div className="upper">
+          <RoundButton types={['l', 'gradient']} link="/signInOrUp" onClick={props.closeFunc}>
+            サインイン
+          </RoundButton>
+        </div>
+        <div className="menu">
+          <ul className="list">
+            <li className="item">
+              <Link to="/" onClick={props.closeFunc}>
+                <Paragraph types={['center', 'nega', 'catchText']}>ロードマップを探す</Paragraph>
+              </Link>
+            </li>
+            <li className="item">
+              <Link to="/users" onClick={props.closeFunc}>
+                <Paragraph types={['center', 'nega', 'catchText']}>ユーザーを探す</Paragraph>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    )}
+    <div className="bottom">
+      <Link to="/about" onClick={props.closeFunc}>
+        <Paragraph types={['center', 'nega', 'catchText']}>rodoma とは</Paragraph>
       </Link>
     </div>
   </div>
@@ -112,7 +108,6 @@ const StyeldComponent = Styled(Component)`
 
 // container component
 const Container: React.FC<ComponentProps> = (componentProps: ComponentProps) => {
-
   const dispatch = useDispatch();
   const history = useHistory();
   const { closeFunc } = componentProps;
@@ -121,9 +116,9 @@ const Container: React.FC<ComponentProps> = (componentProps: ComponentProps) => 
     closeFunc();
     dispatch(signout());
     history.push('/signInOrUp');
-  }
+  };
   const props = { logout };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

@@ -1,7 +1,8 @@
-import { IoInformationCircleOutline } from "react-icons/io5";
+import React from 'react';
+import { IoInformationCircleOutline } from 'react-icons/io5';
 
-const IconInfo = () => {
+const IconInfo: React.FC = () => {
   return <IoInformationCircleOutline />;
-}
+};
 
 export default IconInfo;

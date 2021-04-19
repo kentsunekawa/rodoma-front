@@ -1,7 +1,8 @@
-import { IoPencilSharp } from "react-icons/io5";
+import React from 'react';
+import { IoPencilSharp } from 'react-icons/io5';
 
-const IconEdit = () => {
+const IconEdit: React.FC = () => {
   return <IoPencilSharp />;
-}
+};
 
 export default IconEdit;

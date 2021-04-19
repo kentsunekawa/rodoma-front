@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Styled from 'styled-components';
 
 import { UserData_overview } from 'types';
@@ -32,16 +32,14 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <InfinityScroll
       resetTriggerKeys={[props.userId]}
       list={props.followers}
       getDataFunc={props.getFollowers}
     >
-      <UserList
-        users={props.followers}
-      />
+      <UserList users={props.followers} />
     </InfinityScroll>
   </div>
 );
@@ -52,52 +50,53 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
-  const {state, contextDispatch} = useContext(UserContext);
+  const { state } = useContext(UserContext);
   const [followers, setFollowers] = useState<UserData_overview[]>([]);
-  const isMouted = useRef<Boolean>(false);
+  const isMouted = useRef<boolean>(false);
 
   const getFollowers = async (
     currentFollowers: UserData_overview[] = [],
-    currentOffset: number = 0,
-    cb: (count: number) => void,
+    currentOffset = 0,
+    cb: (count: number) => void
   ) => {
-    if(state.id) {
-      try{
+    if (state.id) {
+      try {
         const result = await User.getFollowers(state.id, currentOffset, 20);
-        if(result.status === 'success_get_followers' && result.data) {
-          if(isMouted.current) {
-            cb(result.data.query.all!);
+        if (result.status === 'success_get_followers' && result.data) {
+          if (isMouted.current && result.data.query.all !== undefined) {
+            cb(result.data.query.all);
             setFollowers([
               ...currentFollowers,
-              ...result.data.users.map(user => {
+              ...result.data.users.map((user) => {
                 return {
                   id: user.id,
                   name: user.name,
                   icon_url: user.icon_url,
-                }
+                };
               }),
             ]);
           }
         }
-      } catch(error) {  
-        dispatch(setMessage({
-          isShow: true,
-          type: 'error',
-          message: RESPONSE_MESSAGES.error,
-        }));
+      } catch (error) {
+        dispatch(
+          setMessage({
+            isShow: true,
+            type: 'error',
+            message: RESPONSE_MESSAGES.error,
+          })
+        );
       }
     }
-  }
+  };
 
   useEffect(() => {
     isMouted.current = true;
     return () => {
       isMouted.current = false;
-    }
-  }, [])
+    };
+  }, []);
 
   const props = {
     userId: state.id,
@@ -105,6 +104,6 @@ const Container: React.FC<ComponentProps> = componentProps => {
     getFollowers,
   };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

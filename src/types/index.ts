@@ -1,7 +1,7 @@
-import * as ResponseData from "./ResponseData";
-import { RELEASE_STATUS } from "utils";
+import * as ResponseData from './ResponseData';
+import { RELEASE_STATUS } from 'utils';
 
-export type Mode = "light" | "dark";
+export type Mode = 'light' | 'dark';
 
 export type Profile = {
   id: number;
@@ -100,21 +100,24 @@ export interface Comment {
   user: UserData_overview;
 }
 
-export type PostSearchSortKeys = "created_at" | "likes_count" | "marks_count";
-export type UserSearchSortKeys = "created_at" | "likes_count";
+export type PostSearchSortKeys = 'created_at' | 'likes_count' | 'marks_count';
+export type UserSearchSortKeys = 'created_at' | 'followers_count';
 export type KeywordSearchQuery = {
   keyword: string;
-  key: "user" | "post";
+  key: 'user' | 'post';
 };
 
 export type SearchQuery = {
   keyword: KeywordSearchQuery;
   category: number;
   specialty: number;
-  orderBy: PostSearchSortKeys | UserSearchSortKeys | "";
+  orderBy: {
+    user: UserSearchSortKeys;
+    post: PostSearchSortKeys;
+  };
 };
 
-export type MessageType = "error" | "success";
+export type MessageType = 'error' | 'success';
 
 export interface Message {
   isShow: boolean;
@@ -135,7 +138,7 @@ export interface SignupInfo {
 }
 
 export interface ResetPassInfo {
-  token: string;
+  token: string | null;
   email: string;
   password: string;
   password_confirmation: string;
@@ -146,9 +149,9 @@ export interface CommenInfo {
   comment: string;
 }
 
-export type Chart = "guntt" | "pie";
+export type Chart = 'guntt' | 'pie';
 
-export type Size = "xxl" | "xl" | "l" | "m" | "s" | "xs" | "xxs";
+export type Size = 'xxl' | 'xl' | 'l' | 'm' | 's' | 'xs' | 'xxs';
 
 export type SubjectLabel = null | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 

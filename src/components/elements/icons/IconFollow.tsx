@@ -1,7 +1,8 @@
-import { IoPersonAddSharp } from "react-icons/io5";
+import React from 'react';
+import { IoPersonAddSharp } from 'react-icons/io5';
 
-const IconFollow = () => {
+const IconFollow: React.FC = () => {
   return <IoPersonAddSharp />;
-}
+};
 
 export default IconFollow;

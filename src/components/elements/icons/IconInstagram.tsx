@@ -1,7 +1,8 @@
-import { IoLogoInstagram } from "react-icons/io5";
+import React from 'react';
+import { IoLogoInstagram } from 'react-icons/io5';
 
-const IconInstagram = () => {
-  return <IoLogoInstagram/>;
-}
+const IconInstagram: React.FC = () => {
+  return <IoLogoInstagram />;
+};
 
 export default IconInstagram;

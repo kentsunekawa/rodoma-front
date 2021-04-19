@@ -1,4 +1,4 @@
-import { RESPONSE_MESSAGES } from "utils/messages";
+import { RESPONSE_MESSAGES } from 'utils/messages';
 
 import {
   Sns,
@@ -9,11 +9,11 @@ import {
   RelationData,
   UserData,
   Comment,
-} from "./index";
+} from './index';
 
 export type ResponseStatus = keyof typeof RESPONSE_MESSAGES;
 
-export type Response<T = any> = {
+export type Response<T = unknown> = {
   status: ResponseStatus;
   data?: T;
 };
@@ -36,6 +36,7 @@ export type Token = string;
 export interface Signin {
   token: Token;
   user: UserData_overview;
+  expires_in: number;
 }
 
 export interface Signup {

@@ -19,25 +19,23 @@ interface ComponentProps {
   className?: string;
 }
 
-interface Props extends ComponentProps {}
-
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <CoverContent>
-      <Paragraph types={['center', 'bigTitle', 'primary', 'bold']} className='title'>
-        Congratulations!!
+      <Paragraph types={['center', 'bigTitle', 'primary']} className="title">
+        Congratulations!
       </Paragraph>
-      <Paragraph types={['center', 'subTitle']}>
-        サインアップが完了しました。<br />
-        確認メールが送信されましたので<br />
-        メールに記載のボタンを押して、<br />
-        承認を完了してください。<br />
-        メールの有効期限は1時間です。
+      <Paragraph types={['center', 'text']} className="text">
+        サインアップが完了しました。
+        <br />
+        確認メールが送信されましたのでメールに記載のボタンを押して、承認を完了してください。メールの有効期限は1時間です。
       </Paragraph>
-      <RoundButton link='/' types={['l', 'gradient']}>
-        OK
-      </RoundButton>
+      <div className="row -deside">
+        <RoundButton link="/" types={['l', 'gradient']} className="button">
+          OK
+        </RoundButton>
+      </div>
     </CoverContent>
   </div>
 );
@@ -48,20 +46,20 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const isSignupComplete = useSelector(isSignupCompleteSelector);
 
   useEffect(() => {
-    if(isSignupComplete) {
+    if (isSignupComplete) {
       dispatch(setIsSignupComplete(false));
     } else {
       history.push('/');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <StyeldComponent { ...componentProps } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps}></StyeldComponent>;
+};
 export default Container;

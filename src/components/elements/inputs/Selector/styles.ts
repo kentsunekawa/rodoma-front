@@ -1,15 +1,16 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   position: relative;
   display: block;
-  border: 2px solid ${({theme}) => theme.colors.primary};
+  border: 2px solid ${({ theme }) => theme.colors.primary};
   height: 50px;
   border-radius: 25px;
-  background: ${({theme}) => theme.bg};
-  color: ${({theme}) => theme.themeColors.black};
+  background: ${({ theme }) => theme.bg};
+  color: ${({ theme }) => theme.themeColors.black};
   font-size: 1.5rem;
-  & > .select{
+  & > .select {
     position: relative;
     z-index: 1;
     appearance: none;
@@ -24,38 +25,43 @@ export const base = css`
     color: inherit;
     font-size: inherit;
     cursor: pointer;
-    &:focus{
+    &:focus {
       outline: none;
     }
   }
-  & > .icon{
+  & > .icon {
     position: absolute;
     z-index: 0;
     top: 50%;
-    right: .3em;
+    right: 0.3em;
     transform: translateY(-50%);
     font-size: inherit;
-    color: ${({theme}) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary};
   }
-  & > .label{
+  & > .label {
     position: absolute;
     top: 50%;
     left: 1em;
     transform: translateY(-50%);
     z-index: 2;
     display: inline-block;
-    background: ${({theme}) => theme.bg};
-    color: ${({theme}) => theme.colors.primary};
-    transition: top .2s, font-size .2s;
-    padding: .2em .3em;
+    background: ${({ theme }) => theme.bg};
+    color: ${({ theme }) => theme.colors.primary};
+    transition: top 0.2s, font-size 0.2s;
+    padding: 0.2em 0.3em;
   }
   &.-selected > .label,
   & > .select:focus + .label {
-    top: -.2em;
+    top: -0.2em;
     font-size: 80%;
   }
-  &.-disabled{
-    opacity: .5;
+  &.-disabled {
+    opacity: 0.5;
+  }
+  @media ${mq.pcMin_gt} {
+    & > .icon {
+      right: 0.5em;
+    }
   }
 `;
 
@@ -63,18 +69,24 @@ export const l = css`
   height: 50px;
   border-radius: 25px;
   font-size: 1.8rem;
+  @media ${mq.pcMin_gt} {
+    font-size: 1.6rem;
+  }
 `;
 
 export const s = css`
   height: 30px;
   border-radius: 15px;
   font-size: 1.6rem;
-  & > .select{
-    padding: 0 1em 0 .5em;
+  & > .select {
+    padding: 0 1.2em 0 0.7em;
     line-height: 26px;
+  }
+  @media ${mq.pcMin_gt} {
+    font-size: 1.4rem;
   }
 `;
 
 export const primary = css`
-  color: ${({theme}) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
 `;

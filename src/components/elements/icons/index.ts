@@ -36,7 +36,6 @@ import IconChecked from './IconChecked';
 import IconSummary from './IconSummary';
 import IconTrash from './IconTrash';
 
-
 export {
   IconFollow,
   IconComment,

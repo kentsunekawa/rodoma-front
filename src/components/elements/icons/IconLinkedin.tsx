@@ -1,7 +1,8 @@
-import { IoLogoLinkedin } from "react-icons/io5";
+import React from 'react';
+import { IoLogoLinkedin } from 'react-icons/io5';
 
-const IconLinkedin = () => {
-  return <IoLogoLinkedin/>;
-}
+const IconLinkedin: React.FC = () => {
+  return <IoLogoLinkedin />;
+};
 
 export default IconLinkedin;

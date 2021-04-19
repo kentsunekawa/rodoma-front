@@ -14,16 +14,14 @@ interface ComponentProps {
   children: string;
 }
 
-interface Props extends ComponentProps {}
+interface Props extends ComponentProps {
+  children: string;
+}
 
 // dom component
-const Component: React.FC<Props> = props => (
-  <div
-    className={`${CLASSNAME} ${props.className}`}
-  >
-    <ReactMarkdown>
-      {props.children}
-    </ReactMarkdown>
+const Component: React.FC<Props> = (props: Props) => (
+  <div className={`${CLASSNAME} ${props.className}`}>
+    <ReactMarkdown>{props.children}</ReactMarkdown>
   </div>
 );
 
@@ -33,10 +31,7 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
-  const props = {};
-
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  return <StyeldComponent {...componentProps}>{componentProps.children}</StyeldComponent>;
+};
 export default Container;

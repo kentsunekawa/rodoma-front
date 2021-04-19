@@ -6,13 +6,12 @@ import {
   isMenuOpenSelector,
   isSearchPanelOpenSelector,
   toggleMenu,
-  toggleSearchPanel
+  toggleSearchPanel,
 } from 'state/modules/app';
 import { UserData_overview } from 'types/';
 
 import Styled from 'styled-components';
 import * as styles from './styles';
-
 import { Link } from 'react-router-dom';
 import CircleButton from 'components/elements/buttons/CircleButton';
 import UserIcon from 'components/elements/UserIcon';
@@ -36,41 +35,26 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <header className={`${CLASSNAME} ${props.className}`}>
-    <Link to='/' className='logo'>
+    <Link to="/" className="logo">
       <Logo />
     </Link>
-    <div className='nav'>
-      {
-        props.user && (
-          <div className='item'>
-            <Link to={`/users/${props.user.id}`} className='button' onClick={props.userIconClick}>
-              <UserIcon
-                url={props.user.icon_url}
-              />
-            </Link>
-          </div>
-        )
-      }
-      <div className='item'>        
-        <CircleButton
-          types={['m']}
-          onClick={props.searchOpen}
-        >
-          {
-            props.isSearchPanelOpen
-              ? <IconClose />
-              : <IconSearch />
-          }
-
+    <div className="nav">
+      {props.user && (
+        <div className="item">
+          <Link to={`/users/${props.user.id}`} className="button" onClick={props.userIconClick}>
+            <UserIcon url={props.user.icon_url} />
+          </Link>
+        </div>
+      )}
+      <div className="item">
+        <CircleButton types={['m']} onClick={props.searchOpen}>
+          {props.isSearchPanelOpen ? <IconClose /> : <IconSearch />}
         </CircleButton>
       </div>
-      <div className='item'>
-        <CircleButton
-          types={['m']}
-          onClick={props.menuOpen}
-        >
+      <div className="item">
+        <CircleButton types={['m']} onClick={props.menuOpen}>
           <IconMenu />
         </CircleButton>
       </div>
@@ -85,27 +69,26 @@ const StyeldComponent = Styled(Component)`
 
 // container component
 const Container: React.FC<ComponentProps> = (componentProps: ComponentProps) => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const user = useSelector(userSelector);
   const isMenuOpen = useSelector(isMenuOpenSelector);
   const isSearchPanelOpen = useSelector(isSearchPanelOpenSelector);
 
   const userIconClick = () => {
     dispatch(toggleSearchPanel(false));
-  }
+  };
 
   const menuOpen = () => {
     dispatch(toggleSearchPanel(false));
     dispatch(toggleMenu(isMenuOpen ? false : true));
-  }
-  
+  };
+
   const searchOpen = () => {
     dispatch(toggleSearchPanel(isSearchPanelOpen ? false : true));
-  }
+  };
 
   const props = { user, isSearchPanelOpen, userIconClick, menuOpen, searchOpen };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

@@ -1,19 +1,21 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
-  .cover{
+  .cover {
     position: relative;
     top: 0;
     left: 0;
     z-index: 0;
     width: 100%;
     background-size: cover;
-    &:before{
+    background-position: center;
+    &:before {
       content: '';
       display: block;
       padding-top: 50%;
     }
-    .button{
+    .button {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -22,10 +24,28 @@ export const base = css`
       max-width: 270;
     }
   }
-  .main{
-    padding: 32px
+  .main {
+    padding: 32px 32px 64px;
   }
-  .categorySelector{
+  .categorySelector {
     margin-bottom: 20px;
+  }
+  .bottom {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 10px 0;
+    z-index: 5;
+    width: 100%;
+    .desideButton {
+      margin: 0 auto;
+    }
+  }
+  @media ${mq.tbMin_gt} {
+    .cover {
+      &::before {
+        padding-top: 30%;
+      }
+    }
   }
 `;

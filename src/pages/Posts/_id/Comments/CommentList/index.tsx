@@ -2,11 +2,10 @@ import { IconLoading } from 'components/elements/icons';
 import React from 'react';
 import Styled from 'styled-components';
 
-import { Comment as CommentType, UserData_overview} from 'types';
+import { Comment as CommentType, UserData_overview } from 'types';
 
 import Comment from './Comment';
 import * as styles from './styles';
-
 
 // component root class name
 const CLASSNAME = 'CommentList';
@@ -25,18 +24,19 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    {
-      props.comments.map((comment, i) => {
-        return <div className='comment' key={i} data-comment-id={comment.id}>
-          {
-            props.loadingCommentIds.includes(comment.id) && (
-              <div className='loading'>
-                <IconLoading />
-              </div>
-            )
-          }
+    {props.comments.map((comment, i) => {
+      return (
+        <div
+          className={`comment${props.user && props.user.id === comment.user.id ? ' -login' : ''}`}
+          key={i}
+        >
+          {props.loadingCommentIds.includes(comment.id) && (
+            <div className="loading">
+              <IconLoading />
+            </div>
+          )}
           <Comment
             user={comment.user}
             created_at={comment.created_at}
@@ -47,8 +47,8 @@ const Component: React.FC<Props> = props => (
             {comment.comment}
           </Comment>
         </div>
-      })
-    }
+      );
+    })}
   </div>
 );
 
@@ -58,16 +58,15 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { deleteComment } = componentProps;
 
   const onClick = (id: number) => {
     deleteComment(id);
-  }
+  };
 
   const props = { onClick };
 
-  return <StyeldComponent { ...componentProps } { ...props }></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

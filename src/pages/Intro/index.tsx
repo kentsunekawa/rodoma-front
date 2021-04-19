@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import Styled from 'styled-components';
-
-import { isDoorShownSelector } from 'state/modules/app';
-
 import CoverContent from 'components/modules/CoverContent';
 import Logo from 'components/elements/Logo';
 import Paragraph from 'components/elements/Paragraph';
 import TextButton from 'components/elements/buttons/TextButton';
-import { IconRight } from 'components/elements/icons';
-import CircleCounter from 'components/elements/CircleCounter';
+import RoundButton from 'components/elements/buttons/RoundButton';
 
 import * as styles from './styles';
 
@@ -18,46 +13,45 @@ import * as styles from './styles';
 const CLASSNAME = 'Intro';
 
 // declare types
+interface LocationState {
+  isSampleUser: boolean;
+}
 
 interface ComponentProps {
   className?: string;
 }
 
 interface Props extends ComponentProps {
-  countSeconed: number;
-  isCountStart: boolean;
-  skip: () => void;
+  isSampleUser: boolean;
+  toSignin: () => void;
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <TextButton
-      className='skipButton'
-      link='/signInOrUp'
-      types={['withIconRight']}
-      icon={<IconRight />}
-    >
-      Skip
-    </TextButton>
     <CoverContent>
-      
-      <div className='inner'>
-        <div className='logo'>
-          <Logo type='gradient' />
+      <div className="inner">
+        <div className="logo">
+          <Logo type="gradient" />
         </div>
-        <div className='text'>
-          <Paragraph types={['center', 'subTitle']}>
-            サービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入ります
-          </Paragraph>
+        <Paragraph types={['primary']} className="title">
+          Welcome to rodoma.
+        </Paragraph>
+        <p className="description">
+          サービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入ります
+        </p>
+        <div className="row">
+          <RoundButton types={['l', 'gradient']} onClick={props.toSignin} className="nextButton">
+            はじめる
+          </RoundButton>
         </div>
-        <div className='counter'>
-          <CircleCounter
-            isStart={props.isCountStart}
-            num={props.countSeconed}
-            types={['primary']}
-          />
-        </div>
+        {/* {!props.isSampleUser && (
+          <div className="row">
+            <TextButton link="/" types={['s']}>
+              サインインせずに使う
+            </TextButton>
+          </div>
+        )} */}
       </div>
     </CoverContent>
   </div>
@@ -69,29 +63,29 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
-  const countSeconed = 10;
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  const location = useLocation<LocationState>();
   const history = useHistory();
-  const [isCountStart, setIsCountStart] = useState(false);
-  const isDoorShow = useSelector(isDoorShownSelector);
+
+  const [isSampleUser, setIsSampleUser] = useState<boolean>(false);
+
+  const toSignin = () => {
+    history.push({
+      pathname: '/signInOrUp',
+      state: {
+        isSampleUser,
+      },
+    });
+  };
 
   useEffect(() => {
-    if(!isDoorShow) {      
-      setTimeout(() => {
-        history.push('/signInOrUp');
-      }, countSeconed * 1000);
-      setIsCountStart(true); 
+    if (location.state) {
+      setIsSampleUser(location.state.isSampleUser);
     }
-  }, [isDoorShow]);
+  }, [location]);
 
-  const skip = (() => {
-    history.push('/signInOrUp');
-  });
+  const props = { isSampleUser, toSignin };
 
-  const props = { countSeconed, isCountStart, skip };
-
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

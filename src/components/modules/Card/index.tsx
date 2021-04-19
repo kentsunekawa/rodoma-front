@@ -23,29 +23,24 @@ interface ComponentProps {
 }
 
 interface Props extends ComponentProps {
+  children: React.ReactNode;
   dom: {
-    [key: string]: React.Ref<HTMLDivElement>
+    [key: string]: React.Ref<HTMLDivElement>;
   };
   mode: Mode;
   close: () => void;
 }
 
 // dom component
-const Component: React.FC<Props> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`} ref={props.dom.root}>
-    <div className='panel' ref={props.dom.panel}>
-      <CircleButton
-        className='close'
-        onClick={props.close}
-        types={['s', 'gray_midium']}
-      >
+    <div className="panel" ref={props.dom.panel}>
+      <CircleButton className="close" onClick={props.close} types={['s', 'gray_midium']}>
         <IconClose />
       </CircleButton>
-      <div className='inner'>
-        {props.children}
-      </div>
+      <div className="inner">{props.children}</div>
     </div>
-    <Overlay onClick={props.close} childRef={props.dom.overlay}/>
+    <Overlay onClick={props.close} childRef={props.dom.overlay} />
   </div>
 );
 
@@ -55,8 +50,7 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
   const { cardName } = componentProps;
   const card = useSelector(cardSelector);
@@ -66,27 +60,31 @@ const Container: React.FC<ComponentProps> = componentProps => {
     root: useRef<HTMLDivElement>(null),
     panel: useRef<HTMLDivElement>(null),
     overlay: useRef<HTMLDivElement>(null),
-  }
+  };
 
   useEffect(() => {
-    if(dom.root.current && dom.panel.current && dom.overlay.current) {
+    if (dom.root.current && dom.panel.current && dom.overlay.current) {
       anim_toggleCard(dom.root.current, dom.panel.current, dom.overlay.current);
     }
   });
 
   const close = async () => {
-    if(dom.root.current && dom.panel.current && dom.overlay.current) {
+    if (dom.root.current && dom.panel.current && dom.overlay.current) {
       await anim_toggleCard(dom.root.current, dom.panel.current, dom.overlay.current, false);
       dispatch(setCard(''));
     }
-  }
+  };
 
-  if(card !== cardName) {
+  if (card !== cardName) {
     return null;
   }
 
   const props = { dom, mode, close };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return (
+    <StyeldComponent {...componentProps} {...props}>
+      {componentProps.children}
+    </StyeldComponent>
+  );
+};
 export default Container;

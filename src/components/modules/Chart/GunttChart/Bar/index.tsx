@@ -14,7 +14,7 @@ const CLASSNAME = 'Bar';
 interface ComponentProps {
   linkable?: boolean;
   left: number;
-  width: number; 
+  width: number;
   label: SubjectLabel | null;
   linkedPostId?: number | null;
   className?: string;
@@ -25,26 +25,26 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Omit<Props, 'label'>> = props => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className="bar"
+    <div
+      className="bar"
       style={{
         width: `calc(${props.width}% + 4px)`,
         background: `${props.barColor}`,
         left: `calc(${props.left}% - 2px)`,
-      }}>
-      {
-        (props.linkedPostId && props.linkable) && (
-          <Link to={`/roadmaps/${props.linkedPostId}`} className="icon">
-            <IconLink />
-          </Link>
-        )
-      }
-      {
-        (props.linkedPostId && !props.linkable) && (
-          <span className="icon"><IconLink /></span>
-        )
-      }
+      }}
+    >
+      {props.linkedPostId && props.linkable && (
+        <Link to={`/roadmaps/${props.linkedPostId}`} className="icon">
+          <IconLink />
+        </Link>
+      )}
+      {props.linkedPostId && !props.linkable && (
+        <span className="icon">
+          <IconLink />
+        </span>
+      )}
     </div>
   </div>
 );
@@ -55,15 +55,14 @@ const StyeldComponent = Styled(Component)`
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = componentProps => {
-
+const Container: React.FC<ComponentProps> = (componentProps) => {
   const { label } = componentProps;
 
   const themeContext = useContext(ThemeContext);
-  const barColor = label ? themeContext.colors.subjects[label] : themeContext.colors.subjects[0 ];
+  const barColor = label ? themeContext.colors.subjects[label] : themeContext.colors.subjects[0];
 
   const props = { barColor };
 
-  return <StyeldComponent { ...componentProps } { ...props } ></StyeldComponent>;
-}
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
+};
 export default Container;

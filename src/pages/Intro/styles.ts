@@ -1,21 +1,38 @@
 import { css } from 'styled-components';
 
 export const base = css`
-  & > .skipButton{
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 210;
-    color: ${({theme}) => theme.colors.gray_midium};
-  }
-  .CoverContent{
-    & > .content{
+  .CoverContent {
+    & > .content {
       width: 80%;
     }
   }
-  .logo{
+  .row {
+    text-align: center;
+    margin-bottom: 40px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .logo {
     width: 80px;
-    margin: 0 auto 30px;
+    margin: 0 auto 40px;
+  }
+  .title {
+    display: block;
+    text-align: center;
+    margin-bottom: 30px;
+    line-height: 1.2em;
+    font-size: 2.6rem;
+  }
+  .description {
+    display: block;
+    font-size: 1.6rem;
+    line-height: 2em;
+    margin-bottom: 50px;
+    text-align: center;
+    color: ${({ theme }) => theme.themeColors.black};
+  }
+  .nextButton {
+    margin: 0 auto;
   }
 `;
-
