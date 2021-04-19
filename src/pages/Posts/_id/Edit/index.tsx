@@ -155,8 +155,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       release_status: 0,
       title: 'Roadmap title here...',
       description: '',
-      eye_catch_url:
-        'https://rodoma.s3-ap-northeast-1.amazonaws.com/img/post/eye_catch/default.jpg',
+      eye_catch_url: 'https://img.rodoma.net/img/post/eye_catch/default.jpg',
       created_at: null,
       updated_at: null,
       likes_count: null,

@@ -103,8 +103,8 @@ const Component: React.FC<Props> = (props: Props) => (
           disabled={props.summary.category_id === 1}
         />
       </div>
-      <div className="row">
-        <RoundButton types={['l', 'gradient']} onClick={props.deside}>
+      <div className="bottom">
+        <RoundButton types={['l', 'gradient']} onClick={props.deside} className="desideButton">
           OK
         </RoundButton>
       </div>

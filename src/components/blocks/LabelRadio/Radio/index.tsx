@@ -1,8 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Styled from 'styled-components';
-
+import { Mode } from 'types';
+import { modeSelector } from 'state/modules/app';
 import { IconClose } from 'components/elements/icons';
-
 import * as styles from './styles';
 
 // component root class name
@@ -19,6 +20,7 @@ interface ComponentProps {
 }
 
 interface Props extends ComponentProps {
+  mode: Mode;
   onChildChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -49,10 +51,12 @@ const StyeldComponent = Styled(Component)`
   ${styles.base}
   .label{
     &:before{
-      border-color: ${({ theme, value }) => theme.colors.subjects[value]};
+      border-color: ${({ theme, value, mode }) =>
+        mode === 'light' ? theme.colors.subjects[value] : '#888'};
     }
     &:after{
-      background: ${({ theme, value }) => theme.colors.subjects[value]};
+      background: ${({ theme, value, mode }) => theme.colors.subjects[value]};
+      ${({ mode }) => mode === 'dark' && `border: 1px solid #555;`}
     }
   }
 `;
@@ -61,11 +65,13 @@ const StyeldComponent = Styled(Component)`
 const Container: React.FC<ComponentProps> = (componentProps) => {
   const { onChange } = componentProps;
 
+  const mode = useSelector(modeSelector);
+
   const onChildChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(Number(e.target.value));
   };
 
-  const props = { onChildChange };
+  const props = { mode, onChildChange };
 
   return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
 };

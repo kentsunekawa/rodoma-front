@@ -34,7 +34,7 @@ interface Props extends ComponentProps {
 
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
-  <div className={`${CLASSNAME} ${props.className}`}>
+  <div className={`${CLASSNAME} ${props.className}${props.isLimited ? ' -limited' : ''}`}>
     <div className="row">
       <Paragraph>公開しますか？</Paragraph>
     </div>
@@ -62,11 +62,12 @@ const Component: React.FC<Props> = (props: Props) => (
         )}
       </>
     )}
-    <div className="row">
+    <div className="bottom">
       <RoundButton
         disabled={props.isLimited && props.allowedUsers.length < 1}
         onClick={props.deside}
         types={['l', 'gradient']}
+        className="desideButton"
       >
         公開する
       </RoundButton>

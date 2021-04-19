@@ -1,9 +1,11 @@
 import { css } from 'styled-components';
 
 export const base = css`
+  .edit {
+    padding-bottom: 40px;
+  }
   .row {
     width: 100%;
-
     & > .rowLabel {
       display: block;
       width: 100%;
@@ -16,20 +18,27 @@ export const base = css`
       justify-content: space-between;
       align-items: center;
       align-content: center;
+      color: ${({ theme }) => theme.themeColors.black};
+      font-size: 2rem;
       & > .rengeSelector {
         width: 42% !important;
       }
     }
   }
   .bottom {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 5;
     display: flex;
     align-items: center;
     align-content: center;
     justify-content: center;
-    position: relative;
+    width: 100%;
+    padding: 20px 0;
     .deleteButton {
       position: absolute;
-      left: 0;
+      left: 20px;
       top: 50%;
       transform: translateY(-50%);
     }
