@@ -33,13 +33,12 @@ export const base = css`
   .chartWrapper {
     position: fixed;
     bottom: 0;
-    left: 50%;
+    left: 0;
     z-index: 50;
     width: 100%;
     max-width: 960px;
     height: 40vh;
     transition: height 0.2s ease-out;
-    transform: translateX(-50%);
   }
   .bottomNav {
     position: fixed;
@@ -66,6 +65,12 @@ export const base = css`
     }
     .bottomNav {
       right: calc(50vw - 460px);
+    }
+  }
+
+  @media ${mq.pcMin_gt} {
+    .chartWrapper {
+      left: calc(50vw - 480px);
     }
   }
 

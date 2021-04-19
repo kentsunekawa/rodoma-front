@@ -23,23 +23,19 @@ interface ComponentProps {
 const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <CoverContent>
-      <Paragraph types={['center', 'bigTitle', 'primary', 'bold']} className="title">
-        Congratulations!!
+      <Paragraph types={['center', 'bigTitle', 'primary']} className="title">
+        Congratulations!
       </Paragraph>
-      <Paragraph types={['center', 'subTitle']}>
+      <Paragraph types={['center', 'text']} className="text">
         サインアップが完了しました。
         <br />
-        確認メールが送信されましたので
-        <br />
-        メールに記載のボタンを押して、
-        <br />
-        承認を完了してください。
-        <br />
-        メールの有効期限は1時間です。
+        確認メールが送信されましたのでメールに記載のボタンを押して、承認を完了してください。メールの有効期限は1時間です。
       </Paragraph>
-      <RoundButton link="/" types={['l', 'gradient']}>
-        OK
-      </RoundButton>
+      <div className="row -deside">
+        <RoundButton link="/" types={['l', 'gradient']} className="button">
+          OK
+        </RoundButton>
+      </div>
     </CoverContent>
   </div>
 );

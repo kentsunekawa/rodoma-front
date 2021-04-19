@@ -1,7 +1,3 @@
 import { css } from 'styled-components';
 
-export const base = css`
-  .row {
-    margin-bottom: 40px;
-  }
-`;
+export const base = css``;

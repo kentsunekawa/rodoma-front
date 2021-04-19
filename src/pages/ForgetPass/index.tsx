@@ -47,51 +47,50 @@ const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     {props.isMailSent ? (
       <CoverContent>
-        <Paragraph types={['center', 'text']}>
-          パスワードリセット用の
-          <br />
-          メールをお送りしました。
+        <Paragraph types={['center', 'text']} className="text">
+          パスワードリセット用のメールをお送りしました。
           <br />
           メール記載のボタンより
           <br />
-          新パスワード設定ページへ
-          <br />
-          アクセスしてください。
+          新パスワード設定ページへアクセスしてください。
           <br />
           （有効期限は1時間です）
         </Paragraph>
-        <RoundButton types={['gradient', 'l']} link="/">
-          トップページへ
-        </RoundButton>
+        <div className="row -deside">
+          <RoundButton types={['gradient', 'l']} link="/" className="button">
+            トップページへ
+          </RoundButton>
+        </div>
       </CoverContent>
     ) : (
       <CoverContent>
-        <Paragraph types={['center', 'text']}>
-          パスワードリセット用の
-          <br />
-          メールをお送りします。
-          <br />
-          ご登録のメールアドレスを
-          <br />
-          ご入力ください。
-        </Paragraph>
-        <div className="row -input">
-          <Error messages={props.validateStatus.errors.email}>
-            <TextInput
-              type="text"
-              value={props.email}
-              label="Email"
-              name="email"
-              onChange={(e) => props.setEmail(e.target.value)}
-            />
-          </Error>
+        <div className="main">
+          <Paragraph types={['center', 'text']} className="text">
+            パスワードリセット用のメールをお送りします。
+            <br />
+            ご登録のメールアドレスを ご入力ください。
+          </Paragraph>
+          <div className="row">
+            <div className="input">
+              <Error messages={props.validateStatus.errors.email}>
+                <TextInput
+                  required
+                  type="text"
+                  value={props.email}
+                  label="Email"
+                  name="email"
+                  onChange={(e) => props.setEmail(e.target.value)}
+                />
+              </Error>
+            </div>
+          </div>
+          <div className="row -deside">
+            <RoundButton types={['gradient', 'l']} onClick={props.deside} className="button">
+              送信
+            </RoundButton>
+          </div>
         </div>
-        <div className="row">
-          <RoundButton types={['gradient', 'l']} onClick={props.deside}>
-            送信
-          </RoundButton>
-        </div>
-        <div className="row">
+        <div className="bottom">
           <TextButton link="/signInOrUp" types={['s', 'gray_midium']}>
             戻る
           </TextButton>

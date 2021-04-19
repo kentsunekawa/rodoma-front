@@ -69,6 +69,7 @@ const Component: React.FC<Props> = (props: Props) => (
         <div className="row">
           <Error messages={props.validateStatus.errors.title}>
             <TextInput
+              required
               label="Title"
               name="title"
               value={props.subject.title}
@@ -168,7 +169,7 @@ const StyeldComponent = Styled(Component)`
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
-  const { currentSubject, post, deleteSubject, desideSubject } = componentProps;
+  const { currentSubject, post, desideSubject } = componentProps;
   const { state } = useContext(PostEditContext);
 
   const [subject, setSubject] = useState<Subject>({

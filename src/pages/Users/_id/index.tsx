@@ -99,7 +99,7 @@ const Component: React.FC<Props> = (props: Props) => (
         </TabContents>
       </TabChanger>
     </PageBase>
-    {props.user && props.id && <FollowButton targetUserId={props.id} />}
+    {props.user && props.id && <FollowButton targetUserId={props.id} className="followButton" />}
   </div>
 );
 

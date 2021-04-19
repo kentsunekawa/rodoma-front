@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   position: relative;
@@ -57,12 +58,20 @@ export const base = css`
   &.-disabled {
     opacity: 0.5;
   }
+  @media ${mq.pcMin_gt} {
+    & > .icon {
+      right: 0.5em;
+    }
+  }
 `;
 
 export const l = css`
   height: 50px;
   border-radius: 25px;
   font-size: 1.8rem;
+  @media ${mq.pcMin_gt} {
+    font-size: 1.6rem;
+  }
 `;
 
 export const s = css`
@@ -70,8 +79,11 @@ export const s = css`
   border-radius: 15px;
   font-size: 1.6rem;
   & > .select {
-    padding: 0 1em 0 0.5em;
+    padding: 0 1.2em 0 0.7em;
     line-height: 26px;
+  }
+  @media ${mq.pcMin_gt} {
+    font-size: 1.4rem;
   }
 `;
 

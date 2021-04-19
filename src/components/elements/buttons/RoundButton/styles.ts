@@ -45,6 +45,7 @@ export const l = css`
   border-radius: 30px;
   padding: 0 2em;
   font-size: 2rem;
+  min-width: 180px;
 `;
 
 export const gray_light = css`

@@ -46,8 +46,8 @@ const Component: React.FC<Props> = (props: Props) => (
           </TabContent>
         </TabContents>
       </TabChanger>
-      <div className={`${CLASSNAME}__bottom`}>
-        <TextButton link="/" types={['primary', 's']}>
+      <div className="bottom">
+        <TextButton link="/" types={['gray_midium', 's']}>
           サインインせずに使う
         </TextButton>
       </div>

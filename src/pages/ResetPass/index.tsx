@@ -42,49 +42,69 @@ interface Props extends ComponentProps {
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <CoverContent>
-      <Paragraph types={['center', 'text']}>
-        登録済のメールアドレスと、
-        <br />
-        ご希望の新しいパスワードを
-        <br />
-        ご入力ください。
-      </Paragraph>
-      <div className="row">
-        <Error messages={props.validateStatus.errors.email}>
-          <TextInput
-            type="text"
-            value={props.resetPassInfo.email}
-            label="Email"
-            name="email"
-            onChange={props.change}
-          />
-        </Error>
+      <div className="main">
+        <div className="row">
+          <Paragraph types={['center', 'text']} className="text">
+            登録済のメールアドレスと、
+            <br />
+            ご希望の新しいパスワードを
+            <br />
+            ご入力ください。
+          </Paragraph>
+        </div>
+        <div className="row">
+          <div className="input">
+            <Error messages={props.validateStatus.errors.email}>
+              <TextInput
+                required
+                type="text"
+                value={props.resetPassInfo.email}
+                label="Email"
+                name="email"
+                onChange={props.change}
+              />
+            </Error>
+          </div>
+        </div>
+        <div className="row">
+          <div className="input">
+            <Error messages={props.validateStatus.errors.password}>
+              <TextInput
+                required
+                type="password"
+                value={props.resetPassInfo.password}
+                label="Password"
+                name="password"
+                onChange={props.change}
+              />
+            </Error>
+          </div>
+        </div>
+        <div className="row">
+          <div className="input">
+            <Error messages={props.validateStatus.errors.password_confirmation}>
+              <TextInput
+                required
+                type="password"
+                value={props.resetPassInfo.password_confirmation}
+                label="Password Confirmation"
+                name="password_confirmation"
+                onChange={props.change}
+              />
+            </Error>
+          </div>
+        </div>
+        <div className="row -deside">
+          <RoundButton types={['gradient', 'l']} onClick={props.deside} className="button">
+            送信
+          </RoundButton>
+        </div>
       </div>
-      <div className="row">
-        <Error messages={props.validateStatus.errors.password}>
-          <TextInput
-            type="password"
-            value={props.resetPassInfo.password}
-            label="Password"
-            name="password"
-            onChange={props.change}
-          />
-        </Error>
+      <div className="bottom">
+        <TextButton link="/signInOrUp" types={['gray_midium', 's']}>
+          サインインページへ戻る
+        </TextButton>
       </div>
-      <div className="row">
-        <Error messages={props.validateStatus.errors.password_confirmation}>
-          <TextInput
-            type="password"
-            value={props.resetPassInfo.password_confirmation}
-            label="Password Confirmation"
-            name="password_confirmation"
-            onChange={props.change}
-          />
-        </Error>
-      </div>
-      <RoundButton types={['gradient', 'l']} onClick={props.deside}>
-        送信
-      </RoundButton>
     </CoverContent>
   </div>
 );

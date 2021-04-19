@@ -47,6 +47,10 @@ export const catchText = css`
 
 export const text = css`
   font-size: 1.4rem;
+  @media ${mq.tbMin_gt} {
+    line-height: 1.8em;
+    font-size: 1.6rem;
+  }
 `;
 
 export const semiBold = css`

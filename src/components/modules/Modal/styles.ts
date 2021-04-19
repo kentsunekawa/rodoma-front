@@ -54,8 +54,18 @@ export const base = css`
     & > .mask {
       & > .panel {
         & > .inner {
-          max-height: 95%;
+          max-height: 95vh;
         }
+      }
+    }
+  }
+`;
+
+export const wide = css`
+  @media ${mq.tbMin_gt} {
+    & > .mask {
+      & > .panel {
+        max-width: 700px;
       }
     }
   }

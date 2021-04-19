@@ -15,8 +15,27 @@ export const base = css`
     transform: translate(-50%, -50%);
     width: 90%;
     max-width: 500px;
+    .row {
+      margin-bottom: 40px;
+      text-align: center;
+      &.-deside {
+        margin-top: 56px;
+      }
+      & > .input {
+        width: 240px;
+        margin: 0 auto;
+      }
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+      .button {
+        margin: 0 auto;
+      }
+    }
   }
-  .RoundButton {
-    min-width: 172px;
+
+  .bottom {
+    margin-top: 32px;
+    text-align: center;
   }
 `;

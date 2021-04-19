@@ -19,7 +19,7 @@ const Container: React.FC<Props> = (props: Props) => {
 
   const redirectToSignin = () => {
     dispatch(setInitCheckStatus(true));
-    history.push('/signInOrUp');
+    // history.push('/signInOrUp');
   };
 
   const successSignin = (user: UserData_overview) => {

@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { Gradient } from 'components/style/Mixins';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   display: inline-block;
@@ -27,7 +28,16 @@ export const base = css`
       font-size: 1.4rem;
       line-height: 28px;
       display: block;
-      /* padding-bottom: 0.1em; */
+    }
+  }
+  @media ${mq.tbMin_gt} {
+    height: 24px;
+    border-radius: 12px;
+    & > .inner {
+      & > .text {
+        line-height: 24px;
+        font-size: 1.2rem;
+      }
     }
   }
 `;

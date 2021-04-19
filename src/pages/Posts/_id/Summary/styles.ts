@@ -11,7 +11,7 @@ export const base = css`
 
   @media ${mq.tbMin_gt} {
     & > .inner {
-      padding: 20px 40px 40px;
+      padding: 0 40px 40px;
     }
   }
 `;

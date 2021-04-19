@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   .cover {
@@ -8,6 +9,7 @@ export const base = css`
     z-index: 0;
     width: 100%;
     background-size: cover;
+    background-position: center;
     &:before {
       content: '';
       display: block;
@@ -27,5 +29,12 @@ export const base = css`
   }
   .categorySelector {
     margin-bottom: 20px;
+  }
+  @media ${mq.tbMin_gt} {
+    .cover {
+      &::before {
+        padding-top: 30%;
+      }
+    }
   }
 `;

@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
-
 import { Gradient } from 'components/style/Mixins';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   position: relative;
@@ -61,6 +61,14 @@ export const base = css`
       text-align: left;
       &:last-of-type {
         margin-bottom: 0;
+      }
+    }
+  }
+  @media ${mq.tbMin_gt} {
+    & > .box {
+      padding: 7px 15px 6px 10px;
+      & > .message {
+        line-height: 1.4em;
       }
     }
   }

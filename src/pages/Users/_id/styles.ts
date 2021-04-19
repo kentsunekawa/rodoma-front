@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 import { mq } from 'components/style/AppTheme';
 
 export const base = css`
-  & > .FollowButton {
+  & > .followButton {
     position: fixed;
     right: 20px;
     bottom: 20px;
@@ -82,6 +82,11 @@ export const base = css`
       & > .editButton {
         right: calc(50vw - 440px);
       }
+    }
+    .followButton {
+      right: calc(50vw - 440px);
+      bottom: auto;
+      top: 160px;
     }
   }
 `;
