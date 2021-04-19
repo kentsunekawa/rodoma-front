@@ -85,6 +85,7 @@ const Component: React.FC<Props> = (props: Props) => (
           <div className="row">
             <Error messages={props.validateStatus.errors.name}>
               <TextInput
+                required
                 value={props.userData.name}
                 label="Name"
                 name="name"
@@ -106,6 +107,7 @@ const Component: React.FC<Props> = (props: Props) => (
             )}
             <Error messages={props.validateStatus.errors.email}>
               <TextInput
+                required
                 value={props.userData.email}
                 label="Email"
                 name="email"

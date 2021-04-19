@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Styled from 'styled-components';
 import * as styles from './styles';
 import { PostData, Subject, UserData_overview } from 'types';
-import { setModal, setIsLoading, setMessage, setMode } from 'state/modules/app';
+import { setModal, setIsLoading, setMessage } from 'state/modules/app';
 import { userSelector } from 'state/modules/user';
 import { RELEASE_STATUS } from 'utils';
 import { RESPONSE_MESSAGES } from 'utils/messages';
@@ -82,7 +82,7 @@ const Component: React.FC<Props> = (props: Props) => (
     <div className="chartWrapper" ref={props.dom.chart}>
       <Chart subjects={props.post.subjects} editable openEditModal={props.showSubjectModal} />
     </div>
-    <Modal modalName="postEditSummary" className="modal -summary">
+    <Modal modalName="postEditSummary" className="modal -summary" types={['wide']}>
       <SummaryEditor desideSummary={props.setSummary} />
     </Modal>
     <Modal modalName="postEditSubject" className="modal">

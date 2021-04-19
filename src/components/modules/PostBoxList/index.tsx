@@ -25,6 +25,7 @@ const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
         return (
           <li className="item" key={i} data-id={post.id}>
             <PostBox
+              className="postBox"
               post={post}
               statusVisible={props.statusVisible}
               editable={props.editable}

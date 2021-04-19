@@ -67,6 +67,7 @@ const Component: React.FC<Props> = (props: Props) => (
       <div className="row">
         <Error messages={props.validateStatus.errors.title}>
           <TextInput
+            required
             label="Title"
             name="title"
             value={props.summary.title}

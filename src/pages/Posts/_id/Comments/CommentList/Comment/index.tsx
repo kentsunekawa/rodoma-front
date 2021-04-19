@@ -42,7 +42,7 @@ const Component: React.FC<Props> = (props: Props) => (
     </div>
     <div className="comment">
       <div className="date">{props.date}</div>
-      {props.children}
+      <pre>{props.children}</pre>
       <span className="userName">{props.user.name}</span>
       {props.isLogin && (
         <div className="button">

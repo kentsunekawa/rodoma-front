@@ -11,13 +11,15 @@ export const base = css`
   & > .panel {
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 50%;
     z-index: 1;
     width: 100%;
+    max-width: 960px;
     height: 80%;
     background: ${({ theme }) => theme.bg};
-    border-radius: 10px 10px 0 0;
+    border-radius: 5px 5px 0 0;
     overflow: hidden;
+    transform: translateX(-50%);
     & > .inner {
       width: 100%;
       height: 100%;

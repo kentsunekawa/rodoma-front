@@ -6,10 +6,7 @@ enforce.extend({ isEmail });
 
 const suite = vest.create('signup', (forgetPassInfo: { email: string }) => {
   test('email', VALIDATE_ERROR_MESSAGES.email_required, () => {
-    enforce(forgetPassInfo.email).isNotEmpty();
-  });
-  test('email', VALIDATE_ERROR_MESSAGES.email_required, () => {
-    enforce(forgetPassInfo.email).isEmail();
+    enforce(forgetPassInfo.email).isNotEmpty().isEmail();
   });
 });
 

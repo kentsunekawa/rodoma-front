@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   position: relative;
@@ -37,5 +38,8 @@ export const base = css`
       color: ${({ theme }) => theme.colors.primary};
       font-size: 2rem;
     }
+  }
+  @media ${mq.tbMin_gt} {
+    font-size: 1.4rem;
   }
 `;

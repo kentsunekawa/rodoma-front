@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   position: relative;
@@ -46,6 +47,12 @@ export const base = css`
     padding: 0.2em 0.3em 0.1em;
     font-size: 1.5rem;
     line-height: 1em;
+    sup {
+      display: inline-block;
+      font-size: 90%;
+      padding-left: 0.2em;
+      transform: translateY(0.2em);
+    }
   }
   &.-inputed > .label,
   & > .inner > .input:focus + .label {
@@ -70,6 +77,9 @@ export const s = css`
     height: 30px;
     border-radius: 15px;
     font-size: 1.6rem;
+    @media ${mq.tbMin_gt} {
+      font-size: 1.4rem;
+    }
   }
   & > .label {
     font-size: 1.4rem;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Styled from 'styled-components';
-import { BreadCrumbList, SearchQuery, PostSearchSortKeys, UserSearchSortKeys } from 'types';
+import { BreadCrumbList, SearchQuery } from 'types';
 import { createBreadCrumbList } from 'utils';
 import { searchQuerySelector, categoryTreeSelector, setQuery } from 'state/modules/app';
 import ToggleTagList from 'components/blocks/ToggleTagList';
@@ -65,7 +65,11 @@ const Component: React.FC<Props> = (props: Props) => (
           <p className="keyword">
             Keyword: <span>{props.searchQuery.keyword.keyword}</span>
           </p>
-          <CircleButton onClick={props.deleteKeyword} types={['xxs', 'gray_light']}>
+          <CircleButton
+            onClick={props.deleteKeyword}
+            types={['xxs', 'gray_light']}
+            className="removeKeyword"
+          >
             <IconClose />
           </CircleButton>
         </div>

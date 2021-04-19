@@ -20,8 +20,10 @@ interface ComponentProps {
 const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <PageBase>
-      <Paragraph types={['bigTitle', 'center', 'primary']}>Oops!</Paragraph>
-      <Paragraph types={['title', 'center', 'primary']}>Page not found</Paragraph>
+      <Paragraph types={['bigTitle', 'center', 'primary']} className="title">
+        Oops!
+      </Paragraph>
+      <Paragraph types={['subTitle', 'center', 'primary']}>ページが見つかりません</Paragraph>
       <RoundButton types={['gradient', 'l']} className="link" link="/">
         トップへ
       </RoundButton>

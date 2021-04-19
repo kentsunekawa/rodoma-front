@@ -60,81 +60,87 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <Auth>
-      <Door />
-      <Loading />
-      <FixWindow>
-        <Message />
-        <Menu />
-        <SearchPanel />
-        <Header />
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
+    <>
+      <Auth>
+        <Door />
+        <Loading />
+        <FixWindow>
+          <Message />
+          <Menu />
+          <SearchPanel />
+          <Header />
+          <Switch>
+            <Route path="/signupComplete">
+              <SignupComplete />
+            </Route>
 
-          <MemberRoute path="/roadmaps/:id/edit" to="/">
-            <PostEdit />
-          </MemberRoute>
+            <Route path="/" exact>
+              <Home />
+            </Route>
 
-          <MemberRoute path="/roadmaps/create" to="/">
-            <PostEdit />
-          </MemberRoute>
+            <MemberRoute path="/roadmaps/:id/edit" to="/">
+              <PostEdit />
+            </MemberRoute>
 
-          <Route path="/roadmaps/:id">
-            <Post />
-          </Route>
+            <MemberRoute path="/roadmaps/create" to="/">
+              <PostEdit />
+            </MemberRoute>
 
-          <MemberRoute path="/users/:id/edit" to="/">
-            <UserEdit />
-          </MemberRoute>
+            <Route path="/roadmaps/:id">
+              <Post />
+            </Route>
 
-          <Route path="/users/:id">
-            <User />
-          </Route>
+            <MemberRoute path="/users/:id/edit" to="/">
+              <UserEdit />
+            </MemberRoute>
 
-          <Route path="/users">
-            <Users />
-          </Route>
+            <Route path="/users/:id">
+              <User />
+            </Route>
 
-          <GuestRoute path="/intro" to="/">
-            <Intro />
-          </GuestRoute>
+            <Route path="/users">
+              <Users />
+            </Route>
 
-          <GuestRoute path="/signInOrUp" to="/">
-            <SignInOrUp />
-          </GuestRoute>
+            <GuestRoute path="/intro" to="/">
+              <Intro />
+            </GuestRoute>
 
-          <MemberRoute path="/signupComplete" to="/signInOrUp">
+            <GuestRoute path="/signInOrUp" to="/">
+              <SignInOrUp />
+            </GuestRoute>
+
+            {/* <MemberRoute path="/signupComplete" to="/signInOrUp">
             <SignupComplete />
-          </MemberRoute>
+          </MemberRoute> */}
 
-          <GuestRoute path="/forgetPass" to="/">
-            <ForgetPass />
-          </GuestRoute>
+            <GuestRoute path="/forgetPass" to="/">
+              <ForgetPass />
+            </GuestRoute>
 
-          <Route path="/emailVerify">
-            <EmailVerify />
-          </Route>
+            <Route path="/emailVerify">
+              <EmailVerify />
+            </Route>
 
-          <GuestRoute path="/resetPass" to="/">
-            <ResetPass />
-          </GuestRoute>
+            <GuestRoute path="/resetPass" to="/">
+              <ResetPass />
+            </GuestRoute>
 
-          <Route path="/about">
-            <About />
-          </Route>
+            <Route path="/about">
+              <About />
+            </Route>
 
-          <Route path="/notFound">
-            <NotFound />
-          </Route>
+            <Route path="/notFound">
+              <NotFound />
+            </Route>
 
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
-      </FixWindow>
-    </Auth>
+            <Route>
+              <NotFound />
+            </Route>
+          </Switch>
+        </FixWindow>
+      </Auth>
+    </>
   );
 };
 

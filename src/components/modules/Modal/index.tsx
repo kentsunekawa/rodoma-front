@@ -14,10 +14,13 @@ import * as styles from './styles';
 const CLASSNAME = 'Modal';
 
 // declare types
+type StyleType = 'wide';
+
 interface ComponentProps {
   modalName: string;
   className?: string;
   children: React.ReactNode;
+  types?: StyleType[];
 }
 
 interface Props extends ComponentProps {
@@ -49,6 +52,8 @@ const Component: React.FC<Props> = (props: Props) => (
 // styled component
 const StyeldComponent = Styled(Component)`
   ${styles.base}
+  // extended styles
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component

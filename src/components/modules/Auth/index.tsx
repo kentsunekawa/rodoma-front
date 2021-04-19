@@ -19,7 +19,7 @@ const Container: React.FC<Props> = (props: Props) => {
 
   const redirectToSignin = () => {
     dispatch(setInitCheckStatus(true));
-    history.push('/signInOrUp');
+    // history.push('/signInOrUp');
   };
 
   const successSignin = (user: UserData_overview) => {
@@ -81,7 +81,9 @@ const Container: React.FC<Props> = (props: Props) => {
     } else {
       localStorage.setItem('isVisited', '1');
       dispatch(setIsVisited(false));
-      dispatch(setInitCheckStatus(true));
+      setTimeout(() => {
+        dispatch(setInitCheckStatus(true));
+      }, 1500);
     }
   };
 

@@ -40,56 +40,69 @@ interface Props extends ComponentProps {
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="row">
-      <Error messages={props.validateStatus.errors.name}>
-        <TextInput
-          type="text"
-          value={props.signupInfo.name}
-          label="Name"
-          name="name"
-          onChange={props.change}
-        />
-      </Error>
+      <div className="input">
+        <Error messages={props.validateStatus.errors.name}>
+          <TextInput
+            required
+            type="text"
+            value={props.signupInfo.name}
+            label="Name"
+            name="name"
+            onChange={props.change}
+            className="input"
+          />
+        </Error>
+      </div>
     </div>
     <div className="row">
-      <Error messages={props.validateStatus.errors.email}>
-        <TextInput
-          type="text"
-          value={props.signupInfo.email}
-          label="Email"
-          name="email"
-          onChange={props.change}
-        />
-      </Error>
+      <div className="input">
+        <Error messages={props.validateStatus.errors.email}>
+          <TextInput
+            required
+            type="text"
+            value={props.signupInfo.email}
+            label="Email"
+            name="email"
+            onChange={props.change}
+          />
+        </Error>
+      </div>
     </div>
     <div className="row">
-      <Error messages={props.validateStatus.errors.password}>
-        <TextInput
-          type="password"
-          value={props.signupInfo.password}
-          label="Password"
-          name="password"
-          onChange={props.change}
-        />
-      </Error>
+      <div className="input">
+        <Error messages={props.validateStatus.errors.password}>
+          <TextInput
+            required
+            type="password"
+            value={props.signupInfo.password}
+            label="Password"
+            name="password"
+            onChange={props.change}
+            className="input"
+          />
+        </Error>
+      </div>
     </div>
     <div className="row">
-      <Error messages={props.validateStatus.errors.password_confirmation}>
-        <TextInput
-          type="password"
-          value={props.signupInfo.password_confirmation}
-          label="Password Confirmation"
-          name="password_confirmation"
-          onChange={props.change}
-        />
-      </Error>
+      <div className="input">
+        <Error messages={props.validateStatus.errors.password_confirmation}>
+          <TextInput
+            required
+            type="password"
+            value={props.signupInfo.password_confirmation}
+            label="Password Confirmation"
+            name="password_confirmation"
+            onChange={props.change}
+            className="input"
+          />
+        </Error>
+      </div>
     </div>
-    <RoundButton
-      types={['l', 'gradient']}
-      className="signupButton"
-      onClick={props.desideSignupInfo}
-    >
-      Signup
-    </RoundButton>
+    <div className="row -deside">
+      <RoundButton types={['l', 'gradient']} className="button" onClick={props.desideSignupInfo}>
+        サインアップ
+      </RoundButton>
+    </div>
   </div>
 );
 

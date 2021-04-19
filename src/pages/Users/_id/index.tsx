@@ -83,7 +83,7 @@ const Component: React.FC<Props> = (props: Props) => (
             tabType={'rounded'}
           />
         </Tab>
-        <TabContents>
+        <TabContents className="mainTabContents">
           <TabContent>
             <Summary />
           </TabContent>
@@ -99,7 +99,7 @@ const Component: React.FC<Props> = (props: Props) => (
         </TabContents>
       </TabChanger>
     </PageBase>
-    {props.user && props.id && <FollowButton targetUserId={props.id} />}
+    {props.user && props.id && <FollowButton targetUserId={props.id} className="followButton" />}
   </div>
 );
 

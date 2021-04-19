@@ -1,10 +1,11 @@
 import { css } from 'styled-components';
 import { Gradient } from 'components/style/Mixins';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   display: inline-block;
-  height: 24px;
-  border-radius: 12px;
+  height: 28px;
+  border-radius: 14px;
   background: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.themeColors.gray_midium};
   border: 1px solid ${({ theme }) => theme.themeColors.gray_midium};
@@ -24,8 +25,19 @@ export const base = css`
       }
     }
     & > .text {
+      font-size: 1.4rem;
+      line-height: 28px;
       display: block;
-      padding-top: 0.1em;
+    }
+  }
+  @media ${mq.tbMin_gt} {
+    height: 24px;
+    border-radius: 12px;
+    & > .inner {
+      & > .text {
+        line-height: 24px;
+        font-size: 1.2rem;
+      }
     }
   }
 `;

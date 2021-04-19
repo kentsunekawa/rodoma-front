@@ -19,12 +19,8 @@ const suite = vest.create('signup', (signupInfo: SignupInfo) => {
     enforce(signupInfo.email).isNotEmpty().isEmail();
   });
 
-  test('password', VALIDATE_ERROR_MESSAGES.password_required, () => {
-    enforce(signupInfo.password).isNotEmpty();
-  });
-
   test('password', VALIDATE_ERROR_MESSAGES.password_shorter, () => {
-    enforce(signupInfo.password).longerThanOrEquals(8);
+    enforce(signupInfo.password).isNotEmpty().longerThanOrEquals(8);
   });
 
   if (signupInfo.password) {

@@ -5,6 +5,14 @@ export const Gradient = css`
   background: linear-gradient(45deg, ${COLORS.primary}, ${COLORS.secondary});
 `;
 
+export const Gradient_success = css`
+  background: linear-gradient(to right, #02aab0, #00cdac);
+`;
+
+export const Gradient_error = css`
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+`;
+
 export const AspectFix = css<{ aspectWidth?: number; aspectHeight?: number }>`
   position: relative;
   &:before {
@@ -28,11 +36,11 @@ export const AbsCenterMiddle = css`
 `;
 
 export const WithShadow = css`
-  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.18);
 `;
 
 export const ButtonTapAction = css`
-  transition: 0.2s transform;
+  transition: transform 0.2s, opacity 0.2s;
   &:active {
     transform: translateY(10%);
   }

@@ -4,7 +4,8 @@ export const base = css`
   .relationListArea {
     & > .TabChanger {
       & > .Tab {
-        width: 247px;
+        width: 80%;
+        max-width: 400px;
         margin: 0 auto;
       }
     }

@@ -14,7 +14,9 @@ interface ComponentProps {
 
 // dom component
 const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
-  <div className={`${CLASSNAME} ${props.className}`}>{props.children}</div>
+  <div className={`${CLASSNAME} ${props.className}`}>
+    <div className="inner">{props.children}</div>
+  </div>
 );
 
 // styled component

@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   display: flex;
@@ -8,8 +9,10 @@ export const base = css`
   & > .name {
     display: block;
     text-align: center;
+    line-height: 1.4em;
     color: ${({ theme }) => theme.themeColors.black};
     padding: 0 0.5em;
+    font-size: 1.4rem;
   }
   & > .icon {
     position: relative;
@@ -19,6 +22,12 @@ export const base = css`
       right: 0;
       top: 0;
       z-index: 1;
+    }
+  }
+  @media ${mq.tbMin_gt} {
+    & > .name {
+      padding: 0 1em;
+      font-size: 1.6srem;
     }
   }
 `;
@@ -49,6 +58,11 @@ export const alignCenter = css`
     width: 100%;
     margin-top: 0.5em;
   }
+  @media ${mq.tbMin_gt} {
+    & > .name {
+      margin-top: 16px;
+    }
+  }
 `;
 
 export const s = css`
@@ -57,6 +71,11 @@ export const s = css`
   }
   & > .name {
     font-size: 1.2rem;
+  }
+  @media ${mq.tbMin_gt} {
+    & > .name {
+      font-size: 1.4rem;
+    }
   }
 `;
 
@@ -68,6 +87,11 @@ export const m = css`
     margin-top: 0.2em;
     font-size: 1.4rem;
   }
+  @media ${mq.tbMin_gt} {
+    & > .name {
+      font-size: 1.6rem;
+    }
+  }
 `;
 
 export const l = css`
@@ -76,5 +100,10 @@ export const l = css`
   }
   & > .name {
     font-size: 1.6rem;
+  }
+  @media ${mq.tbMin_gt} {
+    & > .name {
+      font-size: 1.8rem;
+    }
   }
 `;

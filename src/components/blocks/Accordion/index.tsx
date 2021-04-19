@@ -41,10 +41,10 @@ interface Props extends ComponentProps {
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="parent">
-      <TextButton onClick={() => props.onClick(props.parent.id)}>
+      <TextButton onClick={() => props.onClick(props.parent.id)} className="parentText">
         <Paragraph types={props.types}>{props.parent.name}</Paragraph>
       </TextButton>
-      <CircleButton onClick={props.toggle} types={['outline', 's']}>
+      <CircleButton onClick={props.toggle} types={['outline', 's']} className="parentOpenButton">
         {props.localIsOpen ? <IconUp /> : <IconDown />}
       </CircleButton>
     </div>

@@ -28,7 +28,10 @@ const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     {props.comments.map((comment, i) => {
       return (
-        <div className="comment" key={i} data-comment-id={comment.id}>
+        <div
+          className={`comment${props.user && props.user.id === comment.user.id ? ' -login' : ''}`}
+          key={i}
+        >
           {props.loadingCommentIds.includes(comment.id) && (
             <div className="loading">
               <IconLoading />

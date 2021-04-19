@@ -9,6 +9,7 @@ const CLASSNAME = 'TextInput';
 type StyleType = 's';
 
 interface ComponentProps {
+  required?: boolean;
   type?: 'text' | 'password';
   value: string | number;
   label?: string;
@@ -55,6 +56,7 @@ const Component: React.FC<Props> = (props: Props) => (
     {props.label && (
       <span className="label" onClick={props.labelClick}>
         {props.label}
+        {props.required && <sup>*</sup>}
       </span>
     )}
   </div>

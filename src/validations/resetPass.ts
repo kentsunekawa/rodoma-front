@@ -8,17 +8,11 @@ enforce.extend({ isEmail });
 
 const suite = vest.create('signup', (resetPassInfo: ResetPassInfo) => {
   test('email', VALIDATE_ERROR_MESSAGES.email_required, () => {
-    enforce(resetPassInfo.email).isNotEmpty();
-  });
-  test('email', VALIDATE_ERROR_MESSAGES.email_required, () => {
-    enforce(resetPassInfo.email).isEmail();
-  });
-  test('password', VALIDATE_ERROR_MESSAGES.password_required, () => {
-    enforce(resetPassInfo.password).isNotEmpty();
+    enforce(resetPassInfo.email).isNotEmpty().isEmail();
   });
 
   test('password', VALIDATE_ERROR_MESSAGES.password_shorter, () => {
-    enforce(resetPassInfo.password).longerThanOrEquals(8);
+    enforce(resetPassInfo.password).isNotEmpty().longerThanOrEquals(8);
   });
 
   if (resetPassInfo.password) {

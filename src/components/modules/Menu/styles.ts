@@ -16,6 +16,7 @@ export const base = css`
     top: 0;
     right: 0;
     width: 70%;
+    max-width: 364px;
     height: 100%;
     ${Gradient}
     ${WithShadow}

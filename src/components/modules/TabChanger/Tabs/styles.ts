@@ -59,8 +59,8 @@ export const rounded = css`
 `;
 
 export const switcher = css`
-  height: 40px;
-  border-radius: 20px;
+  height: 32px;
+  border-radius: 16px;
   ${Gradient}
   ${WithShadow}
   & > .list {
@@ -75,8 +75,8 @@ export const switcher = css`
           z-index: 0;
           transform: translate(-50%, -50%);
           display: block;
-          width: calc(100% - 6px);
-          height: 34px;
+          width: calc(100% - 10px);
+          height: 32px;
           border-radius: 17px;
           background: ${({ theme }) => theme.bg};
         }

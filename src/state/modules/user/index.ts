@@ -1,11 +1,8 @@
 import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 import { UserData_overview } from 'types';
 import { RootState } from 'state/store';
-// import { setMessage, setMode } from 'state/modules/app';
 import { requestSignup } from './actions/requestSignup';
 import { requestSignin } from './actions/requestSignin';
-// import Auth from 'utils/request/Auth';
-// import { RESPONSE_MESSAGES } from 'utils/messages';
 
 interface UserState {
   user: UserData_overview | null;
@@ -16,12 +13,6 @@ interface UserState {
 
 const initialState: UserState = {
   user: null,
-  // user: {
-  //   id: 101,
-  //   name: 'tsunekawaken@gmail.com',
-  //   icon_url:
-  //     'https://rodoma.s3-ap-northeast-1.amazonaws.com/img/user/icon/user_d06f36b1-7174-47d4-8dc4-58f62b50d0ae.jpg',
-  // },
   isInitChecked: false,
   isVisited: null,
   isSignupComplete: false,
@@ -54,8 +45,6 @@ export const isVisitedSelector = (state: RootState): boolean | null => state.use
 export const isSignupCompleteSelector = (state: RootState): boolean => state.user.isSignupComplete;
 
 // thunk actions
-// export const initCheck = () => async (dispatch: Dispatch): Promise<void> => {};
-
 export const signout = () => (dispatch: Dispatch): void => {
   localStorage.setItem('token', '');
   dispatch(setUser(null));

@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Styled from 'styled-components';
-
+import { SearchQuery, PostData_overview, UserData_overview } from 'types';
 import { RESPONSE_MESSAGES } from 'utils/messages';
-import { SearchQuery, PostData_overview } from 'types';
 import Post from 'utils/request/Post';
-import { searchQuerySelector, setMessage } from 'state/modules/app';
-
 import PageBase from 'components/layouts/PageBase';
+import { searchQuerySelector, setMessage } from 'state/modules/app';
+import { userSelector } from 'state/modules/user';
 import InfinityScroll from 'components/modules/InfinityScroll';
 import PostBoxList from 'components/modules/PostBoxList';
 import ListHeader from 'components/blocks/ListHeader';
+import CircleButton from 'components/elements/buttons/CircleButton';
+import { IconAdd } from 'components/elements/icons';
 
 import * as styles from './styles';
 
@@ -24,6 +25,7 @@ interface ComponentProps {
 }
 
 interface Props extends ComponentProps {
+  user: UserData_overview | null;
   posts: PostData_overview[];
   searchQuery: SearchQuery;
   getPosts: (
@@ -64,6 +66,11 @@ const Component: React.FC<Props> = (props: Props) => (
         <PostBoxList posts={props.posts} />
       </InfinityScroll>
     </PageBase>
+    {props.user && (
+      <CircleButton link="/roadmaps/create" types={['gradient', 'l']} className="createButton">
+        <IconAdd />
+      </CircleButton>
+    )}
   </div>
 );
 
@@ -76,6 +83,7 @@ const StyeldComponent = Styled(Component)`
 const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
   const searchQuery = useSelector(searchQuerySelector);
+  const user = useSelector(userSelector);
   const [posts, setPosts] = useState<PostData_overview[]>([]);
   const isMouted = useRef<boolean>(false);
 
@@ -116,7 +124,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     };
   }, []);
 
-  const props = { posts, searchQuery, getPosts };
+  const props = { posts, searchQuery, user, getPosts };
 
   return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
 };

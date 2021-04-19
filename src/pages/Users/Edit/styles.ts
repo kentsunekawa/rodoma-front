@@ -1,8 +1,11 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   .main {
     padding-bottom: 80px;
+    max-width: 700px;
+    margin: 0 auto;
     & > .iconArea {
       display: flex;
       justify-content: center;
@@ -39,7 +42,7 @@ export const base = css`
           margin-right: 0.2em;
         }
         &.-verified {
-          color: ${({ theme }) => theme.colors.gray_midium};
+          color: ${({ theme }) => theme.colors.success};
         }
       }
       & > .label {
@@ -72,6 +75,16 @@ export const base = css`
       & > .saveButton {
         margin: 0 auto;
         width: 100%;
+      }
+    }
+  }
+
+  @media ${mq.tbMin_gt} {
+    .main {
+      & > .bottom {
+        & > .saveButton {
+          max-width: 700px;
+        }
       }
     }
   }
