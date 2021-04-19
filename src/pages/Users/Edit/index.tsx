@@ -352,6 +352,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     if (userData) {
       try {
         const result = await User.putUserIcon(userData.id, dataUrl);
+        console.log(result);
         if (result.status === 'success_icon_change' && result.data) {
           dispatch(setIsLoading(false));
           dispatch(
@@ -375,29 +376,40 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
           }
         }
       } catch (error) {
+        console.log(error);
         dispatch(setIsLoading(false));
-        if (error.data.status === 'error_no_user_exists') {
-          dispatch(
-            setMessage({
-              isShow: true,
-              type: 'error',
-              message: RESPONSE_MESSAGES.error_no_user_exists,
-            })
-          );
-        } else if (error.data.status === 'fail_upload_img') {
-          dispatch(
-            setMessage({
-              isShow: true,
-              type: 'error',
-              message: RESPONSE_MESSAGES.fail_upload_img,
-            })
-          );
+        if (error.response) {
+          if (error.data.status === 'error_no_user_exists') {
+            dispatch(
+              setMessage({
+                isShow: true,
+                type: 'error',
+                message: RESPONSE_MESSAGES.error_no_user_exists,
+              })
+            );
+          } else if (error.data.status === 'fail_upload_img') {
+            dispatch(
+              setMessage({
+                isShow: true,
+                type: 'error',
+                message: RESPONSE_MESSAGES.fail_upload_img,
+              })
+            );
+          } else {
+            dispatch(
+              setMessage({
+                isShow: true,
+                type: 'error',
+                message: RESPONSE_MESSAGES.error,
+              })
+            );
+          }
         } else {
           dispatch(
             setMessage({
               isShow: true,
               type: 'error',
-              message: RESPONSE_MESSAGES.error,
+              message: RESPONSE_MESSAGES.fail_upload_img,
             })
           );
         }

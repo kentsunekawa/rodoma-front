@@ -88,7 +88,7 @@ class User {
           resolve(result.data);
         })
         .catch((error) => {
-          reject(error.response);
+          reject(error);
         });
     });
   }

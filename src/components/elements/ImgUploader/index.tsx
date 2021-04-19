@@ -55,7 +55,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       );
       return false;
     }
-    if (file.size > 2000000) {
+    if (file.size > 500000) {
       dispatch(
         setMessage({
           isShow: true,
