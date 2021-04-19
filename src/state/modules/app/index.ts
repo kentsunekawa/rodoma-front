@@ -18,6 +18,7 @@ interface AppState {
   searchQuery: SearchQuery;
   categoryTree: CategoryTree;
   snsList: Sns[];
+  redirectPath: string;
 }
 
 const initialState: AppState = {
@@ -55,6 +56,7 @@ const initialState: AppState = {
   },
   categoryTree: [],
   snsList: [],
+  redirectPath: '',
 };
 
 export const slice = createSlice({
@@ -109,6 +111,9 @@ export const slice = createSlice({
     setSnsList: (state, action: PayloadAction<Sns[]>) => {
       state.snsList = action.payload;
     },
+    setRedirectPath: (state, action: PayloadAction<string>) => {
+      state.redirectPath = action.payload;
+    },
   },
 });
 
@@ -127,6 +132,7 @@ export const validateErrorStatusSelector = (state: RootState): ValidateErrorStat
   state.app.validateErrorStatus;
 export const searchQuerySelector = (state: RootState): SearchQuery => state.app.searchQuery;
 export const snsListSelector = (state: RootState): Sns[] => state.app.snsList;
+export const redirectPathSelector = (state: RootState): string => state.app.redirectPath;
 
 export const modeChange = (mode: Mode) => (dispatch: Dispatch): void => {
   localStorage.setItem('mode', mode);
@@ -149,6 +155,7 @@ export const {
   cleanupValidateErrorStatus,
   setCategoryTree,
   setSnsList,
+  setRedirectPath,
 } = slice.actions;
 
 export { requestSnsList, requestCategoryTree };
