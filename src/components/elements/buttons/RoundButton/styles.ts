@@ -38,6 +38,7 @@ export const m = css`
   height: 40px;
   border-radius: 20px;
   font-size: 1.5rem;
+  padding-top: 0.1em;
 `;
 
 export const l = css`

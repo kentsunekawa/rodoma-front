@@ -24,8 +24,9 @@ interface Errors {
 }
 
 interface ComponentProps {
-  deside: (signinInfo: SigninInfo) => void;
+  isSampleUser: boolean;
   className?: string;
+  deside: (signinInfo: SigninInfo) => void;
 }
 
 interface Props extends ComponentProps {
@@ -33,6 +34,7 @@ interface Props extends ComponentProps {
   signinInfo: SigninInfo;
   change: (e: React.ChangeEvent<HTMLInputElement>) => void;
   desideSigninInfo: () => void;
+  signinAsSampleUser: () => void;
 }
 
 // dom component
@@ -78,6 +80,17 @@ const Component: React.FC<Props> = (props: Props) => (
         サインイン
       </RoundButton>
     </div>
+    {props.isSampleUser && (
+      <div className="row">
+        <RoundButton
+          types={['gradient', 'm']}
+          onClick={props.signinAsSampleUser}
+          className="button"
+        >
+          サンプルユーザーとしてサインインする
+        </RoundButton>
+      </div>
+    )}
   </div>
 );
 
@@ -110,6 +123,13 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     });
   };
 
+  const signinAsSampleUser = () => {
+    deside({
+      email: 'sample@rodoma.net',
+      password: '00000000',
+    });
+  };
+
   const desideSigninInfo = () => {
     const validateResult = validate_signin(signinInfo);
 
@@ -127,7 +147,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     if (!validateResult.hasErrors()) deside(signinInfo);
   };
 
-  const props = { signinInfo, validateStatus, change, desideSigninInfo };
+  const props = { signinInfo, validateStatus, change, desideSigninInfo, signinAsSampleUser };
 
   return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
 };

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import Styled from 'styled-components';
-
 import CoverContent from 'components/modules/CoverContent';
 import Logo from 'components/elements/Logo';
 import Paragraph from 'components/elements/Paragraph';
@@ -13,13 +13,21 @@ import * as styles from './styles';
 const CLASSNAME = 'Intro';
 
 // declare types
+interface LocationState {
+  isSampleUser: boolean;
+}
 
 interface ComponentProps {
   className?: string;
 }
 
+interface Props extends ComponentProps {
+  isSampleUser: boolean;
+  toSignin: () => void;
+}
+
 // dom component
-const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <CoverContent>
       <div className="inner">
@@ -33,15 +41,17 @@ const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
           サービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入ります
         </p>
         <div className="row">
-          <RoundButton types={['l', 'gradient']} link="/signInOrUp" className="nextButton">
-            サインインする
+          <RoundButton types={['l', 'gradient']} onClick={props.toSignin} className="nextButton">
+            はじめる
           </RoundButton>
         </div>
-        <div className="row">
-          <TextButton link="/" types={['s']}>
-            サインインせずに使う
-          </TextButton>
-        </div>
+        {/* {!props.isSampleUser && (
+          <div className="row">
+            <TextButton link="/" types={['s']}>
+              サインインせずに使う
+            </TextButton>
+          </div>
+        )} */}
       </div>
     </CoverContent>
   </div>
@@ -54,6 +64,28 @@ const StyeldComponent = Styled(Component)`
 
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
-  return <StyeldComponent {...componentProps}></StyeldComponent>;
+  const location = useLocation<LocationState>();
+  const history = useHistory();
+
+  const [isSampleUser, setIsSampleUser] = useState<boolean>(false);
+
+  const toSignin = () => {
+    history.push({
+      pathname: '/signInOrUp',
+      state: {
+        isSampleUser,
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (location.state) {
+      setIsSampleUser(location.state.isSampleUser);
+    }
+  }, [location]);
+
+  const props = { isSampleUser, toSignin };
+
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
 };
 export default Container;

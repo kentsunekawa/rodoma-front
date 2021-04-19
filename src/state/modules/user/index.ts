@@ -9,6 +9,7 @@ interface UserState {
   isInitChecked: boolean;
   isVisited: boolean | null;
   isSignupComplete: boolean;
+  isSampleUser: boolean;
 }
 
 const initialState: UserState = {
@@ -16,6 +17,7 @@ const initialState: UserState = {
   isInitChecked: false,
   isVisited: null,
   isSignupComplete: false,
+  isSampleUser: false,
 };
 
 // slice
@@ -35,6 +37,9 @@ export const slice = createSlice({
     setIsSignupComplete: (state, action: PayloadAction<boolean>) => {
       state.isSignupComplete = action.payload;
     },
+    setIsSampleUser: (state, action: PayloadAction<boolean>) => {
+      state.isSampleUser = action.payload;
+    },
   },
 });
 
@@ -43,6 +48,7 @@ export const userSelector = (state: RootState): UserData_overview | null => stat
 export const isInitCheckedSelector = (state: RootState): boolean => state.user.isInitChecked;
 export const isVisitedSelector = (state: RootState): boolean | null => state.user.isVisited;
 export const isSignupCompleteSelector = (state: RootState): boolean => state.user.isSignupComplete;
+export const isSampleUserSelector = (state: RootState): boolean => state.user.isSampleUser;
 
 // thunk actions
 export const signout = () => (dispatch: Dispatch): void => {
@@ -51,7 +57,13 @@ export const signout = () => (dispatch: Dispatch): void => {
 };
 
 // export actions
-export const { setUser, setInitCheckStatus, setIsVisited, setIsSignupComplete } = slice.actions;
+export const {
+  setUser,
+  setInitCheckStatus,
+  setIsVisited,
+  setIsSignupComplete,
+  setIsSampleUser,
+} = slice.actions;
 
 export { requestSignin, requestSignup };
 
