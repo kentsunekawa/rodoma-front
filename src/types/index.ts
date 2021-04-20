@@ -149,7 +149,7 @@ export interface CommenInfo {
   comment: string;
 }
 
-export type Chart = 'guntt' | 'pie';
+export type Chart = 'guntt' | 'rader';
 
 export type Size = 'xxl' | 'xl' | 'l' | 'm' | 's' | 'xs' | 'xxs';
 

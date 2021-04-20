@@ -13,7 +13,7 @@ import IconAdd from './IconAdd';
 import IconEdit from './IconEdit';
 import IconWidthFixed from './IconWidthFixed';
 import IconWidthOver from './IconWidthOver';
-import IconPieChart from './IconPieChart';
+import IconRaderChart from './IconRaderChart';
 import IconGanttChart from './IconGanttChart';
 import IconRight from './IconRight';
 import IconDown from './IconDown';
@@ -51,7 +51,7 @@ export {
   IconEdit,
   IconWidthFixed,
   IconWidthOver,
-  IconPieChart,
+  IconRaderChart,
   IconGanttChart,
   IconRight,
   IconDown,

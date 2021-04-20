@@ -17,29 +17,9 @@ import { IconGanttChart } from 'components/elements/icons';
 import * as styles from './styles';
 
 // component root class name
-const CLASSNAME = 'PieChart';
+const CLASSNAME = 'RaderChart';
 
 // declare types
-interface CustomizedTickProps {
-  className: string;
-  cx: number;
-  cy: number;
-  fill: undefined;
-  index: number;
-  orientation: string;
-  payload: {
-    coordinate: number;
-    index: number;
-    offset: number;
-    value: string;
-  };
-  radius: number;
-  stroke: string;
-  textAnchor: string;
-  type: string;
-  x: number;
-  y: number;
-}
 
 interface ComponentProps {
   subjects: Subject[];
@@ -88,6 +68,8 @@ const Component: React.FC<Props> = (props: Props) => (
                   stroke="#fff"
                   fill="#fff"
                   fillOpacity={0.6}
+                  animationDuration={500}
+                  animationEasing="ease-in-out"
                 />
               </RadarChart>
             </ResponsiveContainer>
