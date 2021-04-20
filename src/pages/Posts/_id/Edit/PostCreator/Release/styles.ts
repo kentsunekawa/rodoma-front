@@ -1,6 +1,12 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
+  .row {
+    &.-panel {
+      margin-bottom: 0;
+    }
+  }
   .userSearch {
     width: 100%;
   }
@@ -12,7 +18,7 @@ export const base = css`
     width: 100%;
   }
   &.-limited {
-    padding-bottom: 64px;
+    padding-bottom: 72px;
     .bottom {
       position: fixed;
       left: 0;
@@ -32,10 +38,20 @@ export const base = css`
         border-radius: 30px;
         position: absolute;
         left: 50%;
-        top: 20px;
+        bottom: 20px;
         z-index: -1;
         transform: translateX(-50%);
         background: ${({ theme }) => theme.darkBg};
+      }
+    }
+    @media ${mq.tbMin_gt} {
+      &.-limited {
+        .bottom {
+          padding: 30px 0;
+          &:after {
+            bottom: 30px;
+          }
+        }
       }
     }
   }

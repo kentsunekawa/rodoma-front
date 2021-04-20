@@ -22,7 +22,7 @@ export const base = css`
   }
 
   .listArea {
-    margin-top: 20px;
+    margin-top: 16px;
     .item {
       width: 100%;
       margin-bottom: 8px;

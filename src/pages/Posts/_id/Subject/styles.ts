@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   position: relative;
@@ -11,5 +12,8 @@ export const base = css`
   }
   & > .title {
     margin-bottom: 30px;
+  }
+  @media ${mq.tbMin_gt} {
+    padding: 56px 40px 80px;
   }
 `;

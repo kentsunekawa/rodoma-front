@@ -70,9 +70,11 @@ const Component: React.FC<Props> = (props: Props) => (
         あと{props.maxLength - props.selectedIds.length}名選択可能です
       </Paragraph>
     )}
-    <div className="listArea">
-      <ToggleTagList list={props.tagUserList} onClick={props.tagClick} icon={<IconMinus />} />
-    </div>
+    {props.tagUserList.length > 0 && (
+      <div className="listArea">
+        <ToggleTagList list={props.tagUserList} onClick={props.tagClick} icon={<IconMinus />} />
+      </div>
+    )}
   </div>
 );
 

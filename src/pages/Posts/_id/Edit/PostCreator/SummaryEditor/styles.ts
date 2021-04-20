@@ -34,7 +34,7 @@ export const base = css`
     position: fixed;
     left: 0;
     bottom: 0;
-    padding: 10px 0;
+    padding: 20px 0;
     z-index: 5;
     width: 100%;
     .desideButton {
@@ -46,6 +46,12 @@ export const base = css`
       &::before {
         padding-top: 30%;
       }
+    }
+    .main {
+      padding: 48px 48px 72px;
+    }
+    .bottom {
+      padding: 30px 0;
     }
   }
 `;

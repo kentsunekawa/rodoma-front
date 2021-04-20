@@ -1,14 +1,21 @@
 import { css } from 'styled-components';
-import { AspectFix } from 'components/style/Mixins';
 
 export const base = css`
-  .chartWrapper {
+  .main {
+    padding: 0 !important;
+    height: 100%;
+  }
+  .chart {
     width: 100%;
-    ${AspectFix}
-    & > .chart {
-      position: absolute;
-      top: 0;
-      left: 0;
+    height: 100%;
+  }
+  .recharts-polar-angle-axis-tick-value {
+    fill: #fff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    &:hover {
+      opacity: 0.5;
     }
   }
 `;

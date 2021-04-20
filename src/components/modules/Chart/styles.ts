@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { Gradient } from 'components/style/Mixins';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   position: relative;
@@ -38,6 +39,14 @@ export const base = css`
           height: 100%;
           overflow-y: scroll;
         }
+      }
+    }
+    .chartTypeChange {
+      display: none;
+    }
+    @media ${mq.pcMin_gt} {
+      .chartTypeChange {
+        display: block;
       }
     }
   }

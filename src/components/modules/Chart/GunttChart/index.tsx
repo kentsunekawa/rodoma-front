@@ -43,7 +43,11 @@ const Component: React.FC<Props> = (props: Props) => (
             }
           })()}
         </CircleButton>
-        <CircleButton types={['m', 'gray_midium']} onClick={() => props.onChangeChartType('pie')}>
+        <CircleButton
+          types={['m', 'gray_midium']}
+          onClick={() => props.onChangeChartType('pie')}
+          className="chartTypeChange"
+        >
           <IconPieChart />
         </CircleButton>
       </div>
