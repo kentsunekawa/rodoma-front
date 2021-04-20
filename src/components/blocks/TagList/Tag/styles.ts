@@ -4,8 +4,8 @@ import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   display: inline-block;
-  height: 28px;
-  border-radius: 14px;
+  height: 26px;
+  border-radius: 13px;
   background: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.themeColors.gray_midium};
   border: 1px solid ${({ theme }) => theme.themeColors.gray_midium};
@@ -25,8 +25,8 @@ export const base = css`
       }
     }
     & > .text {
-      font-size: 1.4rem;
-      line-height: 28px;
+      font-size: 1.2rem;
+      line-height: 24px;
       display: block;
     }
   }

@@ -6,7 +6,7 @@ export const base = css`
   }
   &.-login {
     & .GunttChart,
-    & .PieChart {
+    & .RaderChart {
       & > .wrapper {
         & > .inner {
           & > .main {

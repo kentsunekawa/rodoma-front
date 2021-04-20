@@ -3,7 +3,7 @@ import Styled from 'styled-components';
 import { Chart, Subject } from 'types';
 import CircleButton from 'components/elements/buttons/CircleButton';
 import Paragraph from 'components/elements/Paragraph';
-import { IconPieChart, IconWidthFixed, IconWidthOver, IconAdd } from 'components/elements/icons';
+import { IconRaderChart, IconWidthFixed, IconWidthOver, IconAdd } from 'components/elements/icons';
 import Bar from './Bar';
 import * as styles from './styles';
 
@@ -43,8 +43,12 @@ const Component: React.FC<Props> = (props: Props) => (
             }
           })()}
         </CircleButton>
-        <CircleButton types={['m', 'gray_midium']} onClick={() => props.onChangeChartType('pie')}>
-          <IconPieChart />
+        <CircleButton
+          types={['m', 'gray_midium']}
+          onClick={() => props.onChangeChartType('rader')}
+          className="chartTypeChange"
+        >
+          <IconRaderChart />
         </CircleButton>
       </div>
     )}
