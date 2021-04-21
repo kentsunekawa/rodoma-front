@@ -50,6 +50,7 @@ export const base = css`
       }
     }
   }
+
   @media ${mq.tbMin_gt} {
     & > .mask {
       & > .panel {
@@ -58,6 +59,14 @@ export const base = css`
           padding: 56px 48px;
         }
       }
+    }
+  }
+  .overlay {
+    cursor: pointer;
+  }
+  &.-disClosable {
+    .overlay {
+      cursor: not-allowed;
     }
   }
 `;

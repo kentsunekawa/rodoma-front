@@ -9,6 +9,7 @@ const CLASSNAME = 'TextArea';
 type StyleType = 's' | 'noBorder';
 
 interface ComponentProps {
+  isMarkdownOk?: boolean;
   height?: number;
   value: string;
   label?: string;
@@ -39,6 +40,7 @@ const Component: React.FC<Props> = (props: Props) => (
       props.isInputed || props.isFocus ? '-inputed' : ''
     }`}
   >
+    {props.isMarkdownOk && <span className="caption">マークダウン記法が使えます</span>}
     <div className="inner">
       <textarea
         ref={props.dom.input}

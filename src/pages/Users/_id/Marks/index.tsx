@@ -46,7 +46,7 @@ interface Props extends ComponentProps {
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <Modal modalName={props.modalName} className="confirmModal">
+    <Modal modalName={props.modalName} className="confirmModal" closable>
       <div className="row">
         <Paragraph>マークを外しますがよろしいですか？</Paragraph>
       </div>

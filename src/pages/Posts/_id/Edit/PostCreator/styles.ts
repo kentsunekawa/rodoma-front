@@ -19,9 +19,6 @@ export const base = css`
         }
       }
     }
-    .desideButton {
-      margin: 0 auto;
-    }
     .row {
       display: flex;
       flex-wrap: wrap;
