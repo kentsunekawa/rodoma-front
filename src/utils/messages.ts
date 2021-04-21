@@ -65,7 +65,7 @@ export const VALIDATE_ERROR_MESSAGES = {
   password_not_match: 'パスワードが一致しません',
   url_required: 'URLは必須です',
   file_type_invalid: 'jpg / jpeg / png 形式の画像をアップロードしてください',
-  file_size_invalid: '500kB以下の画像をアップロードしてください',
+  file_size_invalid: '2MB以下の画像をアップロードしてください',
   comment_required: 'コメントは必須です',
   post_title_required: 'タイトルは必須です',
   post_title_over: 'タイトルは100文字以下で入力してください',
