@@ -131,6 +131,7 @@ const Component: React.FC<Props> = (props: Props) => (
           </div>
           <div className="row">
             <TextArea
+              isMarkdownOk
               value={props.userData.profile.description}
               label="Description"
               name="description"

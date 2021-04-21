@@ -43,7 +43,7 @@ interface Props extends ComponentProps {
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <Modal modalName={props.modalName} className="removeFollowModal">
+    <Modal modalName={props.modalName} className="removeFollowModal" closable>
       <div className="row">
         <Paragraph>フォローを解除しますか？</Paragraph>
       </div>

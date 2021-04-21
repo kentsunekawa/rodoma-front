@@ -31,16 +31,17 @@ export const base = css`
     bottom: 0;
     z-index: 5;
     display: flex;
-    align-items: center;
-    align-content: center;
+    align-items: flex-end;
+    align-content: flex;
     justify-content: center;
     width: 100%;
     padding: 20px 0;
-    .deleteButton {
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
+    .desideButton {
+      min-width: auto;
+      margin: 0 12px 0 0;
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 `;

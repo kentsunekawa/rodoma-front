@@ -46,6 +46,7 @@ interface Props extends ComponentProps {
   categoryChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   imgChange: (dataUrl: string | ArrayBuffer | null) => void;
   deside: () => void;
+  close: () => void;
 }
 
 // dom component
@@ -77,6 +78,7 @@ const Component: React.FC<Props> = (props: Props) => (
       </div>
       <div className="row">
         <TextArea
+          isMarkdownOk
           label="Description"
           name="description"
           value={props.summary.description}
@@ -104,8 +106,11 @@ const Component: React.FC<Props> = (props: Props) => (
         />
       </div>
       <div className="bottom">
+        <RoundButton types={['m', 'gray_midium']} onClick={props.close} className="desideButton">
+          キャンセル
+        </RoundButton>
         <RoundButton types={['l', 'gradient']} onClick={props.deside} className="desideButton">
-          OK
+          決定
         </RoundButton>
       </div>
     </div>
@@ -190,6 +195,10 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     }
   };
 
+  const close = () => {
+    dispatch(setModal(''));
+  };
+
   const textChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setSummary({
       ...summary,
@@ -236,6 +245,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     categoryChange,
     imgChange,
     deside,
+    close,
   };
 
   return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;

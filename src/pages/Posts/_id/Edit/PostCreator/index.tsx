@@ -94,13 +94,13 @@ const Component: React.FC<Props> = (props: Props) => (
         deleteSubject={props.deleteSubject}
       />
     </Modal>
-    <Modal modalName="postEditRelease" className="modal">
+    <Modal modalName="postEditRelease" className="modal" closable>
       <Release deside={props.release} />
     </Modal>
-    <Modal modalName="postEditFinish" className="modal">
+    <Modal modalName="postEditFinish" className="modal" closable>
       <Exit exit={props.exit} />
     </Modal>
-    <Modal modalName="postDelete" className="modal">
+    <Modal modalName="postDelete" className="modal" closable>
       <PostDelete deletePost={props.deletePost} />
     </Modal>
   </div>
@@ -416,7 +416,9 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   }, [dom]);
 
   useEffect(() => {
-    dispatch(setModal('postEditSummary'));
+    setTimeout(() => {
+      dispatch(setModal('postEditSummary'));
+    }, 500);
     resizeFunc.current = adjustChartHeight();
     window.addEventListener('resize', resizeFunc.current);
     return () => {

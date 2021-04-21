@@ -2,6 +2,14 @@ import { css } from 'styled-components';
 
 export const base = css`
   position: relative;
+  .caption {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    font-size: 1.2rem;
+    padding: 0.4em;
+    color: ${({ theme }) => theme.colors.primary};
+  }
   & > .inner {
     display: block;
     border: 2px solid ${({ theme }) => theme.colors.primary};

@@ -37,8 +37,16 @@ export const base = css`
     padding: 20px 0;
     z-index: 5;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    align-content: flex-end;
     .desideButton {
-      margin: 0 auto;
+      min-width: auto;
+      margin: 0 12px 0 0;
+      &:last-child {
+        margin: 0;
+      }
     }
   }
   @media ${mq.tbMin_gt} {
