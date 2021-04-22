@@ -4,10 +4,12 @@ import Styled from 'styled-components';
 import { RESPONSE_MESSAGES } from 'utils/messages';
 import { SearchQuery, UserData_overview } from 'types';
 import Users from 'utils/request/User';
-import { searchQuerySelector, setMessage } from 'state/modules/app';
+import { searchQuerySelector, setMessage, setModal } from 'state/modules/app';
+import { setIsSignupComplete, isSignupCompleteSelector } from 'state/modules/user';
 import PageBase from 'components/layouts/PageBase';
 import InfinityScroll from 'components/modules/InfinityScroll';
 import ListHeader from 'components/blocks/ListHeader';
+import Fv from 'components/blocks/Fv';
 import UsersList from 'components/modules/UsersList';
 import * as styles from './styles';
 
@@ -32,6 +34,7 @@ interface Props extends ComponentProps {
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
+    <Fv />
     <PageBase>
       <ListHeader
         listType="user"
@@ -67,6 +70,7 @@ const StyeldComponent = Styled(Component)`
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
+  const isSignUpComplete = useSelector(isSignupCompleteSelector);
   const searchQuery = useSelector(searchQuerySelector);
   const [users, setUsers] = useState<UserData_overview[]>([]);
   const isMouted = useRef<boolean>(false);
@@ -102,8 +106,22 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   }, [searchQuery, dispatch]);
 
   useEffect(() => {
-    isMouted.current = true;
+    let timer: NodeJS.Timeout;
+    if (!isMouted.current) {
+      if (isSignUpComplete) {
+        timer = setTimeout(() => {
+          dispatch(setModal('signUpComplete'));
+          dispatch(setIsSignupComplete(false));
+        }, 3000);
+      }
+    }
+    return () => {
+      clearInterval(timer);
+    };
+  }, [isSignUpComplete, dispatch]);
 
+  useEffect(() => {
+    isMouted.current = true;
     return () => {
       isMouted.current = false;
     };

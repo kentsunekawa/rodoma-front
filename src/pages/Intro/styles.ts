@@ -20,17 +20,28 @@ export const base = css`
   .title {
     display: block;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
     line-height: 1.2em;
-    font-size: 2.6rem;
+    font-size: 2.8rem;
   }
   .description {
-    display: block;
-    font-size: 1.6rem;
-    line-height: 2em;
-    margin-bottom: 50px;
-    text-align: center;
-    color: ${({ theme }) => theme.themeColors.black};
+    margin-bottom: 56px;
+    p {
+      display: block;
+      font-size: 1.4rem;
+      line-height: 2em;
+      text-align: center;
+      color: ${({ theme }) => theme.themeColors.black};
+      margin-bottom: 16px;
+      .name {
+        display: inline-block;
+        color: ${({ theme }) => theme.colors.primary};
+        font-size: 140%;
+        span {
+          font-size: 1.2rem;
+        }
+      }
+    }
   }
   .nextButton {
     margin: 0 auto;

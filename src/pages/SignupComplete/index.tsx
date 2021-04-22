@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { isSignupCompleteSelector, setIsSignupComplete } from 'state/modules/user';
+import { isSignupCompleteSelector } from 'state/modules/user';
 import { redirectPathSelector, setRedirectPath } from 'state/modules/app';
 import Styled from 'styled-components';
 import * as styles from './styles';
@@ -61,9 +61,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   };
 
   useEffect(() => {
-    if (isSignupComplete) {
-      dispatch(setIsSignupComplete(false));
-    } else {
+    if (!isSignupComplete) {
       history.push('/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

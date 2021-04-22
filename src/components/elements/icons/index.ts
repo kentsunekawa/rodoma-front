@@ -35,6 +35,7 @@ import IconBan from './IconBan';
 import IconChecked from './IconChecked';
 import IconSummary from './IconSummary';
 import IconTrash from './IconTrash';
+import IconReload from './IconReload';
 
 export {
   IconFollow,
@@ -74,4 +75,5 @@ export {
   IconSummary,
   IconTrash,
   IconLoading,
+  IconReload,
 };

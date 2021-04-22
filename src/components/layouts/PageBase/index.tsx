@@ -6,10 +6,12 @@ import * as styles from './styles';
 const CLASSNAME = 'PageBase';
 
 // declare types
+export type StyleType = 'includeHeader';
 
 interface ComponentProps {
   children: React.ReactNode;
   className?: string;
+  types?: StyleType[];
 }
 
 // dom component
@@ -22,6 +24,8 @@ const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
 // styled component
 const StyeldComponent = Styled(Component)`
   ${styles.base}
+  // extended styles
+  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component
