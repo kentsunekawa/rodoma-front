@@ -7,7 +7,7 @@ import Card from 'components/modules/Card';
 import Subject from 'pages/Posts/_id/Subject';
 import * as styles from './styles';
 import GunttChart from './GunttChart';
-import PieChart from './PieChart';
+import RaderChart from './RaderChart';
 
 // component root class name
 const CLASSNAME = 'Chart';
@@ -33,9 +33,9 @@ const Component: React.FC<Props> = (props: Props) => (
     <div className="panel">
       {(() => {
         switch (props.chartType) {
-          case 'pie':
+          case 'rader':
             return (
-              <PieChart
+              <RaderChart
                 className="chart"
                 subjects={props.subjects}
                 onChangeChartType={props.changeChartType}

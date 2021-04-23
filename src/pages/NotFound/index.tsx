@@ -19,7 +19,7 @@ interface ComponentProps {
 // dom component
 const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <PageBase>
+    <PageBase types={['includeHeader']}>
       <Paragraph types={['bigTitle', 'center', 'primary']} className="title">
         Oops!
       </Paragraph>

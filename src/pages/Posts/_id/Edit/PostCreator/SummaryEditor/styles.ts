@@ -34,11 +34,19 @@ export const base = css`
     position: fixed;
     left: 0;
     bottom: 0;
-    padding: 10px 0;
+    padding: 20px 0;
     z-index: 5;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    align-content: flex-end;
     .desideButton {
-      margin: 0 auto;
+      min-width: auto;
+      margin: 0 12px 0 0;
+      &:last-child {
+        margin: 0;
+      }
     }
   }
   @media ${mq.tbMin_gt} {
@@ -46,6 +54,12 @@ export const base = css`
       &::before {
         padding-top: 30%;
       }
+    }
+    .main {
+      padding: 48px 48px 72px;
+    }
+    .bottom {
+      padding: 30px 0;
     }
   }
 `;

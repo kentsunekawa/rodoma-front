@@ -18,6 +18,7 @@ import ResetPass from 'pages/ResetPass';
 import NotFound from 'pages/NotFound';
 import Post from 'pages/Posts/_id';
 import PostEdit from 'pages/Posts/_id/Edit';
+import Modal from 'components/modules/Modal';
 import { setIsDoorShow, requestCategoryTree, requestSnsList } from 'state/modules/app';
 import { isInitCheckedSelector } from 'state/modules/user';
 import Header from 'components/modules/Header';
@@ -27,6 +28,7 @@ import FixWindow from 'components/modules/FixWindow';
 import Message from 'components/modules/Message';
 import Door from 'components/modules/Door';
 import Loading from 'components/modules/Loading';
+import WelcomeModal from 'components/modules/WelcomeModal';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -55,6 +57,9 @@ const App: React.FC = () => {
           <Menu />
           <SearchPanel />
           <Header />
+          <Modal modalName="signUpComplete" types={['light', 'wide']}>
+            <WelcomeModal />
+          </Modal>
           <Switch>
             <Route path="/" exact>
               <Home />

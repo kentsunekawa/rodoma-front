@@ -11,6 +11,17 @@ export const base = css`
     bottom: 20px;
   }
 
-  @media ${mq.tbMin_gt} {
+  @media ${mq.pc_gt} {
+    .createButton {
+      left: calc(50vw - 480px);
+      bottom: 40px;
+    }
+  }
+
+  @media ${mq.pcLarge_gt} {
+    .createButton {
+      left: calc(50vw - 632px);
+      bottom: 40px;
+    }
   }
 `;

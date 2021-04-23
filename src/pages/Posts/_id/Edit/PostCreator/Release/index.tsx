@@ -36,7 +36,7 @@ interface Props extends ComponentProps {
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}${props.isLimited ? ' -limited' : ''}`}>
     <div className="row">
-      <Paragraph>公開しますか？</Paragraph>
+      <Paragraph types={['subTitle']}>公開しますか？</Paragraph>
     </div>
     <div className="row">
       <CheckBox
@@ -50,7 +50,7 @@ const Component: React.FC<Props> = (props: Props) => (
     {props.isLimited && (
       <>
         {props.followings && (
-          <div className="row">
+          <div className="row -panel">
             <UserSearch
               maxLength={5}
               users={props.followings}

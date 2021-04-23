@@ -1,5 +1,50 @@
 import gsap from 'gsap';
 
+export const fvChange = (
+  titleArea: HTMLDivElement,
+  currentBg: HTMLSpanElement,
+  nextBg: HTMLSpanElement,
+  duration: number
+): Promise<null> => {
+  return new Promise((resolve) => {
+    gsap.set(nextBg, {
+      opacity: 0,
+      zIndex: 5,
+    });
+    gsap.to(nextBg, {
+      opacity: 1,
+      duration,
+      ease: 'Power3.easeInOut',
+    });
+    gsap.to(titleArea, {
+      y: '-50px',
+      opacity: 0,
+      duration: duration / 2,
+      ease: 'Power3.easeIn',
+      onComplete: () => {
+        gsap.set(titleArea, {
+          y: '50px',
+        });
+        gsap.to(titleArea, {
+          y: '0px',
+          opacity: 1,
+          duration: duration / 2,
+          ease: 'Power3.easeOut',
+          onComplete: () => {
+            gsap.set(currentBg, {
+              zIndex: 0,
+            });
+            gsap.set(nextBg, {
+              zIndex: 1,
+            });
+            resolve(null);
+          },
+        });
+      },
+    });
+  });
+};
+
 export const doorHide = (root: HTMLDivElement, logo: HTMLDivElement): Promise<null> => {
   return new Promise((resolve) => {
     gsap.to(logo, {

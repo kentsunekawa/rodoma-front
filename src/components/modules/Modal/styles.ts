@@ -35,7 +35,7 @@ export const base = css`
         height: 100%;
         max-height: 80vh;
         overflow-y: scroll;
-        padding: 32px;
+        padding: 40px 32px;
         border-radius: 5px;
         overflow-y: scroll;
         overflow-x: hidden;
@@ -50,14 +50,30 @@ export const base = css`
       }
     }
   }
+
   @media ${mq.tbMin_gt} {
     & > .mask {
       & > .panel {
         & > .inner {
           max-height: 95vh;
+          padding: 56px 48px;
         }
       }
     }
+  }
+  .overlay {
+    cursor: pointer;
+  }
+  &.-disClosable {
+    .overlay {
+      cursor: not-allowed;
+    }
+  }
+`;
+
+export const light = css`
+  .overlay {
+    background: rgba(255, 255, 255, 0.5);
   }
 `;
 

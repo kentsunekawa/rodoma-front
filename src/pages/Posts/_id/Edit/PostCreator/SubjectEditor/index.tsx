@@ -58,6 +58,7 @@ interface Props extends ComponentProps {
   rengeChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   labelChange: (value: number) => void;
   deside: () => void;
+  close: () => void;
   toggleDeleteConfirm: () => void;
 }
 
@@ -110,6 +111,7 @@ const Component: React.FC<Props> = (props: Props) => (
         </div>
         <div className="row">
           <TextArea
+            isMarkdownOk
             label="Description"
             name="description"
             value={props.subject.description}
@@ -128,13 +130,16 @@ const Component: React.FC<Props> = (props: Props) => (
         <div className="bottom">
           <CircleButton
             types={['gray_midium']}
-            className="deleteButton"
+            className="desideButton"
             onClick={props.toggleDeleteConfirm}
           >
             <IconTrash />
           </CircleButton>
-          <RoundButton types={['l', 'gradient']} onClick={props.deside}>
-            OK
+          <RoundButton types={['m', 'gray_midium']} onClick={props.close} className="desideButton">
+            キャンセル
+          </RoundButton>
+          <RoundButton types={['l', 'gradient']} onClick={props.deside} className="desideButton">
+            決定
           </RoundButton>
         </div>
       </div>
@@ -252,6 +257,10 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     }
   };
 
+  const close = () => {
+    dispatch(setModal(''));
+  };
+
   const toggleDeleteConfirm = () => {
     setIsDeleteConfirm(isDeleteConfirm ? false : true);
   };
@@ -281,6 +290,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     rengeChange,
     labelChange,
     deside,
+    close,
   };
 
   return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;

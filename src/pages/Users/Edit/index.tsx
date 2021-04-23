@@ -74,7 +74,7 @@ interface Props extends ComponentProps {
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <PageBase>
+    <PageBase types={['includeHeader']}>
       {props.isLocalLoading && <LoadingBlock />}
       {props.userData && (
         <div className="main">
@@ -131,6 +131,7 @@ const Component: React.FC<Props> = (props: Props) => (
           </div>
           <div className="row">
             <TextArea
+              isMarkdownOk
               value={props.userData.profile.description}
               label="Description"
               name="description"

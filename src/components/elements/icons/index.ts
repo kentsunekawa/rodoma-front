@@ -13,7 +13,7 @@ import IconAdd from './IconAdd';
 import IconEdit from './IconEdit';
 import IconWidthFixed from './IconWidthFixed';
 import IconWidthOver from './IconWidthOver';
-import IconPieChart from './IconPieChart';
+import IconRaderChart from './IconRaderChart';
 import IconGanttChart from './IconGanttChart';
 import IconRight from './IconRight';
 import IconDown from './IconDown';
@@ -35,6 +35,7 @@ import IconBan from './IconBan';
 import IconChecked from './IconChecked';
 import IconSummary from './IconSummary';
 import IconTrash from './IconTrash';
+import IconReload from './IconReload';
 
 export {
   IconFollow,
@@ -51,7 +52,7 @@ export {
   IconEdit,
   IconWidthFixed,
   IconWidthOver,
-  IconPieChart,
+  IconRaderChart,
   IconGanttChart,
   IconRight,
   IconDown,
@@ -74,4 +75,5 @@ export {
   IconSummary,
   IconTrash,
   IconLoading,
+  IconReload,
 };

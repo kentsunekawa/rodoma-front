@@ -14,9 +14,10 @@ import * as styles from './styles';
 const CLASSNAME = 'Modal';
 
 // declare types
-type StyleType = 'wide';
+type StyleType = 'wide' | 'light';
 
 interface ComponentProps {
+  closable?: boolean;
   modalName: string;
   className?: string;
   children: React.ReactNode;
@@ -34,18 +35,27 @@ interface Props extends ComponentProps {
 
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
-  <div className={`${CLASSNAME} ${props.className}`} ref={props.dom.root}>
+  <div
+    className={`${CLASSNAME} ${props.className}${props.closable ? '' : ' -disClosable'}`}
+    ref={props.dom.root}
+  >
     <div className="mask" ref={props.dom.mask}>
       <div className="panel">
-        <div className="closeButton">
-          <CircleButton types={['s', 'gray_dark']} onClick={props.close}>
-            <IconClose />
-          </CircleButton>
-        </div>
+        {props.closable && (
+          <div className="closeButton">
+            <CircleButton types={['s', 'gray_dark']} onClick={props.close}>
+              <IconClose />
+            </CircleButton>
+          </div>
+        )}
         <div className="inner">{props.children}</div>
       </div>
     </div>
-    <Overlay childRef={props.dom.overlay} onClick={props.close} />
+    <Overlay
+      childRef={props.dom.overlay}
+      onClick={props.closable ? props.close : undefined}
+      className="overlay"
+    />
   </div>
 );
 
