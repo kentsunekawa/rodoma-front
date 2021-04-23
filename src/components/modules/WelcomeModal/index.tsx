@@ -28,7 +28,9 @@ const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="image"></div>
     <Paragraph types={['bigTitle', 'primary']} className="title">
-      Thank you for your joining.
+      Thank you
+      <br />
+      for your joining.
     </Paragraph>
     <Paragraph types={['catchText']} className="text">
       ご登録ありがとうございます。
@@ -36,7 +38,7 @@ const Component: React.FC<Props> = (props: Props) => (
       まずは使い方をご覧になるか、
       <br />
       プロフィールを設定することを
-      <br />
+      <br className="notPc" />
       オススメします。
     </Paragraph>
     <div className="row">

@@ -5,8 +5,9 @@ export const base = css`
   .title {
     display: block;
     text-align: center;
-    line-height: 1.4em;
+    line-height: 1.1em;
     margin-bottom: 20px;
+    letter-spacing: 0em;
   }
   .text {
     text-align: center;
@@ -28,14 +29,24 @@ export const base = css`
   }
 
   @media ${mq.tbMin_gt} {
+    .title {
+      margin-bottom: 40px;
+      font-size: 4rem;
+    }
+    .text {
+      margin-bottom: 56px;
+      .notPc {
+        display: none;
+      }
+    }
     .row {
-      margin-bottom: 16px;
+      margin-bottom: 32px;
       &:last-child {
         margin-bottom: 0;
       }
     }
     .desideButton {
-      width: auto;
+      width: 200px;
       margin: 0 10px;
     }
   }

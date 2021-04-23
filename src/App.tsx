@@ -57,7 +57,7 @@ const App: React.FC = () => {
           <Menu />
           <SearchPanel />
           <Header />
-          <Modal modalName="signUpComplete" types={['light']}>
+          <Modal modalName="signUpComplete" types={['light', 'wide']}>
             <WelcomeModal />
           </Modal>
           <Switch>

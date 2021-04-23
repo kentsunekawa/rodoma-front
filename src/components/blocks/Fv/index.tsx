@@ -61,29 +61,72 @@ const StyeldComponent = Styled(Component)`
   ${styles.base}
 `;
 
+const messages: Message[] = [
+  {
+    title: '"BEYOND" must be beautiful.',
+    subTitle: 'その先は美しいに違いない',
+    name: 'unknown',
+    image: '/img/fvBg_01.jpg',
+  },
+  {
+    title: 'Change before you have to.',
+    subTitle: '変革せよ。変革を迫られる前に。',
+    name: 'Jack Welch',
+    image: '/img/fvBg_02.jpg',
+  },
+  {
+    title: 'If you can dream it,<br>you can do it.',
+    subTitle: '夢見ることができれば、それは実現できる。',
+    name: 'Walt Disney',
+    image: '/img/fvBg_03.jpg',
+  },
+
+  {
+    title: 'I have not failed. <br>I’ve just found 10,000 ways that won’t work.',
+    subTitle: '失敗なんかしちゃいない。うまくいかない方法を一万通り見つけただけだ。',
+    name: 'Thomas A. Edison',
+    image: '/img/fvBg_04.jpg',
+  },
+  {
+    title: 'Life is either a great adventure or nothing.',
+    subTitle: '人生とは、果敢なる冒険かそれともつまらぬもののどちらかです。',
+    name: 'Helen Keller',
+    image: '/img/fvBg_05.jpg',
+  },
+  {
+    title: 'It’s all about the journey, <br>not the outcome.',
+    subTitle: 'すべては過程だ。結果ではない。',
+    name: 'Carl Lewis',
+    image: '/img/fvBg_06.jpg',
+  },
+  {
+    title: 'He who moves not forward, <br>goes backward.',
+    subTitle: '前進をしない人は、後退をしているのだ。',
+    name: 'Johann Wolfgang von Goethe',
+    image: '/img/fvBg_07.jpg',
+  },
+  {
+    title: 'Imagination means nothing without doing.',
+    subTitle: '行動を伴わない想像力は、何の意味も持たない。',
+    name: 'Charlie Chaplin',
+    image: '/img/fvBg_08.jpg',
+  },
+  {
+    title: 'One today is worth two tomorrow.',
+    subTitle: '今日という一日は、<br>明日という日の二日分の値打ちがある。',
+    name: 'Benjamin Franklin',
+    image: '/img/fvBg_09.jpg',
+  },
+  {
+    title: 'Leave nothing for tomorrow<br>which can be done today.',
+    subTitle: '今日出来ることを明日に残すな。',
+    name: 'Abraham Lincoln',
+    image: '/img/fvBg_10.jpg',
+  },
+];
+
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
-  const messages: Message[] = [
-    {
-      title: '"BEYOND" must be beautiful.',
-      subTitle: 'その先は美しいに違いない',
-      name: 'unknown',
-      image: '/img/fvBg_01.jpg',
-    },
-    {
-      title: 'Change before you have to.',
-      subTitle: '変革せよ。変革を迫られる前に。',
-      name: 'Jack Welch',
-      image: '/img/fvBg_02.jpg',
-    },
-    {
-      title: 'If you can dream it, you can do it.',
-      subTitle: '夢見ることができれば、それは実現できる。',
-      name: 'Walt Disney',
-      image: '/img/fvBg_03.jpg',
-    },
-  ];
-
   const [num, setNum] = useState<number>(Math.floor(Math.random() * messages.length));
   const isMounted = useRef<boolean>(false);
   const isChanging = useRef<boolean>(false);

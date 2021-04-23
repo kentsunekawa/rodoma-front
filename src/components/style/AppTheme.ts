@@ -76,7 +76,7 @@ export const BaseTheme = {
     },
   },
   font: {
-    josefin: "'Courgette', cursive",
+    letter: "'Courgette', cursive",
   },
 };
 

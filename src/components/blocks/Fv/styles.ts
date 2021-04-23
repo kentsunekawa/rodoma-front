@@ -64,14 +64,14 @@ export const base = css`
       font-size: 2rem;
       line-height: 1.2em;
       margin-bottom: 12px;
-      font-family: ${({ theme }) => theme.font.josefin};
+      font-family: ${({ theme }) => theme.font.letter};
       color: #fff;
       text-shadow: #000 0px 2px 5px;
     }
     span {
       display: block;
       font-size: 1.2rem;
-      line-height: 1.4em;
+      line-height: 1.8em;
       letter-spacing: 0.1em;
       color: #fff;
       text-shadow: #000 0px 2px 5px;
@@ -82,7 +82,7 @@ export const base = css`
     font-size: 1.2rem;
     margin-top: 16px;
     color: #fff;
-    font-family: ${({ theme }) => theme.font.josefin};
+    font-family: ${({ theme }) => theme.font.letter};
     text-shadow: #000 0px 2px 5px;
     &:before {
       padding-right: 1em;
