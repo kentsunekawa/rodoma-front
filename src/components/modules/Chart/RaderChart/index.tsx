@@ -62,6 +62,7 @@ const Component: React.FC<Props> = (props: Props) => (
                   tickFormatter={props.tickFormatter}
                 />
                 <PolarRadiusAxis domain={[0, 100]} fill="#fff" stroke="#fff" fontSize="1.4rem" />
+                <Radar name="Mike" dataKey="" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
                 <Radar
                   name="Subjects"
                   dataKey="value"
@@ -107,6 +108,8 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     }
     return value;
   };
+
+  console.log(graphData);
 
   const props = { graphData, mode, tickFormatter };
 
