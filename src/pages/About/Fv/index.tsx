@@ -3,29 +3,39 @@ import Styled from 'styled-components';
 import * as styles from './styles';
 
 // component root class name
-const CLASSNAME = 'PageBase';
+const CLASSNAME = 'Fv';
 
 // declare types
-export type StyleType = 'includeHeader';
-
 interface ComponentProps {
-  children: React.ReactNode;
   className?: string;
-  types?: StyleType[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Props extends ComponentProps {}
+
 // dom component
-const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <div className="inner">{props.children}</div>
+    <div className="bg"></div>
+    <div className="overlay"></div>
+    <h1 className="title">
+      <span className="name">
+        rodoma<span>（ロドマ）</span>
+      </span>
+      は
+      <br className="notPc" />
+      挑戦する人を応援する、
+      <br />
+      学習ロードマップの
+      <br className="notPc" />
+      シェアサービスです
+    </h1>
   </div>
 );
 
 // styled component
 const StyeldComponent = Styled(Component)`
   ${styles.base}
-  // extended styles
-  ${({ types }) => types && types.map((type) => styles[type])}}
 `;
 
 // container component

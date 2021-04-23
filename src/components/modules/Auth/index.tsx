@@ -14,7 +14,7 @@ interface Props {
 
 // container component
 const Container: React.FC<Props> = (props: Props) => {
-  const noCheckPaths = ['/resetPass', '/emailVerify'];
+  const noCheckPaths = ['/resetPass', '/emailVerify', '/about'];
 
   const dispatch = useDispatch();
   const history = useHistory();

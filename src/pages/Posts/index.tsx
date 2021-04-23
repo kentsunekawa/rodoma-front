@@ -11,10 +11,13 @@ import {
   setMessage,
   redirectPathSelector,
   setRedirectPath,
+  setModal,
+  isDoorShownSelector,
 } from 'state/modules/app';
-import { userSelector } from 'state/modules/user';
+import { userSelector, isSignupCompleteSelector, setIsSignupComplete } from 'state/modules/user';
 import InfinityScroll from 'components/modules/InfinityScroll';
 import PostBoxList from 'components/modules/PostBoxList';
+import Fv from 'components/blocks/Fv';
 import ListHeader from 'components/blocks/ListHeader';
 import CircleButton from 'components/elements/buttons/CircleButton';
 import { IconAdd } from 'components/elements/icons';
@@ -44,6 +47,7 @@ interface Props extends ComponentProps {
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
+    <Fv />
     <PageBase>
       <ListHeader
         title="ロードマップ"
@@ -89,6 +93,8 @@ const StyeldComponent = Styled(Component)`
 const Container: React.FC<ComponentProps> = (componentProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const isSignUpComplete = useSelector(isSignupCompleteSelector);
+  const isDoorShown = useSelector(isDoorShownSelector);
   const redirectToPath = useSelector(redirectPathSelector);
   const searchQuery = useSelector(searchQuerySelector);
   const user = useSelector(userSelector);
@@ -126,15 +132,33 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   }, [searchQuery]);
 
   useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isMouted.current) {
+      // if (isSignUpComplete) {
+      timer = setTimeout(() => {
+        dispatch(setModal('signUpComplete'));
+        dispatch(setIsSignupComplete(false));
+      }, 3000);
+      // }
+    }
+    return () => {
+      clearInterval(timer);
+    };
+  }, [isDoorShown, isSignUpComplete, dispatch]);
+
+  useEffect(() => {
     if (redirectToPath) {
       dispatch(setRedirectPath(''));
       history.push(redirectToPath);
     }
+  }, [redirectToPath, dispatch, history]);
+
+  useEffect(() => {
     isMouted.current = true;
     return () => {
       isMouted.current = false;
     };
-  }, [redirectToPath, dispatch, history]);
+  }, []);
 
   const props = { posts, searchQuery, user, getPosts };
 

@@ -33,12 +33,26 @@ const Component: React.FC<Props> = (props: Props) => (
         <div className="logo">
           <Logo type="gradient" />
         </div>
-        <Paragraph types={['primary']} className="title">
+        <Paragraph types={['primary', 'bigTitle']} className="title">
           Welcome to rodoma.
         </Paragraph>
-        <p className="description">
-          サービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入りますサービスの説明が入ります
-        </p>
+        <div className="description">
+          <p>
+            <span className="name">
+              rodoma<span>（ロドマ）</span>
+            </span>
+            は、
+            <br />
+            挑戦する人を応援する、
+            <br />
+            学習ロードマップのシェアサービスです。
+          </p>
+          <p>
+            あなたオススメの学習プランを公開したり、
+            <br />
+            他のユーザーをフォローしましょう。
+          </p>
+        </div>
         <div className="row">
           <RoundButton types={['l', 'gradient']} onClick={props.toSignin} className="nextButton">
             はじめる

@@ -71,6 +71,12 @@ export const base = css`
   }
 `;
 
+export const light = css`
+  .overlay {
+    background: rgba(255, 255, 255, 0.5);
+  }
+`;
+
 export const wide = css`
   @media ${mq.tbMin_gt} {
     & > .mask {

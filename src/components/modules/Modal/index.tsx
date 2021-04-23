@@ -14,7 +14,7 @@ import * as styles from './styles';
 const CLASSNAME = 'Modal';
 
 // declare types
-type StyleType = 'wide';
+type StyleType = 'wide' | 'light';
 
 interface ComponentProps {
   closable?: boolean;

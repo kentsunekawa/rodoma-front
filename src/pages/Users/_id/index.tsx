@@ -64,7 +64,7 @@ interface Props extends ComponentProps {
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <PageBase>
+    <PageBase types={['includeHeader']}>
       <TabChanger
         trigger={{
           keys: [props.id],

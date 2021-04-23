@@ -31,14 +31,6 @@ export const mq = {
   pcHuge_gt: `(min-width: ${bk.pcHuge}px)`,
 };
 
-// export const mq = (d: keyof typeof device, style: string): string => {
-//   return `
-//     @media ${d} {
-//       ${style}
-//     }
-//   `;
-// };
-
 export const COLORS = {
   primary: '#f83610',
   secondary: '#f9d423',
@@ -82,6 +74,9 @@ export const BaseTheme = {
       6: COLORS.subject6,
       7: COLORS.subject7,
     },
+  },
+  font: {
+    letter: "'Courgette', cursive",
   },
 };
 
