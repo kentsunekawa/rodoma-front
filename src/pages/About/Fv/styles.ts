@@ -1,4 +1,4 @@
-import { css, keyframes } from 'styled-components';
+import { css } from 'styled-components';
 import { mq } from 'components/style/AppTheme';
 
 export const base = css`

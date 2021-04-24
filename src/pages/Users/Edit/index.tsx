@@ -252,7 +252,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const putUser = async (userData: UserData) => {
     try {
       const result = await User.putUser(userData);
-      console.log(userData);
       if (result.status === 'success_get_user' && result.data) {
         dispatch(
           setMessage({
@@ -366,7 +365,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     if (userData) {
       try {
         const result = await User.putUserIcon(userData.id, dataUrl);
-        console.log(result);
         if (result.status === 'success_icon_change' && result.data) {
           dispatch(setIsLoading(false));
           dispatch(
