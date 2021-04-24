@@ -2,17 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import reportWebVitals from './reportWebVitals';
-import { store } from './state/store';
+import reportWebVitals from 'reportWebVitals';
+import { store } from 'state/store';
 import 'fontsource-roboto';
 import 'destyle.css';
-import App from './App';
-import Theme from './components/Theme';
-
-if (window.location.href.indexOf('isDev') !== -1) {
-  console.log('dev');
-  localStorage.setItem('isVisited', '');
-}
+import App from 'App';
+import Theme from 'components/Theme';
 
 ReactDOM.render(
   <React.StrictMode>

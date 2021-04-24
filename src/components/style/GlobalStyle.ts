@@ -50,6 +50,7 @@ const GlobalStyle = createGlobalStyle`
 
   @media ${mq.tbMin_gt} {
     button {
+      cursor: pointer;
       transition: transform .2s linear, opacity .5s linear;
       &:hover {
         transform: translateY(2%);
@@ -57,6 +58,7 @@ const GlobalStyle = createGlobalStyle`
       }
     }
     a{
+      cursor: pointer;
       &:hover{
         opacity: .8;
         transition: opacity .2s linear;

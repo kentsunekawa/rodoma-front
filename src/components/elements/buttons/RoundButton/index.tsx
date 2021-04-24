@@ -18,7 +18,7 @@ type StyleType =
   | 'nega'
   | 'withIcon';
 
-interface ComponentProps {
+export interface ComponentProps {
   disabled?: boolean;
   className?: string;
   types?: StyleType[];
