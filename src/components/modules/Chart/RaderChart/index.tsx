@@ -9,7 +9,6 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import AppTheme from 'components/style/AppTheme';
 import { Chart, Subject, Mode } from 'types';
 import { modeSelector } from 'state/modules/app';
 import CircleButton from 'components/elements/buttons/CircleButton';
@@ -20,6 +19,13 @@ import * as styles from './styles';
 const CLASSNAME = 'RaderChart';
 
 // declare types
+interface GraphData {
+  data: {
+    subject: string;
+    value: number;
+  }[];
+  max: number;
+}
 
 interface ComponentProps {
   subjects: Subject[];
@@ -29,13 +35,7 @@ interface ComponentProps {
 }
 
 interface Props extends ComponentProps {
-  graphData: {
-    i: number;
-    label: string;
-    value: number;
-    color: string;
-    fullMark: number;
-  }[];
+  graphData: GraphData;
   mode: Mode;
   tickFormatter: (value: string, i: number) => string;
 }
@@ -53,16 +53,20 @@ const Component: React.FC<Props> = (props: Props) => (
         <div className="main">
           <div className="chart">
             <ResponsiveContainer width="100%" height="100%">
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={props.graphData}>
+              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={props.graphData.data}>
                 <PolarGrid stroke="#fff" />
                 <PolarAngleAxis
-                  dataKey="label"
+                  dataKey="subject"
                   onClick={(e) => props.onClickSubject(e.index)}
                   tick={true}
                   tickFormatter={props.tickFormatter}
                 />
-                <PolarRadiusAxis domain={[0, 100]} fill="#fff" stroke="#fff" fontSize="1.4rem" />
-                <Radar name="Mike" dataKey="" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                <PolarRadiusAxis
+                  domain={[0, props.graphData.max]}
+                  fill="#fff"
+                  stroke="#fff"
+                  fontSize="1.4rem"
+                />
                 <Radar
                   name="Subjects"
                   dataKey="value"
@@ -91,16 +95,15 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const { subjects } = componentProps;
   const mode = useSelector(modeSelector);
 
-  const graphData = subjects.map((subject, i) => {
-    const colorIndex = subject.label !== null ? subject.label : 0;
-    return {
-      i,
-      label: subject.title,
-      value: subject.renge_end - subject.renge_start,
-      color: AppTheme[mode].colors.subjects[colorIndex],
-      fullMark: 100,
-    };
-  });
+  const graphData = (() => {
+    let max = 0;
+    const data = subjects.map((subject) => {
+      const value = subject.renge_end - subject.renge_start;
+      if (max < value) max = value;
+      return { subject: subject.title, value };
+    });
+    return { data, max };
+  })();
 
   const tickFormatter = (value: string, i: number) => {
     if (value.length > 10) {
@@ -108,8 +111,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     }
     return value;
   };
-
-  console.log(graphData);
 
   const props = { graphData, mode, tickFormatter };
 

@@ -44,7 +44,7 @@ export const base = css`
     .chartTypeChange {
       display: none;
     }
-    @media ${mq.pcMin_gt} {
+    @media ${mq.tbMin_gt} {
       .chartTypeChange {
         display: block;
       }

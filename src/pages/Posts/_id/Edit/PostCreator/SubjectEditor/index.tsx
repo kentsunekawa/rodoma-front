@@ -242,7 +242,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   };
 
   const deside = () => {
-    const validateResult = validate_subject(subject);
+    const validateResult = validate_subject(subject, post.subjects, currentSubject);
     setValidateStatus({
       isInvalid: validateResult.hasErrors(),
       errors: {
@@ -250,7 +250,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
         ...validateResult.getErrors(),
       },
     });
-
     if (!validateResult.hasErrors()) {
       desideSubject(subject);
       dispatch(setModal(''));

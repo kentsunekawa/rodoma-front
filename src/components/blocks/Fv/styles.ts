@@ -67,10 +67,11 @@ export const base = css`
       font-family: ${({ theme }) => theme.font.letter};
       color: #fff;
       text-shadow: #000 0px 2px 5px;
+      transform: rotate(-3deg);
     }
     span {
       display: block;
-      font-size: 1.2rem;
+      font-size: 1rem;
       line-height: 1.8em;
       letter-spacing: 0.1em;
       color: #fff;
@@ -106,19 +107,23 @@ export const base = css`
     }
     .title {
       p {
-        font-size: 3rem;
-        margin-bottom: 8px;
+        font-size: 3.4rem;
+        margin-bottom: 24px;
       }
       span {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
+      }
+      .notPc {
+        display: none;
       }
     }
     .name {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
+      margin-top: 24px;
     }
   }
 
-  @media ${mq.pc_gt} {
+  /* @media ${mq.pc_gt} {
     height: 340px;
     .title {
       p {
@@ -130,5 +135,5 @@ export const base = css`
       margin-top: 24px;
       font-size: 1.4rem;
     }
-  }
+  } */
 `;
