@@ -33,7 +33,7 @@ const Component: React.FC<Props> = (props: Props) => (
     <div className="panel">
       {(() => {
         switch (props.chartType) {
-          case 'rader':
+          case 'radar':
             return (
               <RaderChart
                 className="chart"

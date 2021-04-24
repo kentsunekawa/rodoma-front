@@ -14,8 +14,11 @@ export const base = css`
       padding-left: 0.2em;
       margin-bottom: 15px;
     }
+    &.-label {
+      justify-content: flex-start !important;
+    }
     &.-renge {
-      justify-content: space-between;
+      justify-content: space-between !important;
       align-items: center;
       align-content: center;
       color: ${({ theme }) => theme.themeColors.black};

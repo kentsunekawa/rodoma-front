@@ -46,7 +46,7 @@ const Component: React.FC<Props> = (props: Props) => (
     <div className="titleArea" ref={props.titleArea}>
       <div className="title">
         <p dangerouslySetInnerHTML={{ __html: props.messages[props.num].title }}></p>
-        <span dangerouslySetInnerHTML={{ __html: props.messages[props.num].subTitle }}></span>
+        {/* <span dangerouslySetInnerHTML={{ __html: props.messages[props.num].subTitle }}></span> */}
       </div>
       <p className="name">{props.messages[props.num].name}</p>
     </div>
@@ -75,32 +75,31 @@ const messages: Message[] = [
     image: '/img/fvBg_02.jpg',
   },
   {
-    title: 'If you can dream it,<br>you can do it.',
+    title: 'If you can dream it, you can do it.',
     subTitle: '夢見ることができれば、それは実現できる。',
     name: 'Walt Disney',
     image: '/img/fvBg_03.jpg',
   },
-
+  // {
+  //   title: 'I have not failed. <br>I’ve just found 10,000 ways that won’t work.',
+  //   subTitle: '失敗なんかしちゃいない。うまくいかない方法を一万通り見つけただけだ。',
+  //   name: 'Thomas A. Edison',
+  //   image: '/img/fvBg_04.jpg',
+  // },
+  // {
+  //   title: 'Life is either a great adventure <br class="notPc">or nothing.',
+  //   subTitle: '人生とは、果敢なる冒険かそれともつまらぬもののどちらかです。',
+  //   name: 'Helen Keller',
+  //   image: '/img/fvBg_05.jpg',
+  // },
   {
-    title: 'I have not failed. <br>I’ve just found 10,000 ways that won’t work.',
-    subTitle: '失敗なんかしちゃいない。うまくいかない方法を一万通り見つけただけだ。',
-    name: 'Thomas A. Edison',
-    image: '/img/fvBg_04.jpg',
-  },
-  {
-    title: 'Life is either a great adventure or nothing.',
-    subTitle: '人生とは、果敢なる冒険かそれともつまらぬもののどちらかです。',
-    name: 'Helen Keller',
-    image: '/img/fvBg_05.jpg',
-  },
-  {
-    title: 'It’s all about the journey, <br>not the outcome.',
+    title: 'It’s all about the journey, not the outcome.',
     subTitle: 'すべては過程だ。結果ではない。',
     name: 'Carl Lewis',
     image: '/img/fvBg_06.jpg',
   },
   {
-    title: 'He who moves not forward, <br>goes backward.',
+    title: 'He who moves not forward, <br class="notPc">goes backward.',
     subTitle: '前進をしない人は、後退をしているのだ。',
     name: 'Johann Wolfgang von Goethe',
     image: '/img/fvBg_07.jpg',

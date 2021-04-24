@@ -67,6 +67,11 @@ const Component: React.FC<Props> = (props: Props) => (
                 <Paragraph types={['center', 'nega', 'catchText']}>サインアウト</Paragraph>
               </button>
             </li>
+            <li className="item">
+              <Link to="/about" onClick={props.closeFunc}>
+                <Paragraph types={['center', 'nega', 'catchText']}>rodoma とは</Paragraph>
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
@@ -89,15 +94,20 @@ const Component: React.FC<Props> = (props: Props) => (
                 <Paragraph types={['center', 'nega', 'catchText']}>ユーザーを探す</Paragraph>
               </Link>
             </li>
+            <li className="item">
+              <Link to="/about" onClick={props.closeFunc}>
+                <Paragraph types={['center', 'nega', 'catchText']}>rodoma とは</Paragraph>
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
     )}
-    <div className="bottom">
+    {/* <div className="bottom">
       <Link to="/about" onClick={props.closeFunc}>
         <Paragraph types={['center', 'nega', 'catchText']}>rodoma とは</Paragraph>
       </Link>
-    </div>
+    </div> */}
   </div>
 );
 

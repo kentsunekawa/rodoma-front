@@ -31,7 +31,7 @@ export const base = css`
 
   .title {
     position: absolute;
-    left: 50%;
+    left: calc(50% + 30px);
     top: 50%;
     z-index: 2;
     display: block;
@@ -44,13 +44,18 @@ export const base = css`
     letter-spacing: 0.08em;
     color: ${({ theme }) => theme.colors.white};
     text-shadow: #000 0px 2px 5px;
-
+    opacity: 0;
+    transition: opacity 1s 0.3s, left 1s 0.3s;
     .name {
       font-size: 120%;
       font-weight: 500;
       span {
         font-size: 60%;
       }
+    }
+    &.-show {
+      opacity: 1;
+      left: 50%;
     }
   }
 

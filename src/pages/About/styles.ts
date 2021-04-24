@@ -118,6 +118,7 @@ export const base = css`
       font-size: 2rem;
       color: #fff;
       display: block;
+      width: 100%;
       text-align: center;
       margin-bottom: 32px;
     }
@@ -177,6 +178,7 @@ export const base = css`
     }
     .Outro {
       .Outro__title {
+        width: auto;
         margin: 0 40px 0 0;
       }
     }

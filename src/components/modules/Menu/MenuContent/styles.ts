@@ -24,6 +24,10 @@ export const base = css`
         & > .item {
           text-align: center;
           margin-bottom: 24px;
+          &:last-child {
+            margin-top: 56px;
+            margin-bottom: 0;
+          }
         }
       }
     }
