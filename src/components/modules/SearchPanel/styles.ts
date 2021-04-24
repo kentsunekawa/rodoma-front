@@ -11,7 +11,7 @@ export const base = css`
   width: 100%;
   height: 100vh;
   ${Gradient}
-  padding: 130px 20px 30px;
+  padding: 130px 20px 150px;
   overflow-y: scroll;
   & > .keywordArea {
     position: fixed;
@@ -37,7 +37,7 @@ export const base = css`
   }
 
   @media ${mq.tbMin_gt} {
-    padding: 200px 40px 30px;
+    padding: 200px 40px 60px;
     & > .keywordArea {
       padding: 130px 40px 0;
     }
