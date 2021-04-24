@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Styled from 'styled-components';
+import { isDoorShownSelector } from 'state/modules/app';
 import * as styles from './styles';
 
 // component root class name
@@ -10,15 +12,16 @@ interface ComponentProps {
   className?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Props extends ComponentProps {}
+interface Props extends ComponentProps {
+  isTitleShow: boolean;
+}
 
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="bg"></div>
     <div className="overlay"></div>
-    <h1 className="title">
+    <h1 className={`title${props.isTitleShow ? ' -show' : ''}`}>
       <span className="name">
         rodoma<span>（ロドマ）</span>
       </span>
@@ -40,8 +43,14 @@ const StyeldComponent = Styled(Component)`
 
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
-  const props = {};
+  const isDoorShown = useSelector(isDoorShownSelector);
+  const [isTitleShow, setIsTitleShow] = useState<boolean>(false);
 
+  useEffect(() => {
+    setIsTitleShow(!isDoorShown);
+  }, [isDoorShown]);
+
+  const props = { isTitleShow };
   return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
 };
 export default Container;
