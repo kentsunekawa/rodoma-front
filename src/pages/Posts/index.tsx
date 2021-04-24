@@ -134,12 +134,12 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isMouted.current) {
-      // if (isSignUpComplete) {
-      timer = setTimeout(() => {
-        dispatch(setModal('signUpComplete'));
-        dispatch(setIsSignupComplete(false));
-      }, 3000);
-      // }
+      if (isSignUpComplete) {
+        timer = setTimeout(() => {
+          dispatch(setModal('signUpComplete'));
+          dispatch(setIsSignupComplete(false));
+        }, 3000);
+      }
     }
     return () => {
       clearInterval(timer);

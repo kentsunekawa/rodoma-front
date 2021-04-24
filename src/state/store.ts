@@ -5,12 +5,16 @@ import userReducer from './modules/user';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const createStore = () => {
+  const middlewares = [...getDefaultMiddleware()];
+  if (process.env.NODE_ENV !== 'production') {
+    middlewares.push(logger);
+  }
   return configureStore({
     reducer: combineReducers({
       app: appReducer,
       user: userReducer,
     }),
-    middleware: [...getDefaultMiddleware(), logger],
+    middleware: middlewares,
   });
 };
 

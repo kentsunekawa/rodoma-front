@@ -70,6 +70,7 @@ export const VALIDATE_ERROR_MESSAGES = {
   post_title_required: 'タイトルは必須です',
   post_title_over: 'タイトルは100文字以下で入力してください',
   subject_title_over: '30文字以下で入力してください',
+  subject_title_used: '他の項目と同じタイトルはつけられません',
   subject_start: '0から99の間の数字で必ず入力してください',
   subject_end: '1から100の間の数字で必ず入力してください',
   subject_end_less: '「Start」より大きな数字を入力してください',
