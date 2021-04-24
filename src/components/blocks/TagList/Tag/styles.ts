@@ -9,6 +9,7 @@ export const base = css`
   background: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.themeColors.gray_midium};
   border: 1px solid ${({ theme }) => theme.themeColors.gray_midium};
+
   & > .inner {
     display: flex;
     align-items: center;
@@ -26,8 +27,13 @@ export const base = css`
     }
     & > .text {
       font-size: 1.2rem;
-      line-height: 24px;
-      display: block;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      /* padding-top: 0.1em; */
+      height: 100%;
+      line-height: 26px;
     }
   }
   @media ${mq.tbMin_gt} {
@@ -64,4 +70,27 @@ export const gradient = css`
   ${Gradient}
   color: ${({ theme }) => theme.colors.white};
   border: none;
+`;
+
+export const s = css`
+  height: 22px !important;
+  & > .inner {
+    & > .text {
+      font-size: 1.2rem;
+      line-height: 22px;
+    }
+  }
+  @media ${mq.tbMin_gt} {
+    & > .inner {
+      & > .text {
+        font-size: 1rem;
+      }
+    }
+  }
+`;
+
+export const simple = css`
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  color: ${({ theme }) => theme.colors.black};
 `;

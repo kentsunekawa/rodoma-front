@@ -24,6 +24,7 @@ export const base = css`
     padding: 0 1.5em 0 1em;
     color: inherit;
     font-size: inherit;
+    line-height: 46px;
     cursor: pointer;
     &:focus {
       outline: none;

@@ -22,6 +22,7 @@ export const base = css`
     justify-content: flex-start;
     align-content: center;
     align-items: center;
+    line-height: 26px;
   }
   & > .icon {
     position: absolute;

@@ -11,6 +11,7 @@ export const base = css`
   background: ${({ theme }) => theme.bg};
   ${WithShadow}
   border: ${({ theme }) => theme.border};
+
   & > .nav {
     position: absolute;
     z-index: 1;
@@ -41,6 +42,16 @@ export const base = css`
       height: 135px;
       background: ${({ theme }) => theme.colors.gray_light};
       overflow: hidden;
+      & > .category {
+        position: absolute;
+        left: 5px;
+        bottom: 5px;
+        z-index: 1;
+        width: calc(100% - 70px);
+        .item {
+          margin-bottom: 0;
+        }
+      }
       & > .image {
         position: absolute;
         top: 0;

@@ -1,14 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { PostData_overview } from 'types';
-import { RELEASE_STATUS } from 'utils';
+import { createCategoryTagList, RELEASE_STATUS } from 'utils';
+import { categoryTreeSelector } from 'state/modules/app';
 
 import UserBlock from 'components/blocks/UserBlock';
 import Paragraph from 'components/elements/Paragraph';
 import StatusCounter from 'components/elements/StatusCounter';
 import CircleButton from 'components/elements/buttons/CircleButton';
+import TagList from 'components/blocks/TagList';
 import Tag from 'components/blocks/TagList/Tag';
 import { IconClose, IconEdit, IconMinus } from 'components/elements/icons';
 
@@ -22,12 +25,13 @@ interface ComponentProps {
   post: PostData_overview;
   editable?: boolean;
   statusVisible?: boolean;
+  className?: string;
   onDelete?: (id: number) => void;
   onRemove?: (id: number) => void;
-  className?: string;
 }
 
 interface Props extends ComponentProps {
+  tabTextList: string[];
   onClickDeleteButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onClickRemoveButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
@@ -57,7 +61,7 @@ const Component: React.FC<Props> = (props: Props) => (
     <Link className="link" to={`/roadmaps/${props.post.id}`}>
       {props.statusVisible && (
         <div className="status">
-          <Tag value={RELEASE_STATUS[props.post.release_status]} types={['gradient']} />
+          <Tag value={RELEASE_STATUS[props.post.release_status]} types={['gradient', 's']} />
         </div>
       )}
       <div className="imageArea">
@@ -96,6 +100,9 @@ const StyeldComponent = Styled(Component)`
 const Container: React.FC<ComponentProps> = (componentProps) => {
   const { onDelete, onRemove, post } = componentProps;
 
+  const categoryTree = useSelector(categoryTreeSelector);
+  const tabTextList = createCategoryTagList(post.category_id, post.specialty_id, categoryTree);
+
   const onClickDeleteButton = () => {
     onDelete && onDelete(post.id);
   };
@@ -105,6 +112,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   };
 
   const props = {
+    tabTextList,
     onClickDeleteButton,
     onClickRemoveButton,
   };

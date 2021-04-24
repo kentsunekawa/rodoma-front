@@ -6,26 +6,31 @@ import * as styles from './styles';
 const CLASSNAME = 'Tag';
 
 // declare types
-export type StyleType = 'primary' | 'gradient' | 'success' | 'error';
+export type StyleType = 'primary' | 'gradient' | 'success' | 'error' | 'simple' | 's';
 
 interface ComponentProps {
+  maxLength?: number;
   className?: string;
   types?: StyleType[];
   value: string;
   icon?: React.ReactNode;
 }
 
+interface Props extends ComponentProps {
+  text: string;
+}
+
 // dom component
-const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
+const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     {props.icon ? (
       <div className="inner -withIcon">
         <span className="icon">{props.icon}</span>
-        <span className="text">{props.value}</span>
+        <span className="text">{props.text}</span>
       </div>
     ) : (
       <div className="inner">
-        <span className="text">{props.value}</span>
+        <span className="text">{props.text}</span>
       </div>
     )}
   </div>
@@ -40,6 +45,19 @@ const StyeldComponent = Styled(Component)`
 
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
-  return <StyeldComponent {...componentProps}></StyeldComponent>;
+  const { value, maxLength } = componentProps;
+
+  const text = (() => {
+    if (maxLength !== undefined) {
+      if (value.length > maxLength) {
+        return `${value.slice(0, maxLength)}…`;
+      }
+    }
+    return value;
+  })();
+
+  const props = { text };
+
+  return <StyeldComponent {...componentProps} {...props}></StyeldComponent>;
 };
 export default Container;

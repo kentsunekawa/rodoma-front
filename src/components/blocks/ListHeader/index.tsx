@@ -52,7 +52,7 @@ const Component: React.FC<Props> = (props: Props) => (
       <div className="breadCrumb">
         <ToggleTagList
           separator=">"
-          types={['inlineBlock']}
+          types={['oneLine']}
           list={props.breadCrumbList}
           icon={<IconClose />}
           onClick={props.deleteBreadCrumb}

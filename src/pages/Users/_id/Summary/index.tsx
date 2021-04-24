@@ -66,7 +66,7 @@ const Component: React.FC<Props> = (props: Props) => (
           />
         </div>
         <div className="category">
-          <TagList values={props.categoryList} tagTypes={['gradient']} />
+          <TagList values={props.categoryList} tagTypes={['gradient']} types={['center']} />
         </div>
         {props.snsListData && (
           <div className="snsList">

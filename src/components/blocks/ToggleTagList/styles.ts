@@ -30,3 +30,19 @@ export const inlineBlock = css`
     }
   }
 `;
+
+export const oneLine = css`
+  & > .list {
+    flex-wrap: nowrap;
+    & > .item {
+      .ToggleTag {
+        .inner {
+          display: -webkit-box;
+          overflow: hidden;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+        }
+      }
+    }
+  }
+`;
