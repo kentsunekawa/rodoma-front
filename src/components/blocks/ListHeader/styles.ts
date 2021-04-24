@@ -14,6 +14,9 @@ export const base = css`
   }
   & > .breadCrumb {
     margin-top: 10px;
+    .tagList {
+      width: 100%;
+    }
   }
   & > .bottom {
     width: 100%;

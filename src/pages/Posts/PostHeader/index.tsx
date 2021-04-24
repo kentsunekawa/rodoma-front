@@ -55,7 +55,12 @@ const Component: React.FC<Props> = (props: Props) => (
         <Paragraph className="title" types={['subTitle']}>
           {props.post.title}
         </Paragraph>
-        <TagList tagTypes={['gradient']} types={['alignLeft']} values={props.tabTextList} />
+        <TagList
+          tagTypes={['gradient']}
+          types={['alignLeft']}
+          values={props.tabTextList}
+          // maxLength={7}
+        />
       </div>
       <div className="iconArea">
         {props.editable ? (

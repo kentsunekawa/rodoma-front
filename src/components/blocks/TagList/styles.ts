@@ -5,7 +5,6 @@ export const base = css`
     display: flex;
     justify-content: center;
     & > .item {
-      padding: 0 2px;
       margin-bottom: 3px;
     }
   }
@@ -32,8 +31,10 @@ export const alignRight = css`
 export const center = css`
   & > .list {
     flex-wrap: wrap;
+    justify-content: center;
     & > .item {
-      width: 100%;
+      margin-left: 3px;
+      margin-right: 3px;
       .Tag {
         width: 100%;
       }

@@ -9,6 +9,7 @@ export const base = css`
     position: fixed;
     left: 20px;
     bottom: 20px;
+    z-index: 30;
   }
 
   @media ${mq.pc_gt} {

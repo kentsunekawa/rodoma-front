@@ -10,6 +10,7 @@ const CLASSNAME = 'TagList';
 type StyleType = 'alignLeft' | 'alignRight' | 'center';
 
 interface ComponentProps {
+  maxLength?: number;
   values: string[];
   tagTypes: TagStyleType[];
   className?: string;
@@ -23,7 +24,7 @@ const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
       {props.values.map((value, i) => {
         return (
           <li key={i} className="item">
-            <Tag types={props.tagTypes} value={value} />
+            <Tag types={props.tagTypes} value={value} maxLength={props.maxLength} />
           </li>
         );
       })}

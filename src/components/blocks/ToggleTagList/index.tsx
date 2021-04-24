@@ -7,10 +7,11 @@ import ToggleTag from 'components/blocks/ToggleTagList/ToggleTag';
 // component root class name
 const CLASSNAME = 'ToggleTagList';
 
-type StyleType = 'inlineBlock';
+type StyleType = 'inlineBlock' | 'oneLine';
 
 // declare types
 interface ComponentProps {
+  isOneLine?: boolean;
   separator?: string;
   list: {
     id: number;
