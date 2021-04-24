@@ -61,7 +61,7 @@ export const base = css`
     position: fixed;
     bottom: 0;
     left: 50%;
-    z-index: 100;
+    z-index: 60;
     padding-bottom: 20px;
     width: 100%;
     max-width: 400px;
