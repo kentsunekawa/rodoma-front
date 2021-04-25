@@ -26,6 +26,14 @@ export const Wrapper = Styled.div`
           background: #333;
         }
       }
+      &.-alignMiddle{
+        align-content: center;
+        align-items: center;
+      }
+      &.-alignBottom{
+        align-content: flex-end;
+        align-items: flex-end;
+      }
     }
   }
 `;

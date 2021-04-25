@@ -6,7 +6,7 @@ import { AspectFix } from 'components/style/Mixins';
 const CLASSNAME = 'UserIcon';
 
 // declare types
-interface ComponentProps {
+export interface ComponentProps {
   className?: string;
   url?: string;
   alt?: string;
@@ -24,7 +24,8 @@ const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
 const StyeldComponent = Styled(Component)`
   ${AspectFix}
   border-radius: 50%;
-  overflow: hidden;  
+  overflow: hidden;
+  width: 40px;
   & > .inner{
     position: absolute;
     left: 0;

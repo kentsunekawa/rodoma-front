@@ -6,6 +6,7 @@ export const base = css`
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
+  justify-content: center;
   & > .name {
     display: block;
     text-align: center;
@@ -17,7 +18,11 @@ export const base = css`
   & > .icon {
     position: relative;
     width: 34px;
+    & > .userIcon {
+      width: 100%;
+    }
     & > .button {
+      width: 100%;
       position: absolute;
       right: 0;
       top: 0;

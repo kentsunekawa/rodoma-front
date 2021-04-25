@@ -76,8 +76,8 @@ const Component: React.FC<Props> = (props: Props) => (
           {props.post.title}
         </Paragraph>
         <div className="status">
-          <StatusCounter StatusType="like" num={props.post.likes_count} />
-          <StatusCounter StatusType="mark" num={props.post.marks_count} />
+          <StatusCounter statusType="like" num={props.post.likes_count} />
+          <StatusCounter statusType="mark" num={props.post.marks_count} />
         </div>
         <div className="user">
           <UserBlock
