@@ -27,9 +27,8 @@ Default.storyName = 'Default';
 
 export const NoBorder = Template.bind({});
 NoBorder.args = {
-  value: 'aaaa',
   types: ['noBorder'],
-  placeholder: 'This is no border textarea.',
+  placeholder: 'This is borderless textarea.',
 };
 NoBorder.storyName = 'No Border';
 

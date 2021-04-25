@@ -25,6 +25,15 @@ export const Wrapper = Styled.div`
         &.-nega{
           background: #333;
         }
+        &.-gray{
+          background: #ddd;
+        }
+        &.-width30Per{
+          width: 30%;
+        }
+        &.-width20Per{
+          width: 20%;
+        }
       }
       &.-alignMiddle{
         align-content: center;

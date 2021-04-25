@@ -9,9 +9,6 @@ export default {
   onChange: {
     action: 'changed',
   },
-  args: {
-    value: 'value',
-  },
   argTypes: {
     value: {
       control: 'text',

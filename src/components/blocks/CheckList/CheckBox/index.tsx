@@ -8,7 +8,7 @@ const CLASSNAME = 'CheckBox';
 // declare types
 export type StyleType = 'nega' | 'outline';
 
-interface ComponentProps {
+export interface ComponentProps {
   isChecked: boolean;
   value: string | number;
   label: string;

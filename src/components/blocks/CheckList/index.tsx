@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Styled from 'styled-components';
 import * as styles from './styles';
 import CheckBox, { StyleType } from 'components/blocks/CheckList/CheckBox';
@@ -11,7 +11,7 @@ interface CheckListValues {
   label: string;
 }
 
-interface ComponentProps {
+export interface ComponentProps {
   name: string;
   values: CheckListValues[];
   selected: (number | string)[];
@@ -21,13 +21,29 @@ interface ComponentProps {
 }
 
 interface Props extends ComponentProps {
-  checkBoxes: React.ReactNode;
+  localSelected: (number | string)[];
+  onChildChange: (value: string | number) => void;
 }
 
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <ul className="list">{props.checkBoxes}</ul>
+    <ul className="list">
+      {props.values.map((value, i) => {
+        return (
+          <li className="item" key={i}>
+            <CheckBox
+              isChecked={props.localSelected.includes(value.value)}
+              value={value.value}
+              label={value.label}
+              name={props.name}
+              types={props.boxTypes}
+              onChange={props.onChildChange}
+            />
+          </li>
+        );
+      })}
+    </ul>
   </div>
 );
 
@@ -38,34 +54,22 @@ const StyeldComponent = Styled(Component)`
 
 // container component
 const Container: React.FC<ComponentProps> = (componentPrps) => {
-  const { name, values, boxTypes, selected, onChange } = componentPrps;
+  const { selected, onChange } = componentPrps;
+
+  const [localSelected, setLocalSelected] = useState<(number | string)[]>(selected);
 
   const onChildChange = (value: string | number) => {
-    const newSelected = selected.slice();
+    const newSelected = localSelected.slice();
     if (newSelected.includes(value)) {
       newSelected.splice(newSelected.indexOf(value), 1);
     } else {
       newSelected.push(value);
     }
+    setLocalSelected(newSelected);
     onChange(newSelected);
   };
 
-  const checkBoxes = values.map((value, i) => {
-    return (
-      <li className="item" key={i}>
-        <CheckBox
-          isChecked={selected.includes(value.value)}
-          value={value.value}
-          label={value.label}
-          name={name}
-          types={boxTypes}
-          onChange={onChildChange}
-        />
-      </li>
-    );
-  });
-
-  const props = { checkBoxes };
+  const props = { localSelected, onChildChange };
 
   return <StyeldComponent {...componentPrps} {...props} />;
 };

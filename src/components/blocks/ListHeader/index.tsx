@@ -17,7 +17,7 @@ const CLASSNAME = 'ListHeader';
 
 // declare types
 
-interface ComponentProps {
+export interface ComponentProps {
   title: string;
   sortKeys: {
     value: string;
@@ -27,7 +27,7 @@ interface ComponentProps {
   className?: string;
 }
 
-interface Props extends ComponentProps {
+export interface Props extends ComponentProps {
   searchQuery: SearchQuery;
   breadCrumbList: BreadCrumbList;
   deleteBreadCrumb: (id: number) => void;
@@ -36,50 +36,54 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = (props: Props) => (
-  <div className={`${CLASSNAME} ${props.className}`}>
-    <div className="titleArea">
-      <Paragraph types={['title']}>{props.title}</Paragraph>
-      <Selector
-        selected={props.searchQuery.orderBy[props.listType]}
-        types={['s', 'primary']}
-        name="orderBy"
-        options={props.sortKeys}
-        onChange={props.changeSortKey}
-      />
-    </div>
-    {props.breadCrumbList.length > 0 && (
-      <div className="breadCrumb">
-        <ToggleTagList
-          separator=">"
-          types={['oneLine']}
-          list={props.breadCrumbList}
-          icon={<IconClose />}
-          onClick={props.deleteBreadCrumb}
+export const Component: React.FC<Props> = (props: Props) => {
+  console.log(props.searchQuery);
+
+  return (
+    <div className={`${CLASSNAME} ${props.className}`}>
+      <div className="titleArea">
+        <Paragraph types={['title']}>{props.title}</Paragraph>
+        <Selector
+          selected={props.searchQuery.orderBy[props.listType]}
+          types={['s', 'primary']}
+          name="orderBy"
+          options={props.sortKeys}
+          onChange={props.changeSortKey}
         />
       </div>
-    )}
-    <div className="bottom">
-      {props.searchQuery.keyword.keyword !== '' && (
-        <div className="keywordArea">
-          <p className="keyword">
-            Keyword: <span>{props.searchQuery.keyword.keyword}</span>
-          </p>
-          <CircleButton
-            onClick={props.deleteKeyword}
-            types={['xxs', 'gray_light']}
-            className="removeKeyword"
-          >
-            <IconClose />
-          </CircleButton>
+      {props.breadCrumbList.length > 0 && (
+        <div className="breadCrumb">
+          <ToggleTagList
+            separator=">"
+            types={['oneLine']}
+            list={props.breadCrumbList}
+            icon={<IconClose />}
+            onClick={props.deleteBreadCrumb}
+          />
         </div>
       )}
+      <div className="bottom">
+        {props.searchQuery.keyword.keyword !== '' && (
+          <div className="keywordArea">
+            <p className="keyword">
+              Keyword: <span>{props.searchQuery.keyword.keyword}</span>
+            </p>
+            <CircleButton
+              onClick={props.deleteKeyword}
+              types={['xxs', 'gray_light']}
+              className="removeKeyword"
+            >
+              <IconClose />
+            </CircleButton>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // styled component
-const StyeldComponent = Styled(Component)`
+export const StyeldComponent = Styled(Component)`
   ${styles.base}
 `;
 

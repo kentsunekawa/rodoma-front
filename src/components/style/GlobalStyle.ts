@@ -5,7 +5,7 @@ import { mq } from 'components/style/AppTheme';
 const GlobalStyle = createGlobalStyle`
   ${reset}
   *{
-    box-sizing: border-box; 
+    box-sizing: border-box;
     padding: 0;
     margin: 0;
     overflow-wrap:  break-word;
@@ -13,6 +13,10 @@ const GlobalStyle = createGlobalStyle`
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
+    *:before,
+    *:after{
+      box-sizing: border-box;
+    }
   }
 
   html{

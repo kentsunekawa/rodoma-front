@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import Accordion, { ComponentProps } from 'components/blocks/Accordion';
 
 export default {
-  title: 'Elements/Accordion/Accordion',
+  title: 'Blocks/Accordion/Accordion',
   component: Accordion,
   argTypes: {
     onClick: {

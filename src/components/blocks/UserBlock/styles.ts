@@ -18,7 +18,7 @@ export const base = css`
   & > .icon {
     position: relative;
     width: 34px;
-    & > .userIcon {
+    .userIcon {
       width: 100%;
     }
     & > .button {
