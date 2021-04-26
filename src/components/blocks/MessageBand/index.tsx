@@ -17,7 +17,7 @@ interface ComponentProps {
   messageType?: MessageType;
 }
 
-interface Props extends ComponentProps {
+export interface Props extends ComponentProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -44,7 +44,7 @@ const Component: React.FC<Props> = (props: Props) => (
 );
 
 // styled component
-const StyeldComponent = Styled(Component)`
+export const StyeldComponent = Styled(Component)`
   ${styles.base}
   ${({ messageType }) => messageType && styles[messageType]}
 `;

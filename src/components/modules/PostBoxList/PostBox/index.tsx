@@ -11,7 +11,6 @@ import UserBlock from 'components/blocks/UserBlock';
 import Paragraph from 'components/elements/Paragraph';
 import StatusCounter from 'components/elements/StatusCounter';
 import CircleButton from 'components/elements/buttons/CircleButton';
-import TagList from 'components/blocks/TagList';
 import Tag from 'components/blocks/TagList/Tag';
 import { IconClose, IconEdit, IconMinus } from 'components/elements/icons';
 
@@ -21,7 +20,7 @@ import * as styles from './styles';
 const CLASSNAME = 'PostBox';
 
 // declare types
-interface ComponentProps {
+export interface ComponentProps {
   post: PostData_overview;
   editable?: boolean;
   statusVisible?: boolean;

@@ -52,23 +52,23 @@ S.args = {
 };
 S.storyName = 'S';
 
-export const AlighLeft = Template.bind({});
-AlighLeft.args = {
+export const AlignLeft = Template.bind({});
+AlignLeft.args = {
   types: ['iconLeft', 'm'],
   icon_url: 'https://img.rodoma.net/img/user/icon/default.jpg',
 };
-AlighLeft.storyName = 'AlighLeft';
+AlignLeft.storyName = 'AlignLeft';
 
-export const AlighRight = Template.bind({});
-AlighRight.args = {
+export const AlignRight = Template.bind({});
+AlignRight.args = {
   types: ['iconRight', 'm'],
   icon_url: 'https://img.rodoma.net/img/user/icon/default.jpg',
 };
-AlighRight.storyName = 'AlighRight';
+AlignRight.storyName = 'AlignRight';
 
 export const alignCenter = Template.bind({});
 alignCenter.args = {
   types: ['alignCenter', 'm'],
   icon_url: 'https://img.rodoma.net/img/user/icon/default.jpg',
 };
-alignCenter.storyName = 'alignCenter';
+alignCenter.storyName = 'AlignCenter';

@@ -10,7 +10,7 @@ const CLASSNAME = 'LoadingBlock';
 
 // declare types
 
-interface ComponentProps {
+export interface ComponentProps {
   className?: string;
 }
 

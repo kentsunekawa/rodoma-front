@@ -1,10 +1,10 @@
 import React from 'react';
-
 import { Story, Meta } from '@storybook/react/types-6-0';
 import Accordion, { ComponentProps } from 'components/blocks/Accordion';
+import * as StyledElements from 'stories/StyledElements';
 
 export default {
-  title: 'Blocks/Accordion/Accordion',
+  title: 'Blocks/Accordion',
   component: Accordion,
   argTypes: {
     onClick: {
@@ -13,9 +13,9 @@ export default {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: '500px', backgroundColor: '#333', padding: '20px' }}>
+      <StyledElements.Wrapper className="-gradient" style={{ width: '500px', padding: '40px' }}>
         <Story />
-      </div>
+      </StyledElements.Wrapper>
     ),
   ],
 } as Meta;
@@ -53,4 +53,4 @@ Default.args = {
   ],
 };
 
-Default.storyName = 'Accordion';
+Default.storyName = 'Default';

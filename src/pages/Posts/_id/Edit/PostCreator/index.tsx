@@ -19,7 +19,7 @@ import PostDelete from './PostDelete';
 import PostCreatorNav from './PostCreatorNav';
 import Exit from './Exit';
 import Release from './Release';
-import PostHeader from '../../../PostHeader';
+import PostHeader from '../../../../../components/blocks/PostHeader';
 
 // component root class name
 const CLASSNAME = 'PostCreator';

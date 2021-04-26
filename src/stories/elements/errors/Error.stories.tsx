@@ -3,7 +3,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import Error, { ComponentProps } from 'components/elements/Error';
 import TextInput from 'components/elements/inputs/TextInput';
-import * as TextInputStories from 'stories/inputs/TextInput.stories';
+import * as TextInputStories from 'stories/elements/inputs/TextInput.stories';
 
 export default {
   title: 'Elements/Errors/Validation Error',

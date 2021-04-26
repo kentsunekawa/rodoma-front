@@ -8,7 +8,7 @@ const CLASSNAME = 'Tag';
 // declare types
 export type StyleType = 'primary' | 'gradient' | 'success' | 'error' | 'simple' | 's';
 
-interface ComponentProps {
+export interface ComponentProps {
   maxLength?: number;
   className?: string;
   types?: StyleType[];

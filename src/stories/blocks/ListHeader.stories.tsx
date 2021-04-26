@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { StyeldComponent, Props } from 'components/blocks/ListHeader';
 
 export default {
-  title: 'Blocks/ListHeader/ListHeader',
+  title: 'Blocks/ListHeader',
   component: StyeldComponent,
   argTypes: {
     deleteBreadCrumb: {
@@ -18,7 +18,7 @@ export default {
     },
   },
   args: {
-    title: 'タイトルタイトル',
+    title: 'リストのタイトル',
     sortKeys: [
       {
         value: 'like',
@@ -50,7 +50,7 @@ export default {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: '400px' }}>
+      <div style={{ width: '100%', maxWidth: '800px', margin: '0 auto', paddingBottom: '40px' }}>
         <Story />
       </div>
     ),

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
 import * as styles from './styles';
 import CheckBox, { StyleType } from 'components/blocks/CheckList/CheckBox';
@@ -68,6 +68,10 @@ const Container: React.FC<ComponentProps> = (componentPrps) => {
     setLocalSelected(newSelected);
     onChange(newSelected);
   };
+
+  useEffect(() => {
+    setLocalSelected(selected);
+  }, [selected]);
 
   const props = { localSelected, onChildChange };
 

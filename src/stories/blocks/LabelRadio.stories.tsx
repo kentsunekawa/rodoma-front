@@ -10,10 +10,15 @@ export default {
     onChange: {
       action: 'change',
     },
+    selected: {
+      control: {
+        type: 'radio',
+        options: [0, 1, 2, 3, 4, 5, 6, 7],
+      },
+    },
   },
   args: {
     values: [0, 1, 2, 3, 4, 5, 6, 7],
-    selected: 4,
   },
   decorators: [
     (Story) => (
@@ -28,3 +33,4 @@ const Template: Story<ComponentProps> = (args) => <LabelRadio {...args}></LabelR
 
 export const Default = Template.bind({});
 Default.args = {};
+Default.storyName = 'Default';

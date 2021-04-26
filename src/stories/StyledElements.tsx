@@ -1,6 +1,10 @@
 import Styled from 'styled-components';
+import { Gradient } from 'components/style/Mixins';
 
 export const Wrapper = Styled.div`
+  &.-gradient {
+    ${Gradient}
+  }
   & > .component{
     margin-bottom: 30px;
     & > .label{
@@ -28,6 +32,13 @@ export const Wrapper = Styled.div`
         &.-gray{
           background: #ddd;
         }
+        &.-icon{
+          svg{
+            display: block;
+            width: 1em;
+            font-size: 3rem;
+          }
+        }
         &.-width30Per{
           width: 30%;
         }
@@ -45,4 +56,13 @@ export const Wrapper = Styled.div`
       }
     }
   }
+`;
+
+export const SampleButton = Styled.button`
+  display: block;
+  padding: 10px;
+  font-size: 1.4rem;
+  margin: 5px;
+  background: #efefef;
+  border-radius: 5px;
 `;

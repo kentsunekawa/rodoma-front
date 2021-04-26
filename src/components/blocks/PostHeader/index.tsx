@@ -13,7 +13,7 @@ import CircleButton from 'components/elements/buttons/CircleButton';
 import { IconEdit } from 'components/elements/icons';
 import { StyleType } from 'components/blocks/TagList/Tag';
 
-import PostEditStatus from '../_id/Edit/PostCreator/PostEditStatus';
+import PostEditStatus from '../../../pages/Posts/_id/Edit/PostCreator/PostEditStatus';
 import * as styles from './styles';
 
 // component root class name
@@ -21,7 +21,7 @@ const CLASSNAME = 'PostHeader';
 
 // declare types
 
-interface ComponentProps {
+export interface ComponentProps {
   isSaved?: boolean;
   isAuthor?: boolean;
   editable?: boolean;

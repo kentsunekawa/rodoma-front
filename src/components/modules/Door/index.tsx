@@ -13,7 +13,7 @@ import * as styles from './styles';
 const CLASSNAME = 'Door';
 
 // declare types
-interface ComponentProps {
+export interface ComponentProps {
   className?: string;
 }
 

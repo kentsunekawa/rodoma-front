@@ -2,16 +2,14 @@ import React from 'react';
 import Styled from 'styled-components';
 import * as styles from './styles';
 import ToggleTag from 'components/blocks/ToggleTagList/ToggleTag';
-// import IconClose from 'components/elements/icons';
 
 // component root class name
 const CLASSNAME = 'ToggleTagList';
 
-type StyleType = 'inlineBlock' | 'oneLine';
+type StyleType = 'oneLine';
 
 // declare types
-interface ComponentProps {
-  isOneLine?: boolean;
+export interface ComponentProps {
   separator?: string;
   list: {
     id: number;

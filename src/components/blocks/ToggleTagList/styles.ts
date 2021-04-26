@@ -6,6 +6,7 @@ export const base = css`
     flex-wrap: wrap;
     align-items: center;
     & > .item {
+      margin-bottom: 5px;
       & > .inner {
         display: flex;
         align-items: center;
@@ -23,18 +24,11 @@ export const base = css`
   }
 `;
 
-export const inlineBlock = css`
-  & > .list {
-    & > .item {
-      display: inline-block;
-    }
-  }
-`;
-
 export const oneLine = css`
   & > .list {
     flex-wrap: nowrap;
     & > .item {
+      margin-bottom: 0;
       .ToggleTag {
         .inner {
           display: -webkit-box;

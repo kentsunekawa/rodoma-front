@@ -16,7 +16,7 @@ interface TabChangerAction {
   payload: number;
 }
 
-interface ComponentProps {
+export interface ComponentProps {
   selected: number;
   children: React.ReactNode;
   className?: string;
