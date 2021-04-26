@@ -8,13 +8,15 @@ import {
   IconPinterest,
   IconInstagram,
   IconYoutube,
+  IconNote,
+  IconMixi,
 } from 'components/elements/icons';
 
 // component root class name
 const CLASSNAME = 'SnsLinkList';
 
 // declare types
-interface ComponentProps {
+export interface ComponentProps {
   className?: string;
   snsList: {
     id: number;
@@ -45,9 +47,9 @@ const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
                   case 6:
                     return <IconYoutube />;
                   case 7:
-                    return <IconTwitter />;
+                    return <IconNote />;
                   case 8:
-                    return <IconTwitter />;
+                    return <IconMixi />;
                 }
               })()}
             </a>

@@ -13,7 +13,7 @@ const CLASSNAME = 'UserBlock';
 // declare types
 type StyleType = 'm' | 's' | 'l' | 'iconLeft' | 'iconRight' | 'alignCenter';
 
-interface ComponentProps {
+export interface ComponentProps {
   linkable?: boolean;
   userId?: number;
   className?: string;
@@ -37,10 +37,10 @@ const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
       )}
       {props.linkable ? (
         <Link to={`/users/${props.userId}`}>
-          <UserIcon url={props.icon_url} />
+          <UserIcon url={props.icon_url} className="userIcon" />
         </Link>
       ) : (
-        <UserIcon url={props.icon_url} />
+        <UserIcon url={props.icon_url} className="userIcon" />
       )}
     </div>
     {props.userName && <p className="name">{props.userName}</p>}

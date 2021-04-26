@@ -14,7 +14,7 @@ interface Option {
   label: string;
 }
 
-interface ComponentProps {
+export interface ComponentProps {
   label?: string | undefined;
   name?: string;
   options: Option[];

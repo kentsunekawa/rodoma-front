@@ -13,7 +13,7 @@ const CLASSNAME = 'Message';
 
 // declare types
 
-interface ComponentProps {
+export interface ComponentProps {
   className?: string;
 }
 

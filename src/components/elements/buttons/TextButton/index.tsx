@@ -18,7 +18,7 @@ type StyleType =
   | 'block'
   | 'alignCenter';
 
-interface ComponentProps {
+export interface ComponentProps {
   className?: string;
   children: React.ReactNode;
   types?: StyleType[];

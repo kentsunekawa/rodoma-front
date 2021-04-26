@@ -18,7 +18,7 @@ interface CheckUserData {
   label: string;
 }
 
-interface ComponentProps {
+export interface ComponentProps {
   maxLength?: number;
   users: UserData_overview[];
   selectedUsers: UserData_overview[];

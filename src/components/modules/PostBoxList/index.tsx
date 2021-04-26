@@ -8,7 +8,7 @@ import PostBox from './PostBox';
 const CLASSNAME = 'PostBoxList';
 
 // declare types
-interface ComponentProps {
+export interface ComponentProps {
   posts: PostData_overview[];
   statusVisible?: boolean;
   editable?: boolean;

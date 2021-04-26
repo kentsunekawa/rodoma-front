@@ -21,9 +21,9 @@ export const base = css`
       margin: 0 auto;
     }
   }
-  ${AspectFix}
-  ${AbsCenterMiddle}
-    ${ButtonTapAction}
+  ${AspectFix};
+  ${AbsCenterMiddle};
+  ${ButtonTapAction};
 `;
 
 export const xxs = css`

@@ -7,7 +7,7 @@ import * as styles from './styles';
 const CLASSNAME = 'CircleButton';
 
 // declare types
-type StyleType =
+export type StyleType =
   | 'xxs'
   | 'xs'
   | 's'
@@ -22,14 +22,14 @@ type StyleType =
   | 'posi'
   | 'outline';
 
-interface ComponentProps {
+export interface ComponentProps {
   className?: string;
   types?: StyleType[];
   link?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-interface Props extends ComponentProps {
+export interface Props extends ComponentProps {
   children: React.ReactNode;
 }
 

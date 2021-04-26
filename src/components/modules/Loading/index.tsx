@@ -13,7 +13,7 @@ import Logo from 'components/elements/Logo';
 const CLASSNAME = 'Loading';
 
 // declare types
-interface ComponentProps {
+export interface ComponentProps {
   className?: string;
 }
 

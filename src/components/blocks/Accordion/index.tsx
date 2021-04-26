@@ -13,7 +13,7 @@ const CLASSNAME = 'Accordion';
 // declare types
 type StyleType = 'nega';
 
-interface ComponentProps {
+export interface ComponentProps {
   isOpen?: boolean;
   parent: {
     id: number;

@@ -22,7 +22,7 @@ import UserBlock from 'components/blocks/UserBlock';
 import TextInput from 'components/elements/inputs/TextInput';
 import TextArea from 'components/elements/inputs/TextArea';
 import Selector from 'components/elements/inputs/Selector';
-import { IconEdit, IconBan, IconChecked } from 'components/elements/icons';
+import { IconEdit, IconBan, IconCheck } from 'components/elements/icons';
 import CircleButton from 'components/elements/buttons/CircleButton';
 import RoundButton from 'components/elements/buttons/RoundButton';
 import ImgUploader from 'components/elements/ImgUploader';
@@ -107,7 +107,7 @@ const Component: React.FC<Props> = (props: Props) => (
               </div>
             ) : (
               <div className="caption -verified">
-                <IconChecked />
+                <IconCheck />
                 このメールアドレスは認証済です
               </div>
             )}

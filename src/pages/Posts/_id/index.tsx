@@ -19,7 +19,7 @@ import { IconGanttChart, IconComment, IconSummary } from 'components/elements/ic
 import Summary from './Summary';
 import Chart from './Chart';
 import Comments from './Comments';
-import PostHeader from '../PostHeader';
+import PostHeader from '../../../components/blocks/PostHeader';
 import PostNav from './PostNav';
 import * as styles from './styles';
 

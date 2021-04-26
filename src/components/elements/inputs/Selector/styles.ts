@@ -10,6 +10,7 @@ export const base = css`
   background: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.themeColors.black};
   font-size: 1.5rem;
+  width: 100%;
   & > .select {
     position: relative;
     z-index: 1;
