@@ -34,7 +34,8 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "format": "prettier --write ./src/components/**/*.{ts,tsx}"
+    "format": "prettier --write ./src/components/**/*.{ts,tsx}",
+    "lint": "$(npm bin)/eslint -c ./.eslintrc.json 'src/**/*.{ts,tsx}'"
   },
   "browserslist": {
     "production": [
