@@ -11,7 +11,7 @@ import { IconMinus } from 'components/elements/icons';
 const CLASSNAME = 'UsersList';
 
 // declare types
-interface ComponentProps {
+export interface ComponentProps {
   users: UserData_overview[];
   className?: string;
   onRemove?: (id: number) => void;

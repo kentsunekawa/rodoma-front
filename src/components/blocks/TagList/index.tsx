@@ -9,7 +9,7 @@ const CLASSNAME = 'TagList';
 // declare types
 type StyleType = 'alignLeft' | 'alignRight' | 'center';
 
-interface ComponentProps {
+export interface ComponentProps {
   maxLength?: number;
   values: string[];
   tagTypes: TagStyleType[];

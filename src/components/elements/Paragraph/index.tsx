@@ -23,7 +23,7 @@ type StyleType =
   | 'primary'
   | 'nega';
 
-interface ComponentProps {
+export interface ComponentProps {
   children: React.ReactNode;
   className?: string;
   types?: StyleType[];

@@ -38,4 +38,3 @@ export const base = css`
     }
   }
 `;
-export const nega = css``;

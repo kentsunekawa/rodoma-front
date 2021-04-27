@@ -7,7 +7,7 @@ import { IconSearch } from 'components/elements/icons';
 const CLASSNAME = 'SearchKeyword';
 
 // declare types
-interface ComponentProps {
+export interface ComponentProps {
   className?: string;
   placeholder?: string;
   value: string;

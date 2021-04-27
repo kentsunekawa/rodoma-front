@@ -22,7 +22,7 @@ import Logo from 'components/elements/Logo';
 const CLASSNAME = 'Header';
 
 // declare types
-interface ComponentProps {
+export interface ComponentProps {
   className?: string;
 }
 

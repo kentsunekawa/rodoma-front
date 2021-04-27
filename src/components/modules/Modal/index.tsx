@@ -16,7 +16,7 @@ const CLASSNAME = 'Modal';
 // declare types
 type StyleType = 'wide' | 'light';
 
-interface ComponentProps {
+export interface ComponentProps {
   closable?: boolean;
   modalName: string;
   className?: string;

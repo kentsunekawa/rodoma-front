@@ -10,10 +10,10 @@ const CLASSNAME = 'StatusCounter';
 // declare types
 type StatusType = 'like' | 'mark';
 
-interface ComponentProps {
+export interface ComponentProps {
   num: number;
   className?: string;
-  StatusType: StatusType;
+  statusType: StatusType;
 }
 
 // dom component
@@ -22,7 +22,7 @@ const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
     <div className="inner">
       <div className="icon">
         {(() => {
-          switch (props.StatusType) {
+          switch (props.statusType) {
             case 'like':
               return <IconLike />;
             case 'mark':
@@ -41,15 +41,11 @@ const Component: React.FC<ComponentProps> = (props: ComponentProps) => (
 const StyeldComponent = Styled(Component)`
   ${styles.base}
   // extended styles
-  ${({ StatusType }) => styles[StatusType]}
+  ${({ statusType }) => styles[statusType]}
 `;
 
 // container component
-const Container: React.FC<ComponentProps> = ({
-  num,
-  className = '',
-  StatusType,
-}: ComponentProps) => {
-  return <StyeldComponent {...{ num, className, StatusType }}></StyeldComponent>;
+const Container: React.FC<ComponentProps> = (componentProps) => {
+  return <StyeldComponent {...componentProps}></StyeldComponent>;
 };
 export default Container;

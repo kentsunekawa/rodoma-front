@@ -17,7 +17,7 @@ const CLASSNAME = 'Menu';
 
 // declare types
 
-interface ComponentProps {
+export interface ComponentProps {
   className?: string;
 }
 

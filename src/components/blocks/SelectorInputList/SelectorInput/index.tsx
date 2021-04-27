@@ -11,7 +11,7 @@ import { IconClose } from 'components/elements/icons';
 const CLASSNAME = 'SelectorInput';
 
 // declare types
-interface ComponentProps {
+export interface ComponentProps {
   index: number;
   name: string;
   onClickDelete: (index: number) => void;

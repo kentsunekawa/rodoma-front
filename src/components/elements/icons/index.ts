@@ -21,6 +21,8 @@ import IconCheck from './IconCheck';
 import IconInfo from './IconInfo';
 import IconMinus from './IconMinus';
 import IconTwitter from './IconTwitter';
+import IconNote from './IconNote';
+import IconMixi from './IconMixi';
 import IconFacebook from './IconFacebook';
 import IconLinkedin from './IconLinkedin';
 import IconInstagram from './IconInstagram';
@@ -32,7 +34,6 @@ import IconUser from './IconUser';
 import IconList from './IconList';
 import IconRelation from './IconRelation';
 import IconBan from './IconBan';
-import IconChecked from './IconChecked';
 import IconSummary from './IconSummary';
 import IconTrash from './IconTrash';
 import IconReload from './IconReload';
@@ -56,10 +57,11 @@ export {
   IconGanttChart,
   IconRight,
   IconDown,
-  IconCheck,
   IconInfo,
   IconMinus,
   IconTwitter,
+  IconNote,
+  IconMixi,
   IconFacebook,
   IconLinkedin,
   IconInstagram,
@@ -71,7 +73,7 @@ export {
   IconRelation,
   IconDisFollow,
   IconBan,
-  IconChecked,
+  IconCheck,
   IconSummary,
   IconTrash,
   IconLoading,

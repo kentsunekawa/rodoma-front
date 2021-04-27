@@ -17,7 +17,7 @@ const CLASSNAME = 'Card';
 
 // declare types
 
-interface ComponentProps {
+export interface ComponentProps {
   cardName: string;
   className?: string;
 }

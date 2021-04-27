@@ -6,7 +6,7 @@ import * as styles from './styles';
 const CLASSNAME = 'ToggleTag';
 
 // declare types
-interface ComponentProps {
+export interface ComponentProps {
   value: string;
   icon: React.ReactNode;
   className?: string;

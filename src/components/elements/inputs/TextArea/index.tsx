@@ -8,7 +8,7 @@ const CLASSNAME = 'TextArea';
 // declare types
 type StyleType = 's' | 'noBorder';
 
-interface ComponentProps {
+export interface ComponentProps {
   isMarkdownOk?: boolean;
   height?: number;
   value: string;

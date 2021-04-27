@@ -12,7 +12,7 @@ const CLASSNAME = 'Error';
 // declare types
 type StyleType = 'bottom' | 'nega';
 
-interface ComponentProps {
+export interface ComponentProps {
   messages?: string[];
   className?: string;
   types?: StyleType[];

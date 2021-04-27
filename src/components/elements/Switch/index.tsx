@@ -8,7 +8,7 @@ const CLASSNAME = 'Switch';
 // declare types
 type StyleType = 'primary';
 
-interface ComponentProps {
+export interface ComponentProps {
   isChecked: boolean;
   className?: string;
   types?: StyleType[];

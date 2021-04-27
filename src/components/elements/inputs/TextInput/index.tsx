@@ -8,7 +8,7 @@ const CLASSNAME = 'TextInput';
 // declare types
 type StyleType = 's';
 
-interface ComponentProps {
+export interface ComponentProps {
   required?: boolean;
   type?: 'text' | 'password';
   value: string | number;
