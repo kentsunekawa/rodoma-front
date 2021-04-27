@@ -1,8 +1,9 @@
-name: CI
+name: CI/CD
 on:
   push:
-    branches-ignore:
-      - main
+    branches: [main]
+  pull_request:
+    branches: [develop]
 jobs:
   unit-test:
     name: unit Test
@@ -30,3 +31,16 @@ jobs:
         run: npm ci
       - name: lint
         run: npm run lint
+  deploy:
+    name: deploy
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: [unit-test, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'will deploy'
+      # - uses: actions/checkout@v2
+      # - uses: akhileshns/heroku-deploy@v3.12.12
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_app_name: "YOUR APP's NAME"
+      #     heroku_email: 'YOUR EMAIL'
