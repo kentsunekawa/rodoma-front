@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RoundButton RoundButton のスナップショットテスト 1`] = `
+<div
+  className="RoundButton undefined"
+>
+  button
+</div>
+`;
+
+exports[`RoundButton snpashot test 1`] = `
+<div
+  className="RoundButton undefined"
+>
+  button
+</div>
+`;

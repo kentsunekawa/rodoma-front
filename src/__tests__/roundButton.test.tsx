@@ -1,7 +1,8 @@
 import React from 'react';
 // import { render, fireEvent, cleanup } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 import { render, fireEvent, cleanup } from 'components/TestWrapper';
-import RoundButton from 'components/elements/buttons/RoundButton';
+import RoundButton, { Component } from 'components/elements/buttons/RoundButton';
 
 let container: HTMLDivElement | null = null;
 
@@ -13,6 +14,14 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('RoundButton', () => {
+  test('RoundButton のスナップショットテスト', () => {
+    const props = {
+      clickFunc: jest.fn,
+    };
+    const tree = renderer.create(<Component {...props}>button</Component>).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
   test('ボタンテキストが正しく表示されているか', () => {
     const tree = render(<RoundButton>button</RoundButton>);
 
