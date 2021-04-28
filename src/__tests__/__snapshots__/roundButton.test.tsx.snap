@@ -7,11 +7,3 @@ exports[`RoundButton RoundButton のスナップショットテスト 1`] = `
   button
 </div>
 `;
-
-exports[`RoundButton snpashot test 1`] = `
-<div
-  className="RoundButton undefined"
->
-  button
-</div>
-`;
