@@ -5,9 +5,9 @@
 ## 概要
 
 - フロントエンド リポジトリ
-  ![rodoma-frontend](https://github.com/kentsunekawa/rodoma-frontend)
+  [rodoma-frontend](https://github.com/kentsunekawa/rodoma-frontend)
 - バックエンド リポジトリ
-  ![rodoma-backend](https://github.com/kentsunekawa/rodoma-backend)
+  [rodoma-backend](https://github.com/kentsunekawa/rodoma-backend)
 
 ## サービス紹介
 
@@ -21,15 +21,16 @@ rodoma は見る人にとっても投稿する人にとっても、キャリア�
 
 ## 主な機能一覧
 
-|ユーザー|新規登録、サインイン、サインアウト、ユーザー情報編集、メール認証、パスワードリセット|
-|投稿|閲覧、新規作成、保存、公開、限定公開、アイキャッチ画像設定|
-|投稿検索・ソート|キーワードで検索、カテゴリで検索、ソート（Like 数 / Mark 数 / 作成日）|
-|ユーザー検索・ソート|キーワードで検索、カテゴリで検索、ソート（フォロワー数 / 登録日）|
-|コメント|コメント作成、コメント削除|
-|Like（ライク）|良いと思った投稿に Like する、Like の解除|
-|Mark（マーク）|後で見たい投稿に Mark する、Mark の解除|
-|フォロー|フォロー、フォロー解除|
-|その他|無限スクロール、ライトモード / ダークモード|
+| ユーザー             | 新規登録、サインイン、サインアウト、ユーザー情報編集、メール認証、パスワードリセット |
+| -------------------- | ------------------------------------------------------------------------------------ |
+| 投稿                 | 閲覧、新規作成、保存、公開、限定公開、アイキャッチ画像設定                           |
+| 投稿検索・ソート     | キーワードで検索、カテゴリで検索、ソート（Like 数 / Mark 数 / 作成日）               |
+| ユーザー検索・ソート | キーワードで検索、カテゴリで検索、ソート（フォロワー数 / 登録日）                    |
+| コメント             | コメント作成、コメント削除                                                           |
+| Like（ライク）       | 良いと思った投稿に Like する、Like の解除                                            |
+| Mark（マーク）       | 後で見たい投稿に Mark する、Mark の解除                                              |
+| フォロー             | フォロー、フォロー解除                                                               |
+| その他               | 無限スクロール、ライトモード / ダークモード                                          |
 
 ## 技術・アーキテクチャ
 
@@ -41,22 +42,23 @@ rodoma は見る人にとっても投稿する人にとっても、キャリア�
 
 #### 使用技術
 
-|言語|TypeScript 4.1.2|
-|ライブラリ|React 17.0.1|
-|状態管理|Redux（Redux Toolkit）|
-|スタイリング|styled-components|
-|http クライアント|axios|
-|アニメーション|GSAP|
-|コンポーネント管理|Storybook|
-|テストフレームワーク|Jest|
-|リンター|ESlint|
-|コードフォーマッター|Prettier|
+| 言語                 | TypeScript 4.1.2       |
+| -------------------- | ---------------------- |
+| ライブラリ           | React 17.0.1           |
+| 状態管理             | Redux（Redux Toolkit） |
+| スタイリング         | styled-components      |
+| http クライアント    | axios                  |
+| アニメーション       | GSAP                   |
+| コンポーネント管理   | Storybook              |
+| テストフレームワーク | Jest                   |
+| リンター             | ESlint                 |
+| コードフォーマッター | Prettier               |
 
 #### storybook
 
 コンポーネントは Storybook で管理。
 
-[Storybook](https://storybook.rodoma.net)
+[Storybook](https://storybook.rodoma.net/index.html)
 ![storybook]()
 
 ### バックエンド
@@ -67,15 +69,17 @@ rodoma は見る人にとっても投稿する人にとっても、キャリア�
 言語は PHP、フレームワークは Laravel、データベースは MySQL を採用。
 詳細は下記に示す。
 
-|言語|PHP 7.4.15|
-|フレームワーク|Laravel 6.20|
-|データベース|MySQL 8.0.23|
+| 言語           | PHP 7.4.15   |
+| -------------- | ------------ |
+| フレームワーク | Laravel 6.20 |
+| データベース   | MySQL 8.0.23 |
 
 ### 開発環境・インフラ
 
-|バージョン管理|Git|
-|CI/CD|GitHub Actions|
-|コンテナ（開発環境のみ）|Docker / Docker Compose|
-|本番環境|Heroku|
-|画像配信|AWS S3|
-|リバースプロキシ|Cloudflare|
+| バージョン管理           | Git                     |
+| ------------------------ | ----------------------- |
+| CI/CD                    | GitHub Actions          |
+| コンテナ（開発環境のみ） | Docker / Docker Compose |
+| 本番環境                 | Heroku                  |
+| 画像配信                 | AWS S3                  |
+| リバースプロキシ         | Cloudflare              |
