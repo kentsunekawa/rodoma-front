@@ -1,6 +1,6 @@
 # rodoma
 
-（ロゴ画像）
+<p style="font-size: 10px;">（ロゴ画像）</p>
 
 ## 概要
 
