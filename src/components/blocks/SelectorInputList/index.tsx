@@ -30,7 +30,7 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = (props: Props) => (
+export const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     <div className="inputArea">
       <ul className="list">

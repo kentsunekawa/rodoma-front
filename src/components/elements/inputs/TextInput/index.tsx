@@ -34,14 +34,16 @@ interface Props extends ComponentProps {
 }
 
 // dom component
-const Component: React.FC<Props> = (props: Props) => (
+export const Component: React.FC<Props> = (props: Props) => (
   <div
+    data-testid={`${CLASSNAME}`}
     className={`${CLASSNAME} ${props.className} ${
       props.isInputed || props.isFocus ? '-inputed' : ''
     }`}
   >
     <div className="inner">
       <input
+        data-testid={`${CLASSNAME}__input`}
         ref={props.dom.input}
         type={props.type}
         name={props.name}
@@ -54,7 +56,7 @@ const Component: React.FC<Props> = (props: Props) => (
       />
     </div>
     {props.label && (
-      <span className="label" onClick={props.labelClick}>
+      <span className="label" onClick={props.labelClick} data-testid={`${CLASSNAME}__label`}>
         {props.label}
         {props.required && <sup>*</sup>}
       </span>

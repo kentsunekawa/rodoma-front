@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import AppTheme from './style/AppTheme';
+import AppTheme from 'components/style/AppTheme';
 import { useSelector } from 'react-redux';
 import { modeSelector } from 'state/modules/app';
 import GlobalStyle from './style/GlobalStyle';
@@ -9,7 +9,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const Theme: React.FC<Props> = (props: Props) => {
+const Component: React.FC<Props> = (props: Props) => {
   const mode = useSelector(modeSelector);
 
   return (
@@ -20,4 +20,4 @@ const Theme: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default Theme;
+export default Component;
