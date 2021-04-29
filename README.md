@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+# rodoma
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+（ロゴ画像）
 
-## Available Scripts
+## 概要
 
-In the project directory, you can run:
+rodoma は〇〇です。ポートフォリオです。
 
-### `yarn start`
+### コンセプト
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+挑戦する人を応援する、学習ロードマップのシェアサービス
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 機能一覧
 
-### `yarn test`
+〇〇機能
+〇〇機能
+〇〇機能
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 技術・アーキテクチャ
 
-### `yarn build`
+### フロントエンド
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+説明が入ります説明が入ります説明が入ります
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### 使用技術
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+TypeScript
+ESlint
+Prettier
+React
+Redux
+styled-components
+axios
+GSAP
+Storybook
+Jest
 
-### `yarn eject`
+#### テスト
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### storybook
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### バックエンド
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+説明が入ります説明が入ります説明が入ります
+（リポジトリ URL）
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### 使用技術
 
-## Learn More
+PHP
+Laravel
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 開発環境・インフラ
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+説明が入ります説明が入ります説明が入ります
+
+#### 使用技術
+
+Git
+GitHub Actions
+Dockr / Docker
+Heroku
+AWS S3
+Cloudflare
