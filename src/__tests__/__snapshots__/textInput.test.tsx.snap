@@ -1,24 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RoundButton snapshot test 1`] = `
+exports[`TextInput snapshot test 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
       <div
-        class="RoundButton undefined"
-        data-testid="RoundButton"
+        class="TextInput undefined "
+        data-testid="TextInput"
       >
-        button
+        <div
+          class="inner"
+        >
+          <input
+            class="input"
+            data-testid="TextInput__input"
+            value="test"
+          />
+        </div>
       </div>
     </div>
   </body>,
   "container": <div>
     <div
-      class="RoundButton undefined"
-      data-testid="RoundButton"
+      class="TextInput undefined "
+      data-testid="TextInput"
     >
-      button
+      <div
+        class="inner"
+      >
+        <input
+          class="input"
+          data-testid="TextInput__input"
+          value="test"
+        />
+      </div>
     </div>
   </div>,
   "debug": [Function],

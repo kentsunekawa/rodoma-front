@@ -1,45 +1,44 @@
 import React from 'react';
-// import { render, fireEvent, cleanup } from '@testing-library/react';
-import renderer from 'react-test-renderer';
 import { render, fireEvent, cleanup } from 'components/TestWrapper';
 import RoundButton, { Component } from 'components/elements/buttons/RoundButton';
-
-let container: HTMLDivElement | null = null;
-
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
 
 afterEach(cleanup);
 
 describe('RoundButton', () => {
-  test('RoundButton のスナップショットテスト', () => {
+  test('snapshot test', () => {
     const props = {
       clickFunc: jest.fn,
     };
-    const tree = renderer.create(<Component {...props}>button</Component>).toJSON();
+    const tree = render(<Component {...props}>button</Component>);
     expect(tree).toMatchSnapshot();
   });
 
-  test('ボタンテキストが正しく表示されているか', () => {
-    const tree = render(<RoundButton>button</RoundButton>);
-
-    expect(tree.container.textContent).toBe('button');
+  test('textcontent check', () => {
+    const props = {
+      clickFunc: jest.fn(),
+    };
+    const tree = render(<Component {...props}>button</Component>);
+    expect(tree.getByTestId('RoundButton')).toHaveTextContent('button');
   });
 
-  test('click イベントの確認', () => {
+  test('click event check', () => {
     const props = {
-      onClick: jest.fn,
+      onClick: jest.fn(),
     };
     const spyClick = jest.spyOn(props, 'onClick');
 
     const tree = render(<RoundButton {...props}>button</RoundButton>);
 
-    const button = tree.container.querySelector('button');
-    if (button !== null) {
-      fireEvent.click(button);
-    }
+    fireEvent.click(tree.getByTestId('RoundButton'));
     expect(spyClick).toHaveBeenCalled();
+  });
+
+  test('disabled check', () => {
+    const props = {
+      onClick: jest.fn(),
+      disabled: true,
+    };
+    const tree = render(<RoundButton {...props}>button</RoundButton>);
+    expect(tree.getByTestId('RoundButton')).toHaveClass('-disabled');
   });
 });

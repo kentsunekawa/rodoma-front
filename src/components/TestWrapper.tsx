@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { render, RenderOptions } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from 'state/store';
 import Theme from 'components/Theme';
 
@@ -10,7 +11,9 @@ interface Props {
 
 const Component: React.FC<Props> = (props: Props) => (
   <Provider store={store}>
-    <Theme>{props.children}</Theme>
+    <Theme>
+      <Router>{props.children}</Router>
+    </Theme>
   </Provider>
 );
 

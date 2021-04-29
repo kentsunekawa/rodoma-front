@@ -36,12 +36,16 @@ interface Props extends ComponentProps {
 export const Component: React.FC<Props> = (props: Props) => (
   <>
     {!props.link && !props.onClick ? (
-      <div className={`${CLASSNAME} ${props.className}${props.disabled ? ' -disabled' : ''}`}>
+      <div
+        data-testid={`${CLASSNAME}`}
+        className={`${CLASSNAME} ${props.className}${props.disabled ? ' -disabled' : ''}`}
+      >
         {props.children}
         {props.icon && <div className="icon">{props.icon}</div>}
       </div>
     ) : (
       <button
+        data-testid={`${CLASSNAME}`}
         className={`${CLASSNAME} ${props.className}${props.disabled ? ' -disabled' : ''}`}
         onClick={props.clickFunc}
       >
