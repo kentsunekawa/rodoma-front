@@ -4,10 +4,13 @@
 
 ## 概要
 
-**リポジトリ**
+本リポジトリは、WEB サービス「rodoma（ロドマ）」のフロントエンド環境のリポジトリです。
 
-- フロントエンド [rodoma-frontend](https://github.com/kentsunekawa/rodoma-frontend)（※ 本ページ）
+**各リポジトリ**
+
+- フロントエンド [rodoma-frontend](https://github.com/kentsunekawa/rodoma-frontend)（※ 本リポジトリ）
 - バックエンド [rodoma-backend](https://github.com/kentsunekawa/rodoma-backend)
+- 開発環境（Docker Compose）[rodoma-project](https://github.com/kentsunekawa/rodoma-project)
 
 ## サービス紹介
 
@@ -87,7 +90,7 @@ rodoma は見る人にとっても投稿する人にとっても、キャリア�
 
 バックエンドを構築する主な言語としては、PHP、Ruby、Python などが挙げられるが、  
 開発期間と開発開始時点での理解度とそこからの学習コストなどを鑑みて、PHP を採用。  
-フレームワークにおいては PHP のフレームワークの中でも Laravel が最もシェア率が高く、ドキュメントの豊富さと将来性を考慮し採用した。
+フレームワークにおいては PHP のフレームワークの中でも Laravel が最もシェア率が高く、ドキュメントの豊富さと将来性を考慮し採用した。  
 使用技術一覧を下記に示す。
 
 | 分類           | 名称         |
