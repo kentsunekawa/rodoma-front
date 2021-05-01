@@ -1,11 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
+
 import { mq } from 'components/style/AppTheme';
 
 const GlobalStyle = createGlobalStyle`
-  /* ${reset} */
 
-  /*! destyle.css v2.0.2 | MIT License | https://github.com/nicolas-cusan/destyle.css */
+  // destyle.css v2.0.2 | MIT License | https://github.com/nicolas-cusan/destyle.css
 
   *,
   ::before,
