@@ -68,9 +68,6 @@ const StyeldComponent = Styled(Component)`
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
   const { options, label, listData, onChangeList } = componentProps;
-
-  console.log(listData);
-
   const createListData = (listData: ListData[]) => {
     const newlistData = listData.slice();
     return newlistData.map((data: ListData) => {
