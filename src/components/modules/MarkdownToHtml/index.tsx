@@ -1,7 +1,7 @@
 import React from 'react';
 import Styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
-
+import gfm from 'remark-gfm';
 import * as styles from './styles';
 
 // component root class name
@@ -21,7 +21,7 @@ interface Props extends ComponentProps {
 // dom component
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
-    <ReactMarkdown>{props.children}</ReactMarkdown>
+    <ReactMarkdown plugins={[gfm]}>{props.children}</ReactMarkdown>
   </div>
 );
 

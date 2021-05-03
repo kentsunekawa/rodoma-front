@@ -85,6 +85,7 @@ const AppTheme = {
     ...BaseTheme,
     bg: '#fff',
     darkBg: '#fff',
+    selectedTextColor: 'rgba(0, 0, 0, 0.2)',
     themeColors: {
       black: COLORS.black,
       gray_pale: COLORS.gray_pale,
@@ -100,6 +101,7 @@ const AppTheme = {
     ...BaseTheme,
     bg: '#111',
     darkBg: '#000',
+    selectedTextColor: 'rgba(255, 255, 255, 0.2)',
     themeColors: {
       black: COLORS.white,
       gray_pale: COLORS.gray_dark,
