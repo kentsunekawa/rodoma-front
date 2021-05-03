@@ -65,7 +65,7 @@ const Component: React.FC<Props> = (props: Props) => (
       </ImgUploader>
     </div>
     <div className="main">
-      <div className="row">
+      <div className="row -title">
         <Error messages={props.validateStatus.errors.title}>
           <TextInput
             required

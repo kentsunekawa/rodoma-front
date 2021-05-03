@@ -112,7 +112,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
         timer = setTimeout(() => {
           dispatch(setModal('signUpComplete'));
           dispatch(setIsSignupComplete(false));
-        }, 3000);
+        }, 2000);
       }
     }
     return () => {

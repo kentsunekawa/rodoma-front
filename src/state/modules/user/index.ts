@@ -10,6 +10,10 @@ interface UserState {
   isVisited: boolean | null;
   isSignupComplete: boolean;
   isSampleUser: boolean;
+  sampleUserData: {
+    email: string;
+    password: string;
+  };
 }
 
 const initialState: UserState = {
@@ -18,6 +22,10 @@ const initialState: UserState = {
   isVisited: null,
   isSignupComplete: false,
   isSampleUser: false,
+  sampleUserData: {
+    email: 'sample@rodoma.net',
+    password: '00000000',
+  },
 };
 
 // slice
@@ -49,6 +57,12 @@ export const isInitCheckedSelector = (state: RootState): boolean => state.user.i
 export const isVisitedSelector = (state: RootState): boolean | null => state.user.isVisited;
 export const isSignupCompleteSelector = (state: RootState): boolean => state.user.isSignupComplete;
 export const isSampleUserSelector = (state: RootState): boolean => state.user.isSampleUser;
+export const sampleUserDataSelector = (
+  state: RootState
+): {
+  email: string;
+  password: string;
+} => state.user.sampleUserData;
 
 // thunk actions
 export const signout = () => (dispatch: Dispatch): void => {
