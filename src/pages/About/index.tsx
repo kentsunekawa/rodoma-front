@@ -74,7 +74,7 @@ const Component: React.FC<Props> = (props: Props) => (
             <div className="SectionBox__inner">
               <div className="SectionBox__imageArea">
                 <div className="SectionBox__image">
-                  <video src="/img/about/about_check.mp4" autoPlay loop muted playsInline />
+                  <video src="/img/about/about_create.mp4" autoPlay loop muted playsInline />
                 </div>
                 <div className="SectionBox__title">
                   作る・残す
@@ -125,7 +125,7 @@ const Component: React.FC<Props> = (props: Props) => (
             <div className="SectionBox__inner">
               <div className="SectionBox__imageArea">
                 <div className="SectionBox__image">
-                  <video src="/img/about/about_check.mp4" autoPlay loop muted playsInline />
+                  <video src="/img/about/about_search.mp4" autoPlay loop muted playsInline />
                 </div>
                 <div className="SectionBox__title">
                   探す・
@@ -176,7 +176,7 @@ const Component: React.FC<Props> = (props: Props) => (
             <div className="SectionBox__inner">
               <div className="SectionBox__imageArea">
                 <div className="SectionBox__image">
-                  <video src="/img/about/about_check.mp4" autoPlay loop muted playsInline />
+                  <video src="/img/about/about_connect.mp4" autoPlay loop muted playsInline />
                 </div>
                 <div className="SectionBox__title">
                   繋がる
