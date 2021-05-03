@@ -44,7 +44,7 @@ export const base = css`
 
   p {
     color: inherit;
-    margin: 1em 0;
+    margin: 0 0 1em 0;
     font-size: 1.6rem;
     line-height: 1.8em;
   }
@@ -70,21 +70,34 @@ export const base = css`
   }
   h1 {
     font-size: 2.8rem;
+    margin: 24px 0;
+    margin-bottom: 24px;
   }
   h2 {
     font-size: 2.6rem;
+    padding: 8px 0;
+    margin-bottom: 16px;
+    border-bottom: 1px solid ${({ theme }) => theme.themeColors.gray_pale};
   }
   h3 {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
+    padding-top: 8px;
+    margin-bottom: 8px;
   }
   h4 {
     font-size: 2rem;
+    padding: 8px 0;
+    margin-bottom: 8px;
   }
   h5 {
     font-size: 1.8rem;
+    padding: 8px 0;
+    margin-bottom: 8px;
   }
   h6 {
     font-size: 1.6rem;
+    padding: 8px 0;
+    margin-bottom: 8px;
   }
 
   blockquote {
@@ -188,14 +201,44 @@ export const base = css`
     border: 0;
     -ms-interpolation-mode: bicubic;
     vertical-align: middle;
+    width: auto;
   }
 
   table {
     border-collapse: collapse;
     border-spacing: 0;
-  }
-  td {
-    vertical-align: top;
+    border: 1px solid ${({ theme }) => theme.themeColors.gray_light};
+    margin-bottom: 16px;
+    thead {
+      tr {
+        border-bottom: 1px solid ${({ theme }) => theme.themeColors.gray_light};
+        background: none;
+      }
+    }
+    tbody {
+      tr {
+        &:nth-of-type(odd) {
+          background: ${({ theme }) => theme.themeColors.gray_pale};
+        }
+      }
+    }
+    th {
+      padding: 8px 16px;
+      font-size: 1.4rem;
+      border-right: 1px solid ${({ theme }) => theme.themeColors.gray_light};
+      &:last-child {
+        border-right: none;
+      }
+    }
+    td {
+      vertical-align: top;
+      padding: 8px 16px;
+      font-size: 1.4rem;
+      border-right: 1px solid ${({ theme }) => theme.themeColors.gray_light};
+      &:last-child {
+        border-right: none;
+      }
+    }
   }
 
   @media only screen and (min-width: 480px) {

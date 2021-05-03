@@ -342,11 +342,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   *::-moz-selection {
-    background-color: rgba(0, 0, 0, .2) !important;
+    background-color: ${({ theme }) => theme.selectedTextColor} !important;
     color: inherit !important;
   }
   *::selection {
-    background-color: rgba(0, 0, 0, .2) !important;
+    background-color: ${({ theme }) => theme.selectedTextColor} !important;
     color: inherit !important;
   }
 
