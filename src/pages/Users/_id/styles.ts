@@ -39,6 +39,8 @@ export const base = css`
     }
   }
   .userHeader {
+    display: flex;
+    justify-content: flex-start;
     margin-bottom: 16px;
   }
   .confirmModal {

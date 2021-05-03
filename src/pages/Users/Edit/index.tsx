@@ -11,6 +11,8 @@ import {
   setUser,
   isInitCheckedSelector,
   isSampleUserSelector,
+  setIsSampleUser,
+  sampleUserDataSelector,
 } from 'state/modules/user';
 import { setMessage, categoryTreeSelector, snsListSelector, setIsLoading } from 'state/modules/app';
 import { RESPONSE_MESSAGES } from 'utils/messages';
@@ -201,6 +203,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const { id } = useParams<{ id: string }>();
   const user = useSelector(userSelector);
   const isSampleUser = useSelector(isSampleUserSelector);
+  const sampleUserData = useSelector(sampleUserDataSelector);
   const isInitChecked = useSelector(isInitCheckedSelector);
   const categoryTree = useSelector(categoryTreeSelector);
   const snsList = useSelector(snsListSelector);
@@ -388,7 +391,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
           }
         }
       } catch (error) {
-        console.log(error);
         dispatch(setIsLoading(false));
         if (error.response) {
           if (error.data.status === 'error_no_user_exists') {
@@ -535,6 +537,12 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       setDefaultEmail(userData.email);
     }
   }, [userData, defaultEmail]);
+
+  useEffect(() => {
+    if (userData && userData.email === sampleUserData.email) {
+      dispatch(setIsSampleUser(true));
+    }
+  }, [userData, sampleUserData, dispatch]);
 
   useEffect(() => {
     if (isInitChecked) {

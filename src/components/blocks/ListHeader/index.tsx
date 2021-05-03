@@ -37,8 +37,6 @@ export interface Props extends ComponentProps {
 
 // dom component
 export const Component: React.FC<Props> = (props: Props) => {
-  console.log(props.searchQuery);
-
   return (
     <div className={`${CLASSNAME} ${props.className}`}>
       <div className="titleArea">

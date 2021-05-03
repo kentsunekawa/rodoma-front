@@ -62,7 +62,7 @@ const Component: React.FC<Props> = (props: Props) => (
             label: 'Mark',
           },
           {
-            value: '',
+            value: 'created_at',
             label: 'New',
           },
         ]}
@@ -133,12 +133,12 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    if (isMouted.current) {
+    if (!isMouted.current) {
       if (isSignUpComplete) {
         timer = setTimeout(() => {
           dispatch(setModal('signUpComplete'));
           dispatch(setIsSignupComplete(false));
-        }, 3000);
+        }, 2000);
       }
     }
     return () => {
