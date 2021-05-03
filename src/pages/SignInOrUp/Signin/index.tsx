@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Styled from 'styled-components';
-
 import { ValidateStatus } from 'types';
-
 import { signin as validate_signin } from 'validations';
 import { SigninInfo } from 'types';
-
-import * as styles from './styles';
-
+import { sampleUserDataSelector } from 'state/modules/user';
 import TextInput from 'components/elements/inputs/TextInput';
 import RoundButton from 'components/elements/buttons/RoundButton';
 import TextButton from 'components/elements/buttons/TextButton';
 import Error from 'components/elements/Error';
+import * as styles from './styles';
 
 // component root class name
 const CLASSNAME = 'Signin';
@@ -101,6 +99,7 @@ const StyeldComponent = Styled(Component)`
 
 // container component
 const Container: React.FC<ComponentProps> = (componentProps) => {
+  const sampleUserData = useSelector(sampleUserDataSelector);
   const { deside } = componentProps;
 
   const [validateStatus, setvalidateStatus] = useState<ValidateStatus<Errors>>({
@@ -124,10 +123,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   };
 
   const signinAsSampleUser = () => {
-    deside({
-      email: 'sample@rodoma.net',
-      password: '00000000',
-    });
+    deside(sampleUserData);
   };
 
   const desideSigninInfo = () => {

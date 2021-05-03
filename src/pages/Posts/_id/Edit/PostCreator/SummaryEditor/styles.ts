@@ -2,6 +2,11 @@ import { css } from 'styled-components';
 import { mq } from 'components/style/AppTheme';
 
 export const base = css`
+  .row {
+    &.-title {
+      margin-bottom: 60px;
+    }
+  }
   .cover {
     position: relative;
     top: 0;

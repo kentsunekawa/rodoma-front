@@ -24,7 +24,6 @@ class App {
           resolve(result.data);
         })
         .catch((error) => {
-          console.log(error.response);
           reject(error);
         });
     });

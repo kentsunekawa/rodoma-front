@@ -9,7 +9,7 @@ export const base = css`
   border-radius: 25px;
   background: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.themeColors.black};
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   width: 100%;
   & > .select {
     position: relative;

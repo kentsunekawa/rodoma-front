@@ -31,6 +31,8 @@ export const base = css`
     align-items: flex-end;
     align-content: flex-end;
     & > .item {
+      border-radius: 50%;
+      overflow: hidden;
       & > .button {
         display: block;
         width: 42px;

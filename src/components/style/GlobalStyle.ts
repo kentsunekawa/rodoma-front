@@ -341,6 +341,15 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  *::-moz-selection {
+    background-color: rgba(0, 0, 0, .2) !important;
+    color: inherit !important;
+  }
+  *::selection {
+    background-color: rgba(0, 0, 0, .2) !important;
+    color: inherit !important;
+  }
+
   @media ${mq.tbMin_gt} {
     button {
       cursor: pointer;
