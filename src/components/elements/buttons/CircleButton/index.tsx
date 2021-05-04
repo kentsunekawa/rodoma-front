@@ -14,6 +14,7 @@ export type StyleType =
   | 'm'
   | 'l'
   | 'gradient'
+  | 'gradient_midiumGray'
   | 'gray_dark'
   | 'gray_midium'
   | 'gray_light'
@@ -23,6 +24,7 @@ export type StyleType =
   | 'outline';
 
 export interface ComponentProps {
+  disabled?: boolean;
   className?: string;
   types?: StyleType[];
   link?: string;
@@ -37,17 +39,23 @@ export interface Props extends ComponentProps {
 const Component: React.FC<Props> = (props: Props) => (
   <>
     {props.onClick && (
-      <button className={`${CLASSNAME} ${props.className}`} onClick={props.onClick}>
+      <button
+        className={`${CLASSNAME} ${props.className}${props.disabled ? ' -disabled' : ''}`}
+        onClick={props.onClick}
+      >
         <div className="inner">{props.children}</div>
       </button>
     )}
     {props.link && (
-      <Link className={`${CLASSNAME} ${props.className}`} to={props.link}>
+      <Link
+        className={`${CLASSNAME} ${props.className}${props.disabled ? ' -disabled' : ''}`}
+        to={props.link}
+      >
         <div className="inner">{props.children}</div>
       </Link>
     )}
     {!props.onClick && !props.link && (
-      <div className={`${CLASSNAME} ${props.className}`}>
+      <div className={`${CLASSNAME} ${props.className}${props.disabled ? ' -disabled' : ''}`}>
         <div className="inner">{props.children}</div>
       </div>
     )}

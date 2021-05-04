@@ -5,6 +5,14 @@ export const Gradient = css`
   background: linear-gradient(45deg, ${COLORS.primary}, ${COLORS.secondary});
 `;
 
+export const Gradient_gray = css`
+  background: linear-gradient(45deg, #d9d9d9, #fff);
+`;
+
+export const Gradient_midiumGray = css`
+  background: linear-gradient(45deg, rgba(130, 130, 130, 1) 0%, rgba(201, 201, 201, 1) 99%);
+`;
+
 export const Gradient_success = css`
   background: linear-gradient(to right, #02aab0, #00cdac);
 `;
