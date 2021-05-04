@@ -25,6 +25,7 @@ export const base = css`
   ${ButtonTapAction}
   &.-disabled {
     opacity: 0.5;
+    pointer-events: none;
   }
 `;
 

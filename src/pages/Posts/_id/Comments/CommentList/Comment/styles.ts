@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { Gradient, WithShadow } from 'components/style/Mixins';
+import { Gradient, Gradient_gray, WithShadow } from 'components/style/Mixins';
 import { mq } from 'components/style/AppTheme';
 
 export const base = css`
@@ -13,7 +13,7 @@ export const base = css`
   & > .comment {
     position: relative;
     width: calc(100% - 50px);
-    background: linear-gradient(45deg, #d9d9d9, #fff);
+    ${Gradient_gray}
     border-radius: 5px;
     ${WithShadow}
     padding: 10px 14px;

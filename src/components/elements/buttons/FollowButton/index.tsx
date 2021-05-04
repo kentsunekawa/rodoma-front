@@ -32,11 +32,19 @@ interface Props extends ComponentProps {
 const Component: React.FC<Props> = (props: Props) => (
   <div className={`${CLASSNAME} ${props.className}`}>
     {props.localRelationId ? (
-      <CircleButton types={['l', 'gray_light']} onClick={props.toggleFollow}>
+      <CircleButton
+        types={['l', 'gradient_midiumGray']}
+        onClick={props.toggleFollow}
+        disabled={props.isLoading}
+      >
         {props.isLoading ? <IconLoading /> : <IconDisFollow />}
       </CircleButton>
     ) : (
-      <CircleButton types={['l', 'gradient']} onClick={props.toggleFollow}>
+      <CircleButton
+        types={['l', 'gradient']}
+        onClick={props.toggleFollow}
+        disabled={props.isLoading}
+      >
         {props.isLoading ? <IconLoading /> : <IconFollow />}
       </CircleButton>
     )}
@@ -115,9 +123,11 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   }, [targetUserId, user, dispatch]);
 
   const toggleFollow = () => {
-    setIsLoading(true);
-    if (user) {
-      putRelation(user.id);
+    if (!isLoading) {
+      setIsLoading(true);
+      if (user) {
+        putRelation(user.id);
+      }
     }
   };
 
