@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   display: none;
@@ -15,7 +16,7 @@ export const base = css`
     z-index: 1;
     width: 100%;
     max-width: 960px;
-    height: 80%;
+    height: calc(100% - 60px);
     background: ${({ theme }) => theme.bg};
     border-radius: 5px 5px 0 0;
     overflow: hidden;
@@ -30,6 +31,11 @@ export const base = css`
       top: 20px;
       right: 20px;
       z-index: 5;
+    }
+  }
+  @media ${mq.tbMin_gt} {
+    & > .panel {
+      height: 80%;
     }
   }
 `;
