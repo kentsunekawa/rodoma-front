@@ -80,6 +80,7 @@ const Component: React.FC<Props> = (props: Props) => (
         </div>
         <div className="row -label">
           <span className="rowLabel">Label</span>
+          {}
           <LabelRadio
             name="label"
             values={LABEL_LIST}
@@ -178,16 +179,24 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const { currentSubject, post, desideSubject } = componentProps;
   const { state } = useContext(PostEditContext);
 
-  const [subject, setSubject] = useState<Subject>({
-    id: 0,
-    post_id: state.id || 0,
-    label: null,
-    linked_post_id: null,
-    renge_start: 0,
-    renge_end: 50,
-    title: 'subject title here...',
-    description: '',
-  });
+  const [subject, setSubject] = useState<Subject>(
+    (() => {
+      if (currentSubject !== null) {
+        return post.subjects[currentSubject];
+      } else {
+        return {
+          id: 0,
+          post_id: state.id || 0,
+          label: null,
+          linked_post_id: null,
+          renge_start: 0,
+          renge_end: 50,
+          title: 'subject title here...',
+          description: '',
+        };
+      }
+    })()
+  );
 
   const [validateStatus, setValidateStatus] = useState<ValidateStatus<Errors>>({
     isInvalid: false,
@@ -271,12 +280,6 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
       label,
     });
   };
-
-  useEffect(() => {
-    if (currentSubject !== null) {
-      setSubject(post.subjects[currentSubject]);
-    }
-  }, [currentSubject, post.subjects]);
 
   const props = {
     subject,

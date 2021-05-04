@@ -73,10 +73,13 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
   const { toggleFuncs } = componentProps;
 
   const { state, contextDispatch } = useContext(PostContext);
-  // const isMounted = useRef<boolean>(false);
 
   const clickButton = (type: ButtonTypes) => {
-    if (state.relationStatus && state.relationStatus[type] !== null) {
+    if (
+      state.relationStatus &&
+      state.relationStatus.mark !== null &&
+      state.relationStatus.like !== null
+    ) {
       contextDispatch({
         type: 'SET_RELATION_STATUS',
         payload: {
