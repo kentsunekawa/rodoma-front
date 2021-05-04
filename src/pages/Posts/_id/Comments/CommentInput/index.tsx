@@ -40,7 +40,12 @@ const Component: React.FC<Props> = (props: Props) => (
           types={['s', 'noBorder']}
         ></TextArea>
         <CircleButton
-          types={props.comment === '' && !props.isLoading ? ['l', 'gray_light'] : ['l', 'gradient']}
+          types={
+            props.comment === '' && !props.isLoading
+              ? ['l', 'gradient_midiumGray']
+              : ['l', 'gradient']
+          }
+          disabled={props.isLoading || props.comment === ''}
           onClick={props.deside}
         >
           {props.isLoading ? <IconLoading /> : <IconComment />}

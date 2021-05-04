@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 import {
   Gradient,
+  Gradient_midiumGray,
   WithShadow,
   AspectFix,
   AbsCenterMiddle,
@@ -20,6 +21,10 @@ export const base = css`
       display: block;
       margin: 0 auto;
     }
+  }
+  &.-disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
   ${AspectFix};
   ${AbsCenterMiddle};
@@ -68,6 +73,11 @@ export const gray_dark = css`
 
 export const gradient = css`
   ${Gradient}
+  ${WithShadow}
+`;
+
+export const gradient_midiumGray = css`
+  ${Gradient_midiumGray}
   ${WithShadow}
 `;
 
