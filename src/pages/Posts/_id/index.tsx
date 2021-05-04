@@ -195,6 +195,7 @@ const Container: React.FC<ComponentProps> = (componentProps) => {
     return;
   });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const dom = {
     header: useRef<HTMLDivElement>(null),
     main: useRef<HTMLDivElement>(null),

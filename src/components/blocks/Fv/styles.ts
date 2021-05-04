@@ -3,7 +3,6 @@ import { mq } from 'components/style/AppTheme';
 
 export const base = css`
   position: relative;
-  margin-top: 60px;
   width: 100%;
   height: 160px;
   background: #ddd;

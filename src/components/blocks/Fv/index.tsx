@@ -46,7 +46,7 @@ const Component: React.FC<Props> = (props: Props) => (
     <div className="titleArea" ref={props.titleArea}>
       <div className="title">
         <p dangerouslySetInnerHTML={{ __html: props.messages[props.num].title }}></p>
-        {/* <span dangerouslySetInnerHTML={{ __html: props.messages[props.num].subTitle }}></span> */}
+        <span dangerouslySetInnerHTML={{ __html: props.messages[props.num].subTitle }}></span>
       </div>
       <p className="name">{props.messages[props.num].name}</p>
     </div>

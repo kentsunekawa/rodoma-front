@@ -323,6 +323,7 @@ export const toggleCard = (
     if (dir) {
       gsap.set(root, {
         display: 'block',
+        height: window.innerHeight,
       });
       gsap.set(overlay, {
         opacity: 0,
@@ -356,6 +357,7 @@ export const toggleCard = (
         onComplete: () => {
           gsap.set(root, {
             display: 'none',
+            height: 'auto',
           });
           resolve(null);
         },
